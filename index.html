@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<canvas id="myCanvas" width="1400" height="700" style="border:1px solid">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+function f(x) {
+  return Math.sin(x);  
+};
+function g(x) {
+  return .5*Math.sin(2*x);  
+};
+function h(x) {
+  return .33*Math.sin(3*x);   
+};
+
+
+
+const cW=1400;
+const cH=700;
+const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d"); 
+const x0=-1;
+const x1=10;
+const y0=-1;
+const y1=1;
+const xIntervals=500;
+const iGrid=20;
+const drawGrid=true;
+
+//--------------
+//mapping paramenters (linear transformation of the given intervals to the canvas rect)
+const ax=cW/(x1-x0);
+const bx=-1*x0*ax;
+const ay=cH/(y0-y1);
+const by=-1*y1*ay;
+
+function xMap(x){
+  return ax*x+bx;
+}
+function yMap(y){
+  return ay*y+by;
+}
+
+
+
+function drawSegment(cx,cy,iSize,isHorizontal) {
+  // this is for the short segments along the axis
+  
+  ctx.beginPath();
+
+  if (isHorizontal){
+      ctx.moveTo(cx-iSize/2,cy);
+      ctx.lineTo(cx+iSize/2, cy);
+    } else {
+      ctx.moveTo(cx,cy-iSize/2);  
+      ctx.lineTo(cx, cy+iSize/2);  
+  };
+  ctx.stroke();
+}
+//-------------------------------------------
+function drawAxis() {  
+  ctx.strokeStyle = "#000000"; 
+  ctx.moveTo(xMap(x0),yMap(0));
+  ctx.lineTo(xMap(x1),yMap(0));
+  ctx.stroke();
+  ctx.moveTo(xMap(0),yMap(y0));
+  ctx.lineTo(xMap(0),yMap(y1));
+  ctx.stroke();  
+};
+//-------------------------------------------
+
+
+
+//-------------------------------------------
+function plotFunction(objF,strColor) {
+
+  ctx.beginPath();
+  ctx.strokeStyle = strColor; //"#FF0000";
+
+  var i=0;
+  var xi=x0;
+  var yi=objF(x0);
+  const iInterval=(x1-x0)/xIntervals;
+  ctx.moveTo(xMap(xi),yMap(yi)); //first point on the map
+  
+  for (let i = 0; i < xIntervals; i++) {
+    
+    //calculate next point
+    var xii=xi+iInterval;
+    var yii=objF(xii);
+    ctx.lineTo(xMap(xii),yMap(yii));
+    ctx.stroke();  
+    xi=xii;
+    yi=yii;
+    ctx.moveTo(xMap(xi),yMap(yi)); //move to next point
+  }
+
+
+
+  
+}
+//-------------------------------------------
+
+drawAxis();
+
+plotFunction(f,"#FF0000");
+plotFunction(g,"#AA0000");
+plotFunction(h,"#BB0000");
+</script> 
+
+</body>
+</html>

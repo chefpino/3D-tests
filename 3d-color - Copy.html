@@ -2,14 +2,13 @@
 <html>
 
 <body>
-<table>
+<table border="1">
   <tr>
     <td><canvas id="myCanvas" width="100" height="100" style="border:1px solid"></canvas></td>
-    <td>
-        <div id="a"></div><br>
-        <div id="b"></div><br>
-        <div id="c"></div><br>
-        <div id="d"></div><br>
+    <td valign="top">
+      Resolution <input type="range" min="2" max="100" id="resolution" onchange="reDraw(this);"><br>
+      tbd  <br>
+      tbd  <br>
     </td>
 </tr>
 </table>
@@ -35,10 +34,10 @@ function g(x,y) {
   //return 2-2*Math.sin(.02*(x*x+y*y)); //--sgabello
   //return Math.sqrt(x*x+y*y);         //--cono
   //return 5-Math.abs(x+y)-Math.abs(x-y); 
-  return Math.sin(.5*x+y)*Math.cos(.5*y-x); //bello,0,10,0,10,-12,12
+  //return Math.sin(.5*x+y)*Math.cos(.5*y-x); //bello,0,10,0,10,-12,12
    // return x*(.5*x-2*y);
   //return 50/(x*x+y*y);
-  //return x*x-.3*y*y;
+  return x*x-.3*y*y;
   return 0;
 }
 
@@ -52,18 +51,22 @@ const f=cH/(z1-z0); //factor for scaling z values
 
 //====================================================
 function mapToCanvas(x,y,z){
-  //this maps the origin into the middle of the canvas, also flips
+  //this maps the origin into the middle of the canvas, also flips vertically
   //mx,my maps the original domain to the floor of the function
-  //mz, projects the 
+  //mz, projects the results in 3d
   return {mx: a*(x-x0)+b*(y-y0)+cW/2,
           my: cH/2-(c*(x-x0)+d*(y-y0)),
           mz: cH/2-(c*(x-x0)+d*(y-y0))-((z)*f)
-        }
-  
+        }  
 }
 //====================================================
 
-
+function reDraw(tObj) {
+  var i=1*tObj.value;
+  ctx.clearRect(0, 0, cW, cH);
+  drawPavement(10);
+  plotColoredFunction(i);
+}
 
 //-------------------------------------------
 function plot(x,y) {

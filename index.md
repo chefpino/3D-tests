@@ -7,7 +7,7 @@
             <a href="2d.html" target="_new">test 2D function</a><br>
             <a href="3d-color.html" target="_new">3d in color</a><br>
             <a href="3d.html" target="_new">3d b/w</a><br>
-            <a href="tree.html" target="_new">3d b/w</a><br>
+            <a href="tree.html" target="_new">tree/w</a><br>
             
         </td>
       </tr>

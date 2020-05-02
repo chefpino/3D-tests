@@ -12,20 +12,21 @@
 
 
 <script>
-const cW=1000;
-const cH=700;
-const pi=Math.PI;
+//--- PARAMETERS ---  
 const c = document.getElementById("myCanvas");
 const ctx = c.getContext("2d"); 
+const cW=c.clientWidth;
+const cH=c.clientHeight;
+const pi=Math.PI;
 const initAngle=pi/2;      //trunk angle
 const dAngle=pi/8;         //half of bifurcation angle, pi/8 nice
 const initLen=150;         //max 150
 const minLen=30;           //20, 25 nice
 const reduction=0.8;       //0.8 nice
-
 const initTrunk=20;        //trunk initial thickness
 const trunkReduction=0.5;  //trunk => tree reduction factor 
 const minBranch=0.1;       // branches min thickness
+
 //-------------------- INIT---------------------------
 function init(){
     //ctx.beginPath();     
@@ -33,9 +34,6 @@ function init(){
     draw(0,0,initAngle,initLen,initTrunk);
   }  
 //----------------------------------------------------
-
-
-
 //--- this functions remap the canvas. The origin is the middle point of the rect base. 
 function px(x){
   return cW/2+x;
@@ -74,8 +72,7 @@ function draw(x,y,angle,len,trunk){
     }
      
   }   
-//----------------------------------------------------
-
+//------------ LEAF ----------------------------------------
 function leaf(x,y,l,alpha,beta){
   /*
   x,y coordinate beginning leaf
@@ -83,7 +80,7 @@ function leaf(x,y,l,alpha,beta){
   alpha: angle of the leaf simmetry line
   b: angle of the arc describing the leaf 
   */
-  
+
   var r=l/(2*Math.sin(beta/2));
   var gamma=pi/2-beta/2-alpha;
   var xc=0;
@@ -126,10 +123,5 @@ function leaf(x,y,l,alpha,beta){
 init();
 
 </script> 
-
-
-
-
-
 </body>
 </html>

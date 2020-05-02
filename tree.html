@@ -50,15 +50,11 @@ function draw(x,y,angle,len,trunk){
       draw(newx,newy,angle+pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
       draw(newx,newy,angle-pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
       draw(newx,newy,angle,len*reduction,trunk*trunkReduction);
-    }
-    
-    /* leaf here */
-    if(len < minLen) {
+
+    } else {
       leaf(newx,newy,.5*len,angle,2*pi/3);
-      //leaf(newx,newy,len,angle+dAngle*Math.random(2*pi),2*pi/3);
-    return;
     }
-    
+     
   }   
 //-------------------- INIT---------------------------
   function init(){

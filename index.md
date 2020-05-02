@@ -8,7 +8,7 @@
             <a href="3d-color.html" target="_new">3d in color</a><br>
             <a href="3d.html" target="_new">3d b/w</a><br>
             <a href="tree.html" target="_new">tree</a><br>
-            
+            <a href="tree-enhanced.html" target="_new">tree enhanced</a><br>
         </td>
       </tr>
     </table>

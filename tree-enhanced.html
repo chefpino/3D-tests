@@ -70,7 +70,7 @@ function draw(x,y,angle,len,trunk){
 
       draw(newx,newy,angle+pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
       draw(newx,newy,angle-pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
-      draw(newx,newy,angle,len*reduction,trunk*trunkReduction);
+      draw(newx,newy,angle+pi/12*Math.random(),len*reduction,trunk*trunkReduction);
 
     } else {
       leaf(newx,newy,.5*len,angle,2*pi/3);
@@ -85,11 +85,20 @@ function leaf(x,y,l,alpha,beta){
   alpha: angle of the leaf simmetry line
   b: angle of the arc describing the leaf 
   */
+  
+  //try changing alpha a little bit to make leaves more natural
+  if (alpha<pi/2) {
+    alpha=alpha-Math.random();
+  } else {
+    alpha=alpha+Math.random();
+  }
+
 
   var r=l/(2*Math.sin(beta/2));
   var gamma=pi/2-beta/2-alpha;
   var xc=0;
   var yc=0;
+  
 
 
  // leaf first half ----------------------------

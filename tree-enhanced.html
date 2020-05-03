@@ -52,6 +52,11 @@ function plot(x,y) {
   ctx.fillStyle = "#FF0000";
   ctx.fillRect(x,y,3,3);
 }
+function rnd(iMin,iMax){
+  return iMin+Math.random()*(iMax-iMin);
+}
+
+
 //---------- DRAW --------------------------------------------
 function draw(x,y,angle,len,trunk){
   
@@ -70,7 +75,7 @@ function draw(x,y,angle,len,trunk){
 
       draw(newx,newy,angle+pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
       draw(newx,newy,angle-pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
-      draw(newx,newy,angle+pi/12*Math.random(),len*reduction,trunk*trunkReduction);
+      draw(newx,newy,angle+pi/24*rnd(-1,1),len*reduction,trunk*trunkReduction);
 
     } else {
       leaf(newx,newy,.5*len,angle,2*pi/3);
@@ -111,13 +116,11 @@ function leaf(x,y,l,alpha,beta){
   ctx.beginPath();
   ctx.strokeStyle = "darkgreen";
 
-  
-
-
   ctx.moveTo(px(x),py(y));
   ctx.lineTo(px(x+l*Math.cos(alpha)),py(y+l*Math.sin(alpha)));
   ctx.stroke(); 
   
+  //--- leaf 1st arc
   ctx.arc(px(xc),py(yc), r, 2*pi-(pi-gamma-beta),2*pi-(pi-gamma),true);
   ctx.fillStyle = "yellow";
   ctx.fill();
@@ -139,6 +142,9 @@ function leaf(x,y,l,alpha,beta){
 //-----------------------------------------------------------------------
 
 init();
+
+
+
 
 </script> 
 </body>

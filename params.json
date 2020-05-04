@@ -1,0 +1,5 @@
+var ps = '{"params":[
+  { "paramName":"id1", "paramMin":0, "paramMax":1 },
+  { "paramName":"id2", "paramMin":0, "paramMax":2 },
+  { "paramName":"id3", "paramMin":0, "paramMax":3 }
+]}';

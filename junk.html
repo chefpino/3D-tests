@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<script>
+
+/*
+const initAngle=pi/2;      //trunk angle
+const dAngle=pi/8;         //half of bifurcation angle, pi/8 nice
+const initLen=150;         //max 150
+const minLen=30;           //20, 25 nice
+const reduction*1.8;       /*1.8 nice
+const initTrunk=20;        //trunk initial thickness
+const trunkReduction*1.5;  //trunk => tree reduction factor 
+const minBranch*1.1;       // branches min thickness
+
+
+*/
+
+   var params = {
+     "initAngle":{
+        "min":1,
+        "max":Math.PI,
+        "default":Math.PI/2,
+        "val":Math.PI/2
+        },
+      "dAngle":{
+        "min":1,
+        "max":Math.PI/4,
+        "default":Math.PI/8,
+        "val":Math.PI/4
+        },
+      "initLen":{
+        "min":25,
+        "max":150,
+        "default":80,
+        "val":80
+        },
+      "minLen":{
+        "min":15,
+        "max":40,
+        "default":20
+        },
+      "reduction":{
+        "min":1.5,
+        "max":1.9,
+        "default":1.8
+        },
+      "initTrunk":{
+        "min":1,
+        "max":50,
+        "default":20
+        },
+      "trunkReduction":{
+        "min":1.1,
+        "max":1.9,
+        "default":1.5
+        },
+      "minBranch":{
+        "min":1.1,
+        "max":1.9,
+        "default":1.5
+        }
+
+   }
+
+function paramToSlider(strParam,iValue){  
+  var x1=1*params[strParam].min;
+  var x2=1*params[strParam].max;  
+  return Math.round(100*(1*iValue-x1)/(x2-x1));
+  //return 1*x1;
+}
+
+function sliderToParam(strParam,iValue){  
+  var x1=1*params[strParam].min;
+  var x2=1*params[strParam].max;  
+  return x1+iValue*(x2-x1)/100;
+  //return 1*x1;
+}
+
+
+
+
+for (const key in params) {
+ 
+    document.write(key + "=" + params[key].min);
+    document.write("<br>");
+    //document.write(paramToSlider(key,1.9));
+    document.write(sliderToParam("minBranch",100));
+    document.write("<br>");
+    
+ 
+}
+
+
+
+</script> 
+</body>
+</html>

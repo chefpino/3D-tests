@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
-
+  <head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
 <body>
-<table border="1">
+<table border="2">
   <tr>
     <td><canvas id="myCanvas" width="1000" height="700" style="border:1px solid">
       Your browser does not support the HTML5 canvas tag.</canvas></td>
-    <td>controls will be here</td>
-  </tr>
+    <td valign="top">
+      <div id="dynamicSliders"></div>
+    </td>
+  </tr>  
 </table>
 
+<script src="interface.js"></script>
 
 <script>
 //--- PARAMETERS ---  
@@ -18,25 +23,36 @@ const ctx = c.getContext("2d");
 const cW=c.clientWidth;
 const cH=c.clientHeight;
 const pi=Math.PI;
-const initAngle=pi/2;      //trunk angle
-const dAngle=pi/8;         //half of bifurcation angle, pi/8 nice
-const initLen=150;         //max 150
-const minLen=30;           //20, 25 nice
-const reduction=0.8;       //0.8 nice
-const initTrunk=20;        //trunk initial thickness
-const trunkReduction=0.5;  //trunk => tree reduction factor 
-const minBranch=0.1;       // branches min thickness
+
+//--- here are defined to be global, the actual values are taken from the external files
+var initAngle=pi/2;      //trunk angle
+var dAngle=pi/8;         //half of bifurcation angle, pi/8 nice
+var initLen=150;         //max 150
+var minLen=30;           //20, 25 nice
+var reduction=0.8;       //0.8 nice
+var initTrunk=20;        //trunk initial thickness
+var trunkReduction=0.5;  //trunk => tree reduction factor 
+var minBranch=0.1;       // branches min thickness
+
 
 //-------------------- INIT---------------------------
 function init(){
     //ctx.beginPath();     
 
+    initAngle=params["initAngle"].val;          
+    dAngle=params["dAngle"].val;            
+    initLen=params["initLen"].val;           
+    reduction=params["reduction"].val;       
+    initTrunk=params["initTrunk"].val;       
+    trunkReduction=params["trunkReduction"].val;    
+    minBranch=params["minBranch"].val;   
+
     ctx.shadowBlur = 5;
     ctx.shadowColor = "green";
 
     draw(0,0,initAngle,initLen,initTrunk);
-    draw(-200,0,initAngle,70,10);
-    draw(200,0,initAngle,80,10);
+    //draw(-200,0,initAngle,70,10);
+    //draw(200,0,initAngle,80,10);
   }  
 //----------------------------------------------------
 //--- this functions remap the canvas. The origin is the middle point of the rect base. 
@@ -141,8 +157,58 @@ function leaf(x,y,l,alpha,beta){
 }
 //-----------------------------------------------------------------------
 
-init();
+function initControls() {
 
+  var defaultValue=0;
+  var strHTML='<table border="1">';    
+    
+  //---generate html  
+  for (var key in params) {
+      
+    defaultValue=paramToSlider(key,params[key].default); 
+    
+    strHTML=strHTML + '<tr>';
+    strHTML=strHTML + '<td>'+params[key].label + ':</td>';
+    strHTML=strHTML + '<td>'+params[key].minLabel + '</td>';
+    strHTML=strHTML + '<td><input type="range" min="0" max="100" value="'+defaultValue+'" id="'+key+'" onchange="updateParam(this.id)"></td>';
+    strHTML=strHTML + '<td>'+params[key].maxLabel + '</td>';
+    strHTML=strHTML + '</td></tr>';
+  }
+  strHTML=strHTML + '<tr><td colspan=4><button onclick="reDraw()">Draw!</button></td></tr>';
+  strHTML=strHTML + '</table>';
+  document.getElementById("dynamicSliders").innerHTML=strHTML;
+  
+  //--- assign default value to sliders
+  for (var key in params) {
+      
+      defaultValue=paramToSlider(key,params[key].default); 
+      document.getElementById(key).value=defaultValue;
+  
+  }
+
+}
+
+function reDraw() {
+  
+  ctx.clearRect(0, 0, cW, cH);
+  init();
+  
+}
+
+function updateParam(x) {
+  
+  var iTemp=1*document.getElementById(x).value;
+  params[x].val=sliderToParam(x,iTemp);
+  //console.log(params[x].val);
+
+  
+}
+
+
+
+
+init();
+initControls();
 
 
 

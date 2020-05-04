@@ -174,7 +174,7 @@ function initControls() {
     strHTML=strHTML + '<td>'+params[key].maxLabel + '</td>';
     strHTML=strHTML + '</td></tr>';
   }
-  strHTML=strHTML + '<tr><td colspan=4><button onclick="reDraw()">Draw!</button></td></tr>';
+  strHTML=strHTML + '<tr><td colspan=4><button onclick="loadDefaults()">Reset</button></td></tr>';
   strHTML=strHTML + '</table>';
   document.getElementById("dynamicSliders").innerHTML=strHTML;
   
@@ -203,6 +203,15 @@ function updateParam(x) {
   reDraw();
   
 }
+
+function loadDefaults() {
+
+  // WIP, reload all default values
+
+  
+}
+
+
 
 
 

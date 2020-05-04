@@ -21,11 +21,11 @@ var params = {
      },
    "dAngle":{
      "val":Math.PI/8,
-     "min":1,
+     "min":Math.PI/8,
      "max":Math.PI/4,
      "default":Math.PI/8,
      "label":"branch angle",
-     "minLabel":"1",
+     "minLabel":"π/8",
      "maxLabel":"π/4"
      },
    "initLen":{
@@ -51,11 +51,11 @@ var params = {
    "reduction":{
      "val":0.8,
      "min":0.5,
-     "max":0.9,
+     "max":0.8,
      "default":0.8,
      "label":"branch reduction factor",
      "minLabel":"0.5",
-     "maxLabel":"0.9"
+     "maxLabel":"0.8"
 
      },
    "initTrunk":{

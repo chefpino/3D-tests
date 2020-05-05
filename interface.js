@@ -120,9 +120,9 @@ for (var key in params) {
   
   strHTML=strHTML + '<tr>';
   strHTML=strHTML + '<td>'+params[key].label + ':</td>';
-  strHTML=strHTML + '<td>'+params[key].minLabel + '</td>';
+  strHTML=strHTML + '<td align="center">'+params[key].minLabel + '</td>';
   strHTML=strHTML + '<td><input type="range" min="0" max="100" value="'+defaultValue+'" id="'+key+'" onchange="updateParam(this.id)"></td>';
-  strHTML=strHTML + '<td>'+params[key].maxLabel + '</td>';
+  strHTML=strHTML + '<td align="center">'+params[key].maxLabel + '</td>';
   strHTML=strHTML + '<td><div id="val_' + key + '"></div></td>';
   strHTML=strHTML + '</td></tr>';
 }

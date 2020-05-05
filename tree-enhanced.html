@@ -6,33 +6,31 @@
 <body>
 <table border="1">
   <tr>
-    <td><canvas id="myCanvas" width="1000" height="700" style="border:1px solid">
-      Your browser does not support the HTML5 canvas tag.</canvas></td>
-    <td valign="top">
-      <div id="dynamicSliders"></div>
-    </td>
+    <td><canvas id="myCanvas" width="1000" height="700" style="border:1px solid"></canvas></td>
+    <td valign="top"><div id="dynamicSliders"></div></td>
   </tr>  
 </table>
 
 <script src="interface.js"></script>
 <script src="data.js"></script>
 <script>
-//--- PARAMETERS ---  
+//--- global PARAMETERS ------------------------------------------------------------------  
 const c = document.getElementById("myCanvas");
 const ctx = c.getContext("2d"); 
 const cW=c.clientWidth;
 const cH=c.clientHeight;
 const pi=Math.PI;
 
-//--- here are defined to be global, the actual values are taken from the external files
-var initAngle=0;       //trunk angle
-var dAngle=0;          //half of bifurcation angle, pi/8 nice
-var initLen=0;         //max 150
-var minLen=0;          //20, 25 nice
-var reduction=0;       //0.8 nice
-var initTrunk=0;       //trunk initial thickness
-var trunkReduction=0;  //trunk => tree reduction factor 
-var minBranch=0;       //branches min thickness
+//--- defined to be global, actual values taken from the ext. file data.js
+var initAngle=0;       
+var dAngle=0;          
+var initLen=0;         
+var minLen=0;          
+var reduction=0;       
+var initTrunk=0;       
+var trunkReduction=0;   
+var minBranch=0;       
+//----------------------------------------------------------------------------------------
 
 
 //-------------------- INIT---------------------------

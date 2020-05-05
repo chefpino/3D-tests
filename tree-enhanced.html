@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="main.css">
   </head>
 <body>
-<table border="2">
+<table border="1">
   <tr>
     <td><canvas id="myCanvas" width="1000" height="700" style="border:1px solid">
       Your browser does not support the HTML5 canvas tag.</canvas></td>
@@ -15,7 +15,7 @@
 </table>
 
 <script src="interface.js"></script>
-
+<script src="data.js"></script>
 <script>
 //--- PARAMETERS ---  
 const c = document.getElementById("myCanvas");
@@ -25,14 +25,14 @@ const cH=c.clientHeight;
 const pi=Math.PI;
 
 //--- here are defined to be global, the actual values are taken from the external files
-var initAngle=pi/2;      //trunk angle
-var dAngle=pi/8;         //half of bifurcation angle, pi/8 nice
-var initLen=150;         //max 150
-var minLen=30;           //20, 25 nice
-var reduction=0.8;       //0.8 nice
-var initTrunk=20;        //trunk initial thickness
-var trunkReduction=0.5;  //trunk => tree reduction factor 
-var minBranch=0.1;       // branches min thickness
+var initAngle=0;       //trunk angle
+var dAngle=0;          //half of bifurcation angle, pi/8 nice
+var initLen=0;         //max 150
+var minLen=0;          //20, 25 nice
+var reduction=0;       //0.8 nice
+var initTrunk=0;       //trunk initial thickness
+var trunkReduction=0;  //trunk => tree reduction factor 
+var minBranch=0;       //branches min thickness
 
 
 //-------------------- INIT---------------------------
@@ -41,7 +41,8 @@ function init(){
 
     initAngle=params["initAngle"].val;          
     dAngle=params["dAngle"].val;            
-    initLen=params["initLen"].val;           
+    initLen=params["initLen"].val;       
+    minLen=params["minLen"].val;  
     reduction=params["reduction"].val;       
     initTrunk=params["initTrunk"].val;       
     trunkReduction=params["trunkReduction"].val;    
@@ -94,73 +95,24 @@ function draw(x,y,angle,len,trunk){
       draw(newx,newy,angle+pi/24*rnd(-1,1),len*reduction,trunk*trunkReduction);
 
     } else {
-      leaf(newx,newy,.5*len,angle,2*pi/3);
+      // WIP leaf length
+      leaf(newx,newy,len,angle,2*pi/3);
     }
      
   }   
-//------------ LEAF ----------------------------------------
-function leaf(x,y,l,alpha,beta){
-  /*
-  x,y coordinate beginning leaf
-  l: length of leaf
-  alpha: angle of the leaf simmetry line
-  b: angle of the arc describing the leaf 
-  */
-  
-  //try changing alpha a little bit to make leaves more natural
-  if (alpha<pi/2) {
-    alpha=alpha-Math.random();
-  } else {
-    alpha=alpha+Math.random();
-  }
-
-
-  var r=l/(2*Math.sin(beta/2));
-  var gamma=pi/2-beta/2-alpha;
-  var xc=0;
-  var yc=0;
-  
-
-
- // leaf first half ----------------------------
-    
-  //calc center
-  xc=x+r*Math.cos(gamma);
-  yc=y-r*Math.sin(gamma);
-  
-  //leaf'simmetry line
-  ctx.beginPath();
-  ctx.strokeStyle = "darkgreen";
-
-  ctx.moveTo(px(x),py(y));
-  ctx.lineTo(px(x+l*Math.cos(alpha)),py(y+l*Math.sin(alpha)));
-  ctx.stroke(); 
-  
-  //--- leaf 1st arc
-  ctx.arc(px(xc),py(yc), r, 2*pi-(pi-gamma-beta),2*pi-(pi-gamma),true);
-  ctx.fillStyle = "yellow";
-  ctx.fill();
-  ctx.stroke();
-  
-  // leaf second  half ----------------------------
-  
-  //calc center
-  var diagonal=Math.sqrt(r*r-l*l/4)
-  xc=xc-2*diagonal*Math.cos(gamma+beta/2);
-  yc=2*diagonal*Math.sin(gamma+beta/2)+yc;
-
-  ctx.beginPath();
-  ctx.arc(px(xc),py(yc), r, -1*(alpha+beta/2)+pi/2,-1*(alpha-beta/2)+pi/2,false);
-  ctx.fillStyle = "lightgreen";
-  ctx.fill();
-  ctx.stroke();  
-}
 //-----------------------------------------------------------------------
 
 function initControls() {
 
   var defaultValue=0;
-  var strHTML='<table border="1">';    
+  var strHTML='<table border="1">';
+      strHTML=strHTML + '<tr>';
+      strHTML=strHTML + '<td>PARAMETER</td>';
+      strHTML=strHTML + '<td>MIN</td>';
+      strHTML=strHTML + '<td align="center">SELECT</td>';
+      strHTML=strHTML + '<td>MAX</td>';
+      strHTML=strHTML + '<td>ACTUAL</td>';   
+      strHTML=strHTML + '</tr>'; 
     
   //---generate html  
   for (var key in params) {
@@ -175,18 +127,12 @@ function initControls() {
     strHTML=strHTML + '<td><div id="val_' + key + '"></div></td>';
     strHTML=strHTML + '</td></tr>';
   }
-  strHTML=strHTML + '<tr><td colspan=5><button onclick="loadDefaults()">Reset under construction</button></td></tr>';
+  strHTML=strHTML + '<tr><td colspan=5><button onclick="resetReload()">RESET/RELOAD</button></td></tr>';
   strHTML=strHTML + '</table>';
   document.getElementById("dynamicSliders").innerHTML=strHTML;
   
   //--- assign default value to sliders
-  for (var key in params) {
-      
-      defaultValue=paramToSlider(key,params[key].default); 
-      document.getElementById(key).value=defaultValue;
-      document.getElementById("val_" + key).innerHTML=params[key].default;
-  
-  }
+  loadDefaults();
 
 }
 
@@ -210,18 +156,28 @@ function updateParam(x) {
 function loadDefaults() {
 
   // WIP, reload all default values
+  for (var key in params) {
+      
+      defaultValue=paramToSlider(key,params[key].default); 
+      document.getElementById(key).value=defaultValue;
+      document.getElementById("val_" + key).innerHTML=params[key].default;
+  
+  }
+  
+}
+function resetReload() {
 
+  location.reload();
   
 }
 
 
 
 
-
-
+// -- after load events --------------------------------------
 init();
 initControls();
-
+//--------------------------------------------------------
 
 
 </script> 

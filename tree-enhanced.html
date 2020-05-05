@@ -172,9 +172,10 @@ function initControls() {
     strHTML=strHTML + '<td>'+params[key].minLabel + '</td>';
     strHTML=strHTML + '<td><input type="range" min="0" max="100" value="'+defaultValue+'" id="'+key+'" onchange="updateParam(this.id)"></td>';
     strHTML=strHTML + '<td>'+params[key].maxLabel + '</td>';
+    strHTML=strHTML + '<td><div id="val_' + key + '"></div></td>';
     strHTML=strHTML + '</td></tr>';
   }
-  strHTML=strHTML + '<tr><td colspan=4><button onclick="loadDefaults()">Reset</button></td></tr>';
+  strHTML=strHTML + '<tr><td colspan=5><button onclick="loadDefaults()">Reset under construction</button></td></tr>';
   strHTML=strHTML + '</table>';
   document.getElementById("dynamicSliders").innerHTML=strHTML;
   
@@ -183,6 +184,7 @@ function initControls() {
       
       defaultValue=paramToSlider(key,params[key].default); 
       document.getElementById(key).value=defaultValue;
+      document.getElementById("val_" + key).innerHTML=params[key].default;
   
   }
 
@@ -200,6 +202,7 @@ function updateParam(x) {
   var iTemp=1*document.getElementById(x).value;
   params[x].val=sliderToParam(x,iTemp);
   //console.log(params[x].val);
+  document.getElementById("val_" + x).innerHTML=params[x].val;
   reDraw();
   
 }

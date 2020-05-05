@@ -110,7 +110,7 @@ var strHTML='<table border="1">';
     strHTML=strHTML + '<td>MIN</td>';
     strHTML=strHTML + '<td align="center">SELECT</td>';
     strHTML=strHTML + '<td>MAX</td>';
-    strHTML=strHTML + '<td>ACTUAL</td>';   
+    strHTML=strHTML + '<td>CURRENT</td>';   
     strHTML=strHTML + '</tr>'; 
   
 //---generate html  

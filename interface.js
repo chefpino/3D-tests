@@ -1,7 +1,7 @@
 /*
 var initAngle=pi/2;      //trunk angle
 var dAngle=pi/8;         //half of bifurcation angle, pi/8 nice
-var initLen=150;         //max 150
+var initLen=150;         //trunk length max 150
 var minLen=30;           //20, 25 nice
 var reduction=0.8;       //0.8 nice
 var initTrunk=20;        //trunk initial thickness

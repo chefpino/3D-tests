@@ -113,7 +113,7 @@ var strHTML='<table border="1">';
     strHTML=strHTML + '<td>CURRENT</td>';   
     strHTML=strHTML + '</tr>'; 
   
-//---generate html  
+//---generate html
 for (var key in params) {
     
   defaultValue=paramToSlider(key,params[key].default); 

@@ -89,3 +89,30 @@ var params = {
      }
 
 }
+
+//----------------------------------------------------------------------------------
+
+
+function updateParam(x) {
+  
+  var iTemp=1*document.getElementById(x).value;
+  params[x].val=sliderToParam(x,iTemp);
+  //console.log(params[x].val);
+  document.getElementById("val_" + x).innerHTML=params[x].val;
+  reDraw();
+  
+}
+
+function loadDefaults() {
+
+  // WIP, reload all default values
+  for (var key in params) {
+      
+      defaultValue=paramToSlider(key,params[key].default); 
+      document.getElementById(key).value=defaultValue;
+      document.getElementById("val_" + key).innerHTML=params[key].default;
+  
+  }
+  
+}
+

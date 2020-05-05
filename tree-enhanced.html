@@ -56,124 +56,14 @@ function init(){
     //draw(200,0,initAngle,80,10);
   }  
 //----------------------------------------------------
-//--- this functions remap the canvas. The origin is the middle point of the rect base. 
-function px(x){
-  return cW/2+x;
-}
-function py(y){
-  return cH-y;
-}
-function plot(x,y) {
-  //for debugging only
-  ctx.beginPath();
-  ctx.fillStyle = "#FF0000";
-  ctx.fillRect(x,y,3,3);
-}
-function rnd(iMin,iMax){
-  return iMin+Math.random()*(iMax-iMin);
-}
-
-
-//---------- DRAW --------------------------------------------
-function draw(x,y,angle,len,trunk){
-  
-    var newx=x+len*Math.cos(angle);
-    var newy=y+len*Math.sin(angle);
-    
-    ctx.lineWidth = minBranch+trunk;
-    ctx.strokeStyle = "brown";   
-    ctx.beginPath();
-    //ctx.save(); // check later to better understand
-
-    ctx.moveTo(px(x),py(y));
-    ctx.lineTo(px(newx),py(newy));
-    ctx.stroke();
-    if (len >= minLen) {      
-
-      draw(newx,newy,angle+pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
-      draw(newx,newy,angle-pi/2*Math.random()*dAngle,len*reduction,trunk*trunkReduction);
-      draw(newx,newy,angle+pi/24*rnd(-1,1),len*reduction,trunk*trunkReduction);
-
-    } else {
-      // WIP leaf length
-      leaf(newx,newy,len,angle,2*pi/3);
-    }
-     
-  }   
-//-----------------------------------------------------------------------
-
-function initControls() {
-
-  var defaultValue=0;
-  var strHTML='<table border="1">';
-      strHTML=strHTML + '<tr>';
-      strHTML=strHTML + '<td>PARAMETER</td>';
-      strHTML=strHTML + '<td>MIN</td>';
-      strHTML=strHTML + '<td align="center">SELECT</td>';
-      strHTML=strHTML + '<td>MAX</td>';
-      strHTML=strHTML + '<td>ACTUAL</td>';   
-      strHTML=strHTML + '</tr>'; 
-    
-  //---generate html  
-  for (var key in params) {
-      
-    defaultValue=paramToSlider(key,params[key].default); 
-    
-    strHTML=strHTML + '<tr>';
-    strHTML=strHTML + '<td>'+params[key].label + ':</td>';
-    strHTML=strHTML + '<td>'+params[key].minLabel + '</td>';
-    strHTML=strHTML + '<td><input type="range" min="0" max="100" value="'+defaultValue+'" id="'+key+'" onchange="updateParam(this.id)"></td>';
-    strHTML=strHTML + '<td>'+params[key].maxLabel + '</td>';
-    strHTML=strHTML + '<td><div id="val_' + key + '"></div></td>';
-    strHTML=strHTML + '</td></tr>';
-  }
-  strHTML=strHTML + '<tr><td colspan=5><button onclick="resetReload()">RESET/RELOAD</button></td></tr>';
-  strHTML=strHTML + '</table>';
-  document.getElementById("dynamicSliders").innerHTML=strHTML;
-  
-  //--- assign default value to sliders
-  loadDefaults();
-
-}
-
-function reDraw() {
-  
+function reDraw() {  
   ctx.clearRect(0, 0, cW, cH);
-  init();
-  
+  init();  
 }
-
-function updateParam(x) {
-  
-  var iTemp=1*document.getElementById(x).value;
-  params[x].val=sliderToParam(x,iTemp);
-  //console.log(params[x].val);
-  document.getElementById("val_" + x).innerHTML=params[x].val;
-  reDraw();
-  
-}
-
-function loadDefaults() {
-
-  // WIP, reload all default values
-  for (var key in params) {
-      
-      defaultValue=paramToSlider(key,params[key].default); 
-      document.getElementById(key).value=defaultValue;
-      document.getElementById("val_" + key).innerHTML=params[key].default;
-  
-  }
-  
-}
+//--------------------------------------------------
 function resetReload() {
-
-  location.reload();
-  
+  location.reload();  
 }
-
-
-
-
 // -- after load events --------------------------------------
 init();
 initControls();

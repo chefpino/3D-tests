@@ -1,2 +1,2 @@
 TO DO LIST
-change labels to make them more obvious and also change default values
+done! change labels to make them more obvious and also change default values

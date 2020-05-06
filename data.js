@@ -29,10 +29,10 @@ var params = {
      "maxLabel":"π/4"
      },
    "initLen":{
-     "val":150,
+     "val":100,
      "min":25,
      "max":150,
-     "default":150,
+     "default":100,
      "label":"trunk initial height",
      "minLabel":"25",
      "maxLabel":"150"
@@ -53,7 +53,7 @@ var params = {
      "min":0.5,
      "max":0.8,
      "default":0.8,
-     "label":"branch reduction factor",
+     "label":"branch length factor",
      "minLabel":"0.5",
      "maxLabel":"0.8"
 
@@ -73,7 +73,7 @@ var params = {
      "min":0.1,
      "max":0.9,
      "default":0.5,
-     "label":"trunk to branch reduction factor",
+     "label":"trunk to branch thickness",
      "minLabel":"0.1",
      "maxLabel":"0.9"
      },

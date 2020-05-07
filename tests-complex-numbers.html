@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="init();">  
+    <canvas id="myCanvas" width="1400" height="700" style="border:1px solid">
+      Your browser does not support the HTML5 canvas tag.</canvas>  
+
+<script>
+
+
+//--- global PARAMETERS ------------------------------------------------------------------  
+const myCanvas = document.getElementById("myCanvas");
+const ctx = myCanvas.getContext("2d"); 
+
+const cW=1400; //ctx.clientWidth;
+const cH=700;  //ctx.clientHeight;
+/*/
+const cW=ctx.clientWidth;
+const cH=ctx.clientHeight;
+*/
+// -- range
+const x0=-6;
+const x1=6;
+const y0=-3;
+const y1=3;
+
+const π=Math.PI;
+
+//--- test complex number
+function c(x,y) {
+  return {
+          x: x,
+          y: y          
+        }
+} 
+
+
+
+
+
+    // -- product of a+ib, c+id ---
+    function p(c1,c2) {
+      return {
+          x: c1.x*c2.x - c1.y*c2.y,
+          y: c1.x*c2.y + c1.y*c2.x         
+        }
+    }
+   // -- sum of a+ib, c+id ---
+    function s(c1,c2) {
+      return {
+          x: c1.x + c2.x,
+          y: c2.y + c2.y          
+        }
+    }
+   // -- module, θ --
+   function m(c) {
+      return { 
+          z: Math.sqrt(c.x*c.x+c.y*c.y),
+          θ: Math.atan(c.y/c.x)
+       }
+   }   
+  // -- rotations θ
+  // input module and angle, returns couple x, y => (x+iy)
+    function r(z,θ){
+            return {
+          x: z*Math.cos(θ),
+          y: z*Math.sin(θ)          
+        }
+    }
+  //__________________________________________________________
+
+
+  //--- this functions remap the canvas. The origin is the middle point of the rect. 
+  // x E (-6,6), y E (-3,3)
+  function px(x){
+    return cW/2+(x*1400/(x1-x0));
+  }
+  function py(y){
+    return cH/2-(y*700/(y1-y0));
+  }
+
+   // -- draw complex number from origin
+
+     function draw(c) {
+
+      ctx.beginPath(); 
+      ctx.lineWidth="0.5";
+      ctx.moveTo(px(0),py(0));
+      ctx.lineTo(px(c.x),py(c.y));
+      ctx.stroke();
+
+      //tip
+      plot(px(c.x),py(c.y));      
+   } 
+  //----------------------------------------------
+   function drawSegment(c1,c2) {
+     
+    ctx.beginPath(); 
+      ctx.lineWidth="0.5";
+      ctx.moveTo(px(c1.x),py(c1.y));
+      ctx.lineTo(px(c2.x),py(c2.y));
+      ctx.stroke();
+   }
+//----------------------------------------------
+
+  function init() {
+
+    drawAxis();
+      
+    var c0=new c(0,0);
+    var c1=new c(1,-2);
+    var c2=new c(2,0);
+    var c3=new c(1,2);
+    
+    drawSegment(c0,c2);
+    drawSegment(c1,c3);
+    drawSegment(c0,c1);
+    drawSegment(c1,c2);
+    drawSegment(c2,c3);
+    drawSegment(c3,c0);
+
+    var vr=new r(1,π/4); //rotazione
+
+    c1=p(c1,vr);
+    c2=p(c2,vr);
+    c3=p(c3,vr); 
+
+    drawSegment(c0,c2);
+    drawSegment(c1,c3);
+    drawSegment(c0,c1);
+    drawSegment(c1,c2);
+    drawSegment(c2,c3);
+    drawSegment(c3,c0);
+
+   }
+    
+function plot(x,y) {
+  //x,y are canvas coordinates
+  ctx.beginPath();
+  ctx.fillStyle = "red";
+  ctx.arc(x,y,2,0,2*π) //.arc(x,y,2,1);
+  ctx.fill();
+}
+//-------------------------------------------
+function drawAxis() {  
+  ctx.strokeStyle = "#000000"; 
+  ctx.lineWidth="0.2";
+  ctx.moveTo(px(x0),py(0));
+  ctx.lineTo(px(x1),py(0));
+  ctx.stroke();
+  ctx.moveTo(px(0),py(y0));
+  ctx.lineTo(px(0),py(y1));
+  ctx.stroke();  
+};
+//-------------------------------------------
+
+
+init();
+
+
+
+
+
+
+</script>
+</body> 
+
+
+</html>

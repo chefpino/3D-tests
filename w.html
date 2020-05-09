@@ -2,7 +2,7 @@
 <html>
 
 <body onload="init();">  
-    <canvas id="myCanvas" width="700" height="700" style="border:1px solid">
+    <canvas id="myCanvas" width="1400" height="700" style="border:1px solid">
       Your browser does not support the HTML5 canvas tag.</canvas>  
 
 <script>
@@ -12,17 +12,17 @@
 const myCanvas = document.getElementById("myCanvas");
 const ctx = myCanvas.getContext("2d"); 
 
-const cW=700;  //ctx.clientWidth;
+const cW=1400; //ctx.clientWidth;
 const cH=700;  //ctx.clientHeight;
 /*/
 const cW=ctx.clientWidth;
 const cH=ctx.clientHeight;
 */
 // -- range
-const x0=-2;
-const x1=2;
-const y0=-2;
-const y1=2;
+const x0=-6;
+const x1=6;
+const y0=-3;
+const y1=3;
 
 const π=Math.PI;
 
@@ -65,40 +65,14 @@ function c(x,y) {
     }
   //__________________________________________________________
 
-  function unitCircle() {
-    
-    var iSteps=300;
-    var dStep=2*π/(iSteps);
-
-    var c1=new c(0,0);
-    var c2=new c(0,0);
-
-    for (let index = 0; index < iSteps; index++) {
-        
-        c1.x=r(1,dStep*(index+1)).x;
-        c1.y=r(1,dStep*(index+1)).y;
-
-        c2=p(c1,c1);
-        drawSegment(c1,c2);
-
-        //c1=c2; //
-            
-      
-    }
-
-
-
-
-  }
-
 
   //--- this functions remap the canvas. The origin is the middle point of the rect. 
   // x E (-6,6), y E (-3,3)
   function px(x){
-    return cW/2+(x*cW/(x1-x0));
+    return cW/2+(x*1400/(x1-x0));
   }
   function py(y){
-    return cH/2-(y*cH/(y1-y0));
+    return cH/2-(y*700/(y1-y0));
   }
 
    // -- draw complex number from origin
@@ -129,7 +103,30 @@ function c(x,y) {
 
     drawAxis();
       
-    unitCircle();
+    var c0=new c(0,0);
+    var c1=new c(1,-2);
+    var c2=new c(2,0);
+    var c3=new c(1,2);
+    
+    drawSegment(c0,c2);
+    drawSegment(c1,c3);
+    drawSegment(c0,c1);
+    drawSegment(c1,c2);
+    drawSegment(c2,c3);
+    drawSegment(c3,c0);
+
+    var vr=new r(1,π/4); //rotazione
+
+    c1=p(c1,vr);
+    c2=p(c2,vr);
+    c3=p(c3,vr); 
+
+    drawSegment(c0,c2);
+    drawSegment(c1,c3);
+    drawSegment(c0,c1);
+    drawSegment(c1,c2);
+    drawSegment(c2,c3);
+    drawSegment(c3,c0);
 
    }
     

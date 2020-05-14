@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE hitrl>
+<hitrl>
 <body onload="init();">  
     <canvas id="myCanvas" width="700" height="700" style="border:1px solid">
-      Your browser does not support the HTML5 canvas tag.
+      Your browser does not support the HitrL5 canvas tag.
     </canvas>  
 
 <script>
@@ -13,19 +13,24 @@ const myCanvas = document.getElementById("myCanvas");
 const ctx = myCanvas.getContext("2d"); 
 
 const cW=700;  //ctx.clientWidth;
-const cH=700;  //ctx.clientHeight;
+const cH=700;  //ctx.clientHeight;a
 /*/
 const cW=ctx.clientWidth;
 const cH=ctx.clientHeight;
 */
 // -- range
-const x0=-2;
-const x1=2;
-const y0=-2;
-const y1=2;
+const x0=-1;
+const x1=1;
+const y0=-1;
+const y1=1;
+const grid=700;
+const dx=(x1-x0)/grid;
+const dy=dx; //dy=dx
+const maxItr=50;
+
 
 const π=Math.PI;
-
+//______________________________________________________
 //--- obj complex number
 function c(x,y) {
   return {
@@ -33,6 +38,7 @@ function c(x,y) {
           y: y          
         }
 } 
+//______________________________________________________
 
     // -- product of a+ib, c+id ---
     function p(c1,c2) {
@@ -41,20 +47,23 @@ function c(x,y) {
           y: c1.x*c2.y + c1.y*c2.x         
         }
     }
+//______________________________________________________
    // -- sum of a+ib, c+id ---
     function s(c1,c2) {
       return {
           x: c1.x + c2.x,
-          y: c2.y + c2.y          
+          y: c1.y + c2.y          
         }
     }
+//______________________________________________________
    // -- module, θ --
    function m(c) {
       return { 
           z: Math.sqrt(c.x*c.x+c.y*c.y),
           θ: Math.atan(c.y/c.x)
        }
-   }   
+   }  
+//______________________________________________________
   // -- rotations θ
   // input module and angle, returns couple x, y => (x+iy)
     function r(z,θ){
@@ -65,42 +74,66 @@ function c(x,y) {
     }
   //__________________________________________________________
 
-  function unitCircle() {
+function mandel(k){
+
+   var z0=new c(0,0);  
+   
+   for (i=0;i<maxItr+1;i++){
+      z0=f(z0,k);
+      if (z0.x*z0.x+z0.y*z0.y > 4){
+        return i;      }
+   }  
+   return maxItr;
+}
+//__________________________________________________________________
+function f(z,k) {
+  
+  var tz=z;
+  //var k=new c(1,0);
+  tz=p(z,z);
+  tz=s(tz,k);
+
+  return tz;
+ 
+}
+
+//__________________________________________________________________
+function colorPixel(){
+
+  var x=x0;
+  var y=y0;
+  var itr=0;
+  var clr=0;
+
+  for (let i = 0; i < grid; i++) {
     
-    var iSteps=250;
-    var dStep=2*π/(iSteps);
-
-    var c1=new c(0,0);
-    var c2=new c(0,0);
-    //var c3=new c(2,2);
-
-    for (let index = 0; index <= iSteps; index++) {
-        
-        c1.x=r(1,dStep*(index+1)).x;
-        c1.y=r(1,dStep*(index+1)).y;
-
-        //c2=s(p(c1,c1),c3);
-        c2=p(c1,c1);  
-        drawSegment(c1,c2);
-
-        //c1=c2; //
-            
-      
+    x=x+dx;
+    y=y0;
+    for (let j = 0; j < grid; j++) {
+      y=y+dy;      
+      var tz=new c(x,y);
+      itr=mandel(tz);
+      if (itr<maxItr){
+          clr=255 - Math.round(itr*255/maxItr);
+          //console.log(clr);
+          plot(px(x),py(y),clr);
+      }
+      }
+    
     }
-
-
-
-
   }
 
+//__________________________________________________________________
+//__________________________________________________________________
 
-  //--- this functions remap the canvas. The origin is the middle point of the rect. 
+
+  //--- this functions remap the canvas. 
   //
   function px(x){
-    return cW/2+(x*cW/(x1-x0));
+    return cW/2+((x)*cW/(x1-x0));
   }
   function py(y){
-    return cH/2-(y*cH/(y1-y0));
+    return cH/2-((y)*cH/(y1-y0));
   }
 
    // -- draw complex number from origin
@@ -130,16 +163,20 @@ function c(x,y) {
   function init() {
 
     drawAxis();
-      
-    unitCircle();
+    //var c0=new c(0,0);
+    //var k0=new c(1,1);
+    //draw(f(c0,k0));  
+    
 
    }
     
-function plot(x,y) {
+function plot(x,y,clr) {
   //x,y are canvas coordinates
+  var oppColor=255-clr;
   ctx.beginPath();
-  ctx.fillStyle = "red";
-  ctx.arc(x,y,2,0,2*π) //.arc(x,y,2,1);
+  ctx.fillStyle = "rgb("+clr+","+clr+","+clr+")";
+  ctx.fillRect(x,y,1,1);
+  //ctx.arc(x,y,1,0,2*π) //.arc(x,y,2,1);
   ctx.fill();
 }
 //-------------------------------------------
@@ -158,8 +195,12 @@ function drawAxis() {
 
 init();
 
+/*
+var cc=new c(1,1);
+console.log(m(cc).z);
+*/
 
-
+colorPixel();
 
 
 
@@ -167,4 +208,4 @@ init();
 </body> 
 
 
-</html>
+</hitrl>

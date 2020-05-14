@@ -1,7 +1,7 @@
 <!DOCTYPE hitrl>
 <hitrl>
 <body onload="init();">  
-    <canvas id="myCanvas" width="700" height="700" style="border:1px solid">
+    <canvas id="myCanvas" width="1400" height="700" style="border:1px solid">
       Your browser does not support the HitrL5 canvas tag.
     </canvas>  
 
@@ -12,18 +12,18 @@
 const myCanvas = document.getElementById("myCanvas");
 const ctx = myCanvas.getContext("2d"); 
 
-const cW=700;  //ctx.clientWidth;
+const cW=1400;  //ctx.clientWidth;
 const cH=700;  //ctx.clientHeight;a
 /*/
 const cW=ctx.clientWidth;
 const cH=ctx.clientHeight;
 */
 // -- range
-const x0=-1;
+const x0=-2;
 const x1=1;
-const y0=-1;
-const y1=1;
-const grid=700;
+const y0=0;
+const y1=1.5;
+const grid=1400;
 const dx=(x1-x0)/grid;
 const dy=(y1-y0)/grid; //dy=dx
 const maxItr=50;
@@ -85,15 +85,21 @@ function mandel(k){
    }  
    return maxItr;
 }
+//________________________
+
+
+
 //__________________________________________________________________
 function f(z,k) {
   
-  var tz=z;
-  //var k=new c(1,0);
-  tz=p(z,z);
-  tz=s(tz,k);
+  //var tz=z;
+  z=s(p(z,z),k);   //z^2+k
 
-  return tz;
+  //tz=p(tz,tz);
+  //tz=p(tz,tz);
+  //tz=s(tz,k);
+
+  return z;
  
 }
 
@@ -109,17 +115,16 @@ function colorPixel(){
     
     x=x+dx;
     y=y0;
+
     for (let j = 0; j < grid; j++) {
       y=y+dy;      
       var tz=new c(x,y);
       itr=mandel(tz);
       if (itr<maxItr){
           clr=255 - Math.round(itr*255/maxItr);
-          //console.log(clr);
           plot(px(x),py(y),clr);
-      }
-      }
-    
+        }
+      }    
     }
   }
 

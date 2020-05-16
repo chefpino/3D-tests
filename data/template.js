@@ -1,7 +1,11 @@
 /*
-input elements must have an ID="keyname"
+for copy n paste:
+PI symbol:	&pi;
 
+input elements must have an ID="keyname"
 these must be global variables
+
+
 
 */
 var pageinfo = {
@@ -12,6 +16,17 @@ var pageinfo = {
 
 }
 
+var buttons = {
+    
+  "bt1":{
+     "label":"go!",
+     "onclick":"enter function to execute"
+
+  }
+
+}
+
+
 var params = {
   "keynamegoeshere":{
      "val":Math.PI/2,
@@ -20,18 +35,19 @@ var params = {
      "default":Math.PI/2,
      "label":"trunk angle",
      "minLabel":"0",
-     "maxLabel":"π",
+     "maxLabel":"&pi;",
      "type":"slider",
-     "ideatodevelop":"<input type...>"
+     "idea to develop":"<input type...>",
+     "another idea":"onchange event"
      },
-   "dAngle":{
+   "parameter2":{
      "val":Math.PI/8,
      "min":Math.PI/8,
      "max":Math.PI/4,
      "default":Math.PI/8,
      "label":"branch angle",
-     "minLabel":"π/8",
-     "maxLabel":"π/4"
+     "minLabel":"	&pi;/8",
+     "maxLabel":"	&pi;/4"
      },
    "initLen":{
      "val":100,

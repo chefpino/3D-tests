@@ -1,7 +1,7 @@
 function td(x){  
   return "<td>"+x+"</td>";
 }
-
+//______________________________________________________
 function generateControls() {
 
   const tr="<tr>";
@@ -27,10 +27,10 @@ function generateControls() {
     strHTML=strHTML + td(params[key].minLabel);
     strHTML=strHTML + td("<input type='range' min='0' max='100' value='" + defaultValue + "' id='"+ key +"' onchange='updateParam(this.id)' ");
     strHTML=strHTML + td(params[key].maxLabel);
-    strHTML=strHTML + td("<div id='val_" + key + "'></div>");
+    strHTML=strHTML + td("<div id='val_" + key + "'>" + sliderToParam(key,defaultValue) + "</div>");
     strHTML=strHTML + trc;
   }
-  strHTML=strHTML + '<tr><td colspan=5><button onclick="resetReload()">RESET/RELOAD</button></td></tr>';
+  strHTML=strHTML + '<tr><td colspan=5><button onclick="loadvaluesandgo();">GO!</button></td></tr>';
   strHTML=strHTML + '</table>';
   document.getElementById("dynamicSliders").innerHTML=strHTML;
   
@@ -51,14 +51,14 @@ function loadDefaults() {
     }    
   }
 //___________________________________________________________________________________
-//this f can update an existing input box with a value taken from a slider
+//this f updates an existing <div id=val_x> with the value taken from the corresponding slider
+//and most important updates value in the params object!  
   function updateParam(x) {
   
     var iTemp=1*document.getElementById(x).value;
     params[x].val=sliderToParam(x,iTemp);
-    //console.log(params[x].val);
+    console.log(params[x].val);
     document.getElementById("val_" + x).innerHTML=params[x].val;
-    reDraw();
     
   }
 //___________________________________________________________________________________
@@ -72,8 +72,12 @@ function loadDefaults() {
     }
     
     function sliderToParam(strParam,iValue){  
-    var x1=1*params[strParam].min;
-    var x2=1*params[strParam].max;  
-    return x1+iValue*(x2-x1)/100;
+      var x1=1*params[strParam].min;
+      var x2=1*params[strParam].max;
+      var iTemp=x1+iValue*(x2-x1)/100;
+      if (params[strParam].integer){
+         iTemp=Math.round(iTemp);
+         }
+      return iTemp;
     }
 //___________________________________________________________________________________

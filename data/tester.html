@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+ <html>
+
+
+<body">
+<table border="1">
+  <tr>
+    <td>body of the page, example the canvas</td>
+    <td valign="top"><div id="dynamicSliders"></div></td>
+  </tr>  
+</table>
+<script src="template.js"></script>   
+<script src="controls.js"></script>
+<script src="../mandelbrot/math-complexnumbers.js"></script>
+<script>
+
+// place <div id="dynamicSliders"></div> where you want the commands  
+
+//--- obj complex number
+function c(x,y) {
+  return {
+          x: x,
+          y: y,
+          m: Math.sqrt(x*x+y*y),
+          θ: Math.atan(y/x)                    
+        }
+} 
+
+
+
+//function init(){
+  //generateControls();
+  //window.alert(); 
+  //window.title=pageinfo.title;
+ var z=new c(3,4);
+ window.alert(z.m);
+
+
+//}
+</script>
+
+
+
+
+</body>
+</html>

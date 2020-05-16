@@ -1,11 +1,8 @@
-//______________________________________________________
 //--- obj complex number
 function c(x,y) {
   return {
           x: x,
-          y: y,
-          m: Math.sqrt(x*x+y*y),
-          θ: Math.atan(y/x)                    
+          y: y
         }
 } 
 //______________________________________________________
@@ -30,16 +27,16 @@ function c(x,y) {
    function m(c) {
       return { 
           z: Math.sqrt(c.x*c.x+c.y*c.y),
-          θ: Math.atan(c.y/c.x)
+          theta: Math.atan(c.y/c.x)
        }
    }  
 //______________________________________________________
   // -- rotations θ
   // input module and angle, returns couple x, y => (x+iy)
-    function r(z,θ){
+    function r(z,theta){
             return {
-          x: z*Math.cos(θ),
-          y: z*Math.sin(θ)          
+          x: z*Math.cos(theta),
+          y: z*Math.sin(theta)          
         }
     }
   //__________________________________________________________

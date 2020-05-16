@@ -1,5 +1,5 @@
 function td(x){  
-  return "<td>"+x+"</td>";
+  return "<td style='border: 1px solid black;'>"+x+"</td>";
 }
 //______________________________________________________
 function generateControls() {
@@ -8,13 +8,13 @@ function generateControls() {
   const trc="</tr>";
     
   var defaultValue=0;
-  var strHTML='<table border="1">';
+  var strHTML='<table style="border: 1px solid black;">';
       strHTML +=  tr;
-      strHTML += td("PARAMETER");
-      strHTML += td("MIN");
-      strHTML += td("SELECT");
-      strHTML += td("MAX");
-      strHTML += td("CURRENT");;   
+      strHTML += td("<b>Parameter</b>");
+      strHTML += td("<b>Mix</b>");
+      strHTML += td("<b>Select</b>");
+      strHTML += td("<b>Max</b>");
+      strHTML += td("<b>Current</b>");;   
       strHTML += trc; 
     
   //---generate html
@@ -27,7 +27,7 @@ function generateControls() {
     strHTML=strHTML + td(params[key].minLabel);
     strHTML=strHTML + td("<input type='range' min='0' max='100' value='" + defaultValue + "' id='"+ key +"' onchange='updateParam(this.id)' ");
     strHTML=strHTML + td(params[key].maxLabel);
-    strHTML=strHTML + td("<div id='val_" + key + "'>" + sliderToParam(key,defaultValue) + "</div>");
+    strHTML=strHTML + td("<div id='val_" + key + "'><b>" + params[key].default + "</b></div>");
     strHTML=strHTML + trc;
   }
   strHTML=strHTML + '<tr><td colspan=5><button onclick="loadvaluesandgo();">GO!</button></td></tr>';
@@ -35,7 +35,10 @@ function generateControls() {
   document.getElementById("dynamicSliders").innerHTML=strHTML;
   
   //--- assign default value to sliders
-  // loadDefaults();
+  //this is a bit redundant but it works around some rounding up happening
+  //with the sliderToParam function
+  //loadDefaults(); 
+
   
   }
 //___________________________________________________________________________________

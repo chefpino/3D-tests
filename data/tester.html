@@ -1,46 +1,90 @@
 <!DOCTYPE html>
- <html>
+<html>
+<head>
+  <script src="../mandelbrot/controls.js"></script>
+  <script src="template.js"></script>
+  <script>
+
+  
+  //INIT
+
+  //---string of parameters to be generated dynamically
+  function parametersToJSON() {
+    var rTemp=0;
+    var strTemp="{";
+    for (var key in params) {
+      //WIP need to collect value from sliders as innerhtml has tags in it
+       
+      rTemp=document.getElementById(key).value;
+      strTemp += '"' + key + '":' +  sliderToParam(key,rTemp) + ',';
+    }
+    //remove last comma
+    strTemp=strTemp.substring(0,strTemp.length-1);
+    strTemp += "}"
+    return strTemp;
+  }
+
+  function init() {
+    generateControls();
+    fileToParameters(); //initiate even listener
+    //console.log(parametersToJSON());
+  }
+  
 
 
-<body">
+
+    </script>
+</head>
+
+<body onload="init();">
 <table border="1">
   <tr>
-    <td>body of the page, example the canvas</td>
-    <td valign="top"><div id="dynamicSliders"></div></td>
+    <td><div id=dynamicSliders></div></td> 
+    <td><button onclick="return download('json-text.txt',parametersToJSON());">SAVE</button></td>
+    <td valign="top">
+      <input type="file" name="inputfile" id="inputfile"> 
+      <br> 
+      <pre id="output">val will be here</pre> 
+      <script type="text/javascript"> 
+
+      function readJSONfile(tempReader) {
+         //WIP
+         //tempReader is an object, the .result method contains the file 
+         var tempJSONobj=JSON.parse(tempReader.result);
+         console.log("initLen: " + tempJSONobj.initLen);   //for debug only
+        /*
+        this is where values from the file can be assigned to glabal vars/params        */
+
+      }
+
+
+
+
+      document.getElementById('inputfile').addEventListener('change', function() { 
+        
+      var fr=new FileReader(); 
+      fr.onload=function(){ 
+          document.getElementById('output').textContent=fr.result; //for debug only
+          var foo=JSON.parse(fr.result);
+          console.log("count: " + foo.count);                      //for debug only
+          readJSONfile(fr);
+          }         
+      fr.readAsText(this.files[0]); 
+      }) 
+      </script> 
+
+
+
+
+
+    </td>
   </tr>  
 </table>
-<script src="template.js"></script>   
-<script src="controls.js"></script>
-<script src="../mandelbrot/math-complexnumbers.js"></script>
-<script>
 
-// place <div id="dynamicSliders"></div> where you want the commands  
-
-//--- obj complex number
-function c(x,y) {
-  return {
-          x: x,
-          y: y,
-          m: Math.sqrt(x*x+y*y),
-          θ: Math.atan(y/x)                    
-        }
-} 
-
-
-
-//function init(){
-  //generateControls();
-  //window.alert(); 
-  //window.title=pageinfo.title;
- var z=new c(3,4);
- window.alert(z.m);
-
-
-//}
-</script>
 
 
 
 
 </body>
+
 </html>

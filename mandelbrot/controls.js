@@ -38,7 +38,6 @@ function generateControls() {
   //this is a bit redundant but it works around some rounding up happening
   //with the sliderToParam function
   //loadDefaults(); 
-
   
   }
 //___________________________________________________________________________________
@@ -60,7 +59,7 @@ function loadDefaults() {
   
     var iTemp=1*document.getElementById(x).value;
     params[x].val=sliderToParam(x,iTemp);
-    console.log(params[x].val);
+    //console.log(params[x].val);
     document.getElementById("val_" + x).innerHTML=params[x].val;
     
   }
@@ -84,3 +83,49 @@ function loadDefaults() {
       return iTemp;
     }
 //___________________________________________________________________________________
+
+// TO SAVE PARAMETERS TO A FILE
+//--- this function creates a temporary a element, clicks on it and then removes it from
+//    the page
+//    <button onclick="return download('json-text.txt',strJSONtext);">SAVE</button>
+// will have to enhance by adding a JSONfied string of all the current params values
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename); //download attribute, saves when clicked
+  element.style.display = 'none'; //invisible
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+//___________________________________________________________________________________
+
+/* TO LOAD PARAMETERS FROM A FILE
+<input type="file" name="inputfile" id="inputfile"> 
+
+NOT TESTED YET, possibly needs to be fired at init level for the listener to work
+*/
+
+function fileToParameters(){
+  
+  document.getElementById('inputfile').addEventListener('change', function() { 
+        
+  var fr=new FileReader(); 
+  fr.onload=function(){ 
+      document.getElementById('output').textContent=fr.result; //for debug only
+      //var foo=JSON.parse(fr.result);
+      readJSONfile(fr);
+      }         
+  fr.readAsText(this.files[0]); 
+  }) 
+
+
+}
+
+
+
+
+
+
+

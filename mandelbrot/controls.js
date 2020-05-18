@@ -4,6 +4,9 @@ function td(x){
 //______________________________________________________
 function generateControls() {
 
+
+  const strFilename="'parameters.txt'"; //name of the file containing parameters to save
+
   const tr="<tr>";
   const trc="</tr>";
     
@@ -30,7 +33,11 @@ function generateControls() {
     strHTML=strHTML + td("<div id='val_" + key + "'><b>" + params[key].default + "</b></div>");
     strHTML=strHTML + trc;
   }
-  strHTML=strHTML + '<tr><td colspan=5><button onclick="loadvaluesandgo();">GO!</button></td></tr>';
+  strHTML=strHTML + '<tr><td colspan=5>';
+  strHTML=strHTML + '<button onclick="loadvaluesandgo();">GO!</button>&nbsp';
+  strHTML=strHTML + '<button onclick="return download(' + strFilename + ',parametersToJSON());">Save</button>&nbsp';
+  strHTML=strHTML + '<input type="file" name="inputfile" id="inputfile"></input>';
+  strHTML=strHTML + '</td></tr>';
   strHTML=strHTML + '</table>';
   document.getElementById("dynamicSliders").innerHTML=strHTML;
   
@@ -103,28 +110,62 @@ function download(filename, text) {
 
 /* TO LOAD PARAMETERS FROM A FILE
 <input type="file" name="inputfile" id="inputfile"> 
-
-NOT TESTED YET, possibly needs to be fired at init level for the listener to work
 */
 
 function fileToParameters(){
-  
   document.getElementById('inputfile').addEventListener('change', function() { 
-        
   var fr=new FileReader(); 
   fr.onload=function(){ 
-      document.getElementById('output').textContent=fr.result; //for debug only
-      //var foo=JSON.parse(fr.result);
+      //document.getElementById('output').textContent=fr.result; //for debug only
+      console.log(fr.result);//for debug only
+      //var foo=JSON.parse(fr.result);//for debug only
       readJSONfile(fr);
       }         
   fr.readAsText(this.files[0]); 
   }) 
-
-
 }
+//____________________________________________________________
+  //---string of parameters generated dynamically
+  function parametersToJSON() {
+    var rTemp=0;
+    var strTemp="{";
+    for (var key in params) {
+      //WIP need to collect value from sliders as innerhtml has tags in it
+       
+      rTemp=document.getElementById(key).value;
+      strTemp += '"' + key + '":' +  sliderToParam(key,rTemp) + ',';
+    }
+    //remove last comma
+    strTemp=strTemp.substring(0,strTemp.length-1);
+    strTemp += "}"
+    return strTemp;
+  }
+//_____________________________________________________________________________________
+  function readJSONfile(tempReader) {
+    //WIP
+    //tempReader is an object, the .result method contains the file 
+    
+    var rTemp=0; //real number, value of parameter
+    var tempJSONobj=JSON.parse(tempReader.result);
+   
+   for (var key in params) {
+      
+     rTemp=tempJSONobj[key];
+     //assign values to params
+      params[key].val=rTemp;
+      
+     //move sliders
+     document.getElementById(key).value=paramToSlider(key,rTemp);
 
+     //update box on the right of the slider, current value of parameter
+     updateParam(key,rTemp);
 
+   }
+   /* for debug
+   document.getElementById('output').textContent=strTemp; 
+   */
 
+ }
 
 
 

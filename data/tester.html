@@ -8,25 +8,11 @@
   
   //INIT
 
-  //---string of parameters to be generated dynamically
-  function parametersToJSON() {
-    var rTemp=0;
-    var strTemp="{";
-    for (var key in params) {
-      //WIP need to collect value from sliders as innerhtml has tags in it
-       
-      rTemp=document.getElementById(key).value;
-      strTemp += '"' + key + '":' +  sliderToParam(key,rTemp) + ',';
-    }
-    //remove last comma
-    strTemp=strTemp.substring(0,strTemp.length-1);
-    strTemp += "}"
-    return strTemp;
-  }
+
 
   function init() {
     generateControls();
-    fileToParameters(); //initiate even listener
+    fileToParameters(); //initiate event listener
     //console.log(parametersToJSON());
   }
   
@@ -50,27 +36,44 @@
       function readJSONfile(tempReader) {
          //WIP
          //tempReader is an object, the .result method contains the file 
+         
+         var rTemp=0; //real number, value of parameter
          var tempJSONobj=JSON.parse(tempReader.result);
-         console.log("initLen: " + tempJSONobj.initLen);   //for debug only
-        /*
-        this is where values from the file can be assigned to glabal vars/params        */
+        
+        for (var key in params) {
+           
+          rTemp=tempJSONobj[key];
+          //assign values to params
+           params[key].val=rTemp;
+           
+          //move sliders
+          document.getElementById(key).value=paramToSlider(key,rTemp);
+
+          //update box on the right of the slider, current value of parameter
+          updateParam(key,rTemp);
+
+        }
+        /* for debug
+        document.getElementById('output').textContent=strTemp; 
+        */
 
       }
 
 
 
-
+      /* 
       document.getElementById('inputfile').addEventListener('change', function() { 
         
       var fr=new FileReader(); 
       fr.onload=function(){ 
-          document.getElementById('output').textContent=fr.result; //for debug only
-          var foo=JSON.parse(fr.result);
-          console.log("count: " + foo.count);                      //for debug only
+          //document.getElementById('output').textContent=fr.result; //for debug only
+          //var foo=JSON.parse(fr.result);
+          //console.log("count: " + foo.count);                      //for debug only
           readJSONfile(fr);
           }         
       fr.readAsText(this.files[0]); 
-      }) 
+      })
+      */ 
       </script> 
 
 

@@ -28,85 +28,36 @@ var buttons = {
 
 
 var params = {
-  "keynamegoeshere":{
-     "val":Math.PI/2,
+  "param1":{
+     "val":5,
      "min":0,
-     "max":Math.PI,
-     "default":Math.PI/2,
-     "label":"trunk angle",
+     "max":10,
+     "default":5,
+     "label":"parameter 1",
      "minLabel":"0",
-     "maxLabel":"&pi;",
+     "maxLabel":"10",
      "type":"slider",
      "idea to develop":"<input type...>",
-     "another idea":"onchange event"
+     "another idea":"onchange event",
+     "integer":true
      },
-   "parameter2":{
-     "val":Math.PI/8,
-     "min":Math.PI/8,
-     "max":Math.PI/4,
-     "default":Math.PI/8,
-     "label":"branch angle",
-     "minLabel":"	&pi;/8",
-     "maxLabel":"	&pi;/4"
+   "param2":{
+     "val":3,
+     "min":0,
+     "max":20,
+     "default":3,
+     "label":"parameter 2",
+     "minLabel":"0",
+     "maxLabel":"20"
      },
-   "initLen":{
+   "param3":{
      "val":100,
      "min":25,
      "max":150,
      "default":100,
-     "label":"trunk initial height",
+     "label":"parameter 3",
      "minLabel":"25",
      "maxLabel":"150"
-
-     },
-   "minLen":{
-     "val":20,
-     "min":15,
-     "max":40,
-     "default":20,
-     "label":"branch min length",
-     "minLabel":"15",
-     "maxLabel":"40"
-
-     },
-   "reduction":{
-     "val":0.8,
-     "min":0.5,
-     "max":0.8,
-     "default":0.8,
-     "label":"branch length factor",
-     "minLabel":"0.5",
-     "maxLabel":"0.8"
-
-     },
-   "initTrunk":{
-     "val":20,
-     "min":1,
-     "max":50,
-     "default":20,
-     "label":"trunk initial thickness",
-     "minLabel":"1",
-     "maxLabel":"50"
-
-     },
-   "trunkReduction":{
-     "val":0.5, 
-     "min":0.1,
-     "max":0.9,
-     "default":0.5,
-     "label":"trunk to branch thickness",
-     "minLabel":"0.1",
-     "maxLabel":"0.9"
-     },
-   "minBranch":{
-     "val":0.1,
-     "min":0.1,
-     "max":1,
-     "default":0.1,
-     "label":"branch min thickness",
-     "minLabel":"0.1",
-     "maxLabel":"1"
-
      }
 
 }

@@ -63,26 +63,26 @@ var params = {
    "x0":{
     "val":-2,
     "min":-2,
-    "max":1,
+    "max":2,
     "default":-2,
     "label":"x0",
     "minLabel":"-2",
-    "maxLabel":"1",
+    "maxLabel":"2",
     "integer":false 
     },
     "x1":{
       "val":2,
       "min":-1,
-      "max":4,
+      "max":2,
       "default":1,
       "label":"x1",
       "minLabel":"-1",
-      "maxLabel":"4",
+      "maxLabel":"2",
       "integer":false 
       },    
     "y0":{
         "val":-1.05,
-        "min":-2,
+        "min":-1.05,
         "max":1,
         "default":-1.05,
         "label":"y0",
@@ -91,10 +91,10 @@ var params = {
         "integer":false 
         },
     "y1":{
-          "val":1.05,
+          "val":2,
           "min":0,
           "max":2,
-          "default":1.05,
+          "default":2,
           "label":"y1",
           "minLabel":"0",
           "maxLabel":"2",

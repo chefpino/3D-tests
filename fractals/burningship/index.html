@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+  </head>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td>
+          <canvas
+            id="myCanvas"
+            width="1000"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+        <td valign="top"><div id="dynamicSliders"></div></td>
+      </tr>
+    </table>
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../fractals-data/burningship.data.js"></script>
+    <script src="../fractals-library/controls.js"></script>
+    <script>
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+
+      const cW = 1000; //ctx.clientWidth;
+      const cH = 700; //ctx.clientHeight;a
+      /*/
+const cW=ctx.clientWidth;
+const cH=ctx.clientHeight;
+*/
+
+      //--- parameters the user can change (WIP)
+      // -- global variables
+      var x0 = params.x0.val;
+      var x1 = params.x1.val;
+      var y0 = params.y0.val;
+      var y1 = params.y1.val;
+      var grid = params.grid.val; //resolution
+      var maxItr = params.iterations.val;
+      var uBound = params.upperbound.val;
+
+      //--- calculated params
+      var dx = (x1 - x0) / grid;
+      var dy = (y1 - y0) / grid;
+//---------------------------------------------------------------
+function init() {
+  generateControls();
+  fileToParameters(); //initiate event listener
+  go();
+  drawAxis();
+  }
+//---------------------------------------------------------------
+function loadvaluesandgo() {
+        //go! button
+
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+        grid = params.grid.val; //resolution
+        maxItr = params.iterations.val;
+        uBound = params.upperbound.val;
+
+        //--- calculated params
+        dx = (x1 - x0) / grid;
+        dy = (y1 - y0) / grid;
+
+        go();
+        drawAxis();
+      }
+      //------------------------------------------------------------
+      function go() {
+        //---clear canvas
+        ctx.clearRect(0, 0, cW, cH);
+
+        var x = x0;
+        var y = y0;
+        var itr = 0;
+        var clr = 0;
+
+        for (let i = 0; i < grid; i++) {
+          x = x + dx;
+          y = y0;
+
+          for (let j = 0; j < grid; j++) {
+            y = y + dy;
+            var tz = new c(x, y);
+            itr = mandel(tz);
+            if (itr < maxItr) {
+              clr = 255 - 4 * Math.round((itr * 255) / maxItr);
+              plot(px(x), py(y), clr);
+            }
+          }
+        }
+      }
+
+      //__________________________________________________________________
+
+
+
+
+
+// FUNCTIONS TYPICAL OF THIS PAGE
+      //----------------------------------------------------------
+      function mandel(k) {
+        var z0 = new c(0, 0);
+        for (i = 0; i < maxItr + 1; i++) {
+          z0 = fs(z0, k).burning;
+          if (z0.x * z0.x + z0.y * z0.y > uBound) {
+            return i;
+          }
+        }
+        return maxItr;
+      }
+      //________________________
+      function fs(z, k) {
+        return {
+          mandelbrot: s(p(z, z), k),
+          burning: burningship(z, k),
+        };
+        //________________________
+      }
+      function burningship(z, k) {
+        var k1 = new c(-1 * k.x, -1 * k.y);
+        var x = new c(Math.abs(z.x), Math.abs(z.y));
+        x = s(p(x, x), k1);
+        return x;
+      }
+
+      //__________________________________________________________________
+      function f(z, k) {
+        //var tz=z;
+        //z=s(p(z,z),k);   //z^2+k
+        var k1 = new c(-1 * k.x, -1 * k.y);
+
+        //burning ship --------------------------
+        var x = new c(Math.abs(z.x), Math.abs(z.y));
+        x = p(x, x);
+        x = s(x, k1);
+        //range:
+        /*
+    const x0=1.5;
+    const x1=1.75;
+    const y0=0;
+    const y1=.1;
+    const grid=1400;
+    const maxItr=1000;
+    const uBound=4;
+*/
+        //---------------------------------------
+
+        //tz=p(tz,tz);
+        //tz=p(tz,tz);
+        //tz=s(tz,k);
+
+        return x;
+      }
+      //_________________________________________________________________
+
+
+      //__________________________________________________________________
+      //__________________________________________________________________
+
+      //--- this functions remap the canvas.
+      function px(x) {
+        return ((x - x0) * cW) / (x1 - x0);
+      }
+      function py(y) {
+        return cH - ((y - y0) * cH) / (y1 - y0);
+      }
+      //--------------------------------------------
+
+      function plot(x, y, clr) {
+        //x,y are canvas coordinates
+        //var oppColor=255-clr;
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(" + clr + "," + clr + "," + clr + ")";
+        ctx.fillRect(x, y, 1, 1);
+        ctx.fill();
+      }
+      //-------------------------------------------
+      function drawAxis() {
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = "0.2";
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "red";
+
+        //--- x axis -------------------------
+        if (py(0) >= 0 && py(0) <= cH) {
+          ctx.moveTo(px(x0), py(0));
+          ctx.lineTo(px(x1), py(0));
+          ctx.stroke();
+          ctx.fillText(x0, 5, py(0));
+          ctx.fillText(x1, cW - 20, py(0));
+        }
+        // if axis is out of the canvas just write the x range
+        if (py(0) < 0 || py(0) > cH) {
+          ctx.fillText(x0, 5, cH / 2);
+          ctx.fillText(x1, cW - 20, cH / 2);
+        }
+
+        //--- y axis -------------------------
+        if (px(0) >= 0 && px(0) <= cW) {
+          ctx.moveTo(px(0), py(y0));
+          ctx.lineTo(px(0), py(y1));
+          ctx.stroke();
+          ctx.fillText(y0, px(0), cH - 5);
+          ctx.fillText(y1, px(0), 10);
+        }
+        // if axis is out of the canvas just write the y range
+        if (px(0) < 0 || px(0) > cW) {
+          ctx.fillText(y0, cW / 2, cH - 5);
+          ctx.fillText(y1, cW / 2, 10);
+        }
+      }
+      /*
+  ctx.font = "30px Arial";
+  ctx.fillText("Hello World", 10, 50);
+  */
+
+      //-------------------------------------------
+
+      //init();
+    </script>
+  </body>
+</html>

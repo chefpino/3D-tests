@@ -18,3 +18,11 @@ fix PI in tree parameters
 show function in fractals ex. Zn+1=(Zn)^2+C etc
 
 Julia set 
+
+mapping of unit circle, move to fractals folder
+
+fix once for all CSS
+
+fix positions of script withing the page, I hate having it after the body
+
+draw axis function, make more generic

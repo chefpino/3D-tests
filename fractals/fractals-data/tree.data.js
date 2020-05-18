@@ -99,7 +99,7 @@ function updateParam(x) {
   params[x].val=sliderToParam(x,iTemp);
   //console.log(params[x].val);
   document.getElementById("val_" + x).innerHTML=params[x].val;
-  reDraw();
+  //reDraw();
   
 }
 

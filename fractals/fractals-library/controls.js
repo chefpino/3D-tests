@@ -1,3 +1,24 @@
+/**
+ * 
+ * function init() {
+        generateControls();
+        fileToParameters(); //initiate event listener for file uploader
+        loadvaluesandgo(); // WIP !
+      }
+      //-------------------------------------------------
+
+      function loadvaluesandgo() {
+        //go! button
+        load params statements
+        plot functions
+        drawAxis() if any
+      }
+ * 
+ * 
+ * 
+ * @param {*} x 
+ */
+
 function td(x){  
   return "<td style='border: 1px solid black;'>"+x+"</td>";
 }
@@ -28,7 +49,7 @@ function generateControls() {
     strHTML=strHTML + tr;
     strHTML=strHTML + td(params[key].label);
     strHTML=strHTML + td(params[key].minLabel);
-    strHTML=strHTML + td("<input type='range' min='0' max='100' value='" + defaultValue + "' id='"+ key +"' onchange='updateParam(this.id)' ");
+    strHTML=strHTML + td("<input type='range' min='0' max='100' value='" + defaultValue + "' id='"+ key +"' onchange='updateParam(this.id)' >");
     strHTML=strHTML + td(params[key].maxLabel);
     strHTML=strHTML + td("<div id='val_" + key + "'><b>" + params[key].default + "</b></div>");
     strHTML=strHTML + trc;

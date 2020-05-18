@@ -1,18 +1,6 @@
 
 
-function paramToSlider(strParam,iValue){  
-var x1=1*params[strParam].min;
-var x2=1*params[strParam].max;  
-return Math.round(100*(1*iValue-x1)/(x2-x1));
-//return 1*x1;
-}
 
-function sliderToParam(strParam,iValue){  
-var x1=1*params[strParam].min;
-var x2=1*params[strParam].max;  
-return x1+iValue*(x2-x1)/100;
-//return 1*x1;
-}
 
 //------------ LEAF ----------------------------------------
 function leaf(x,y,l,alpha,beta){
@@ -101,39 +89,7 @@ function draw(x,y,angle,len,trunk){
 }   
 //-----------------------------------------------------------------------
 
-function initControls() {
 
-var defaultValue=0;
-var strHTML='<table border="1">';
-    strHTML=strHTML + '<tr>';
-    strHTML=strHTML + '<td>PARAMETER</td>';
-    strHTML=strHTML + '<td>MIN</td>';
-    strHTML=strHTML + '<td align="center">SELECT</td>';
-    strHTML=strHTML + '<td>MAX</td>';
-    strHTML=strHTML + '<td>CURRENT</td>';   
-    strHTML=strHTML + '</tr>'; 
-  
-//---generate html
-for (var key in params) {
-    
-  defaultValue=paramToSlider(key,params[key].default); 
-  
-  strHTML=strHTML + '<tr>';
-  strHTML=strHTML + '<td>'+params[key].label + ':</td>';
-  strHTML=strHTML + '<td align="center">'+params[key].minLabel + '</td>';
-  strHTML=strHTML + '<td><input type="range" min="0" max="100" value="'+defaultValue+'" id="'+key+'" onchange="updateParam(this.id)"></td>';
-  strHTML=strHTML + '<td align="center">'+params[key].maxLabel + '</td>';
-  strHTML=strHTML + '<td><div id="val_' + key + '"></div></td>';
-  strHTML=strHTML + '</td></tr>';
-}
-strHTML=strHTML + '<tr><td colspan=5><button onclick="resetReload()">RESET/RELOAD</button></td></tr>';
-strHTML=strHTML + '</table>';
-document.getElementById("dynamicSliders").innerHTML=strHTML;
-
-//--- assign default value to sliders
-loadDefaults();
-
-}
 
 //--- this functions remap the canvas. The origin is the middle point of the rect base. 
 function px(x){

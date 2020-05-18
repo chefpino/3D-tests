@@ -7,9 +7,17 @@ retrieve values from file. Almost there, need to package nicely to make it flexi
 idea: parameters that have to be dynamic and saved by user should be flagged
 and the saved and loaded via JSON text file saved locally - almost useless
 
+wip: 3d-color wip page. Add parameters and think about having several
+functions and see if they can be saved in the params
+also, the function launched by the go button should be dynamic
+the z stretching doesn't make sense at the moment
+
 fix git web main page to reflect different libraries etc
 
-add parameters library to tree and tree enhanced fractals
+add parameters library to tree-enhanced fractal
+almost done, check after loading file why doen't trigger a redraw
+
+move updateparams and loaddefaults functions to controls.js
 
 fix default parameters of burning ship fractals
 

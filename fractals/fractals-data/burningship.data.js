@@ -1,27 +1,8 @@
 /*
-for copy n paste:
-PI symbol:	&pi;
+
 
 input elements must have an ID="keyname"
 these must be global variables
-
-
-const cW=1400;  //ctx.clientWidth;
-const cH=700;  //ctx.clientHeight;a
-
-const cW=ctx.clientWidth;
-const cH=ctx.clientHeight;
-
--- range
-const x0=-3;
-const x1=2;
-const y0=-1;
-const y1=1;
-const grid=1400;
-const dx=(x1-x0)/grid;
-const dy=(y1-y0)/grid; //dy=dx
-const maxItr=1000;
-const uBound=4;
 
 
 */
@@ -90,16 +71,15 @@ var params = {
     "integer":false 
     },
     "x1":{
-      "val":1,
-      "min":1,
-      "max":2,
+      "val":2,
+      "min":-1,
+      "max":4,
       "default":1,
       "label":"x1",
-      "minLabel":"1",
-      "maxLabel":"2",
+      "minLabel":"-1",
+      "maxLabel":"4",
       "integer":false 
-      },
-    
+      },    
     "y0":{
         "val":-1.05,
         "min":-2,

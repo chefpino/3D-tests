@@ -9,4 +9,12 @@ and the saved and loaded via JSON text file saved locally - almost useless
 
 fix git web main page to reflect different libraries etc
 
+add parameters library to tree and tree enhanced fractals
 
+fix default parameters of burning ship fractals
+
+fix PI in tree parameters
+
+show function in fractals ex. Zn+1=(Zn)^2+C etc
+
+Julia set 

@@ -1,9 +1,12 @@
 TO DO LIST
 done! change labels to make them more obvious and also change default values
 
-save chosen values of parameters in a local file (json?)
+done! save chosen values of parameters in a local file (json?)
 retrieve values from file. Almost there, need to package nicely to make it flexible
 
 idea: parameters that have to be dynamic and saved by user should be flagged
-and the saved and loaded via JSON text file saved locally
+and the saved and loaded via JSON text file saved locally - almost useless
+
+fix git web main page to reflect different libraries etc
+
 

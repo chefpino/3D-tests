@@ -1,214 +1,215 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
     <script src="../fractals/fractals-library/controls.js"></script>
     <script src="data/3d-color.data.js"></script>
   </head>
 
-<body onload="init();">
-<table border="0">
-  <tr>
-    <td><canvas id="myCanvas" width="100" height="100" style="border:1px solid"></canvas></td>
-    <td valign="top"><td valign="top"><div id="dynamicSliders"></div></td>
-</tr>
-</table>
-<script>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td>
+          <canvas
+            id="myCanvas"
+            width="100"
+            height="100"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+        <td valign="top"></td>
+        <td valign="top"><div id="dynamicSliders"></div></td>
+      </tr>
+    </table>
+    <script>
+      //-----------------------------
+      const canvas = document.getElementById("myCanvas");
+      const cW = 900; //canvas.clientWidth;
+      const cH = 600; //canvas.clientHeight;
+      const ctx = canvas.getContext("2d");
+      canvas.width = cW;
+      canvas.height = cH;
+      //ctx.scale(1,1);
 
+      //--- declare global variables
+      var x0 = params.x0.val;
+      var x1 = params.x1.val;
+      var y0 = params.y0.val;
+      var y1 = params.y1.val;
+      var z0 = params.z0.val;
+      var z1 = params.z1.val;
+      var resolution = 30;
 
-//-----------------------------
-const canvas = document.getElementById("myCanvas");
-const cW=900; //canvas.clientWidth;
-const cH=600; //canvas.clientHeight;
-const ctx = canvas.getContext("2d"); 
-canvas.width=cW;
-canvas.height=cH;
-//ctx.scale(1,1);
+      //------------------------------------------------------------------
+      function init() {
+        generateControls();
+        fileToParameters(); //initiate event listener for file uploader
+        drawPavement(10);
+        loadvaluesandgo();
+      }
+      //-----------------------------------------------------------------------
+      function loadvaluesandgo() {
+        //go! button
 
-//--- declare global variables
-var x0=params.x0.val;
-var x1=params.x1.val;
-var y0=params.y0.val;
-var y1=params.y1.val;
-var z0=params.z0.val;
-var z1=params.z1.val;
-var resolution=30;
+        // -- load parameters from params object
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+        z0 = params.z0.val;
+        z1 = params.z1.val;
+        resolution = params.resolution.val;
 
-//------------------------------------------------------------------
-function init() {
-  generateControls();
-  fileToParameters(); //initiate event listener for file uploader
-  drawPavement(10);
-  loadvaluesandgo();
-}
-//-----------------------------------------------------------------------
-function loadvaluesandgo() {
+        //--- calculated params, if any
 
-  //go! button
-  
-  // -- load parameters from params object
-  x0=params.x0.val;
-  x1=params.x1.val;
-  y0=params.y0.val;
-  y1=params.y1.val;
-  z0=params.z0.val;
-  z1=params.z1.val;
-  resolution=params.resolution.val;
+        //---clear canvas
+        ctx.clearRect(0, 0, cW, cH);
 
+        //--- draw base domain
+        drawPavement(10);
 
-  //--- calculated params, if any
+        //---plot function
+        plotColoredFunction(resolution);
+      }
+      //---------------------------------------------------------------
+      function g(x, y) {
+        //return 2-2*Math.sin(.02*(x*x+y*y)); //--sgabello
+        //return Math.sqrt(x*x+y*y);         //--cono
+        //return 5-Math.abs(x+y)-Math.abs(x-y);
+        return Math.sin(0.5 * x + y) * Math.cos(0.5 * y - x); //bello,0,10,0,10,-12,12
+        // return x*(.5*x-2*y);
+        //return 50/(x*x+y*y);
+        //return x*x-.3*y*y;
+        //return 0;
+      }
 
-  //---clear canvas
-  ctx.clearRect(0, 0, cW, cH);
+      //--------------
+      //graphic mapping paramenters (linear transformation of the given intervals to the canvas rect)
+      const a = (-1 * (1 / 4) * cW) / (x1 - x0);
+      const b = ((1 / 4) * cW) / (y1 - y0);
+      const c = (-1 * (1 / 4) * cH) / (x1 - x0);
+      const d = (-1 * (1 / 4) * cH) / (y1 - y0);
+      const f = cH / (z1 - z0); //factor for scaling z values
 
-  //--- draw base domain
-  drawPavement(10); 
+      //====================================================
+      function mapToCanvas(x, y, z) {
+        //this maps the origin into the middle of the canvas, also flips vertically
+        //mx,my maps the original domain to the floor of the function
+        //mz, projects the results in 3d
+        return {
+          mx: a * (x - x0) + b * (y - y0) + cW / 2,
+          my: cH / 2 - (c * (x - x0) + d * (y - y0)),
+          mz: cH / 2 - (c * (x - x0) + d * (y - y0)) - z * f,
+        };
+      }
+      //====================================================
 
-  //---plot function
-  plotColoredFunction(resolution);
-}
-//---------------------------------------------------------------
-function g(x,y) {
-  //return 2-2*Math.sin(.02*(x*x+y*y)); //--sgabello
-  //return Math.sqrt(x*x+y*y);         //--cono
-  //return 5-Math.abs(x+y)-Math.abs(x-y); 
-  return Math.sin(.5*x+y)*Math.cos(.5*y-x); //bello,0,10,0,10,-12,12
-   // return x*(.5*x-2*y);
-  //return 50/(x*x+y*y);
-  //return x*x-.3*y*y;
-  //return 0;
-}
+      function reDraw(tObj) {
+        var i = 1 * tObj.value;
+        ctx.clearRect(0, 0, cW, cH);
+        drawPavement(10);
+        plotColoredFunction(i);
+      }
 
-//--------------
-//graphic mapping paramenters (linear transformation of the given intervals to the canvas rect)
-const a=-1*(1/4)*cW/(x1-x0);
-const b=(1/4)*cW/(y1-y0);
-const c=-1*(1/4)*cH/(x1-x0);
-const d=-1*(1/4)*cH/(y1-y0);
-const f=cH/(z1-z0); //factor for scaling z values
+      //-------------------------------------------
+      function plot(x, y) {
+        ctx.beginPath();
+        //ctx.fillStyle = "#FF0000";
+        ctx.fillRect(x, y, 2, 2);
+      }
+      //-------------------------------------------
 
-//====================================================
-function mapToCanvas(x,y,z){
-  //this maps the origin into the middle of the canvas, also flips vertically
-  //mx,my maps the original domain to the floor of the function
-  //mz, projects the results in 3d
-  return {mx: a*(x-x0)+b*(y-y0)+cW/2,
-          my: cH/2-(c*(x-x0)+d*(y-y0)),
-          mz: cH/2-(c*(x-x0)+d*(y-y0))-((z)*f)
-        }  
-}
-//====================================================
+      function mapLine(xo, yo, xe, ye) {
+        ctx.beginPath();
+        ctx.moveTo(mapToCanvas(xo, yo).mx, mapToCanvas(xo, yo).my);
+        ctx.lineTo(mapToCanvas(xe, ye).mx, mapToCanvas(xe, ye).my);
+        ctx.strokeStyle = "#D3D3D3";
+        ctx.stroke();
+      }
+      //-------------------------------------------------
+      function drawPavement(n) {
+        const dx = (x1 - x0) / n;
+        const dy = (y1 - y0) / n;
 
-function reDraw(tObj) {
-  var i=1*tObj.value;
-  ctx.clearRect(0, 0, cW, cH);
-  drawPavement(10);
-  plotColoredFunction(i);
-}
+        for (let index = 0; index < n + 1; index++) {
+          mapLine(x0 + index * dx, y0, x0 + index * dx, y1);
+          mapLine(x0, y0 + index * dy, x1, y0 + index * dy);
+        }
+      }
+      //-----------------------------------------------
 
-//-------------------------------------------
-function plot(x,y) {
-  ctx.beginPath();
-  //ctx.fillStyle = "#FF0000";
-  ctx.fillRect(x,y,2,2);
-}
-//-------------------------------------------
+      function drawColumns(n) {
+        const dx = (x1 - x0) / n;
+        const dy = (y1 - y0) / n;
+        var ix = x0;
+        var iy = y0;
+        var i = 0;
+        var j = 0;
+        var strColor = "#0000";
 
+        for (i = 0; i < n + 1; i++) {
+          for (j = 0; j < n + 1; j++) {
+            ix = x0 + i * dx;
+            iy = y0 + j * dy;
 
-function mapLine(xo,yo,xe,ye) {
-  
-  ctx.beginPath();
-  ctx.moveTo(mapToCanvas(xo,yo).mx,mapToCanvas(xo,yo).my);
-  ctx.lineTo(mapToCanvas(xe,ye).mx,mapToCanvas(xe,ye).my);
-  ctx.strokeStyle = "#D3D3D3";
-  ctx.stroke();  
-}
-//-------------------------------------------------  
-function drawPavement(n) {
-  
-  const dx=(x1-x0)/n;
-  const dy=(y1-y0)/n;
+            ctx.beginPath();
+            //plot(mapToCanvas(ix,iy,0).mx,mapToCanvas(ix,iy,0).my);
+            ctx.moveTo(mapToCanvas(ix, iy, 0).mx, mapToCanvas(ix, iy, 0).my);
+            ctx.lineTo(
+              mapToCanvas(ix, iy, g(ix, iy)).mx,
+              mapToCanvas(ix, iy, g(ix, iy)).mz
+            );
+            ctx.strokeStyle = strColor + i + j;
+            ctx.stroke();
+            plot(mapToCanvas(ix, iy, 0).mx, mapToCanvas(ix, iy, g(ix, iy)).mz);
+          }
+        }
+      }
+      //-------------------------------
 
-  for (let index = 0; index < n+1; index++) {
-    
-    mapLine(x0+index*dx,y0,x0+index*dx,y1);
-    mapLine(x0,y0+index*dy,x1,y0+index*dy);
-    
-  }
-}
-//-----------------------------------------------
+      function plotColoredFunction(n) {
+        const dx = (x1 - x0) / n;
+        const dy = (y1 - y0) / n;
+        var ix = x0;
+        var iy = y0;
+        var i = 0;
+        var j = 0;
 
+        ctx.strokeStyle = "#0000D3";
+        //ctx.fillStyle = "#FF0000";
 
-function drawColumns(n) {
-  
-  const dx=(x1-x0)/n;
-  const dy=(y1-y0)/n;
-  var ix=x0;
-  var iy=y0;
-  var i=0;
-  var j=0;
-  var strColor="#0000"
+        var iTemp = 0;
 
-  for   (i = 0; i < n+1; i++) {
-    for (j = 0; j < n+1; j++) {
-      
-      ix=x0+i*dx;
-      iy=y0+j*dy;
-      
-      ctx.beginPath();
-      //plot(mapToCanvas(ix,iy,0).mx,mapToCanvas(ix,iy,0).my);
-      ctx.moveTo(mapToCanvas(ix,iy,0).mx,mapToCanvas(ix,iy,0).my);
-      ctx.lineTo(mapToCanvas(ix,iy,g(ix,iy)).mx,mapToCanvas(ix,iy,g(ix,iy)).mz);
-      ctx.strokeStyle = strColor+i+j;
-      ctx.stroke();
-      plot(mapToCanvas(ix,iy,0).mx,mapToCanvas(ix,iy,g(ix,iy)).mz);
-      
-      
-    }
-  }
-}
-//-------------------------------
-
-
-
-function plotColoredFunction(n) {
-
-const dx=(x1-x0)/n;
-const dy=(y1-y0)/n;
-var ix=x0;
-var iy=y0;
-var i=0;
-var j=0;
-
-ctx.strokeStyle = "#0000D3";
-//ctx.fillStyle = "#FF0000";
-
-var iTemp=0;
-
-
-for   (i = 0; i < n; i++) {    
-  ix=x0+i*dx;
-  for (j = 0; j < n; j++) {      
-    iy=y0+j*dy;  
-    ctx.beginPath();    
-    ctx.moveTo(mapToCanvas(ix,iy,g(ix,iy)).mx,mapToCanvas(ix,iy,g(ix,iy)).mz);
-    ctx.lineTo(mapToCanvas(ix+dx,iy,g(ix+dx,iy)).mx,mapToCanvas(ix+dx,iy,g(ix+dx,iy)).mz);
-    ctx.lineTo(mapToCanvas(ix+dx,iy+dy,g(ix+dx,iy+dy)).mx,mapToCanvas(ix+dx,iy+dy,g(ix+dx,iy+dy)).mz);
-    ctx.lineTo(mapToCanvas(ix,iy+dy,g(ix,iy+dy)).mx,mapToCanvas(ix,iy+dy,g(ix,iy+dy)).mz);
-    ctx.closePath();
-    iTemp=3*Math.round(256*g(ix,iy)/(z1-z0));
-    ctx.stroke();
-    ctx.fillStyle = "rgb(200, "+iTemp+", 100)";
-    //console.log("rgb(0, "+iTemp+", 255)");
-    ctx.fill();
-    
-    
-  }
-}
-
-}
-
-
-</script>
-</body>
+        for (i = 0; i < n; i++) {
+          ix = x0 + i * dx;
+          for (j = 0; j < n; j++) {
+            iy = y0 + j * dy;
+            ctx.beginPath();
+            ctx.moveTo(
+              mapToCanvas(ix, iy, g(ix, iy)).mx,
+              mapToCanvas(ix, iy, g(ix, iy)).mz
+            );
+            ctx.lineTo(
+              mapToCanvas(ix + dx, iy, g(ix + dx, iy)).mx,
+              mapToCanvas(ix + dx, iy, g(ix + dx, iy)).mz
+            );
+            ctx.lineTo(
+              mapToCanvas(ix + dx, iy + dy, g(ix + dx, iy + dy)).mx,
+              mapToCanvas(ix + dx, iy + dy, g(ix + dx, iy + dy)).mz
+            );
+            ctx.lineTo(
+              mapToCanvas(ix, iy + dy, g(ix, iy + dy)).mx,
+              mapToCanvas(ix, iy + dy, g(ix, iy + dy)).mz
+            );
+            ctx.closePath();
+            iTemp = 3 * Math.round((256 * g(ix, iy)) / (z1 - z0));
+            ctx.stroke();
+            ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
+            //console.log("rgb(0, "+iTemp+", 255)");
+            ctx.fill();
+          }
+        }
+      }
+    </script>
+  </body>
 </html>

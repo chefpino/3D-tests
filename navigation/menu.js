@@ -9,7 +9,7 @@ var navigation = {
      "link":"https://chefpino.github.io/fun/",
      "label":"HOME",
      "hasChildren":true,
-     "children":"child1,child2,etc. perhaps a nested obj would be better"
+     "children":"child1,child2,etc. perhaps a nested obj would be better",
      "other":"who knows"
      },
    "fractals":{

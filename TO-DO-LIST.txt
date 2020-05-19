@@ -1,18 +1,12 @@
 TO DO LIST
-done! change labels to make them more obvious and also change default values
-
-done! save chosen values of parameters in a local file (json?)
-retrieve values from file. Almost there, need to package nicely to make it flexible
 
 idea: parameters that have to be dynamic and saved by user should be flagged
 and the saved and loaded via JSON text file saved locally - almost useless
 
-wip: 3d-color wip page. Add parameters and think about having several
+wip: 3d-color wip page. think about having several
 functions and see if they can be saved in the params
 also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
-
-fix git web main page to reflect different libraries etc
 
 add parameters library to tree-enhanced fractal
 almost done, check after loading file why doen't trigger a redraw
@@ -27,10 +21,10 @@ show function in fractals ex. Zn+1=(Zn)^2+C etc
 
 Julia set 
 
-mapping of unit circle, move to fractals folder
+description of each page
 
 fix once for all CSS
 
 fix positions of script withing the page, I hate having it after the body
 
-draw axis function, make more generic
+draw axis function, make more generic?

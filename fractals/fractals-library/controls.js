@@ -16,7 +16,7 @@
  * 
  * 
  * 
- * @param {*} x 
+ * this library is used also outside of the fractals folder
  */
 
 function td(x){  

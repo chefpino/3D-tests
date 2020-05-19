@@ -6,7 +6,7 @@
         <td>
             <a href="3d-color.html" target="_blank">3d in color</a><br>
             <a href="https://chefpino.github.io/fun/fractals/tree/" target="_blank">Fractal Tree</a><br>
-            <a href="https://chefpino.github.io/fun/fractals/mandelbrot/" target="_blank">Madelbrot Set</a><br>
+            <a href="https://chefpino.github.io/fun/fractals/mandelbrot/" target="_blank">Mandelbrot Set</a><br>
             <a href="https://chefpino.github.io/fun/fractals/burningship/" target="_blank">Burning Ship</a><br>
         </td>
       </tr>

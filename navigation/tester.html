@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <script src="menu.js"></script>
+    <script>
+      function init(){
+        document.getElementById("menu").innerHTML=genMenu("home",0);
+      }
+    </script>
+
+
+  </head>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td>
+          <canvas
+            id="myCanvas"
+            width="700"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+        <td valign="top"><div id="menu" class="vertical-menu"></div></td>
+      </tr>
+    </table>
+  </body>
+</html>

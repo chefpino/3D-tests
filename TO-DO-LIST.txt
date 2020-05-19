@@ -1,6 +1,8 @@
 TO DO LIST
 
-idea: parameters that have to be dynamic and saved by user should be flagged
+json to menu: add active element css class, use key to identify active
+
+idea: flag parameters that have to be dynamic and saved by user should be flagged
 and the saved and loaded via JSON text file saved locally - almost useless
 
 wip: 3d-color wip page. think about having several
@@ -18,6 +20,8 @@ fix default parameters of burning ship fractals
 fix PI in tree parameters
 
 show function in fractals ex. Zn+1=(Zn)^2+C etc
+
+some sort of zoom function for the fractals
 
 Julia set 
 

@@ -2,7 +2,7 @@
   <body>
     <table>
       <tr>
-        <td><img width=200 height=200 src="https://chefpino.github.io/fun/imgs/panepugliese.img.jpeg"></td>
+        <td><img width="200" src="https://chefpino.github.io/fun/imgs/panepugliese.img.jpeg"></td>
         <td>
             <a href="https://chefpino.github.io/fun/plotmathfunctions/" target="_blank">3d functions (WIP)</a><br>
             <a href="https://chefpino.github.io/fun/fractals/tree/" target="_blank">Fractal Tree</a><br>

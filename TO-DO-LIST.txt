@@ -1,6 +1,6 @@
 TO DO LIST
 
-json to menu: add active element css class, use key to identify active
+json to menu: add active element css class?, use key to identify active
 
 idea: flag parameters that have to be dynamic and saved by user should be flagged
 and the saved and loaded via JSON text file saved locally - almost useless
@@ -32,3 +32,5 @@ fix once for all CSS
 fix positions of script withing the page, I hate having it after the body
 
 draw axis function, make more generic?
+
+another home page beside the default github one

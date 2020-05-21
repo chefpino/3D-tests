@@ -38,19 +38,19 @@ var navigation = {
   },
   burningship: {
     id: "burningship",
-    link: "https://chefpino.github.io/fun/fractals/burningship/index.html",
+    link: "../../fractals/burningship/index.html",
     label: "BURNING SHIP",
     hasChildren: false,
   },
   tree: {
     id: "tree",
-    link: "https://chefpino.github.io/fun/fractals/tree/index.html",
+    link: "../../fractals/tree/index.html",
     label: "TREE",
     hasChildren: false,
   },
   unitcircle: {
     id: "unitcircle",
-    link: "https://chefpino.github.io/fun/fractals/unitcircle/index.html",
+    link: "../../fractals/unitcircle/index.html",
     label: "UNIT CIRCLE",
     hasChildren: false,
   },
@@ -67,20 +67,20 @@ var navigation = {
   },
   twoD: {
     id: "twoD",
-    link: "https://chefpino.github.io/fun/plotmathfunctions/2d.html",
+    link: "../../plotmathfunctions/2d.html",
     label: "2D",
     hasChildren: false,
   },
   threeD: {
     id: "threeD",
-    link: "https://chefpino.github.io/fun/plotmathfunctions/index.html",
+    link: "../../plotmathfunctions/index.html",
     label: "3D",
     hasChildren: false,
   },
   complex: {
     id: "complex",
     link:
-      "https://chefpino.github.io/fun/plothmathfunctions/rotationscomplexplane.html",
+      "../../plothmathfunctions/rotationscomplexplane.html",
     label: "Rotations (WIP)",
     hasChildren: false,
   },

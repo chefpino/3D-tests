@@ -1,6 +1,6 @@
 /*
 WIP
-this can be a page containing menu/navigation global variables
+this is a page containing menu/navigation global variables
 in form of an object/json file
 
 WIP: class="vertical-menu"
@@ -87,7 +87,7 @@ var navigation = {
 };
 
 //----------------------------------------------------------------------------------
-
+// -- this is a recursive function to generate the menu, it can be improved
 function genMenu(strKey, nestinglevel) {
   var strTemp = "";
   var oChildren; //object containing children
@@ -112,6 +112,13 @@ function genMenu(strKey, nestinglevel) {
 
   return strTemp;
 }
+
+function genNavigation() {
+  document.getElementById("menu").innerHTML=genMenu("home",0); //add navigation
+  
+}
+
+
 //-----------------------------------------
 function tirets(n) {
   return "&nbsp;".repeat(2*n);

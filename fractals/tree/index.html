@@ -2,15 +2,19 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <script src="../../navigation/menu.js"></script>
     <script src="../fractals-library/controls.js"></script>
     <script src="../fractals-data/tree.data.js"></script>
-    <script src="interface.js"></script>
+    <script src="fractals.tree.functions.js"></script>
       </head>
 <body onload="init();">
-<table border="1">
+<table border="0">
   <tr>
     <td><canvas id="myCanvas" width="1000" height="700" style="border:1px solid"></canvas></td>
-    <td valign="top"><div id="dynamicSliders"></div></td>
+    <td valign="top">
+      <div id="dynamicSliders"></div>
+      <div id="menu" ></div>
+    </td>
   </tr>  
 </table>
 
@@ -36,6 +40,8 @@ var minBranch=0;
 //----------------------------------------------------------------------------------------
 //-------------------- INIT---------------------------
 function init(){
+
+    genNavigation(); //navigation menu
 
     ctx.shadowBlur = 5;
     ctx.shadowColor = "green";

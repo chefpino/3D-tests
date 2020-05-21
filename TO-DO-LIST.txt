@@ -34,3 +34,7 @@ fix positions of script withing the page, I hate having it after the body
 draw axis function, make more generic?
 
 another home page beside the default github one
+
+rotations complex plan, perhaps add points to add major WIP
+
+mouse coordinates on fractal canvases

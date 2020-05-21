@@ -5,22 +5,19 @@
     <script src="menu.js"></script>
     <script>
       function init(){
-        document.getElementById("menu").innerHTML=genMenu("home",0);
+        var msg = new SpeechSynthesisUtterance();
+        msg.text = "Hello World";
+        window.speechSynthesis.speak(msg);
       }
     </script>
 
 
   </head>
-  <body onload="init();">
+  <body>
     <table border="0">
       <tr>
         <td>
-          <canvas
-            id="myCanvas"
-            width="700"
-            height="700"
-            style="border: 1px solid;"
-          ></canvas>
+          <button onclick="init();">ciao</button>
         </td>
         <td valign="top"><div id="menu" ></div></td>
       </tr>

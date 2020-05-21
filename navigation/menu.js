@@ -80,7 +80,7 @@ var navigation = {
   complex: {
     id: "complex",
     link:
-      "../../plothmathfunctions/rotationscomplexplane.html",
+      "../../plotmathfunctions/rotationscomplexplane.html",
     label: "Rotations (WIP)",
     hasChildren: false,
   },
@@ -88,7 +88,7 @@ var navigation = {
 
 //----------------------------------------------------------------------------------
 // -- this is a recursive function to generate the menu, it can be improved
-function genMenu(strKey, nestinglevel) {
+function genMenu(strKey, nestinglevel, strCurrentPage) {
   var strTemp = "";
   var oChildren; //object containing children
   var strTempKey = "";
@@ -96,8 +96,15 @@ function genMenu(strKey, nestinglevel) {
   //temporary solution for display only, will improve later
 
   strTemp = '<a href="' + navigation[strKey].link + '">';
+
   strTemp += navigation[strKey].label; //label only
   strTemp += "</a>";
+
+  //hightlight if current page
+  if (strCurrentPage==strKey){
+    strTemp = "<b>" + strTemp + "</b>";
+  }
+
 
   if (navigation[strKey].hasChildren == true) {
     //if it has children list them here
@@ -106,15 +113,16 @@ function genMenu(strKey, nestinglevel) {
     for (const property in oChildren) {
       strTempKey = oChildren[property];
       strTemp +=
-        "<br>" + tirets(nestinglevel + 1) + genMenu(strTempKey, nestinglevel + 1); //used to be <BR>+
+        "<br>" + tirets(nestinglevel + 1) + genMenu(strTempKey, nestinglevel + 1,strCurrentPage); //used to be <BR>+
     }
   }
 
   return strTemp;
 }
 
-function genNavigation() {
-  document.getElementById("menu").innerHTML=genMenu("home",0); //add navigation
+function genNavigation(strCurrentPage) {
+  document.getElementById("menu").innerHTML=genMenu("home",0,strCurrentPage); //add navigation
+  document.title=navigation[strCurrentPage].label;
   
 }
 

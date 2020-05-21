@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <script src="../navigation/menu.js"></script>
     <script src="../fractals/fractals-library/controls.js"></script>
     <script src="data/3d-color.data.js"></script>
   </head>
@@ -17,8 +18,10 @@
             style="border: 1px solid;"
           ></canvas>
         </td>
-        <td valign="top"></td>
-        <td valign="top"><div id="dynamicSliders"></div></td>
+        <td valign="top">
+          <div id="dynamicSliders"></div>
+          <div id="menu" ></div>
+        </td>
       </tr>
     </table>
     <script>
@@ -42,6 +45,7 @@
 
       //------------------------------------------------------------------
       function init() {
+        genNavigation("threeD");
         generateControls();
         fileToParameters(); //initiate event listener for file uploader
         drawPavement(10);

@@ -100,7 +100,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   strTemp += navigation[strKey].label; //label only
   strTemp += "</a>";
 
-  //hightlight if current page
+  //highlight if current page
   if (strCurrentPage==strKey){
     strTemp = "<b>" + strTemp + "</b>";
   }

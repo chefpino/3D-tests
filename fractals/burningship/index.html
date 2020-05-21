@@ -14,12 +14,16 @@
             style="border: 1px solid;"
           ></canvas>
         </td>
-        <td valign="top"><div id="dynamicSliders"></div></td>
+        <td valign="top">
+          <div id="dynamicSliders"></div>
+          <div id="menu" ></div>
+        </td>
       </tr>
     </table>
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../fractals-data/burningship.data.js"></script>
     <script src="../fractals-library/controls.js"></script>
+    <script src="../../navigation/menu.js"></script>
     <script>
       //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
@@ -47,7 +51,8 @@ const cH=ctx.clientHeight;
       var dy = (y1 - y0) / grid;
 //---------------------------------------------------------------
 function init() {
-  generateControls();
+  genNavigation(); //navigation menu
+  generateControls(); // parameters panel
   fileToParameters(); //initiate event listener
   go();
   drawAxis();

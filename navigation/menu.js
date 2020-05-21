@@ -94,15 +94,16 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   var strTempKey = "";
 
   //temporary solution for display only, will improve later
-
-  strTemp = '<a href="' + navigation[strKey].link + '">';
-
   strTemp += navigation[strKey].label; //label only
-  strTemp += "</a>";
+  
+  //if it's a link add link tags
+  if (navigation[strKey].link!="#"){
+      strTemp = '<a href="' + navigation[strKey].link + '">' + strTemp + "</a>"
+  }
 
-  //highlight if current page
+  //highlight if current page (puts it in bold, but can be improved)
   if (strCurrentPage==strKey){
-    strTemp = "<b>" + strTemp + "</b>";
+      strTemp = "<b>" + strTemp + "</b>";
   }
 
 

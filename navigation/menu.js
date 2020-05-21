@@ -32,7 +32,7 @@ var navigation = {
   },
   mandelbrot: {
     id: "mandelbrot",
-    link: "https://chefpino.github.io/fun/fractals/mandelbrot/index.html",
+    link: "/fun/fractals/mandelbrot/index.html",
     label: "MANDELBROT",
     hasChildren: false,
   },
@@ -67,13 +67,13 @@ var navigation = {
   },
   twoD: {
     id: "twoD",
-    link: "https://chefpino.github.io/fun/plothmathfunctions/2d.html",
+    link: "https://chefpino.github.io/fun/plotmathfunctions/2d.html",
     label: "2D",
     hasChildren: false,
   },
   threeD: {
     id: "threeD",
-    link: "https://chefpino.github.io/fun/plothmathfunctions/index.html",
+    link: "https://chefpino.github.io/fun/plotmathfunctions/index.html",
     label: "3D",
     hasChildren: false,
   },

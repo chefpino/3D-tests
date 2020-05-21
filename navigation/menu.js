@@ -67,20 +67,20 @@ var navigation = {
   },
   twoD: {
     id: "twoD",
-    link: "../../plotmathfunctions/2d.html",
+    link: "../../plotmathfunctions/2d/index.html",
     label: "2D",
     hasChildren: false,
   },
   threeD: {
     id: "threeD",
-    link: "../../plotmathfunctions/index.html",
+    link: "../../plotmathfunctions/3d/index.html",
     label: "3D",
     hasChildren: false,
   },
   complex: {
     id: "complex",
     link:
-      "../../plotmathfunctions/rotationscomplexplane.html",
+      "../../plotmathfunctions/complexplane/index.html",
     label: "Rotations (WIP)",
     hasChildren: false,
   },

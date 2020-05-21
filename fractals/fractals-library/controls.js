@@ -54,7 +54,7 @@ function generateControls() {
     strHTML = strHTML + td(params[key].maxLabel);
     strHTML =
       strHTML +
-      td("<div id='val_" + key + "'><b>" + params[key].default + "</b></div>");
+      td("<div id='val_" + key + "'>" + params[key].default + "</div>");
     strHTML = strHTML + trc;
   }
   strHTML = strHTML + "<tr><td colspan=5>";

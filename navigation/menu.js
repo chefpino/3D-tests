@@ -32,7 +32,7 @@ var navigation = {
   },
   mandelbrot: {
     id: "mandelbrot",
-    link: "/fun/fractals/mandelbrot/index.html",
+    link: "../../fractals/mandelbrot/index.html",
     label: "MANDELBROT",
     hasChildren: false,
   },

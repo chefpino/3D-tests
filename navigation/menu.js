@@ -25,15 +25,22 @@ var navigation = {
     hasChildren: true,
     children: {
       item1: "mandelbrot",
-      item2: "burningship",
-      item3: "tree",
-      item4: "unitcircle",
+      item2: "julia",
+      item3: "burningship",
+      item4: "tree",
+      item5: "unitcircle",
     },
   },
   mandelbrot: {
     id: "mandelbrot",
     link: "../../fractals/mandelbrot/index.html",
     label: "MANDELBROT",
+    hasChildren: false,
+  },
+  julia: {
+    id: "julia",
+    link: "../../fractals/julia/index.html",
+    label: "JULIA (WIP)",
     hasChildren: false,
   },
   burningship: {

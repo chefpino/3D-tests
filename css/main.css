@@ -6,7 +6,7 @@ body {
   font-size: 12px;
   line-height: 30px;
   color: rgb(10, 10, 10);
-  background: rgba(36, 200, 250, 0.507);
+  /* background: rgba(247, 249, 250, 0.041); */
 }
 .vertical-menu {
   width: 200px; /* Set a width if you like */

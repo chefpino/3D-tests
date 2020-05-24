@@ -5,6 +5,7 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../fractals-data/mandelbrot.data.js"></script>
     <script src="../fractals-library/controls.js"></script>
+    <script src="../fractals-library/library.js"></script>
     <script src="../../navigation/menu.js"></script>
   </head>
   <body onload="init();">
@@ -155,12 +156,13 @@ const cH=ctx.clientHeight;
             itr = mandel(tz);
             if (itr < maxItr) {
               clr = 255 - 4 * Math.round((itr * 255) / maxItr);
-              plot(px(x), py(y), clr);
+            if (itr < maxItr) {
+              plot(px(x), py(y), getColor(itr));
             }
           }
         }
       }
-
+      }
       //__________________________________________________________________
       //__________________________________________________________________
 
@@ -173,14 +175,7 @@ const cH=ctx.clientHeight;
       }
      
       //--------------------------------------------
-      function plot(x, y, clr) {
-        //x,y are canvas coordinates
-        //var oppColor=255-clr;
-        ctx.beginPath();
-        ctx.fillStyle = "rgb(" + clr + "," + clr + "," + clr + ")";
-        ctx.fillRect(x, y, 1, 1);
-        ctx.fill();
-      }
+
       //-------------------------------------------
       function drawAxis() {
         ctx.strokeStyle = "#000000";
@@ -216,14 +211,6 @@ const cH=ctx.clientHeight;
           ctx.fillText(y1, cW / 2, 10);
         }
       }
-      /*
-  ctx.font = "30px Arial";
-  ctx.fillText("Hello World", 10, 50);
-  */
-
-      //-------------------------------------------
-
-      //init();
     </script>
   </body>
 </html>

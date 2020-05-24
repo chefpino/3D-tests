@@ -23,6 +23,7 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../fractals-data/burningship.data.js"></script>
     <script src="../fractals-library/controls.js"></script>
+    <script src="../fractals-library/library.js"></script>
     <script src="../../navigation/menu.js"></script>
     <script>
       //--- global PARAMETERS ------------------------------------------------------------------
@@ -96,7 +97,7 @@ function loadvaluesandgo() {
             itr = mandel(tz);
             if (itr < maxItr) {
               clr = 255 - 4 * Math.round((itr * 255) / maxItr);
-              plot(px(x), py(y), clr);
+              plot(px(x), py(y), getColor(itr));
             }
           }
         }
@@ -145,21 +146,7 @@ function loadvaluesandgo() {
         var x = new c(Math.abs(z.x), Math.abs(z.y));
         x = p(x, x);
         x = s(x, k1);
-        //range:
-        /*
-    const x0=1.5;
-    const x1=1.75;
-    const y0=0;
-    const y1=.1;
-    const grid=1400;
-    const maxItr=1000;
-    const uBound=4;
-*/
-        //---------------------------------------
 
-        //tz=p(tz,tz);
-        //tz=p(tz,tz);
-        //tz=s(tz,k);
 
         return x;
       }
@@ -178,14 +165,6 @@ function loadvaluesandgo() {
       }
       //--------------------------------------------
 
-      function plot(x, y, clr) {
-        //x,y are canvas coordinates
-        //var oppColor=255-clr;
-        ctx.beginPath();
-        ctx.fillStyle = "rgb(" + clr + "," + clr + "," + clr + ")";
-        ctx.fillRect(x, y, 1, 1);
-        ctx.fill();
-      }
       //-------------------------------------------
       function drawAxis() {
         ctx.strokeStyle = "#000000";
@@ -221,10 +200,6 @@ function loadvaluesandgo() {
           ctx.fillText(y1, cW / 2, 10);
         }
       }
-      /*
-  ctx.font = "30px Arial";
-  ctx.fillText("Hello World", 10, 50);
-  */
 
       //-------------------------------------------
 

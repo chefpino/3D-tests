@@ -58,7 +58,7 @@ var navigation = {
   unitcircle: {
     id: "unitcircle",
     link: "../../fractals/unitcircle/index.html",
-    label: "UNIT CIRCLE",
+    label: "UNIT CIRCLE (WIP)",
     hasChildren: false,
   },
   plotmathfunctions: {
@@ -75,13 +75,13 @@ var navigation = {
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "2D",
+    label: "2D (WIP)",
     hasChildren: false,
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "3D",
+    label: "3D (WIP)",
     hasChildren: false,
   },
   complex: {

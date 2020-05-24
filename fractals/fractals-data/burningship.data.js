@@ -53,11 +53,11 @@ var params = {
  "iterations":{
    "val":75,
    "min":50,
-   "max":100,
+   "max":450,
    "default":75,
    "label":"iterations",
    "minLabel":"75",
-   "maxLabel":"100",
+   "maxLabel":"450",
    "integer":true
    },
    "x0":{
@@ -105,9 +105,3 @@ var params = {
 }
 
 //----------------------------------------------------------------------------------
-
-
-
-
-
-

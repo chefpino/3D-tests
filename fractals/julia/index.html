@@ -5,6 +5,7 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../fractals-data/juliaset.data.js"></script>
     <script src="../fractals-library/controls.js"></script>
+    <script src="../fractals-library/library.js"></script>
     <script src="../../navigation/menu.js"></script>
   </head>
   <body onload="init();">
@@ -108,7 +109,7 @@ const cH=ctx.clientHeight;
         //var k=new c(0.355,0.355); // ***** WIP *************
         //c = 0.355534 - 0.337292i
         //var k=new c(0.3555534,0.337292);
-        var k=new c(0.34,-0.05);
+        var k=new c(params.cx.val,params.cy.val);
 
         for (let i = 0; i < grid; i++) {
           x = x + dx;
@@ -121,7 +122,7 @@ const cH=ctx.clientHeight;
             itr = julia(tz,k);
             if (itr < maxItr) {
               clr = 255 - 4 * Math.round((itr * 255) / maxItr);
-              plot(px(x), py(y), clr);
+              plot(px(x), py(y), getColor(itr));
             }
           }
         }
@@ -138,15 +139,6 @@ const cH=ctx.clientHeight;
         return cH - ((y - y0) * cH) / (y1 - y0);
       }
      
-      //--------------------------------------------
-      function plot(x, y, clr) {
-        //x,y are canvas coordinates
-        //var oppColor=255-clr;
-        ctx.beginPath();
-        ctx.fillStyle = "rgb(" + clr + "," + clr + "," + clr + ")";
-        ctx.fillRect(x, y, 1, 1);
-        ctx.fill();
-      }
       //-------------------------------------------
       function drawAxis() {
         ctx.strokeStyle = "#000000";
@@ -182,12 +174,7 @@ const cH=ctx.clientHeight;
           ctx.fillText(y1, cW / 2, 10);
         }
       }
-      /*
-  ctx.font = "30px Arial";
-  ctx.fillText("Hello World", 10, 50);
-  */
 
-      //-------------------------------------------
 
       //init();
     </script>

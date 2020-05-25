@@ -19,7 +19,20 @@ var buttons = {
     onclick: "enter function to execute",
   },
 };
-
+//--------------------------------------------------------------
+var dropdowns = {
+  dd1: {
+    id: "selectFunction",
+    ext_label: "function",
+    elements: [
+               {"val": "z2c","label":"classic: Zn+1=(Zn)^2+c"},
+               {"val": "hyp","label":"hyperbolic Zn+1=c*sin(Zn)"}
+              ],
+    selected: "z2c"      
+        },
+};
+//--------------------------------------------------------------
+//params is at the moment for the sliders only
 var params = {
   grid: {
     val: 1000,
@@ -39,11 +52,11 @@ var params = {
   upperbound: {
     val: 4,
     min: 2,
-    max: 4,
+    max: 50,
     default: 4,
     label: "upperbound",
     minLabel: "2",
-    maxLabel: "4",
+    maxLabel: "50",
     integer: false,
   },
   iterations: {
@@ -58,43 +71,43 @@ var params = {
   },
   x0: {
     val: -2,
-    min: -2,
-    max: 1,
+    min: -4,
+    max: 4,
     default: -2,
     label: "x0",
-    minLabel: "-2",
-    maxLabel: "2",
+    minLabel: "-4",
+    maxLabel: "4",
     integer: false,
   },
   x1: {
     val: 2,
     min: 1,
-    max: 2,
+    max: 4,
     default: 2,
     label: "x1",
     minLabel: "1",
-    maxLabel: "2",
+    maxLabel: "4",
     integer: false,
   },
 
   y0: {
     val: -1.4,
-    min: -2,
-    max: 1,
+    min: -4,
+    max: 0,
     default: -1.4,
     label: "y0",
-    minLabel: "-2",
-    maxLabel: "1",
+    minLabel: "-4",
+    maxLabel: "0",
     integer: false,
   },
   y1: {
     val: 1.4,
     min: 0,
-    max: 2,
+    max: 4,
     default: 1.4,
     label: "y1",
     minLabel: "0",
-    maxLabel: "2",
+    maxLabel: "4",
     integer: false
   },
   cx: {
@@ -118,5 +131,7 @@ var params = {
     integer: false
   }
 };
+
+
 
 //----------------------------------------------------------------------------------

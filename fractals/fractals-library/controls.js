@@ -18,7 +18,7 @@
  * 
  * this library is used also outside of the fractals folder
  */
-//----------------------------------------------------------------------------------
+//---- Generates Sliders Only -------------------------------------------------
 function generateControls() {
   const strFilename = "'parameters.txt'"; //name of the file containing parameters to save
 
@@ -54,7 +54,7 @@ function generateControls() {
     strHTML = strHTML + td(params[key].maxLabel);
     strHTML =
       strHTML +
-      td("<div id='val_" + key + "'>" + params[key].default + "</div>");
+      td(`<div id="val_${key}">${params[key].default}</div>`);
     strHTML = strHTML + trc;
   }
   strHTML = strHTML + "<tr><td colspan=5>";
@@ -192,3 +192,31 @@ function readJSONfile(tempReader) {
 function td(x) {
   return "<td style='border: 1px solid black;'>" + x + "</td>";
 }
+//===========================================================================
+// section dedicated to dropdown menus. it relies on the object/json
+// dropdowns (data files ex. /fractals/fractals-data/juliaset.data.js)
+
+function generateDropdown(ddID) {
+  var oElems = dropdowns[ddID].elements;
+  var strSelected = dropdowns[ddID].selected;
+  console.log(strSelected);
+  var strTemp = `<select id="${ddID}" name="${ddID}">`;
+
+  for (const property in oElems) {
+    strTemp += `<option value="${oElems[property].val}" `;
+    strTemp += oElems[property].val == strSelected ? "selected" : "";
+    strTemp += ">";
+    strTemp += oElems[property].label + "</option>";
+  }
+  strTemp += "</select>";     
+
+  return strTemp;
+}
+//-------------------------------------------------
+function getDropDownSelectedValue(strID){
+  var e = document.getElementById(strID);
+  return e.options[e.selectedIndex].value;
+}
+
+
+

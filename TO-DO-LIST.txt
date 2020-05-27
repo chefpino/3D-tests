@@ -2,27 +2,20 @@ TO DO LIST
 
 json to menu: add active element css class?
 
-idea: flag parameters that have to be dynamic and saved by user should be flagged
-and the saved and loaded via JSON text file saved locally - almost useless
-
 wip: 3d-color wip page. think about having several
 functions and see if they can be saved in the params
 also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
-
-add parameters library to tree-enhanced fractal
-almost done, check after loading file why doen't trigger a redraw
 
 
 fix default parameters of burning ship fractals
 
 fix PI in tree parameters
 
-show function in fractals ex. Zn+1=(Zn)^2+C etc
 
 some sort of zoom function for the fractals
 
-Julia set 
+color on/off - different coloring system log vs linear etc
 
 description of each page
 

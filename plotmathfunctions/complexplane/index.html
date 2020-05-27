@@ -1,164 +1,223 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+  </head>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td>
+          <canvas
+            id="myCanvas"
+            width="700"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+        <td valign="top">
+          <div id="dynamicSliders"></div>
+          <div id="menu"></div>
+          <button onclick="rotateButton();">rotate WIP</button>
+        </td>
+      </tr>
+    </table>
 
-<body onload="init();">  
-    <canvas id="myCanvas" width="1400" height="700" style="border:1px solid">
-      Your browser does not support the HTML5 canvas tag.</canvas>  
+    <script>
+      "use strict";
 
-<script>
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+
+      const cW = 700; //ctx.clientWidth;
+      const cH = 700; //ctx.clientHeight;
+      /*/
+      const cW=ctx.clientWidth;
+      const cH=ctx.clientHeight;
+      */
+      // -- range
+      const x0 = -1.1;
+      const x1 = 1.1;
+      const y0 = -1.1;
+      const y1 = 1.1;
 
 
-//--- global PARAMETERS ------------------------------------------------------------------  
-const myCanvas = document.getElementById("myCanvas");
-const ctx = myCanvas.getContext("2d"); 
+      var arrPoints = new Array(); //array of complex numbers
+      var rotationVector = new c(0, 0);
 
-const cW=1400; //ctx.clientWidth;
-const cH=700;  //ctx.clientHeight;
-/*/
-const cW=ctx.clientWidth;
-const cH=ctx.clientHeight;
-*/
-// -- range
-const x0=-6;
-const x1=6;
-const y0=-3;
-const y1=3;
-
-const π=Math.PI;
-
-//--- obj complex number
-function c(x,y) {
-  return {
-          x: x,
-          y: y          
+      function getMousePos(evt) {
+        var rect = myCanvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top,
+        };
+      }
+      //---
+      function writeMessage(message) {
+        ctx.clearRect(0, 0, cW, 30);
+        ctx.font = "18pt Calibri";
+        ctx.fillStyle = "black";
+        ctx.fillText(message, 10, 25);
+      }
+      //........... debug only ..................................
+      function writePoints(arrPoints) {
+        var strTemp = "";
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          strTemp += index + ": " + element.x + " + i" + element.y + "<br>";
         }
-} 
-
-    // -- product of a+ib, c+id ---
-    function p(c1,c2) {
-      return {
-          x: c1.x*c2.x - c1.y*c2.y,
-          y: c1.x*c2.y + c1.y*c2.x         
+        document.getElementById("menu").innerHTML = strTemp;
+      }
+      //..........................................................
+      function plotArray(a,strColor) {
+        for (let index = 0; index < a.length; index++) {
+          const element = a[index];
+          if (index > 0) {
+            drawSegment(a[index], a[index - 1], strColor);
+          }
         }
-    }
-   // -- sum of a+ib, c+id ---
-    function s(c1,c2) {
-      return {
-          x: c1.x + c2.x,
-          y: c2.y + c2.y          
+      }
+      //..........................................................
+      function calcRotation(tempC) {
+        //tempC=new r(.75,π/4); //rotation temp;
+
+        var arrNewPoints = arrPoints; //arrays of complex numbers
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          arrNewPoints[index] = p(arrPoints[index], tempC); // rotation
         }
-    }
-   // -- module, θ --
-   function m(c) {
-      return { 
-          z: Math.sqrt(c.x*c.x+c.y*c.y),
-          θ: Math.atan(c.y/c.x)
-       }
-   }   
-  // -- rotations θ
-  // input module and angle, returns couple x, y => (x+iy)
-    function r(z,θ){
-            return {
-          x: z*Math.cos(θ),
-          y: z*Math.sin(θ)          
-        }
-    }
-  //__________________________________________________________
-
-
-  //--- this functions remap the canvas. The origin is the middle point of the rect. 
-  // x E (-6,6), y E (-3,3)
-  function px(x){
-    return cW/2+(x*1400/(x1-x0));
-  }
-  function py(y){
-    return cH/2-(y*700/(y1-y0));
-  }
-
-   // -- draw complex number from origin
-
-     function draw(c) {
-
-      ctx.beginPath(); 
-      ctx.lineWidth="0.5";
-      ctx.moveTo(px(0),py(0));
-      ctx.lineTo(px(c.x),py(c.y));
-      ctx.stroke();
-
-      //tip
-      plot(px(c.x),py(c.y));      
-   } 
-  //----------------------------------------------
-   function drawSegment(c1,c2) {
-     
-    ctx.beginPath(); 
-      ctx.lineWidth="0.5";
-      ctx.moveTo(px(c1.x),py(c1.y));
-      ctx.lineTo(px(c2.x),py(c2.y));
-      ctx.stroke();
-   }
-//----------------------------------------------
-
-  function init() {
-
-    drawAxis();
+        return arrNewPoints;
+      }
       
-    var c0=new c(0,0);
-    var c1=new c(1,-2);
-    var c2=new c(2,0);
-    var c3=new c(1,2);
+      function clearAndPlot() {
+            ctx.clearRect(0, 0, cW, cH); //clear canvas                       /*
+            drawAxis();
+            //draw polygon
+            plotArray(arrPoints,"#000000");
+            //draw rotator vector
+            var or = new c(0, 0);
+            drawSegment(or,rotationVector, "#00FF00");
+
+      }
+//----------------------------------------------------------------------
+      function rotateButton() {
+
+        document.getElementById("menu").innerHTML=rotationVector.x + " + i" + rotationVector.y;
+        //draw rotated polygon        
+        plotArray(calcRotation(rotationVector) ,"#0000FF");
+        arrPoints=calcRotation(rotationVector);
     
-    drawSegment(c0,c2);
-    drawSegment(c1,c3);
-    drawSegment(c0,c1);
-    drawSegment(c1,c2);
-    drawSegment(c2,c3);
-    drawSegment(c3,c0);
-
-    var vr=new r(1,π/4); //rotazione
-
-    c1=p(c1,vr);
-    c2=p(c2,vr);
-    c3=p(c3,vr); 
-
-    drawSegment(c0,c2);
-    drawSegment(c1,c3);
-    drawSegment(c0,c1);
-    drawSegment(c1,c2);
-    drawSegment(c2,c3);
-    drawSegment(c3,c0);
-
-   }
-    
-function plot(x,y) {
-  //x,y are canvas coordinates
-  ctx.beginPath();
-  ctx.fillStyle = "red";
-  ctx.arc(x,y,2,0,2*π) //.arc(x,y,2,1);
-  ctx.fill();
-}
-//-------------------------------------------
-function drawAxis() {  
-  ctx.strokeStyle = "#000000"; 
-  ctx.lineWidth="0.2";
-  ctx.moveTo(px(x0),py(0));
-  ctx.lineTo(px(x1),py(0));
-  ctx.stroke();
-  ctx.moveTo(px(0),py(y0));
-  ctx.lineTo(px(0),py(y1));
-  ctx.stroke();  
-};
-//-------------------------------------------
+        //clearAndPlot();
+        
+      }
 
 
+      //***********************************************************
+      function init() {
 
+        /* ctx.clearRect(0, 0, cW, cH); //clear canvas */
+        drawAxis();
 
+        //--- mouse coordinates event listener
+        myCanvas.addEventListener(
+          "mousemove",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var message = m2x(mousePos.x) + "," + m2y(mousePos.y);
+            writeMessage(message);
+          },
+          false
+        );
 
+        //--- mouse click event listener
+        myCanvas.addEventListener(
+          "click",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC = new c(m2x(mousePos.x), m2y(mousePos.y));
+            arrPoints.push(tempC);
+            if (arrPoints.length > 1) {
+              drawSegment(tempC, arrPoints[arrPoints.length - 2], "#000000");
+            }
+          },
+          false
+        );
 
+        myCanvas.addEventListener(
+          "dblclick",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            rotationVector.x = m2x(mousePos.x);
+            rotationVector.y = m2y(mousePos.y);
+            arrPoints.pop(); //remove last element added by last click
+            arrPoints.pop(); //remove last element added by last click
+            clearAndPlot();
+          },
+          false
+        );
+      }
+      //***********************************************************
+      function plot(x, y) {
+        //x,y are canvas coordinates
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.arc(x, y, 2, 0, 2 * π); //.arc(x,y,2,1);
+        ctx.fill();
+      }
+      //-------------------------------------------
+      function drawAxis() {
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = "0.2";
+        ctx.moveTo(px(x0), py(0));
+        ctx.lineTo(px(x1), py(0));
+        ctx.stroke();
+        ctx.moveTo(px(0), py(y0));
+        ctx.lineTo(px(0), py(y1));
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(px(0), py(0), 318, 0, 2 * Math.PI); //.arc(x,y,2,1);
+        ctx.stroke();
+      }
+      //-------------------------------------------
 
+      //--- this functions remap the canvas. The origin is the middle point of the rect.
+      // x E (-3,3), y E (-3,3)
+      function px(x) {
+        return cW / 2 + (x * cW) / (x1 - x0);
+      }
+      function py(y) {
+        return cH / 2 - (y * cH) / (y1 - y0);
+      }
 
-</script>
-</body> 
+      //for the mouse coordinates translated in point on the complex plane
+      function m2x(x) {
+        return ((x - cW / 2) * (x1 - x0)) / cW;
+      }
+      function m2y(y) {
+        return ((cH / 2 - y) * (y1 - y0)) / cH;
+      } // -- draw complex number from origin
 
+      function draw(c) {
+        ctx.beginPath();
+        ctx.lineWidth = "0.5";
+        ctx.moveTo(px(0), py(0));
+        ctx.lineTo(px(c.x), py(c.y));
+        ctx.stroke();
 
+        //tip
+        plot(px(c.x), py(c.y));
+      }
+      //----------------------------------------------
+      function drawSegment(c1, c2, strColor) {
+        ctx.beginPath();
+        ctx.lineWidth = "0.5";
+        ctx.strokeStyle = strColor;
+        ctx.moveTo(px(c1.x), py(c1.y));
+        ctx.lineTo(px(c2.x), py(c2.y));
+        ctx.stroke();
+      }
+      //----------------------------------------------
+    </script>
+  </body>
 </html>

@@ -13,6 +13,7 @@ add save params?
 description of how to use the page
 limits >1, < 1px
 circles coordinates
+change hardcoded unit circle radius
 
 fix default parameters of burning ship fractals
 

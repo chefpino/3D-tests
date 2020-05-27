@@ -18,7 +18,7 @@
         </td>
         <td valign="top">
           <div id="dynamicSliders"></div>
-          <div id="vector">v: </div>
+          <div id="vector">v:</div>
           <button onclick="rotateButton();">rotate WIP</button>
           <div id="menu"></div>
         </td>
@@ -43,7 +43,6 @@
       const x1 = 1.1;
       const y0 = -1.1;
       const y1 = 1.1;
-
 
       var arrPoints = new Array(); //array of complex numbers
       var rotationVector = new c(0, 0);
@@ -72,7 +71,7 @@
         document.getElementById("vector").innerHTML = strTemp;
       }
       //..........................................................
-      function plotArray(a,strColor) {
+      function plotArray(a, strColor) {
         for (let index = 0; index < a.length; index++) {
           const element = a[index];
           if (index > 0) {
@@ -91,43 +90,32 @@
         }
         return arrNewPoints;
       }
-      
+
       function clearAndPlot() {
-            ctx.clearRect(0, 0, cW, cH); //clear canvas                       /*
-            drawAxis();
-            //draw polygon
-            plotArray(arrPoints,"#000000");
-            //draw rotator vector
-            var or = new c(0, 0);
-            drawSegment(or,rotationVector, "#00FF00");
-
+        ctx.clearRect(0, 0, cW, cH); //clear canvas                       /*
+        drawAxis();
+        //draw polygon
+        plotArray(arrPoints, "#000000");
+        //draw rotator vector
+        var or = new c(0, 0);
+        drawSegment(or, rotationVector, "#00FF00");
       }
-//----------------------------------------------------------------------
+      //----------------------------------------------------------------------
       function rotateButton() {
+        //draw rotated polygon
+        plotArray(calcRotation(rotationVector), "#0000FF");
+        arrPoints = calcRotation(rotationVector);
 
-        //draw rotated polygon        
-        plotArray(calcRotation(rotationVector) ,"#0000FF");
-        arrPoints=calcRotation(rotationVector);
-    
         //clearAndPlot();
-        
       }
-//----------------------------------------------------------------------
-function vectorDetails(v) {
-
-  var strTemp="v: (" + v.x + " + i" + v.y + ")<br>" + 
-              "mod: " + m(v).z + " rad: " + m(v).theta;
-      
-      return strTemp;        
-
-  
-}
+      //----------------------------------------------------------------------
+      function vectorDetails(v) {
+        return `v: (${v.x} + i${v.y})<br>mod: ${m(v).z} rad: ${m(v).theta}`
+      }
 
       //***********************************************************
       function init() {
-
         genNavigation("complex");
-
 
         /* ctx.clearRect(0, 0, cW, cH); //clear canvas */
         drawAxis();
@@ -163,7 +151,9 @@ function vectorDetails(v) {
             var mousePos = getMousePos(evt);
             rotationVector.x = m2x(mousePos.x);
             rotationVector.y = m2y(mousePos.y);
-            document.getElementById("vector").innerHTML=vectorDetails(rotationVector);
+            document.getElementById("vector").innerHTML = vectorDetails(
+              rotationVector
+            );
             arrPoints.pop(); //remove last element added by last click
             arrPoints.pop(); //remove last element added by last click
             clearAndPlot();
@@ -176,7 +166,7 @@ function vectorDetails(v) {
         //x,y are canvas coordinates
         ctx.beginPath();
         ctx.fillStyle = "red";
-        ctx.arc(x, y, 2, 0, 2 * π); //.arc(x,y,2,1);
+        ctx.arc(x, y, 2, 0, 2 * Math.PI); //.arc(x,y,2,1);
         ctx.fill();
       }
       //-------------------------------------------
@@ -190,7 +180,7 @@ function vectorDetails(v) {
         ctx.lineTo(px(0), py(y1));
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(px(0), py(0), 318, 0, 2 * Math.PI); //.arc(x,y,2,1);
+        ctx.arc(px(0), py(0), 318, 0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
         ctx.stroke();
       }
       //-------------------------------------------

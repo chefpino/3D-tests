@@ -7,6 +7,12 @@ functions and see if they can be saved in the params
 also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
 
+complex plane: make repetitions automatic
+add menu
+add save params?
+description of how to use the page
+limits >1, < 1px
+circles coordinates
 
 fix default parameters of burning ship fractals
 

@@ -14,6 +14,7 @@ description of how to use the page
 limits >1, < 1px
 circles coordinates
 change hardcoded unit circle radius
+check THETA function
 
 fix default parameters of burning ship fractals
 

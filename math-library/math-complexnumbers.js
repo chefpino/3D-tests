@@ -27,7 +27,7 @@ function c(x,y) {
    function m(c) {
       return { 
           z: Math.sqrt(c.x*c.x+c.y*c.y),
-          theta: Math.atan(c.y/c.x)
+          theta: Math.atan(c.y/c.x) + ( (c.x>0)?0:Math.PI ) 
        }
    }  
 //______________________________________________________

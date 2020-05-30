@@ -4,6 +4,7 @@
     <script src="../../navigation/menu.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="graphicfunctions.js"></script>
   </head>
   <body onload="init();">
     <table border="0">
@@ -57,7 +58,7 @@
       //---
       function writeMessage(message) {
         ctx.clearRect(0, 0, cW, 30);
-        ctx.font = "18pt Calibri";
+        ctx.font = "12pt Calibri";
         ctx.fillStyle = "black";
         ctx.fillText(message, 10, 25);
       }
@@ -110,7 +111,7 @@
       }
       //----------------------------------------------------------------------
       function vectorDetails(v) {
-        return `v: (${v.x} + i${v.y})<br>mod: ${m(v).z} rad: ${m(v).theta}`
+        return `|z|=${m(v).z}  a=${v.x}  b=${v.y}`;
       }
 
       //***********************************************************
@@ -125,7 +126,8 @@
           "mousemove",
           function (evt) {
             var mousePos = getMousePos(evt);
-            var message = m2x(mousePos.x) + "," + m2y(mousePos.y);
+            var tempC=new c(m2x(mousePos.x),m2y(mousePos.y));
+            var message = `|z|=${m(tempC).z}  a=${tempC.x}  b=${tempC.y}`;
             writeMessage(message);
           },
           false
@@ -161,29 +163,6 @@
           false
         );
       }
-      //***********************************************************
-      function plot(x, y) {
-        //x,y are canvas coordinates
-        ctx.beginPath();
-        ctx.fillStyle = "red";
-        ctx.arc(x, y, 2, 0, 2 * Math.PI); //.arc(x,y,2,1);
-        ctx.fill();
-      }
-      //-------------------------------------------
-      function drawAxis() {
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = "0.2";
-        ctx.moveTo(px(x0), py(0));
-        ctx.lineTo(px(x1), py(0));
-        ctx.stroke();
-        ctx.moveTo(px(0), py(y0));
-        ctx.lineTo(px(0), py(y1));
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(px(0), py(0), 318, 0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
-        ctx.stroke();
-      }
-      //-------------------------------------------
 
       //--- this functions remap the canvas. The origin is the middle point of the rect.
       // x E (-3,3), y E (-3,3)
@@ -200,27 +179,8 @@
       }
       function m2y(y) {
         return ((cH / 2 - y) * (y1 - y0)) / cH;
-      } // -- draw complex number from origin
+      } 
 
-      function draw(c) {
-        ctx.beginPath();
-        ctx.lineWidth = "0.5";
-        ctx.moveTo(px(0), py(0));
-        ctx.lineTo(px(c.x), py(c.y));
-        ctx.stroke();
-
-        //tip
-        plot(px(c.x), py(c.y));
-      }
-      //----------------------------------------------
-      function drawSegment(c1, c2, strColor) {
-        ctx.beginPath();
-        ctx.lineWidth = "0.5";
-        ctx.strokeStyle = strColor;
-        ctx.moveTo(px(c1.x), py(c1.y));
-        ctx.lineTo(px(c2.x), py(c2.y));
-        ctx.stroke();
-      }
       //----------------------------------------------
     </script>
   </body>

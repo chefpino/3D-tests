@@ -19,7 +19,7 @@ class ReMap {
   }
   y(y) {
     return (
-      (this.fixedOrigin ? this.cH / 2 : 0) + (y * this.cH) / (this.y1 - this.y0)
+      (this.fixedOrigin ? this.cH / 2 : 0) - (y * this.cH) / (this.y1 - this.y0)
     );
   }
 
@@ -40,14 +40,40 @@ class ReMap {
   }
 
   drawAxis() {
+    //this needs major improvements that makes it flexible for
+    //origin showing or not, plus writing coordinates on edges of canvas true/false
+
     this._objCanvas.strokeStyle = "#000000";
     this._objCanvas.lineWidth = "0.2";
-    this._objCanvas.moveTo(this.x(x0), this.y(0));
-    this._objCanvas.lineTo(this.x(x1), this.y(0));
-    this._objCanvas.stroke();
-    this._objCanvas.moveTo(this.x(0), this.y(y0));
-    this._objCanvas.lineTo(this.x(0), this.y(y1));
-    this._objCanvas.stroke();
+        //--- x axis -------------------------
+        if (this.y(0) >= 0 && this.y(0) <= this.cH) {
+          this._objCanvas.moveTo(this.x(this.x0), this.y(0));
+          this._objCanvas.lineTo(this.x(this.x1), this.y(0));
+          this._objCanvas.stroke();
+          //writing can be made optional
+          this._objCanvas.fillText(this.x0, 5, this.y(0));
+          this._objCanvas.fillText(this.x1, this.cW - 20, this.y(0));
+        }
+        // if axis is out of the canvas just write the x range
+        if (this.y(0) < 0 || this.y(0) > cH) {
+          this._objCanvas.fillText(this.x0, 5, this.cH / 2);
+          this._objCanvas.fillText(this.x1, this.cW - 20, this.cH / 2);
+        }
+
+        //--- y axis -------------------------
+        if (this.x(0) >= 0 && this.x(0) <= this.cW) {
+          this._objCanvas.moveTo(this.x(0), this.y(y0));
+          this._objCanvas.lineTo(this.x(0), this.y(y1));
+          this._objCanvas.stroke();
+          this._objCanvas.fillText(this.y0, this.x(0), this.cH - 5);
+          this._objCanvas.fillText(this.y1, this.x(0), 10);
+        }
+        // if axis is out of the canvas just write the y range
+        if (this.x(0) < 0 || this.x(0) > this.cW) {
+          this._objCanvas.fillText(this.y0, this.cW / 2, this.cH - 5);
+          this._objCanvas.fillText(this.y1, this.cW / 2, 10);
+        }
+    
     this._objCanvas.beginPath();
     this._objCanvas.arc(this.x(0), this.y(0), 318, 0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
     this._objCanvas.stroke();
@@ -61,35 +87,14 @@ class ReMap {
     this._objCanvas.lineTo(this.x(c2.x), this.y(c2.y));
     this._objCanvas.stroke();
   }
-  //-----------------------------------------------------------------------------------
-  // properties
+
+
+  // properties --------------------------------------
   //--- pass canvas ctx object
-  /**
-   * @param {any} obj
-   */
   set objCanvas(obj) {
     this._objCanvas = obj;
   }
   //-------------------------
-}
 
-//***********************************************************
-function plot(x, y) {
-  //x,y are canvas coordinates
-  ctx.beginPath();
-  ctx.fillStyle = "red";
-  ctx.arc(x, y, 2, 0, 2 * Math.PI); //.arc(x,y,2,1);
-  ctx.fill();
-}
-//-------------------------------------------
-function draw(c) {
-  ctx.beginPath();
-  ctx.lineWidth = "0.5";
-  ctx.moveTo(px(0), py(0));
-  ctx.lineTo(px(c.x), py(c.y));
-  ctx.stroke();
+} //--- end of class definition ---
 
-  //tip
-  plot(px(c.x), py(c.y));
-}
-//----------------------------------------------

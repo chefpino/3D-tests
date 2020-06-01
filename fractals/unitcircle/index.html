@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../fractals-library/controls.js"></script>
     <script src="../fractals-data/unit.circle.data.js"></script>
     <script src="../../navigation/menu.js"></script>
@@ -14,7 +15,7 @@
         <td>
           <canvas
             id="myCanvas"
-            width="1000"
+            width="700"
             height="700"
             style="border: 1px solid;"
           ></canvas>
@@ -30,19 +31,25 @@
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
 
-      const cW = 1000; //ctx.clientWidth;
+      const cW = 700; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;
       /*/
 const cW=ctx.clientWidth;
 const cH=ctx.clientHeight;
 */
       // -- range
-      const x0 = -2.8;
-      const x1 = 2.8;
-      const y0 = -2;
-      const y1 = 2;
+      const x0 = -1.1;
+      const x1 = 1.1;
+      const y0 = -1.1;
+      const y1 = 1.1;
 
       const π = Math.PI;
+
+      const fixedOrigin=false;
+
+      var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
+          reMap.objCanvas=ctx;
+      
 
       var points = params.points.val;
 
@@ -59,7 +66,7 @@ const cH=ctx.clientHeight;
         //go! button
         points = params.points.val;        
         unitCircle();
-        drawAxis();
+        reMap.drawAxis();
       }
 
       //_______________________________________________________________________________________
@@ -78,62 +85,12 @@ const cH=ctx.clientHeight;
         for (let index = 0; index <= iSteps; index++) {
           c1.x = r(1, dStep * (index + 1)).x;
           c1.y = r(1, dStep * (index + 1)).y;
-
-          //c2=s(p(c1,c1),c3);
           c2 = p(c1, c1);
-          drawSegment(c1, c2);
+          reMap.drawSegment(c1, c2);
         }
       }
 
-      //--- this functions remap the canvas. The origin is the middle point of the rect.
-      //
-      function px(x) {
-        return cW / 2 + (x * cW) / (x1 - x0);
-      }
-      function py(y) {
-        return cH / 2 - (y * cH) / (y1 - y0);
-      }
 
-      // -- draw complex number from origin
-
-      function draw(c) {
-        ctx.beginPath();
-        ctx.lineWidth = "0.5";
-        ctx.moveTo(px(0), py(0));
-        ctx.lineTo(px(c.x), py(c.y));
-        ctx.stroke();
-
-        //tip
-        plot(px(c.x), py(c.y));
-      }
-      //----------------------------------------------
-      function drawSegment(c1, c2) {
-        ctx.beginPath();
-        ctx.lineWidth = "0.5";
-        ctx.moveTo(px(c1.x), py(c1.y));
-        ctx.lineTo(px(c2.x), py(c2.y));
-        ctx.stroke();
-      }
-      //----------------------------------------------
-
-      function plot(x, y) {
-        //x,y are canvas coordinates
-        ctx.beginPath();
-        ctx.fillStyle = "red";
-        ctx.arc(x, y, 2, 0, 2 * π); //.arc(x,y,2,1);
-        ctx.fill();
-      }
-      //-------------------------------------------
-      function drawAxis() {
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = "0.2";
-        ctx.moveTo(px(x0), py(0));
-        ctx.lineTo(px(x1), py(0));
-        ctx.stroke();
-        ctx.moveTo(px(0), py(y0));
-        ctx.lineTo(px(0), py(y1));
-        ctx.stroke();
-      }
       //-------------------------------------------
     </script>
   </body>

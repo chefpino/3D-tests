@@ -31,7 +31,7 @@ mouse coordinates on fractal canvases
   fix PI in tree parameters
 
 
-
+clean mandelbrot code, useless functions for other fractals
 
 GENERIC
 description of each page

@@ -14,13 +14,13 @@ class ReMap {
   //convert x+iy complex number into canvas coordinates
   x(x) {
     return (
-      (this.fixedOrigin ? this.cW / 2 : 0) + (x * this.cW) / (this.x1 - this.x0)
-    );
+      (this.fixedOrigin ? this.cW/2+x*this.cW/(this.x1-this.x0):(x-this.x0)*cW/(this.x1-this.x0))  
+    )
   }
   y(y) {
     return (
-      (this.fixedOrigin ? this.cH / 2 : 0) - (y * this.cH) / (this.y1 - this.y0)
-    );
+      (this.fixedOrigin ? this.cH/2-y*this.cH/(this.y1-this.y0):this.cH-(y-this.y0)*this.cH/(this.y1-this.y0))
+    )
   }
 
   //mouse coordinates translated in point x+iy of the complex plane
@@ -45,6 +45,7 @@ class ReMap {
 
     this._objCanvas.strokeStyle = "#000000";
     this._objCanvas.lineWidth = "0.2";
+    this._objCanvas.fillStyle = "black";
         //--- x axis -------------------------
         if (this.y(0) >= 0 && this.y(0) <= this.cH) {
           this._objCanvas.moveTo(this.x(this.x0), this.y(0));
@@ -75,7 +76,7 @@ class ReMap {
         }
     
     this._objCanvas.beginPath();
-    this._objCanvas.arc(this.x(0), this.y(0), 318, 0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
+    this._objCanvas.arc(this.x(0), this.y(0), this.cW/(this.x1-this.x0), 0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
     this._objCanvas.stroke();
   }
 

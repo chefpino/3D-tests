@@ -19,8 +19,9 @@
         </td>
         <td valign="top">
           <div id="dynamicSliders"></div>
-          <div id="vector">v:</div>
-          <button onclick="rotateButton();">rotate WIP</button>
+          <div id="vector"> </div>
+          <button onclick="rotateButton();">rotate (WIP)</button>
+          <button ">auto rotate (WIP)</button>
           <div id="menu"></div>
         </td>
       </tr>
@@ -44,11 +45,16 @@
       const x1 = 1.1;
       const y0 = -1.1;
       const y1 = 1.1;
+      const fixedOrigin=true;
+
+      var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
+          reMap.objCanvas=ctx;
 
       var arrPoints = new Array(); //array of complex numbers
       var rotationVector = new c(0, 0);
-
-      function getMousePos(evt) {
+     //---------------------------------------------------------------------------------
+     
+     function getMousePos(evt) {
         var rect = myCanvas.getBoundingClientRect();
         return {
           x: evt.clientX - rect.left,
@@ -76,7 +82,7 @@
         for (let index = 0; index < a.length; index++) {
           const element = a[index];
           if (index > 0) {
-            drawSegment(a[index], a[index - 1], strColor);
+            reMap.drawSegment(a[index], a[index - 1], strColor);
           }
         }
       }
@@ -94,12 +100,12 @@
 
       function clearAndPlot() {
         ctx.clearRect(0, 0, cW, cH); //clear canvas                       /*
-        drawAxis();
+        reMap.drawAxis();
         //draw polygon
         plotArray(arrPoints, "#000000");
         //draw rotator vector
         var or = new c(0, 0);
-        drawSegment(or, rotationVector, "#00FF00");
+        reMap.drawSegment(or, rotationVector, "#00FF00");
       }
       //----------------------------------------------------------------------
       function rotateButton() {
@@ -116,17 +122,20 @@
 
       //***********************************************************
       function init() {
+
+
+        
         genNavigation("complex");
 
         /* ctx.clearRect(0, 0, cW, cH); //clear canvas */
-        drawAxis();
+        reMap.drawAxis();
 
         //--- mouse coordinates event listener
         myCanvas.addEventListener(
           "mousemove",
           function (evt) {
             var mousePos = getMousePos(evt);
-            var tempC=new c(m2x(mousePos.x),m2y(mousePos.y));
+            var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
             var message = `|z|=${m(tempC).z}  a=${tempC.x}  b=${tempC.y}`;
             writeMessage(message);
           },
@@ -138,10 +147,10 @@
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
-            var tempC = new c(m2x(mousePos.x), m2y(mousePos.y));
+            var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
             arrPoints.push(tempC);
             if (arrPoints.length > 1) {
-              drawSegment(tempC, arrPoints[arrPoints.length - 2], "#000000");
+              reMap.drawSegment(tempC, arrPoints[arrPoints.length - 2], "#000000");
             }
           },
           false
@@ -151,8 +160,8 @@
           "dblclick",
           function (evt) {
             var mousePos = getMousePos(evt);
-            rotationVector.x = m2x(mousePos.x);
-            rotationVector.y = m2y(mousePos.y);
+            rotationVector.x = reMap.m2x(mousePos.x);
+            rotationVector.y = reMap.m2y(mousePos.y);
             document.getElementById("vector").innerHTML = vectorDetails(
               rotationVector
             );
@@ -164,22 +173,7 @@
         );
       }
 
-      //--- this functions remap the canvas. The origin is the middle point of the rect.
-      // x E (-3,3), y E (-3,3)
-      function px(x) {
-        return cW / 2 + (x * cW) / (x1 - x0);
-      }
-      function py(y) {
-        return cH / 2 - (y * cH) / (y1 - y0);
-      }
 
-      //for the mouse coordinates translated in point on the complex plane
-      function m2x(x) {
-        return ((x - cW / 2) * (x1 - x0)) / cW;
-      }
-      function m2y(y) {
-        return ((cH / 2 - y) * (y1 - y0)) / cH;
-      } 
 
       //----------------------------------------------
     </script>

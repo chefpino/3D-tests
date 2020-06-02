@@ -20,8 +20,9 @@
         <td valign="top">
           <div id="dynamicSliders"></div>
           <div id="vector"> </div>
-          <button onclick="rotateButton();">rotate (WIP)</button>
-          <button ">auto rotate (WIP)</button>
+          <button onclick="rotateButton();">ROTATE</button><br>
+          <button onclick="#">shift (WIP)</button><br>
+          <input type="button" id="startbutton" value="AUTO"></input>
           <div id="menu"></div>
         </td>
       </tr>
@@ -49,6 +50,8 @@
 
       var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
           reMap.objCanvas=ctx;
+
+      const dx=reMap.dx();    //delta in x represented by 1px
 
       var arrPoints = new Array(); //array of complex numbers
       var rotationVector = new c(0, 0);
@@ -88,18 +91,33 @@
       }
       //..........................................................
       function calcRotation(tempC) {
-        //tempC=new r(.75,π/4); //rotation temp;
 
-        var arrNewPoints = arrPoints; //arrays of complex numbers
+        var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
         for (let index = 0; index < arrPoints.length; index++) {
           const element = arrPoints[index];
           arrNewPoints[index] = p(arrPoints[index], tempC); // rotation
         }
-        return arrNewPoints;
+        return {
+           newArray: arrNewPoints
+          } 
+      }
+      //..........................................................
+      function getBoundaries(objArray) {
+        //measures the smallest and largest module of the complex points
+        var rMin=m(objArray[0]).z;
+        var rMax=rMin;
+        var tempC;
+        for (let index = 1; index < objArray.length; index++) {
+          tempC=objArray[index];
+          if (m(tempC).z < rMin){rMin=m(tempC).z};
+          if (m(tempC).z > rMax){rMax=m(tempC).z};
+        }
+        return {min: rMin, max: rMax};
       }
 
+      //..........................................................
       function clearAndPlot() {
-        ctx.clearRect(0, 0, cW, cH); //clear canvas                       /*
+        ctx.clearRect(0, 0, cW, cH); //clear canvas
         reMap.drawAxis();
         //draw polygon
         plotArray(arrPoints, "#000000");
@@ -110,8 +128,8 @@
       //----------------------------------------------------------------------
       function rotateButton() {
         //draw rotated polygon
-        plotArray(calcRotation(rotationVector), "#0000FF");
-        arrPoints = calcRotation(rotationVector);
+        plotArray(calcRotation(rotationVector).newArray, "#0000FF");
+        arrPoints = calcRotation(rotationVector).newArray;
 
         //clearAndPlot();
       }
@@ -127,6 +145,18 @@
 
         /* ctx.clearRect(0, 0, cW, cH); //clear canvas */
         reMap.drawAxis();
+
+        document.getElementById("startbutton").addEventListener(
+          "click",
+          function (){
+            //document.getElementById("startstopbutton").value=(startstopbutton?"START":"STOP");
+              //*** under construction
+              do {
+                rotateButton();
+                 } while (getBoundaries(arrPoints).max > dx && getBoundaries(arrPoints).min < 2); //HARDCODED, gotta calc width of 1px
+
+          }          
+        )
 
         //--- mouse coordinates event listener
         myCanvas.addEventListener(

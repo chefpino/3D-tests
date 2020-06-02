@@ -28,7 +28,12 @@ class ReMap {
     return ((x - this.cW / 2) * (this.x1 - this.x0)) / this.cW;
   }
   m2y(y) {
-    return ((this.cH / 2 - y) * (this.y1 - this.y0)) / cH;
+    return ((this.cH / 2 - y) * (this.y1 - this.y0)) / this.cH;
+  }
+
+  //delta of 1 pixel - x axis only
+  dx() {
+    return (this.x1 - this.x0) / this.cW;
   }
 
   plot(x, y) {

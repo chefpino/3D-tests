@@ -8,15 +8,18 @@ also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
 
 COMPLEX PLANE
-complex plane: make repetitions automatic
-add save params?
-description of how to use the page
-limits >1, < 1px
-circles coordinates
-change hardcoded unit circle radius
+  complex plane: make repetitions automatic start/stop
+  add shift button
+  add save params?
+  description of how to use the page
+  limits >1, < 1px? calcRotation could be returning also the min and max module of the set of points
 clear button
 don't wipe when changing vector
 list of selected points with possibility of deleting from array
+remove last points
+red dots before starting the animation
+lock to 1 radius
+
 
 
 FRACTALS
@@ -37,10 +40,6 @@ GENERIC
 description of each page
 fix once for all CSS
 fix positions of script withing the page, I hate having it after the body
-draw axis function, make more generic?
 another home page beside the default github one?
 json to menu: add active element css class?
-generic remap function with cW,cH,x0,x1,y0,y1
- Could be an object initiated and then reused instead
- of passing the parameters each time 
 

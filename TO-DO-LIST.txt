@@ -24,6 +24,7 @@ some sort of zoom function for the fractals, probably with a double click recent
 color on/off - different coloring system log vs linear etc. current coloring function is not great
 mouse coordinates on fractal canvases
 lock / calc proportions (chose x0,x1, calc y0,y1). do with ReMap class
+errors in mandelbrot coloring function, at loop level
 
   BURNING SHIP
   fix default parameters of burning ship fractals

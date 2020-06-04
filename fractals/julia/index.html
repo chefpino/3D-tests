@@ -134,7 +134,7 @@
 
         //selected function
         var strF=getDropDownSelectedValue("dd1");
-        console.log("selected function is: " + strF);
+        //console.log("selected function is: " + strF);
 
         //---clear canvas
         ctx.clearRect(0, 0, cW, cH);
@@ -161,14 +161,15 @@
             
             itr = julia(tz,k,strF);
             if (itr < maxItr) {
-              clr = 255 - 4 * Math.round((itr * 255) / maxItr);
-              plot(reMap.x(x), reMap.y(y), getColor(itr));
+              clr = Math.round((itr * 255) / maxItr);
+              clr = "#"+clr+clr+clr;
+              plot(reMap.x(x), reMap.y(y), clr);
             }
           }
         }
       }
 
-      //__________________________________________________________________
+      //____clr = 255 - 4 * Math.round((itr * 255) / maxItr);______________________________________________________________
       //__________________________________________________________________
 
      

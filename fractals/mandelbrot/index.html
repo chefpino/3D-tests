@@ -131,11 +131,11 @@
             var tz = new c(x, y);
             itr = mandel(tz);
             if (itr < maxItr) {
-              clr = 255 - 4 * Math.round((itr * 255) / maxItr);
-            if (itr < maxItr) {
-              plot(reMap.x(x), reMap.y(y), getColor(itr));
-            }
-          }
+              //rethink coloring system alltogether
+              clr = Math.round((itr * 255) / maxItr);
+              clr = "#"+clr+clr+clr;
+              plot(reMap.x(x), reMap.y(y), clr);
+              }
         }
       }
       }

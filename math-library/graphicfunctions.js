@@ -14,7 +14,7 @@ class ReMap {
   //convert x+iy complex number into canvas coordinates
   x(x) {
     return (
-      (this.fixedOrigin ? this.cW/2+x*this.cW/(this.x1-this.x0):(x-this.x0)*cW/(this.x1-this.x0))  
+      (this.fixedOrigin ? this.cW/2+x*this.cW/(this.x1-this.x0):(x-this.x0)*this.cW/(this.x1-this.x0))  
     )
   }
   y(y) {
@@ -23,7 +23,7 @@ class ReMap {
     )
   }
 
-  //mouse coordinates translated in point x+iy of the complex plane
+  //mouse coordinates translated in point x+iy of the complex plane 
   m2x(x) {
     return ((x - this.cW / 2) * (this.x1 - this.x0)) / this.cW;
   }
@@ -35,6 +35,10 @@ class ReMap {
   dx() {
     return (this.x1 - this.x0) / this.cW;
   }
+ //delta of 1 pixel - y axis only
+    dy() {
+      return (this.y1 - this.y0) / this.cH;
+    }
 
   plot(x, y) {
     //x,y are canvas coordinates
@@ -80,8 +84,12 @@ class ReMap {
           this._objCanvas.fillText(this.y1, this.cW / 2, 10);
         }
     
+  }
+
+  drawUnitCircle(){
+    //ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle [, anticlockwise]);
     this._objCanvas.beginPath();
-    this._objCanvas.arc(this.x(0), this.y(0), this.cW/(this.x1-this.x0), 0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
+    this._objCanvas.ellipse(this.x(0), this.y(0), this.cW/(this.x1-this.x0), this.cH/(this.y1-this.y0),0,0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
     this._objCanvas.stroke();
   }
 

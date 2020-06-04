@@ -28,6 +28,8 @@
       </tr>
     </table>
     <script>
+
+ "use strict";
  //--------------------------------------------
  function init() {
         genNavigation("julia");
@@ -61,8 +63,8 @@
       
 
       //--- calculated params
-      var dx = (x1 - x0) / grid;
-      var dy = (y1 - y0) / grid;
+      var dx = reMap.dx();
+      var dy = reMap.dy();
 
       //----------------------------------------------------------
       function julia(z,k,strF) {
@@ -72,7 +74,7 @@
         
         if (strF=="z2c"){
           //-- classic Zn+1=(Zn)^2+k
-          for (i = 0; i < maxItr + 1; i++) {
+          for (let i = 0; i < maxItr + 1; i++) {
             z0 = s(p(z0,z0),k);
             if (z0.x * z0.x + z0.y * z0.y > uBound) {
               return i;
@@ -82,7 +84,7 @@
 
         if (strF=="hyp"){
           //-- hyperbolic Zn+1=k*Sin(Zn)
-          for (i = 0; i < maxItr + 1; i++) {
+          for (let i = 0; i < maxItr + 1; i++) {
             z0.x = Math.sin(z0.x) * Math.cosh(z0.y);
             z0.y = Math.cos(z0x) * Math.sinh(z0.y);
             z0=p(k,z0);
@@ -107,16 +109,23 @@
         x1 = params.x1.val;
         y0 = params.y0.val;
         y1 = params.y1.val;
-        grid = params.grid.val; //resolution
         maxItr = params.iterations.val;
         uBound = params.upperbound.val;
+      
+        reMap.x0=x0;
+        reMap.x1=x1;
+        reMap.y0=y0;
+        reMap.y1=y1;
 
-        //--- calculated params
-        dx = (x1 - x0) / grid;
-        dy = (y1 - y0) / grid;
+        
+
+      //--- calculated params
+      dx = reMap.dx();
+      dy = reMap.dy();
 
         go();
         reMap.drawAxis();
+        reMap.drawUnitCircle();
       }
 
       //__________________________________________________________________

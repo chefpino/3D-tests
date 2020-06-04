@@ -8,27 +8,26 @@ also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
 
 COMPLEX PLANE
-  complex plane: make repetitions automatic start/stop
-  add shift button
   add save params?
   description of how to use the page
-  limits >1, < 1px? calcRotation could be returning also the min and max module of the set of points
-clear button
-don't wipe when changing vector
+don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array
-remove last points
+remove last points, think about it
 red dots before starting the animation
 lock to 1 radius
+color change w radius?
 
 
 
 FRACTALS
-some sort of zoom function for the fractals
-color on/off - different coloring system log vs linear etc
+some sort of zoom function for the fractals, probably with a double click recentering the ranges
+color on/off - different coloring system log vs linear etc. current coloring function is not great
 mouse coordinates on fractal canvases
+lock / calc proportions (chose x0,x1, calc y0,y1). do with ReMap class
 
   BURNING SHIP
   fix default parameters of burning ship fractals
+  option of b/w
 
   TREE
   fix PI in tree parameters

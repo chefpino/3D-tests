@@ -18,12 +18,32 @@
           ></canvas>
         </td>
         <td valign="top">
-          <div id="dynamicSliders"></div>
-          <div id="vector"> </div>
-          <button onclick="rotateButton();">ROTATE</button><br>
-          <button onclick="#">shift (WIP)</button><br>
-          <input type="button" id="startbutton" value="AUTO"></input>
-          <div id="menu"></div>
+          <table border="1" width=500>
+            <tr>
+             <td><div id="vector">chosen vector</div></td>
+            </tr> 
+            <tr>
+              <td><div id="mousecoordinates">mouse coordinates</div></td>
+            </tr> 
+            <tr>
+              <td><button onclick="rotateButton();">ROTATE</button></td>
+            </tr> 
+             <tr>
+                <td><button onclick="shiftButton();">SHIFT (WIP)</button></td>
+              </tr> 
+             <tr>
+              <td><input type="button" id="startbutton" value="AUTO"></input></td>
+            </tr> 
+              <tr>
+               <td><button onclick="location.reload();">CLEAR (WIP)</button></td>
+              </tr> 
+              <tr>
+               <td><div id="dynamicSliders">temp placeholder</div></td>
+              </tr> 
+              <tr>
+                <td><div id="menu"></div></td>
+              </tr>    
+          </table>
         </td>
       </tr>
     </table>
@@ -37,10 +57,7 @@
 
       const cW = 700; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;
-      /*/
-      const cW=ctx.clientWidth;
-      const cH=ctx.clientHeight;
-      */
+
       // -- range
       const x0 = -1.1;
       const x1 = 1.1;
@@ -66,10 +83,13 @@
       }
       //---
       function writeMessage(message) {
+        document.getElementById("mousecoordinates").innerHTML=message
+        /*
         ctx.clearRect(0, 0, cW, 30);
         ctx.font = "12pt Calibri";
         ctx.fillStyle = "black";
         ctx.fillText(message, 10, 25);
+        */
       }
       //........... debug only ..................................
       function writePoints(arrPoints) {
@@ -102,6 +122,18 @@
           } 
       }
       //..........................................................
+      function calcShift(tempC) {
+
+        var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          arrNewPoints[index] = s(arrPoints[index], tempC); // shift
+        }
+        return {
+           newArray: arrNewPoints
+          } 
+      }
+      //..........................................................
       function getBoundaries(objArray) {
         //measures the smallest and largest module of the complex points
         var rMin=m(objArray[0]).z;
@@ -116,22 +148,30 @@
       }
 
       //..........................................................
-      function clearAndPlot() {
+      function clearAndPlot(bClear) {
+
+        if (bClear){
         ctx.clearRect(0, 0, cW, cH); //clear canvas
-        reMap.drawAxis();
+        }
         //draw polygon
-        plotArray(arrPoints, "#000000");
+        plotArray(arrPoints, "#0000FF");
         //draw rotator vector
         var or = new c(0, 0);
         reMap.drawSegment(or, rotationVector, "#00FF00");
+        reMap.drawAxis();
+        reMap.drawUnitCircle();
+
       }
       //----------------------------------------------------------------------
       function rotateButton() {
         //draw rotated polygon
-        plotArray(calcRotation(rotationVector).newArray, "#0000FF");
         arrPoints = calcRotation(rotationVector).newArray;
-
-        //clearAndPlot();
+        plotArray(arrPoints, "#0000FF");
+      }
+      function shiftButton() {
+        //draw rotated polygon
+        arrPoints = calcShift(rotationVector).newArray;
+        plotArray(arrPoints, "#0000FF");
       }
       //----------------------------------------------------------------------
       function vectorDetails(v) {
@@ -145,15 +185,31 @@
 
         /* ctx.clearRect(0, 0, cW, cH); //clear canvas */
         reMap.drawAxis();
+        reMap.drawUnitCircle();
 
         document.getElementById("startbutton").addEventListener(
           "click",
           function (){
             //document.getElementById("startstopbutton").value=(startstopbutton?"START":"STOP");
               //*** under construction
-              do {
+              const z=m(rotationVector).z;
+
+              if (z<1){
+                do {
                 rotateButton();
-                 } while (getBoundaries(arrPoints).max > dx && getBoundaries(arrPoints).min < 2); //HARDCODED, gotta calc width of 1px
+                 } while (getBoundaries(arrPoints).max > dx);
+              }
+              if (z==1){
+                for (let index = 0; index < 100; index++) {
+                  rotateButton();                  
+                } 
+              }
+              if (z>1){
+                do {
+                rotateButton();
+                 } while (getBoundaries(arrPoints).min < 2); //hardcoded, not great
+              }
+              
 
           }          
         )
@@ -190,12 +246,12 @@
             var mousePos = getMousePos(evt);
             rotationVector.x = reMap.m2x(mousePos.x);
             rotationVector.y = reMap.m2y(mousePos.y);
-            document.getElementById("vector").innerHTML = vectorDetails(
+            document.getElementById("vector").innerHTML = "chosen vector: " + vectorDetails(
               rotationVector
             );
             arrPoints.pop(); //remove last element added by last click
             arrPoints.pop(); //remove last element added by last click
-            clearAndPlot();
+            clearAndPlot(true);
           },
           false
         );

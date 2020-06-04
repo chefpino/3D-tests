@@ -25,21 +25,6 @@ var buttons = {
 
 
 var params = {
-"grid":{
-   "val":1000,
-   "min":100,
-   "max":1000,
-   "default":1000,
-   "label":"resolution",
-   "minLabel":"100",
-   "maxLabel":"1000",
-   "type":"slider",
-   "idea to develop":"<input type...>",
-   "another idea":"onchange event",
-   "parameter to save on JSON file":false,
-   "show":true,
-   "integer":true
-   },
  "upperbound":{
    "val":4,
    "min":2,
@@ -82,7 +67,7 @@ var params = {
       },    
     "y0":{
         "val":-1.05,
-        "min":-1.05,
+        "min":-2,
         "max":1,
         "default":-1.05,
         "label":"y0",

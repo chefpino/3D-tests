@@ -76,18 +76,15 @@
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
-            //var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
-            //re-center the coordinates to this new point
-            //reassign intervals and draw
 
-            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; //zoom
+           //zoom
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
             
             loadvaluesandgo();
 
-            //loadvaluesandgo...
           },
           false
         );
@@ -101,19 +98,7 @@
         reMap.drawUnitCircle(); //ellipse representing the unit circle
         
       }
-      //--------------------------------------------
-      function getMousePos(evt) {
-        var rect = myCanvas.getBoundingClientRect();
-        return {
-          x: evt.clientX - rect.left,
-          y: evt.clientY - rect.top,
-        };
-      }
-      //--------------------------------------------
-      function writeMessage(message) {
-        document.getElementById("mousecoordinates").innerHTML=message
-      }
-      //----------------------------------------------------------
+      //---------------------------------------------------------------------
       function mandel(k) {
         var z0 = new c(0, 0);
         var i = 0;
@@ -125,12 +110,12 @@
         }
         return maxItr;
       }
-      //________________________
+      //--------------------------------------------------------------------
       function fs(z, k) {
         return {
           mandelbrot: s(p(z, z), k),
         };
-        //________________________
+        
       }
 
       //_________________________________________________________________
@@ -184,7 +169,7 @@
               //rethink coloring system alltogether
               clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr;
-              plot(reMap.x(x), reMap.y(y), clr);
+              plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
             }
           }
         }

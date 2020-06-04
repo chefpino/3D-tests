@@ -24,6 +24,7 @@
           <div id="dropdowns"></div>
           <div id="dynamicSliders"></div>
           <div id="menu"></div>
+          <div id="mousecoordinates">mouse coordinates</div>
         </td>
       </tr>
     </table>
@@ -32,6 +33,37 @@
  "use strict";
  //--------------------------------------------
  function init() {
+
+        //--- mouse coordinates event listener --------------------------
+        myCanvas.addEventListener(
+          "mousemove",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
+            var message = `|z|=${m(tempC).z}  a=${tempC.x}  b=${tempC.y}`;
+            writeMessage(message);
+          },
+          false
+        );
+
+        //--- mouse click event listener -------------------------------
+        myCanvas.addEventListener(
+          "click",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+
+           //zoom
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
+            
+            loadvaluesandgo();
+
+          },
+          false
+        );
+
         genNavigation("julia");
         generateControls(); //sliders
         document.getElementById("dropdowns").innerHTML = generateDropdown("dd1");

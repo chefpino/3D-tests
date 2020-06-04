@@ -113,3 +113,22 @@ class ReMap {
 
 } //--- end of class definition ---
 
+//mouse coordinates on the canvas
+      //--------------------------------------------
+      function getMousePos(evt) {
+        var rect = myCanvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top,
+        };
+      }
+
+//--------------------------------------------
+      function writeMessage(message) {
+        document.getElementById("mousecoordinates").innerHTML=message
+      }
+      //----------------------------------------------------------
+
+
+
+

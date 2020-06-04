@@ -23,7 +23,7 @@ FRACTALS
 some sort of zoom function for the fractals, probably with a double click recentering the ranges
 need to update displayed params after zooming - better binding of sliders to params
 apply zoom to all fractals.
-
+save file after zooming, capire che cazzo succede
 
 color on/off - different coloring system log vs linear etc. current coloring function is not great
 mouse coordinates on fractal canvases

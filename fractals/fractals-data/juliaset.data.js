@@ -34,21 +34,6 @@ var dropdowns = {
 //--------------------------------------------------------------
 //params is at the moment for the sliders only
 var params = {
-  grid: {
-    val: 1000,
-    min: 100,
-    max: 1000,
-    default: 1000,
-    label: "resolution",
-    minLabel: "100",
-    maxLabel: "1000",
-    type: "slider",
-    "idea to develop": "<input type...>",
-    "another idea": "onchange event",
-    "parameter to save on JSON file": false,
-    show: true,
-    integer: true,
-  },
   upperbound: {
     val: 4,
     min: 2,

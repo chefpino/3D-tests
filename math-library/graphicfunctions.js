@@ -25,10 +25,10 @@ class ReMap {
 
   //mouse coordinates translated in point x+iy of the complex plane 
   m2x(x) {
-    return ((x - this.cW / 2) * (this.x1 - this.x0)) / this.cW;
+    return (this.fixedOrigin ? (x - this.cW / 2) * (this.x1 - this.x0) / this.cW  : x * (this.x1 - this.x0) / this.cW + this.x0);
   }
   m2y(y) {
-    return ((this.cH / 2 - y) * (this.y1 - this.y0)) / this.cH;
+    return (this.fixedOrigin ? (this.cH / 2 - y) * (this.y1 - this.y0) / this.cH : (cH-y)*(this.y1 - this.y0) / this.cH+this.y0);
   }
 
   //delta of 1 pixel - x axis only
@@ -42,6 +42,7 @@ class ReMap {
 
   plot(x, y) {
     //x,y are canvas coordinates
+
     this._myCanvas.beginPath();
     this._myCanvas.fillStyle = "red"; //hard coded!!!
     this._myCanvas.arc(x, y, 2, 0, 2 * Math.PI); //.arc(x,y,2,1);

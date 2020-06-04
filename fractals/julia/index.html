@@ -52,7 +52,6 @@
       var x1 = params.x1.val;
       var y0 = params.y0.val;
       var y1 = params.y1.val;
-      var grid = params.grid.val; //resolution
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
 
@@ -151,11 +150,11 @@
         //var k=new c(0.3555534,0.337292);
         var k=new c(params.cx.val,params.cy.val);
 
-        for (let i = 0; i < grid; i++) {
+        for (let i = 0; i < cW; i++) {
           x = x + dx;
           y = y0;
 
-          for (let j = 0; j < grid; j++) {
+          for (let j = 0; j < cH; j++) {
             y = y + dy;
             var tz = new c(x, y);
             

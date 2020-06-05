@@ -20,15 +20,15 @@ color change w radius?
 
 
 FRACTALS
-some sort of zoom function for the fractals, probably with a double click recentering the ranges
 need to update displayed params after zooming - better binding of sliders to params
-apply zoom to all fractals.
-save file after zooming, capire che cazzo succede
+save fixed center among params
+
+save file after zooming, include other params
+double-click zoom out
+separate functions for zoomIn and zoomOut
+finally remove sliders for x0,x1,etc - use params but do not display
 
 color on/off - different coloring system log vs linear etc. current coloring function is not great
-mouse coordinates on fractal canvases
-lock / calc proportions (chose x0,x1, calc y0,y1). do with ReMap class
-errors in mandelbrot coloring function, at loop level
 
   BURNING SHIP
   fix default parameters of burning ship fractals
@@ -36,9 +36,9 @@ errors in mandelbrot coloring function, at loop level
 
   TREE
   fix PI in tree parameters
-
-
-clean mandelbrot code, useless functions for other fractals
+  
+  MANDELBROT
+  clean mandelbrot code, useless functions for other fractals
 
 GENERIC
 description of each page

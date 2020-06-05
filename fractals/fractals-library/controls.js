@@ -37,6 +37,9 @@ function generateControls() {
 
   //---generate html
   for (var key in params) {
+
+    if (params[key].visible != false){
+
     defaultValue = paramToSlider(key, params[key].default);
 
     strHTML = strHTML + tr;
@@ -56,6 +59,7 @@ function generateControls() {
       strHTML +
       td(`<div id="val_${key}">${params[key].default}</div>`);
     strHTML = strHTML + trc;
+    } // - end if
   }
   strHTML = strHTML + "<tr><td colspan=5>";
   strHTML = strHTML + '<button onclick="loadvaluesandgo();">GO!</button>&nbsp';
@@ -142,9 +146,6 @@ function fileToParameters() {
   document.getElementById("inputfile").addEventListener("change", function () {
     var fr = new FileReader();
     fr.onload = function () {
-      //document.getElementById('output').textContent=fr.result; //for debug only
-      console.log(fr.result); //for debug only
-      //var foo=JSON.parse(fr.result);//for debug only
       readJSONfile(fr);
     };
     fr.readAsText(this.files[0]);
@@ -155,10 +156,15 @@ function parametersToJSON() {
   var rTemp = 0;
   var strTemp = "{";
   for (var key in params) {
-    //WIP need to collect value from sliders as innerhtml has tags in it
-
+    
+    /*
     rTemp = document.getElementById(key).value;
     strTemp += '"' + key + '":' + sliderToParam(key, rTemp) + ",";
+    */
+   strTemp += `"${key}":${params[key].val}`;
+   strTemp += ",";  
+    
+
   }
   //remove last comma
   strTemp = strTemp.substring(0, strTemp.length - 1);

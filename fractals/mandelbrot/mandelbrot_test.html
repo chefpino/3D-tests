@@ -53,7 +53,12 @@
       var dx = reMap.dx(); //max resolution
       var dy = reMap.dy(); //max resolution
 
-      
+      function doClickAction() {
+          window.alert("zoom in"); 
+        }
+        function doDoubleClickAction() {
+          window.alert("zoom out"); 
+        }    
       
 
       //--------------------------------------------
@@ -71,27 +76,46 @@
           false
         );
 
-        //--- mouse click event listener -------------------------------
+        var timer = 0;
+        var delay = 200;
+        var prevent = false;
+
         myCanvas.addEventListener(
-          "click",
-          function (evt) {
-            var mousePos = getMousePos(evt);
-            //var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
-            //re-center the coordinates to this new point
-            //reassign intervals and draw
+          "click", function() {
+            timer = setTimeout(function() {
+              if (!prevent) {
+                doClickAction();
+              }
+              prevent = false;
+            }, delay);
+          })
+          myCanvas.addEventListener("dblclick", function() {
+            clearTimeout(timer);
+            prevent = true;
+            doDoubleClickAction();
+          });
 
-            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; //zoom
-            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
-            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
-            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-            
-            loadvaluesandgo();
 
-            //loadvaluesandgo...
-          },
-          false
-        );
 
+
+/*
+        myCanvas.addEventListener("click", function (e) {
+        if (e.detail === 1) {
+          var mousePos = getMousePos(e);
+          //zoom
+          params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
+          params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
+          params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
+          params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
+ 
+          loadvaluesandgo();
+        } else if (e.detail === 2) {
+          // do something else if the element was clicked twice
+          window.alert("2!");
+        }
+      });
+
+*/
 
         genNavigation("mandelbrot");
         generateControls();
@@ -101,19 +125,7 @@
         reMap.drawUnitCircle(); //ellipse representing the unit circle
         
       }
-      //--------------------------------------------
-      function getMousePos(evt) {
-        var rect = myCanvas.getBoundingClientRect();
-        return {
-          x: evt.clientX - rect.left,
-          y: evt.clientY - rect.top,
-        };
-      }
-      //--------------------------------------------
-      function writeMessage(message) {
-        document.getElementById("mousecoordinates").innerHTML=message
-      }
-      //----------------------------------------------------------
+      //---------------------------------------------------------------------
       function mandel(k) {
         var z0 = new c(0, 0);
         var i = 0;
@@ -125,17 +137,19 @@
         }
         return maxItr;
       }
-      //________________________
+      //--------------------------------------------------------------------
       function fs(z, k) {
         return {
           mandelbrot: s(p(z, z), k),
         };
-        //________________________
+        
       }
 
       //_________________________________________________________________
       function loadvaluesandgo() {
         //go! button
+
+        //should update sliders too
 
         //load parameters from object
         x0 = params.x0.val;
@@ -182,7 +196,7 @@
               //rethink coloring system alltogether
               clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr;
-              plot(reMap.x(x), reMap.y(y), clr);
+              plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
             }
           }
         }

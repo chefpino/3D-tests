@@ -73,7 +73,8 @@ var params = {
     "label":"x0",
     "minLabel":"-2",
     "maxLabel":"0",
-    "integer":false 
+    "integer":false,
+    "visible":false
     },
     "x1":{
       "val":1,
@@ -83,8 +84,9 @@ var params = {
       "label":"x1",
       "minLabel":"-2",
       "maxLabel":"2",
-      "integer":false 
-      },
+      "integer":false,
+      "visible":false
+    },
     
     "y0":{
         "val":-1.05,
@@ -94,7 +96,8 @@ var params = {
         "label":"y0",
         "minLabel":"-2",
         "maxLabel":"1",
-        "integer":false 
+        "integer":false,
+        "visible":false
         },
     "y1":{
           "val":1.05,
@@ -104,8 +107,9 @@ var params = {
           "label":"y1",
           "minLabel":"0",
           "maxLabel":"2",
-          "integer":false 
-          }
+          "integer":false,
+          "visible":false
+        }
     
 
 }

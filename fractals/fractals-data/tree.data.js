@@ -17,7 +17,7 @@ var params = {
      "default":Math.PI/2,
      "label":"trunk angle",
      "minLabel":"0",
-     "maxLabel":"π"
+     "maxLabel":"&pi;"
      },
    "dAngle":{
      "val":Math.PI/8,
@@ -25,8 +25,8 @@ var params = {
      "max":Math.PI/4,
      "default":Math.PI/8,
      "label":"branch angle",
-     "minLabel":"π/8",
-     "maxLabel":"π/4"
+     "minLabel":"&pi;/8",
+     "maxLabel":"&pi;/4"
      },
    "initLen":{
      "val":100,

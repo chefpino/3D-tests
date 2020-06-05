@@ -18,32 +18,29 @@
           ></canvas>
         </td>
         <td valign="top">
-          <table border="1" width=500>
+          <table border="0" width=500>
             <tr>
-             <td><div id="vector">chosen vector</div></td>
-            </tr> 
-            <tr>
-              <td><div id="mousecoordinates">mouse coordinates</div></td>
-            </tr> 
+              <td><div id="menu"></div></td>
+            </tr>    
             <tr>
               <td><button onclick="rotateButton();">ROTATE</button></td>
             </tr> 
              <tr>
-                <td><button onclick="shiftButton();">SHIFT (WIP)</button></td>
+                <td><button onclick="shiftButton();">SHIFT</button></td>
               </tr> 
              <tr>
               <td><input type="button" id="startbutton" value="AUTO"></input></td>
             </tr> 
               <tr>
-               <td><button onclick="location.reload();">CLEAR (WIP)</button></td>
+               <td><button onclick="location.reload();">CLEAR</button></td>
               </tr> 
               <tr>
-               <td><div id="dynamicSliders">temp placeholder</div></td>
+                <td><div id="vector">Chosen Vector</div></td>
+               </tr> 
+               <tr>
+                <td><div id="mousecoordinates">Mouse Coordinates</div></td>
               </tr> 
-              <tr>
-                <td><div id="menu"></div></td>
-              </tr>    
-          </table>
+               </table>
         </td>
       </tr>
     </table>
@@ -83,7 +80,7 @@
       }
       //---
       function writeMessage(message) {
-        document.getElementById("mousecoordinates").innerHTML=message
+        document.getElementById("mousecoordinates").innerHTML=message;
       }
       //........... debug only ..................................
       function writePoints(arrPoints) {
@@ -169,7 +166,7 @@
       }
       //----------------------------------------------------------------------
       function vectorDetails(v) {
-        return `|z|=${m(v).z}  a=${v.x}  b=${v.y}`;
+        return `|z|=${m(v).z}<br>a=${v.x}<br>b=${v.y}`;
       }
 
       //***********************************************************
@@ -214,7 +211,7 @@
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
-            var message = `|z|=${m(tempC).z}  a=${tempC.x}  b=${tempC.y}`;
+            var message = `Mouse Coordinates:<br>a=${tempC.x}<br>b=${tempC.y}<br>|z|=${m(tempC).z}`;
             writeMessage(message);
           },
           false
@@ -240,7 +237,7 @@
             var mousePos = getMousePos(evt);
             rotationVector.x = reMap.m2x(mousePos.x);
             rotationVector.y = reMap.m2y(mousePos.y);
-            document.getElementById("vector").innerHTML = "chosen vector: " + vectorDetails(
+            document.getElementById("vector").innerHTML = "Chosen Vector:<br>" + vectorDetails(
               rotationVector
             );
             arrPoints.pop(); //remove last element added by last click

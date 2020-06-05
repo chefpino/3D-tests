@@ -24,12 +24,12 @@ const maxItr=1000;
 const uBound=4;
 
 
-*/
+/*
 var pageinfo = {
 
-  "title":"title goes here, if necessary",
+  "title":"Mandelbrot Set",
   "description":"short description",
-  "instructions":"instructions here"
+  "instructions":"Click to zoom"
 
 }
 
@@ -41,7 +41,7 @@ var buttons = {
 
     }
 }
-
+*/
 
 var params = {
 

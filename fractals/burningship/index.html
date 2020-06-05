@@ -6,6 +6,14 @@
   <body onload="init();">
     <table border="0">
       <tr>
+        <td valign="top">
+          <div id="menu" ></div>
+          <hr>
+          <div id="dynamicSliders"></div>
+          <hr>
+          <div id="mousecoordinates">Mouse Coordinates</div>
+          <hr>
+        </td>
         <td>
           <canvas
             id="myCanvas"
@@ -13,11 +21,6 @@
             height="700"
             style="border: 1px solid;"
           ></canvas>
-        </td>
-        <td valign="top">
-          <div id="dynamicSliders"></div>
-          <div id="menu" ></div>
-          <div id="mousecoordinates">mouse coordinates</div>
         </td>
       </tr>
     </table>
@@ -63,7 +66,7 @@ function init() {
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
-            var message = `|z|=${m(tempC).z}  a=${tempC.x}  b=${tempC.y}`;
+            var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
             writeMessage(message);
           },
           false

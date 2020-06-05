@@ -84,8 +84,10 @@ function loadDefaults() {
   // load all default values
   for (var key in params) {
     defaultValue = paramToSlider(key, params[key].default);
-    document.getElementById(key).value = defaultValue;
-    document.getElementById("val_" + key).innerHTML = params[key].default;
+    if (params[key].visible != false){
+        document.getElementById(key).value = defaultValue;
+        document.getElementById("val_" + key).innerHTML = params[key].default;
+    }
   }
 }
 //----------------------------------------------------------------------------------
@@ -183,16 +185,15 @@ function readJSONfile(tempReader) {
     rTemp = tempJSONobj[key];
     //assign values to params
     params[key].val = rTemp;
-
-    //move sliders
-    document.getElementById(key).value = paramToSlider(key, rTemp);
-
-    //update box on the right of the slider, current value of parameter
-    updateParam(key, rTemp);
+    
+    if (params[key].visible != false){
+      //move sliders
+      document.getElementById(key).value = paramToSlider(key, rTemp);
+    
+      //update box on the right of the slider, current value of parameter
+      updateParam(key, rTemp);
+    }
   }
-  /* for debug
-   document.getElementById('output').textContent=strTemp; 
-   */
 }
 //-----------------------------------------------------------------
 function td(x) {

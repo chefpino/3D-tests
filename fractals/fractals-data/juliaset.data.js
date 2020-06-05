@@ -32,7 +32,7 @@ var dropdowns = {
         },
 };
 //--------------------------------------------------------------
-//params is at the moment for the sliders only
+//params is a global variable with many values that can be saved in a txt file
 var params = {
   upperbound: {
     val: 4,
@@ -63,6 +63,7 @@ var params = {
     minLabel: "-4",
     maxLabel: "4",
     integer: false,
+    visible:false
   },
   x1: {
     val: 2,
@@ -73,6 +74,7 @@ var params = {
     minLabel: "1",
     maxLabel: "4",
     integer: false,
+    visible: false
   },
 
   y0: {
@@ -84,6 +86,7 @@ var params = {
     minLabel: "-4",
     maxLabel: "0",
     integer: false,
+    visible: false
   },
   y1: {
     val: 1.4,
@@ -93,14 +96,15 @@ var params = {
     label: "y1",
     minLabel: "0",
     maxLabel: "4",
-    integer: false
+    integer: false,
+    visible: false
   },
   cx: {
     val: -0.54,
     min: -1,
     max: 1,
     default: -0.54,
-    label: "x",
+    label: "c: x",
     minLabel: "-1",
     maxLabel: "+1",
     integer: false
@@ -110,7 +114,7 @@ var params = {
     min: -1,
     max: 1,
     default: -0.54,
-    label: "iy",
+    label: "c: y",
     minLabel: "-1",
     maxLabel: "+1",
     integer: false

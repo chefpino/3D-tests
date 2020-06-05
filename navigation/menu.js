@@ -1,4 +1,4 @@
-/*
+ /*
 WIP
 this is a page containing menu/navigation global variables
 in form of an object/json file
@@ -58,7 +58,7 @@ var navigation = {
   unitcircle: {
     id: "unitcircle",
     link: "../../fractals/unitcircle/index.html",
-    label: "UNIT CIRCLE (WIP)",
+    label: "UNIT CIRCLE",
     hasChildren: false,
   },
   plotmathfunctions: {
@@ -96,46 +96,53 @@ var navigation = {
 //----------------------------------------------------------------------------------
 // -- this is a recursive function to generate the menu, it can be improved
 function genMenu(strKey, nestinglevel, strCurrentPage) {
-  var strTemp = "";
+  var strTemp = ((nestinglevel == 0) ? "<table border=0 width='100%'>" :  "");
   var oChildren; //object containing children
-  var strTempKey = "";
+  
 
-  //temporary solution for display only, will improve later
-  strTemp += navigation[strKey].label; //label only
+  var strLabel=navigation[strKey].label;
+  var strLink=navigation[strKey].link;
+  
+
+  //highlight if current page (puts it in bold, but can be improved)
+    if (strCurrentPage==strKey){
+      strLabel = "<b>" + strLabel + "</b>";
+  }
   
   //if it's a link add link tags
   if (navigation[strKey].link!="#"){
-      strTemp = '<a href="' + navigation[strKey].link + '">' + strTemp + "</a>"
-  }
-
-  //highlight if current page (puts it in bold, but can be improved)
-  if (strCurrentPage==strKey){
-      strTemp = "<b>" + strTemp + "</b>";
+    strLabel = '<a href="' + strLink + '">' + strLabel + "</a>"
   }
 
 
+  strTemp = strTemp + "<tr><td>" + tirets(nestinglevel) + strLabel + "</td></tr>";
+  
   if (navigation[strKey].hasChildren == true) {
     //if it has children list them here
     oChildren = navigation[strKey].children;
 
     for (const property in oChildren) {
       strTempKey = oChildren[property];
-      strTemp +=
-        "<br>" + tirets(nestinglevel + 1) + genMenu(strTempKey, nestinglevel + 1,strCurrentPage); //used to be <BR>+
+      //strTemp += "<tr><td>";
+      strTemp += genMenu(strTempKey, nestinglevel + 1,strCurrentPage); //used to be <BR>+
+      //strTemp += genMenu(strTempKey, nestinglevel + 1,strCurrentPage); //used to be <BR>+
+      //strTemp += "</td></tr>";
     }
   }
-
+  strTemp += ((nestinglevel == 0) ? "</table>" :  "");
   return strTemp;
 }
 
 function genNavigation(strCurrentPage) {
   document.getElementById("menu").innerHTML=genMenu("home",0,strCurrentPage); //add navigation
   document.title=navigation[strCurrentPage].label;
+  console.log(genMenu("home",0,strCurrentPage));
   
 }
 
 
 //-----------------------------------------
+// just spaces for indentation
 function tirets(n) {
-  return "&nbsp;".repeat(2*n);
+  return "&nbsp;".repeat(3*n);
 }

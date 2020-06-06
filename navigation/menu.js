@@ -10,7 +10,7 @@ var navigation = {
   home: {
     id: "home",
     link: "https://chefpino.github.io/fun/",
-    label: "HOME",
+    label: "HOME (WIP)",
     hasChildren: true,
     children: {
       item1: "fractals",

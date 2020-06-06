@@ -50,12 +50,17 @@ class ReMap {
   }
 
   drawAxis() {
-    //this needs major improvements that makes it flexible for
+    //improvements:
     //origin showing or not, plus writing coordinates on edges of canvas true/false
+    //
 
     this._objCanvas.strokeStyle = "#000000";
     this._objCanvas.lineWidth = "0.2";
-    this._objCanvas.fillStyle = "black";
+    this._objCanvas.fillStyle = "red";
+    
+    //x position of the label x1 on the canvas, in canvas coordinates
+    var posx1=this.cW-6*((this.x1 + "").length);
+
         //--- x axis -------------------------
         if (this.y(0) >= 0 && this.y(0) <= this.cH) {
           this._objCanvas.moveTo(this.x(this.x0), this.y(0));
@@ -63,12 +68,13 @@ class ReMap {
           this._objCanvas.stroke();
           //writing can be made optional
           this._objCanvas.fillText(this.x0, 5, this.y(0));
-          this._objCanvas.fillText(this.x1, this.cW - 20, this.y(0));
+          this._objCanvas.fillText(this.x1, posx1, this.y(0));
         }
         // if axis is out of the canvas just write the x range
         if (this.y(0) < 0 || this.y(0) > cH) {
-          this._objCanvas.fillText(this.x0, 5, this.cH / 2);
-          this._objCanvas.fillText(this.x1, this.cW - 20, this.cH / 2);
+          //console.log("(this.x1).toString.length=" + (this.x1).toString.length);
+          this._objCanvas.fillText(this.x0, 5, this.cH / 2); //x0 
+          this._objCanvas.fillText(this.x1, posx1, this.cH / 2);
         }
 
         //--- y axis -------------------------

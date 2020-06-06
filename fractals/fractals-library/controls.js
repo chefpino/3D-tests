@@ -1,21 +1,4 @@
-/**
- * 
- * function init() {
-        generateControls();
-        fileToParameters(); //initiate event listener for file uploader
-        loadvaluesandgo(); // WIP !
-      }
-      //-------------------------------------------------
-
-      function loadvaluesandgo() {
-        //go! button
-        load params statements
-        plot functions
-        drawAxis() if any
-      }
- * 
- * 
- * 
+/* 
  * this library is used also outside of the fractals folder
  */
 //---- Generates Sliders Only -------------------------------------------------

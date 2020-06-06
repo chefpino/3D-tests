@@ -1,5 +1,5 @@
 TO DO LIST
-
+remove console.log s
 
 3D COLOR
 wip: 3d-color wip page. think about having several
@@ -24,16 +24,12 @@ need to update displayed params after zooming - better binding of sliders to par
 save fixed center among params, save file after zooming, include other params
 double-click zoom out (messy to deal with double click)
 separate functions for zoomIn and zoomOut
-finally remove sliders for x0,x1,etc - use params but do not display
+the x1 value writing's position on the canvas should be determined by the width of the string
 
 
   BURNING SHIP
   fix default parameters of burning ship fractals
-  option of b/w
 
-  TREE
-  fix PI in tree parameters
-  
   MANDELBROT
   clean mandelbrot code, useless functions for other fractals
 

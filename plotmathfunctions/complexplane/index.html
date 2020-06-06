@@ -9,6 +9,19 @@
   <body onload="init();">
     <table border="0">
       <tr>
+        <td valign="top">
+              <div id="menu"></div>
+              <hr>
+              <button onclick="rotateButton();">ROTATE</button>
+              <button onclick="shiftButton();">SHIFT</button>
+              <input type="button" id="startbutton" value="AUTO"></input>
+              <button onclick="location.reload();">CLEAR</button>
+              <hr>
+              <b>Chosen Vector</b>
+              <div id="vector"></div>
+              <hr>
+              <b>Coordinates</b><div id="mousecoordinates"></div>
+        </td>
         <td>
           <canvas
             id="myCanvas"
@@ -16,31 +29,6 @@
             height="700"
             style="border: 1px solid;"
           ></canvas>
-        </td>
-        <td valign="top">
-          <table border="0" width=500>
-            <tr>
-              <td><div id="menu"></div></td>
-            </tr>    
-            <tr>
-              <td><button onclick="rotateButton();">ROTATE</button></td>
-            </tr> 
-             <tr>
-                <td><button onclick="shiftButton();">SHIFT</button></td>
-              </tr> 
-             <tr>
-              <td><input type="button" id="startbutton" value="AUTO"></input></td>
-            </tr> 
-              <tr>
-               <td><button onclick="location.reload();">CLEAR</button></td>
-              </tr> 
-              <tr>
-                <td><div id="vector">Chosen Vector</div></td>
-               </tr> 
-               <tr>
-                <td><div id="mousecoordinates">Mouse Coordinates</div></td>
-              </tr> 
-               </table>
         </td>
       </tr>
     </table>
@@ -211,7 +199,7 @@
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
-            var message = `Mouse Coordinates:<br>a=${tempC.x}<br>b=${tempC.y}<br>|z|=${m(tempC).z}`;
+            var message = `a=${tempC.x}<br>b=${tempC.y}<br>|z|=${m(tempC).z}`;
             writeMessage(message);
           },
           false
@@ -237,7 +225,7 @@
             var mousePos = getMousePos(evt);
             rotationVector.x = reMap.m2x(mousePos.x);
             rotationVector.y = reMap.m2y(mousePos.y);
-            document.getElementById("vector").innerHTML = "Chosen Vector:<br>" + vectorDetails(
+            document.getElementById("vector").innerHTML = vectorDetails(
               rotationVector
             );
             arrPoints.pop(); //remove last element added by last click

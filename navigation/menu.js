@@ -88,7 +88,7 @@ var navigation = {
     id: "complex",
     link:
       "../../plotmathfunctions/complexplane/index.html",
-    label: "Rotations (WIP)",
+    label: "ROTATIONS (WIP)",
     hasChildren: false,
   },
 };

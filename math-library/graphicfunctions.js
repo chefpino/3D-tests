@@ -109,7 +109,9 @@ class ReMap {
     this._objCanvas.stroke();
   }
 
-
+  clearcanvas(){
+    this._objCanvas.clearRect(0, 0, cW, cH);
+  }
   // properties --------------------------------------
   //--- pass canvas ctx object
   set objCanvas(obj) {

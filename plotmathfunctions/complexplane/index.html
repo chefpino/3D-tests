@@ -130,7 +130,7 @@
       function clearAndPlot(bClear) {
 
         if (bClear){
-        ctx.clearRect(0, 0, cW, cH); //clear canvas
+        reMap.clearcanvas();  
         }
         //draw polygon
         plotArray(arrPoints, "#0000FF");
@@ -162,7 +162,6 @@
         
         genNavigation("complex");
 
-        /* ctx.clearRect(0, 0, cW, cH); //clear canvas */
         reMap.drawAxis();
         reMap.drawUnitCircle();
 

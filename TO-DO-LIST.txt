@@ -8,7 +8,7 @@ navigation menu, improve graphic
 fix once for all CSS
 another home page beside the default github one?
 json to menu: add active element css class?
-clear canvas could be a method of remap
+clear canvas should be a method of remap
 
 3D COLOR
 wip: 3d-color wip page. think about having several

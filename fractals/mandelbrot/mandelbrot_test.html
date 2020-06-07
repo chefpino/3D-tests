@@ -73,8 +73,7 @@
      //-------------------------------------------
      //*** plot all points of recursive function
       function drawEscapeRoute(k) {
-        //clear rectangle (because mouse moves)
-        ctxT.clearRect(0,0,cW,cH);
+        reMapT.clearcanvas();
         var arrPoints = new Array(); //array of complex numbers
         var tempZ=new c(0,0);
         //loop and keep applying mandelbrot
@@ -196,7 +195,7 @@
       //__________________________________________________________________
       function go() {
         //---clear canvas
-        ctx.clearRect(0, 0, cW, cH);
+        reMap.clearcanvas();
 
         var x = x0;
         var y = y0;

@@ -20,12 +20,23 @@
           <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td>
+          <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
           <canvas
             id="myCanvas"
             width="1000"
             height="700"
-            style="border: 1px solid;"
+            style="z-index: 1;
+                    position:absolute;
+                    left:0px;
+                    top:0px;"
+
           ></canvas>
+          <canvas id="transparentLayer"
+          style="z-index: 2;
+          position:absolute;
+          left:0px;
+          top:0px;"
+          height="700px" width="1000">          </div>
         </td>
       </tr>
     </table>
@@ -34,6 +45,8 @@
       //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
+      const transparentLayer = document.getElementById("transparentLayer");
+      const ctxT = transparentLayer.getContext("2d");
 
       const cW = 1000; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;a
@@ -49,42 +62,68 @@
       const fixedOrigin = false;
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+
       reMap.objCanvas = ctx;
+      reMapT.objCanvas = ctxT;
 
       //--- calculated params
       var dx = reMap.dx(); //max resolution
       var dy = reMap.dy(); //max resolution
-
-      
+     //-------------------------------------------
+     //*** plot all points of recursive function
+      function drawEscapeRoute(k) {
+        //clear rectangle (because mouse moves)
+        ctxT.clearRect(0,0,cW,cH);
+        var arrPoints = new Array(); //array of complex numbers
+        var tempZ=new c(0,0);
+        //loop and keep applying mandelbrot
+        for (let index = 0; index < maxItr; index++) {
+          arrPoints.push(tempZ);
+          tempZ=fs(tempZ,k).mandelbrot;
+        }
+        //plot array
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          if (index > 0) {
+            reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
+          }
+      }
+      } 
       
 
       //--------------------------------------------
       function init() {
 
         //--- mouse coordinates event listener --------------------------
-        myCanvas.addEventListener(
+        transparentLayer.addEventListener(
           "mousemove",
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
             var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
             writeMessage(message);
+            
+            //*** WIP ***
+            drawEscapeRoute(tempC);
+
           },
           false
         );
 
         //--- mouse click event listener -------------------------------
-        myCanvas.addEventListener(
+        transparentLayer.addEventListener(
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
+
 
            //zoom
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-            
+        
             loadvaluesandgo();
 
           },
@@ -140,6 +179,11 @@
         reMap.y0 = y0;
         reMap.y1 = y1;
 
+        reMapT.x0 = x0;
+        reMapT.x1 = x1;
+        reMapT.y0 = y0;
+        reMapT.y1 = y1;
+
         //--- calculated params
         dx = reMap.dx(); //max resolution
         dy = reMap.dy(); //max resolution
@@ -168,7 +212,6 @@
             var tz = new c(x, y);
             itr = mandel(tz);
             if (itr < maxItr) {
-              //rethink coloring system alltogether
               clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr;
               plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas

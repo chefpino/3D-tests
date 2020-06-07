@@ -10,7 +10,7 @@ var navigation = {
   home: {
     id: "home",
     link: "https://chefpino.github.io/fun/",
-    label: "HOME (WIP)",
+    label: "HOME (Work In Progress)",
     hasChildren: true,
     children: {
       item1: "fractals",
@@ -40,7 +40,7 @@ var navigation = {
   julia: {
     id: "julia",
     link: "../../fractals/julia/index.html",
-    label: "JULIA (WIP)",
+    label: "JULIA (Work In Progress)",
     hasChildren: false,
   },
   burningship: {
@@ -75,20 +75,20 @@ var navigation = {
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "2D (WIP)",
+    label: "2D (Work In Progress)",
     hasChildren: false,
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "3D (WIP)",
+    label: "3D (Work In Progress)",
     hasChildren: false,
   },
   complex: {
     id: "complex",
     link:
       "../../plotmathfunctions/complexplane/index.html",
-    label: "ROTATIONS (WIP)",
+    label: "ROTATIONS (Work In Progress)",
     hasChildren: false,
   },
 };
@@ -136,7 +136,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
 function genNavigation(strCurrentPage) {
   document.getElementById("menu").innerHTML=genMenu("home",0,strCurrentPage); //add navigation
   document.title=navigation[strCurrentPage].label;
-  console.log(genMenu("home",0,strCurrentPage));
+  //console.log(genMenu("home",0,strCurrentPage));
   
 }
 

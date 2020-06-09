@@ -14,17 +14,29 @@
       <tr>
         <td valign="top">
           <div id="menu"></div>
-          <div id="dropdowns"></div>
+          <hr>
           <div id="dynamicSliders"></div>
-          <div id="mousecoordinates">Mouse Coordinates</div>
+          <hr>
+          <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td>
+          <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
           <canvas
             id="myCanvas"
             width="1000"
             height="700"
-            style="border: 1px solid;"
+            style="z-index: 1;
+                    position:absolute;
+                    left:0px;
+                    top:0px;"
+
           ></canvas>
+          <canvas id="transparentLayer"
+          style="z-index: 2;
+          position:absolute;
+          left:0px;
+          top:0px;"
+          height="700px" width="1000">          </div>
         </td>
       </tr>
     </table>
@@ -33,19 +45,21 @@
       //--------------------------------------------
       function init() {
         //--- mouse coordinates event listener --------------------------
-        myCanvas.addEventListener(
+        transparentLayer.addEventListener(
           "mousemove",
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
             var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
             writeMessage(message);
+            //*** WIP ***
+            drawEscapeRoute(tempC);
           },
           false
         );
 
         //--- mouse click event listener -------------------------------
-        myCanvas.addEventListener(
+        transparentLayer.addEventListener(
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
@@ -63,9 +77,11 @@
 
         genNavigation("julia");
         generateControls(); //sliders
+        /*
         document.getElementById("dropdowns").innerHTML = generateDropdown(
           "dd1"
         );
+        */
         fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.drawAxis();
@@ -73,6 +89,8 @@
       //--------------------------------------------      //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
+      const transparentLayer = document.getElementById("transparentLayer");
+      const ctxT = transparentLayer.getContext("2d");
 
       const cW = 1000; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;a
@@ -89,7 +107,10 @@
       const fixedOrigin = false;
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+
       reMap.objCanvas = ctx;
+      reMapT.objCanvas = ctxT;
 
       //--- calculated params
       var dx = reMap.dx();
@@ -98,7 +119,7 @@
       //----------------------------------------------------------
       function julia(z, k, strF) {
         var z0 = z;
-        var z0x = z.x; //need extra variable to calculate in 2 steps
+        var z0x = z.x; //hyperbolic needs extra variable to calculate in 2 steps 
         if (strF == null) {
           strID = "z2c";
         }
@@ -113,19 +134,6 @@
           }
         }
 
-        if (strF == "hyp") {
-          //-- hyperbolic Zn+1=k*Sin(Zn)
-          for (let i = 0; i < maxItr + 1; i++) {
-            z0.x = Math.sin(z0.x) * Math.cosh(z0.y);
-            z0.y = Math.cos(z0x) * Math.sinh(z0.y);
-            z0 = p(k, z0);
-            z0x = z0.x; //updates temporary  var z0x
-
-            if (z0.x * z0.x + z0.y * z0.y > uBound) {
-              return i;
-            }
-          }
-        }
 
         return maxItr;
       }
@@ -154,11 +162,32 @@
         reMap.drawAxis();
         reMap.drawUnitCircle();
       }
+      //----------- W I P -------------------------------------------------
+      //*** plot all points of recursive function
+      function drawEscapeRoute(z) {
+        //clear rectangle (because mouse moves)
+        reMapT.clearcanvas();
+        var arrPoints = new Array(); //array of complex numbers
+        var tempZ=z;
+        var k = new c(params.cx.val, params.cy.val);
+        //loop and keep applying Julia criteria
+        for (let index = 0; index < maxItr; index++) {
+          arrPoints.push(tempZ);
+          tempZ=s(p(tempZ,tempZ),k);
+        }
+        //plot array
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          if (index > 0) {
+            reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
+          }
+      }
+      } 
 
       //__________________________________________________________________
       function go() {
         //selected function
-        var strF = getDropDownSelectedValue("dd1");
+        var strF = "z2c"; // getDropDownSelectedValue("dd1");
         //console.log("selected function is: " + strF);
 
         //---clear canvas

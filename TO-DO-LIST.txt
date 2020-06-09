@@ -26,11 +26,9 @@ red dots before starting the animation
 lock to 1 radius
 color change w radius?
 
-
-
 FRACTALS
-need to update displayed params after zooming - better binding of sliders to params
-save fixed center among params, save file after zooming, include other params
+better binding of sliders to params
+save fixed center true/false among params, save file after zooming, include other params
 double-click zoom out (messy to deal with double click)
 separate functions for zoomIn and zoomOut
 
@@ -39,4 +37,13 @@ separate functions for zoomIn and zoomOut
   clean mandelbrot code, useless functions for other fractals
   second layer on top to see (on mouse move) the escape route of each points
 
+JULIA
+ layer w escape routes
+ 
+        //var k=new c(-0.54,0.54); // ***** WIP *************
+        //var k=new c(0.355,0.355); // ***** WIP *************
+        //var k=new c(0.355,0.355); // ***** WIP *************
+        //c = 0.355534 - 0.337292i
+        //var k=new c(0.3555534,0.337292);
+        to be added to functions object as a set of possible params
 

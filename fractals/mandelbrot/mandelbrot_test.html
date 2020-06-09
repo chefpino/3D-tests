@@ -73,13 +73,14 @@
      //-------------------------------------------
      //*** plot all points of recursive function
       function drawEscapeRoute(k) {
+        //clear rectangle (because mouse moves)
         reMapT.clearcanvas();
         var arrPoints = new Array(); //array of complex numbers
         var tempZ=new c(0,0);
         //loop and keep applying mandelbrot
         for (let index = 0; index < maxItr; index++) {
           arrPoints.push(tempZ);
-          tempZ=fs(tempZ,k).mandelbrot;
+          tempZ=fs(tempZ,k);
         }
         //plot array
         for (let index = 0; index < arrPoints.length; index++) {
@@ -138,12 +139,45 @@
         reMap.drawUnitCircle(); //ellipse representing the unit circle
         
       }
+//----------------------------------------
+var frFunctions = {
+        
+        mandelbrot: {
+          
+          args: "z,k", 
+          strReturn: "return s(p(z,z),k);", 
+          x0: -2,
+          x1: +2,
+          y0: -2,
+          y1: +2,
+          idealupperbound: 4,
+          repetitions_min: 50,
+          repetitions_max: 500,          
+
+        },
+
+        julia: {
+          args: "z,k", 
+          strReturn: "return s(p(z,z),k);", 
+          x0: -2,
+          x1: +2,
+          y0: -2,
+          y1: +2,
+          idealupperbound: 4,
+          repetitions_min: 50,
+          repetitions_max: 500,          
+        } 
+
+
+    };
+
+
       //---------------------------------------------------------------------
       function mandel(k) {
         var z0 = new c(0, 0);
         var i = 0;
         for (i = 0; i < maxItr + 1; i++) {
-          z0 = fs(z0, k).mandelbrot;
+          z0 = fs(z0, k);
           if (z0.x * z0.x + z0.y * z0.y > uBound) {
             return i;
           }
@@ -151,13 +185,19 @@
         return maxItr;
       }
       //--------------------------------------------------------------------
+      
+      var args = frFunctions["mandelbrot"].args; //with this notation it can be dynamic!
+      var body = frFunctions.mandelbrot.strReturn;
+      const fs = new Function(args, body);
+      
+      /*
       function fs(z, k) {
         return {
           mandelbrot: s(p(z, z), k),
         };
         
       }
-
+*/
       //_________________________________________________________________
       function loadvaluesandgo() {
         //go! button

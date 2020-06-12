@@ -36,30 +36,35 @@ var navigation = {
     link: "../../fractals/mandelbrot/index.html",
     label: "MANDELBROT",
     hasChildren: false,
+    content: "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite."
   },
   julia: {
     id: "julia",
     link: "../../fractals/julia/index.html",
     label: "JULIA (Work In Progress)",
     hasChildren: false,
+    content: "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite."
   },
   burningship: {
     id: "burningship",
     link: "../../fractals/burningship/index.html",
     label: "BURNING SHIP",
     hasChildren: false,
+    content: "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite."
   },
   tree: {
     id: "tree",
     link: "../../fractals/tree/index.html",
     label: "TREE",
     hasChildren: false,
+    content: "Change the parameters to generate different fractal trees."
   },
   unitcircle: {
     id: "unitcircle",
     link: "../../fractals/unitcircle/index.html",
     label: "UNIT CIRCLE",
     hasChildren: false,
+    content: ""
   },
   plotmathfunctions: {
     id: "plotmathfunctions",
@@ -90,13 +95,14 @@ var navigation = {
       "../../plotmathfunctions/complexplane/index.html",
     label: "ROTATIONS (Work In Progress)",
     hasChildren: false,
+    content: "Click on the complex plane to draw a polygon.<br>Double click to choose a vector.<br>Apply a rotation or a translation.<br>Auto applies the rotation until polygon becomes smaller than a pixel or larger than the canvas."
   },
 };
 
 //----------------------------------------------------------------------------------
 // -- this is a recursive function to generate the menu, it can be improved
 function genMenu(strKey, nestinglevel, strCurrentPage) {
-  var strTemp = ((nestinglevel == 0) ? "<table border=0 width='100%'>" :  "");
+  var strTemp = ((nestinglevel == 0) ? "<table width='50%'>" :  "");
   var oChildren; //object containing children
   
 
@@ -136,7 +142,10 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
 function genNavigation(strCurrentPage) {
   document.getElementById("menu").innerHTML=genMenu("home",0,strCurrentPage); //add navigation
   document.title=navigation[strCurrentPage].label;
-  //console.log(genMenu("home",0,strCurrentPage));
+  document.getElementById("content").innerHTML = 
+    "<b>" + navigation[strCurrentPage].label + "</b><br>" + 
+    navigation[strCurrentPage].content;
+  //console.log();
   
 }
 

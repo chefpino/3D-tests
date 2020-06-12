@@ -4,7 +4,6 @@ body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 12px;
-  line-height: 30px;
   color: rgb(10, 10, 10);
   background: rgba(238, 241, 6, 0.041);
 }
@@ -41,8 +40,13 @@ a:hover {
 }
 table {
   border-collapse: collapse;
+  
 }
 
 table, th, td {
   border: 0px solid black;
+  padding: 2px;
+}
+tr {
+  height: 10px;
 }

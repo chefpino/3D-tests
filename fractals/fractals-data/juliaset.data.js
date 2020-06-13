@@ -118,6 +118,9 @@ var params = {
     minLabel: "-1",
     maxLabel: "+1",
     integer: false
+  },
+  examples: {
+    
   }
 };
 

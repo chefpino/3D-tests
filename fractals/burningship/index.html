@@ -137,6 +137,7 @@ function loadvaluesandgo() {
         var y = y0;
         var itr = 0;
         var clr = 0;
+        var tz = new c(0, 0);
 
         for (let i = 0; i < cW; i++) {
           x = x + dx;
@@ -144,7 +145,8 @@ function loadvaluesandgo() {
 
           for (let j = 0; j < cH; j++) {
             y = y + dy;
-            var tz = new c(x, y);
+            tz.x=x;
+            tz.y=y;
             itr = mandel(tz);
             if (itr < maxItr) {
               clr = Math.round((itr * 255) / maxItr);

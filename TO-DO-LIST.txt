@@ -3,12 +3,9 @@ remove console.log s
 resolution of sliders? TAI
 
 GENERIC
-description of each page
-navigation menu, improve graphic
 fix once for all CSS
 another home page beside the default github one?
 json to menu: add active element css class?
-clear canvas should be a method of remap
 
 3D COLOR
 wip: 3d-color wip page. think about having several
@@ -18,13 +15,12 @@ the z stretching doesn't make sense at the moment
 
 COMPLEX PLANE
   add save params?
-  description of how to use the page
 don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array
 remove last points, think about it
 red dots before starting the animation
 lock to 1 radius
-color change w radius?
+color change w radius? or magnitude
 
 FRACTALS
 better binding of sliders to params
@@ -37,8 +33,8 @@ separate functions for zoomIn and zoomOut
   clean mandelbrot code, useless functions for other fractals
   second layer on top to see (on mouse move) the escape route of each points
 
-JULIA
- layer w escape routes
+  JULIA
+  add possible parameters with their x0,x1
  
         //var k=new c(-0.54,0.54); // ***** WIP *************
         //var k=new c(0.355,0.355); // ***** WIP *************
@@ -47,3 +43,5 @@ JULIA
         //var k=new c(0.3555534,0.337292);
         to be added to functions object as a set of possible params
 
+  TREE
+  parameters of leaves?

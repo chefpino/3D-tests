@@ -205,6 +205,7 @@
         //c = 0.355534 - 0.337292i
         //var k=new c(0.3555534,0.337292);
         var k = new c(params.cx.val, params.cy.val);
+        var tz=new c(0,0);
 
         for (let i = 0; i < cW; i++) {
           x = x + dx;
@@ -212,7 +213,8 @@
 
           for (let j = 0; j < cH; j++) {
             y = y + dy;
-            var tz = new c(x, y);
+            tz.x=x;
+            tz.y=y;
 
             itr = julia(tz, k, strF);
             if (itr < maxItr) {

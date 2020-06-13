@@ -35,6 +35,10 @@ separate functions for zoomIn and zoomOut
 
   JULIA
   add possible parameters with their x0,x1
+  added examples in the params object, must add values from
+  https://en.wikipedia.org/wiki/Julia_set
+  and have a drop down linked to it
+  
  
         //var k=new c(-0.54,0.54); // ***** WIP *************
         //var k=new c(0.355,0.355); // ***** WIP *************

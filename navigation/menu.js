@@ -28,7 +28,8 @@ var navigation = {
       item2: "julia",
       item3: "burningship",
       item4: "tree",
-      item5: "unitcircle",
+      item5: "barnsley",
+      item6: "unitcircle",
     },
   },
   mandelbrot: {
@@ -58,6 +59,13 @@ var navigation = {
     label: "TREE",
     hasChildren: false,
     content: "Change the parameters to generate different fractal trees."
+  },
+  barnsley: {
+    id: "barnsley",
+    link: "../../fractals/barnsley/index.html",
+    label: "BARNSLEY",
+    hasChildren: false,
+    content: "Change the parameter to increase number of points."
   },
   unitcircle: {
     id: "unitcircle",

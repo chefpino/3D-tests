@@ -31,7 +31,6 @@ separate functions for zoomIn and zoomOut
 
   MANDELBROT
   clean mandelbrot code, useless functions for other fractals
-  second layer on top to see (on mouse move) the escape route of each points
 
   JULIA
   add possible parameters with their x0,x1
@@ -48,3 +47,4 @@ one object properties starting from another object having the same prop names
 
   TREE
   parameters of leaves?
+  fractal tree fuctions remove px, py

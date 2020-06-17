@@ -18,21 +18,18 @@
           <div id="content"></div>
           <hr>
           <div id="dynamicSliders"></div>
-          <hr>
-          examples of c in f(z)=z^2+c <div id="examples"></div>
-          <hr>
-          <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td>
           <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
           <canvas
             id="myCanvas"
-            width="1000"
+            width="350"
             height="700"
             style="z-index: 1;
                     position:absolute;
                     left:0px;
-                    top:0px;"
+                    top:0px;
+                    border: 1px solid;"
 
           ></canvas>
         </td>
@@ -44,13 +41,10 @@
       function init() {
 
 
-        genNavigation("julia");
+        genNavigation("barnsley");
         generateControls(); //sliders
-        loadValues();
         fileToParameters(); //initiate event listener for file uploader
-        
-        go();
-        reMap.drawAxis();
+        loadvaluesandgo();
       }
      //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
@@ -58,7 +52,7 @@
 
       console.log(ctx);
 
-      const cW = 1000; //ctx.clientWidth;
+      const cW = 350; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;a
 
       //--- parameters the user can change (WIP)
@@ -109,6 +103,7 @@
         //go! button
 
         reMap.clearcanvas(); 
+        reMap.drawAxis();
         barnsley(0,0,params.iterations.val);
       }
 

@@ -19,6 +19,8 @@
           <hr>
           <div id="dynamicSliders"></div>
           <hr>
+          examples of c in f(z)=z^2+c <div id="examples"></div>
+          <hr>
           <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td>
@@ -79,6 +81,34 @@
 
         genNavigation("julia");
         generateControls(); //sliders
+
+        //generate drop down with julia parameters examples
+        document.getElementById("examples").innerHTML=genDropDownFromObj("examplesSelector","label","val","null",juliaExamples);
+        
+        //--- value change listener for examplesSelector
+        //function fileToParameters() {
+        document.getElementById("examplesSelector").addEventListener("change", function () {
+          
+          var tempObj=dropDownToObj("examplesSelector",juliaExamples,["cx","cy","iterations"]);
+          
+
+          //here loops through array of values (not just x and y)
+          //and updates the object (global var), then new values are loaded and run 
+          //console.log(tempObj.cx);
+          //console.log(tempObj.cy);
+          params.cx.val=tempObj.cx;
+          params.cy.val=tempObj.cy;
+          params.iterations.val=tempObj.iterations;
+
+          loadValues();
+         // WIP
+         //loadDefaults(); should be loadValues!
+         //
+
+        });
+//}
+
+        
         fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.drawAxis();
@@ -116,7 +146,7 @@
       //----------------------------------------------------------
       function julia(z, k, strF) {
         var z0 = z;
-        var z0x = z.x; //hyperbolic needs extra variable to calculate in 2 steps 
+        //var z0x = z.x; //hyperbolic needs extra variable to calculate in 2 steps 
         if (strF == null) {
           strID = "z2c";
         }

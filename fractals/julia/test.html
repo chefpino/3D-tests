@@ -15,7 +15,11 @@
         <td valign="top">
           <div id="menu"></div>
           <hr>
+          <div id="content"></div>
+          <hr>
           <div id="dynamicSliders"></div>
+          <hr>
+          <div id="examples"></div>
           <hr>
           <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
@@ -77,11 +81,34 @@
 
         genNavigation("julia");
         generateControls(); //sliders
-        /*
-        document.getElementById("dropdowns").innerHTML = generateDropdown(
-          "dd1"
-        );
-        */
+
+        //generate drop down with julia parameters examples
+        document.getElementById("examples").innerHTML=genDropDownFromObj("examplesSelector","label","val","null",juliaExamples);
+        
+        //--- value change listener for examplesSelector
+        //function fileToParameters() {
+        document.getElementById("examplesSelector").addEventListener("change", function () {
+          
+          var tempObj=dropDownToObj("examplesSelector",juliaExamples,["cx","cy","iterations"]);
+          
+
+          //here loops through array of values (not just x and y)
+          //and updates the object (global var), then new values are loaded and run 
+          //console.log(tempObj.cx);
+          //console.log(tempObj.cy);
+          params.cx.val=tempObj.cx;
+          params.cy.val=tempObj.cy;
+          params.iterations.val=tempObj.iterations;
+
+          loadValues();
+         // WIP
+         //loadDefaults(); should be loadValues!
+         //
+
+        });
+//}
+
+        
         fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.drawAxis();
@@ -203,6 +230,7 @@
         //c = 0.355534 - 0.337292i
         //var k=new c(0.3555534,0.337292);
         var k = new c(params.cx.val, params.cy.val);
+        var tz=new c(0,0);
 
         for (let i = 0; i < cW; i++) {
           x = x + dx;
@@ -210,7 +238,8 @@
 
           for (let j = 0; j < cH; j++) {
             y = y + dy;
-            var tz = new c(x, y);
+            tz.x=x;
+            tz.y=y;
 
             itr = julia(tz, k, strF);
             if (itr < maxItr) {

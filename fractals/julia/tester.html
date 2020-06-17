@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../fractals-data/juliaset.data.js"></script>
+    <script src="../fractals-library/controls.js"></script>
+    <script src="../fractals-library/library.js"></script>
+    <script src="../../navigation/menu.js"></script>
+
+  </head>
+  <body ">
+    <table border="0">
+      <tr>
+        <td valign="top">
+          <div id="menu1"></div>
+          <div id="menu2"></div>
+        </td>
+      </tr>
+    </table>
+
+  </body>
+  <script>
+     
+    function genDropDown(id,label,value,selected,obj) {
+
+     var strTemp = `<select id="${id}" name="${id}">`;
+     var arrPropertiesNames=Object.getOwnPropertyNames(obj); 
+
+     for (let index = 0; index < arrPropertiesNames.length; index++) {
+       const element = arrPropertiesNames[index];
+       strTemp += `<option value="${obj[element][value]}" `;
+       strTemp += element == selected ? "selected" : "";
+       strTemp += ">";
+       strTemp += obj[element][label] + "</option>";      }
+     
+     strTemp += "</select>";     
+
+     return strTemp;       
+    }
+    
+//---------------------------------------------------------------------------         
+    function genDropDownFromObj(id,label,value,selected,obj) {
+
+      var strTemp = `<select id="${id}" name="${id}">`;
+      var arrPropertiesNames=Object.getOwnPropertyNames(obj); 
+
+      for (const property in obj) {
+        strTemp += `<option value="${obj[property][value]}" `;
+        strTemp += obj[property].val == selected ? "selected" : "";
+        strTemp += ">";
+        strTemp += obj[property][label] + "</option>";
+      }
+      strTemp += "</select>";     
+
+      return strTemp;   
+      
+      }
+//----------------------------------------------------------------------------
+      function dropDownToObj(dd_id,src_obj,arr_keys){
+
+        var e = document.getElementById(dd_id);
+        var selectedvalue=e.options[e.selectedIndex].value;
+        console.log(selectedvalue);
+        var retObj={};
+
+        for (let index = 0; index < arr_keys.length; index++) {
+
+          retObj[arr_keys[index]]=src_obj[selectedvalue][arr_keys[index]];
+
+        }
+
+        //window.alert(strTemp);
+        return retObj;
+
+      }
+    
+    document.getElementById("menu1").innerHTML=genDropDownFromObj("testID1","label","val","ex3",juliaExamples);
+    //document.getElementById("menu2").innerHTML=genDropDown2("testID2","label","val","ex1",juliaExamples);
+    
+    var tempObj=dropDownToObj("testID1",juliaExamples,["x","y"]);
+
+    console.log(tempObj.x);
+    console.log(tempObj.y);
+
+   </script>
+</html>

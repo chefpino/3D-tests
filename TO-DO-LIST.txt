@@ -38,14 +38,13 @@ separate functions for zoomIn and zoomOut
   added examples in the params object, must add values from
   https://en.wikipedia.org/wiki/Julia_set
   and have a drop down linked to it
-  
+  I have the dropdown functions ready and linked to juliaexamples
+  in the event listener I need to go through the object returned by the drop down change
+  update the parameters and reload/go
+perhaps it's worth writing a function that updates 
+one object properties starting from another object having the same prop names 
+
  
-        //var k=new c(-0.54,0.54); // ***** WIP *************
-        //var k=new c(0.355,0.355); // ***** WIP *************
-        //var k=new c(0.355,0.355); // ***** WIP *************
-        //c = 0.355534 - 0.337292i
-        //var k=new c(0.3555534,0.337292);
-        to be added to functions object as a set of possible params
 
   TREE
   parameters of leaves?

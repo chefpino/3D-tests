@@ -64,7 +64,8 @@ function generateControls() {
 }
 //----------------------------------------------------------------------------------
 function loadDefaults() {
-  // load all default values
+  // load all default values from params object
+  //will be obsolete when below funct is ready
   for (var key in params) {
     defaultValue = paramToSlider(key, params[key].default);
     if (params[key].visible != false){
@@ -73,6 +74,22 @@ function loadDefaults() {
     }
   }
 }
+//----------------------------------------------------------------------------------
+function loadValues() {
+  // load all values from params object and updates sliders+interface
+  var tempVal;
+  for (var key in params) {
+    var tempVal = paramToSlider(key, params[key].val);
+    if (params[key].visible != false){
+        document.getElementById(key).value = tempVal;
+        document.getElementById("val_" + key).innerHTML = params[key].val;
+    }
+  }
+}
+
+
+
+
 //----------------------------------------------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
 //and most important updates value in the params object!
@@ -183,30 +200,54 @@ function td(x) {
   return "<td style='border: 1px solid black;'>" + x + "</td>";
 }
 //===========================================================================
-// section dedicated to dropdown menus. it relies on the object/json
-// dropdowns (data files ex. /fractals/fractals-data/juliaset.data.js)
+// section dedicated to dropdown menus.
 
-function generateDropdown(ddID) {
-  var oElems = dropdowns[ddID].elements;
-  var strSelected = dropdowns[ddID].selected;
-  console.log(strSelected);
-  var strTemp = `<select id="${ddID}" name="${ddID}">`;
-
-  for (const property in oElems) {
-    strTemp += `<option value="${oElems[property].val}" `;
-    strTemp += oElems[property].val == strSelected ? "selected" : "";
-    strTemp += ">";
-    strTemp += oElems[property].label + "</option>";
-  }
-  strTemp += "</select>";     
-
-  return strTemp;
-}
 //-------------------------------------------------
 function getDropDownSelectedValue(strID){
   var e = document.getElementById(strID);
   return e.options[e.selectedIndex].value;
 }
+
+//--- more elaborate drop down generator and values retrievers
+//---------------------------------------------------------------------------         
+function genDropDownFromObj(id,label,value,selected,obj) {
+
+  var strTemp = `<select id="${id}" name="${id}">`;
+  var arrPropertiesNames=Object.getOwnPropertyNames(obj); 
+
+  for (const property in obj) {
+    strTemp += `<option value="${obj[property][value]}" `;
+    strTemp += obj[property].val == selected ? "selected" : "";
+    strTemp += ">";
+    strTemp += obj[property][label] + "</option>";
+  }
+  strTemp += "</select>";     
+
+  return strTemp;   
+  
+  }
+//----------------------------------------------------------------------------
+  function dropDownToObj(dd_id,src_obj,arr_keys){
+
+    var e = document.getElementById(dd_id);
+    var selectedvalue=e.options[e.selectedIndex].value;
+    console.log(selectedvalue);
+    var retObj={};
+
+    for (let index = 0; index < arr_keys.length; index++) {
+
+      retObj[arr_keys[index]]=src_obj[selectedvalue][arr_keys[index]];
+
+    }
+
+    //window.alert(strTemp);
+    return retObj;
+
+  }
+
+
+
+
 
 
 

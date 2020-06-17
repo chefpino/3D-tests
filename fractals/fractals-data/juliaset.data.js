@@ -25,11 +25,11 @@ var dropdowns = {
     id: "selectFunction",
     ext_label: "function",
     elements: [
-               {"val": "z2c","label":"classic: Zn+1=(Zn)^2+c"},
-               {"val": "hyp","label":"hyperbolic Zn+1=c*sin(Zn)"}
-              ],
-    selected: "z2c"      
-        },
+      { val: "z2c", label: "classic: Zn+1=(Zn)^2+c" },
+      { val: "hyp", label: "hyperbolic Zn+1=c*sin(Zn)" },
+    ],
+    selected: "z2c",
+  },
 };
 //--------------------------------------------------------------
 //params is a global variable with many values that can be saved in a txt file
@@ -47,11 +47,11 @@ var params = {
   iterations: {
     val: 100,
     min: 50,
-    max: 450,
+    max: 500,
     default: 100,
     label: "iterations",
     minLabel: "50",
-    maxLabel: "450",
+    maxLabel: "500",
     integer: true,
   },
   x0: {
@@ -63,7 +63,7 @@ var params = {
     minLabel: "-4",
     maxLabel: "4",
     integer: false,
-    visible:false
+    visible: false,
   },
   x1: {
     val: 2,
@@ -74,7 +74,7 @@ var params = {
     minLabel: "1",
     maxLabel: "4",
     integer: false,
-    visible: false
+    visible: false,
   },
 
   y0: {
@@ -86,7 +86,7 @@ var params = {
     minLabel: "-4",
     maxLabel: "0",
     integer: false,
-    visible: false
+    visible: false,
   },
   y1: {
     val: 1.4,
@@ -97,7 +97,7 @@ var params = {
     minLabel: "0",
     maxLabel: "4",
     integer: false,
-    visible: false
+    visible: false,
   },
   cx: {
     val: -0.54,
@@ -107,7 +107,7 @@ var params = {
     label: "c: x",
     minLabel: "-1",
     maxLabel: "+1",
-    integer: false
+    integer: false,
   },
   cy: {
     val: -0.54,
@@ -117,13 +117,75 @@ var params = {
     label: "c: y",
     minLabel: "-1",
     maxLabel: "+1",
-    integer: false
+    integer: false,
   },
-  examples: {
-    
-  }
 };
-
-
-
-//----------------------------------------------------------------------------------
+//____________________________________________________
+var juliaExamples = {
+  ex0: {
+    label: "-0.54 + 0.54i",
+    val: "ex0",
+    cx: -0.4,
+    cy: 0.6,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250
+  },
+  ex1: {
+    label: "-0.4 + 0.6i",
+    val: "ex1",
+    cx: -0.4,
+    cy: 0.6,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250
+  },
+  ex2: {
+    label: "0.285 + 0.01i",
+    val: "ex2",
+    cx: 0.285,
+    cy: 0.01,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250
+  },
+  ex3: {
+    label: "0.45 + 0.1428i",
+    val: "ex3",
+    cx: 0.45,
+    cy: 0.1428,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250
+  },
+  ex4: {
+    label: "-0.70176  -0.3842i",
+    val: "ex4",
+    cx: -0.70176,
+    cy: -0.3842,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250
+  },
+  ex5: {
+    label: "-0.835 - 0.2321i",
+    val: "ex5",
+    cx: -0.835,
+    cy: -0.2321,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250
+  },
+};

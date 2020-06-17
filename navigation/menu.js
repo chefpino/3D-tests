@@ -42,7 +42,7 @@ var navigation = {
   julia: {
     id: "julia",
     link: "../../fractals/julia/index.html",
-    label: "JULIA (Work In Progress)",
+    label: "JULIA",
     hasChildren: false,
     content: "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite."
   },

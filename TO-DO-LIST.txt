@@ -48,3 +48,7 @@ one object properties starting from another object having the same prop names
   TREE
   parameters of leaves?
   fractal tree fuctions remove px, py
+
+  BARNSLEY
+  add zoom function
+  

@@ -2,7 +2,6 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
-    <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../fractals-data/barnsley.data.js"></script>
     <script src="../fractals-library/controls.js"></script>
@@ -23,7 +22,7 @@
           <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
           <canvas
             id="myCanvas"
-            width="350"
+            width="500"
             height="700"
             style="z-index: 1;
                     position:absolute;
@@ -50,10 +49,15 @@
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
 
+      //temp
+      //ctx.shadowBlur = 5;
+      ctx.shadowColor = "green";
+
+
       console.log(ctx);
 
-      const cW = 350; //ctx.clientWidth;
-      const cH = 700; //ctx.clientHeight;a
+      const cW = 500; //ctx.clientWidth;
+      const cH = 700; //ctx.clientHeight;
 
       //--- parameters the user can change (WIP)
       // -- global variables
@@ -90,7 +94,7 @@
             nx = 0.85 * x + 0.04 * y;
             ny = -0.04 * x + 0.85 * y + 1.6; }
 
-            plot(reMap.x(nx),reMap.y(ny),"green");
+            plot(reMap.x(nx),reMap.y(ny),"darkgreen");
             x=nx;
             y=ny;
         }

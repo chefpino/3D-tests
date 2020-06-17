@@ -39,7 +39,7 @@ class ReMap {
     dy() {
       return (this.y1 - this.y0) / this.cH;
     }
-
+/*
   plot(x, y) {
     //x,y are canvas coordinates
 
@@ -48,7 +48,7 @@ class ReMap {
     this._myCanvas.arc(x, y, 2, 0, 2 * Math.PI); //.arc(x,y,2,1);
     this._myCanvas.fill();
   }
-
+*/
   drawAxis() {
     //improvements:
     //origin showing or not, plus writing coordinates on edges of canvas true/false

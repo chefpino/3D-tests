@@ -72,7 +72,6 @@ class ReMap {
         }
         // if axis is out of the canvas just write the x range
         if (this.y(0) < 0 || this.y(0) > cH) {
-          //console.log("(this.x1).toString.length=" + (this.x1).toString.length);
           this._objCanvas.fillText(this.x0, 5, this.cH / 2); //x0 
           this._objCanvas.fillText(this.x1, posx1, this.cH / 2);
         }

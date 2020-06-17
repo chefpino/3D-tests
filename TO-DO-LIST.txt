@@ -33,11 +33,6 @@ separate functions for zoomIn and zoomOut
   clean mandelbrot code, useless functions for other fractals
 
   JULIA
-  add possible parameters with their x0,x1
-  added examples in the params object, must add values from
-  https://en.wikipedia.org/wiki/Julia_set
-  and have a drop down linked to it
-  I have the dropdown functions ready and linked to juliaexamples
   in the event listener I need to go through the object returned by the drop down change
   update the parameters and reload/go
 perhaps it's worth writing a function that updates 
@@ -50,5 +45,5 @@ one object properties starting from another object having the same prop names
   fractal tree fuctions remove px, py
 
   BARNSLEY
-  add zoom function
+  add zoom function?
   

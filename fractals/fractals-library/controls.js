@@ -96,7 +96,6 @@ function loadValues() {
 function updateParam(x) {
   var iTemp = 1 * document.getElementById(x).value;
   params[x].val = sliderToParam(x, iTemp);
-  //console.log(params[x].val);
   document.getElementById("val_" + x).innerHTML = params[x].val;
 }
 //----------------------------------------------------------------------------------
@@ -231,7 +230,6 @@ function genDropDownFromObj(id,label,value,selected,obj) {
 
     var e = document.getElementById(dd_id);
     var selectedvalue=e.options[e.selectedIndex].value;
-    console.log(selectedvalue);
     var retObj={};
 
     for (let index = 0; index < arr_keys.length; index++) {

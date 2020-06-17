@@ -153,7 +153,6 @@ function genNavigation(strCurrentPage) {
   document.getElementById("content").innerHTML = 
     "<b>" + navigation[strCurrentPage].label + "</b><br>" + 
     navigation[strCurrentPage].content;
-  //console.log();
   
 }
 

@@ -23,13 +23,11 @@
 
 <script>
 //--- global PARAMETERS ------------------------------------------------------------------  
-const c = document.getElementById("myCanvas");
-const ctx = c.getContext("2d"); 
-const cW=c.clientWidth;
-const cH=c.clientHeight;
+const myCanvas = document.getElementById("myCanvas");
+const ctx = myCanvas.getContext("2d"); 
+const cW=myCanvas.clientWidth;
+const cH=myCanvas.clientHeight;
 const pi=Math.PI;
-
-
 
 //--- defined to be global, actual values taken from the ext. file data.js
 var initAngle=0;       
@@ -68,24 +66,10 @@ function loadvaluesandgo() {
     trunkReduction=params["trunkReduction"].val;    
     minBranch=params["minBranch"].val;  
 
-  //--- calculated params, if any
-
   //---clear canvas
   ctx.clearRect(0, 0, cW, cH);
 
   draw(0,0,initAngle,initLen,initTrunk);
-}
-//---------------------------------------------------
-
-
-
-
-
-
-  //----------------------------------------------------
-function reDraw() {  
-  ctx.clearRect(0, 0, cW, cH);
-  init();  
 }
 //--------------------------------------------------
 function resetReload() {

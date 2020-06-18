@@ -28,8 +28,7 @@ var navigation = {
       item2: "julia",
       item3: "burningship",
       item4: "tree",
-      item5: "barnsley",
-      item6: "unitcircle",
+      item5: "barnsley"
     },
   },
   mandelbrot: {
@@ -80,6 +79,7 @@ var navigation = {
     label: "PLOT FUNCTIONS",
     hasChildren: true,
     children: {
+      item0: "unitcircle",
       item1: "twoD",
       item2: "threeD",
       item3: "complex",

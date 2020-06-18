@@ -76,7 +76,7 @@ var navigation = {
   plotmathfunctions: {
     id: "plotmathfunctions",
     link: "#",
-    label: "PLOT FUNCTIONS",
+    label: "FUNCTIONS",
     hasChildren: true,
     children: {
       item0: "unitcircle",

@@ -1,10 +1,8 @@
 TO DO LIST
-remove console.log s
 resolution of sliders? TAI
 
 GENERIC
 fix once for all CSS
-another home page beside the default github one?
 json to menu: add active element css class?
 
 3D COLOR
@@ -25,11 +23,11 @@ color change w radius? or magnitude
 FRACTALS
 better binding of sliders to params
 save fixed center true/false among params, save file after zooming, include other params
-double-click zoom out (messy to deal with double click)
+double-click zoom out? (messy to deal with double click)
 separate functions for zoomIn and zoomOut
 
 
-  MANDELBROT
+MANDELBROT
   clean mandelbrot code, useless functions for other fractals
 
   JULIA

@@ -217,7 +217,7 @@
             itr = mandel(tz);
             if (itr < maxItr) {
               clr = Math.round((itr * 255) / maxItr);
-              clr = "#" + clr + clr + clr;
+              clr = "#" + clr + clr + clr; //grey scale
               plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
             }
           }

@@ -1,4 +1,3 @@
-//USED ONLY FOR TREE FRACTAL
 
 //------------ LEAF ----------------------------------------
 function leaf(x, y, l, alpha, beta) {

@@ -29,10 +29,10 @@ var params = {
      maxLabel:"&pi;/4"
      },
    "initLen":{
-     val:100,
+     val:130,
      min:25,
      max:150,
-     default:100,
+     default:130,
      label:"trunk initial height",
      minLabel:"25",
      maxLabel:"150"

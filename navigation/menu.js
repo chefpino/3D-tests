@@ -68,10 +68,10 @@ var navigation = {
   },
   unitcircle: {
     id: "unitcircle",
-    link: "../../fractals/unitcircle/index.html",
+    link: "../../plotmathfunctions/unitcircle/index.html",
     label: "UNIT CIRCLE",
     hasChildren: false,
-    content: ""
+    content: "z -> z^2"
   },
   plotmathfunctions: {
     id: "plotmathfunctions",

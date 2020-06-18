@@ -4,8 +4,8 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
-    <script src="../fractals-library/controls.js"></script>
-    <script src="../fractals-data/unit.circle.data.js"></script>
+    <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="../../fractals/fractals-data/unit.circle.data.js"></script>
     <script src="../../navigation/menu.js"></script>
   </head>
   <body onload="init();">
@@ -14,6 +14,7 @@
       <tr>
         <td valign="top">
           <div id="menu" ></div>
+          <hr>
           <div id="content"></div>
           <hr>
           <div id="dynamicSliders"></div>
@@ -33,8 +34,8 @@
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
 
-      const cW = 700; //ctx.clientWidth;
-      const cH = 700; //ctx.clientHeight;
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight;
       /*/
 const cW=ctx.clientWidth;
 const cH=ctx.clientHeight;

@@ -45,10 +45,10 @@ var params = {
     integer: false,
   },
   iterations: {
-    val: 100,
+    val: 150,
     min: 50,
     max: 500,
-    default: 100,
+    default: 150,
     label: "iterations",
     minLabel: "50",
     maxLabel: "500",

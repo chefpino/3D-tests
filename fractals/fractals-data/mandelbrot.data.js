@@ -65,6 +65,10 @@ var params = {
    maxLabel:"1000",
    integer:true
    },
+ "fixedOrigin":{
+  val: false,
+  visible: false
+   },
    "x0":{
     val:-2,
     min:-2,

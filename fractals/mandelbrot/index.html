@@ -53,7 +53,7 @@
       const cW = 1000; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;a
 
-      //--- parameters the user can change (WIP)
+      //--- parameters the user can change is made visible w/ sliders
       // -- global variables
       var x0 = params.x0.val;
       var x1 = params.x1.val;
@@ -61,7 +61,7 @@
       var y1 = params.y1.val;
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
-      const fixedOrigin = false;
+      const fixedOrigin = params.fixedOrigin.val;
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
       var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates

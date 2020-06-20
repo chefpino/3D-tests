@@ -13,5 +13,9 @@ var params = {
    "parameter to save on JSON file":false,
    "show":true,
    "integer":true
-   }
-}
+   },
+   "fixedOrigin":{
+      val: false,
+      visible: false
+       }
+  }

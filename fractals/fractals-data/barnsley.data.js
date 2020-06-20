@@ -13,6 +13,10 @@ var params = {
     maxLabel: "1000000",
     integer: true,
   },
+  "fixedOrigin":{
+    val: false,
+    visible: false
+     },
   x0: {
     val: -2.1820,
     integer: false,

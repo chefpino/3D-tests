@@ -25,6 +25,7 @@ better binding of sliders to params
 save fixed center true/false among params, save file after zooming, include other params
 double-click zoom out? (messy to deal with double click)
 separate functions for zoomIn and zoomOut
+for all fractals: const fixedOrigin = params.fixedOrigin.val;
 
 
 MANDELBROT

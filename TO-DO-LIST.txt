@@ -5,6 +5,11 @@ GENERIC
 fix once for all CSS
 json to menu: add active element css class?
 
+2D
+zoom?
+mouse coordinates
+
+
 3D COLOR
 wip: 3d-color wip page. think about having several
 functions and see if they can be saved in the params
@@ -24,7 +29,6 @@ FRACTALS
 better binding of sliders to params
 double-click zoom out? (messy to deal with double click)
 separate functions for zoomIn and zoomOut
-for all fractals: const fixedOrigin = params.fixedOrigin.val;
 
 
 MANDELBROT
@@ -39,8 +43,7 @@ one object properties starting from another object having the same prop names
  
 
   TREE
-  parameters of leaves?
-  fractal tree fuctions remove px, py
+fractal tree fuctions remove px, py?
 
   BARNSLEY
   add zoom function?

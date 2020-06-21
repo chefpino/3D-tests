@@ -99,9 +99,6 @@
           params.iterations.val=tempObj.iterations;
 
           loadValues();
-         // WIP
-         //loadDefaults(); should be loadValues!
-         //
 
         });
 //}
@@ -111,14 +108,14 @@
         go();
         reMap.drawAxis();
       }
-      //--------------------------------------------      //--- global PARAMETERS ------------------------------------------------------------------
+      //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
       const transparentLayer = document.getElementById("transparentLayer");
       const ctxT = transparentLayer.getContext("2d");
 
-      const cW = 1000; //ctx.clientWidth;
-      const cH = 700; //ctx.clientHeight;a
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight
 
       //--- parameters the user can change via sliders if made visible
       // -- global variables

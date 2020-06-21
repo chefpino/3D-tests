@@ -83,6 +83,7 @@ var navigation = {
     link: "../../plotmathfunctions/2d/index.html",
     label: "2D (w.i.p.)",
     hasChildren: false,
+    content: "page under construction"
   },
   threeD: {
     id: "threeD",

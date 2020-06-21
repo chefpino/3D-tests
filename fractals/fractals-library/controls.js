@@ -63,6 +63,7 @@ function generateControls() {
   //loadDefaults();
 }
 //----------------------------------------------------------------------------------
+/*
 function loadDefaults() {
   // load all default values from params object
   //will be obsolete when below funct is ready
@@ -74,6 +75,7 @@ function loadDefaults() {
     }
   }
 }
+*/
 //----------------------------------------------------------------------------------
 function loadValues() {
   // load all values from params object and updates sliders+interface

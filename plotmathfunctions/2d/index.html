@@ -1,12 +1,105 @@
 <!DOCTYPE html>
 <html>
-
-<body>
-
-<canvas id="myCanvas" width="1400" height="700" style="border:1px solid">
-Your browser does not support the HTML5 canvas tag.</canvas>
+  <head>
+    <script src="../../navigation/menu.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="../../fractals/fractals-data/twod.data.js"></script>
+  </head>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td valign="top">
+              <div id="menu"></div>
+              <hr>
+              <div id="content"></div>
+              <hr>
+              <div id="dynamicSliders">placeholder</div>
+              <hr>
+              <b>Coordinates</b><div id="mousecoordinates"></div>
+        </td>
+        <td valign="top">
+          <canvas
+            id="myCanvas"
+            width="1100"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+      </tr>
+    </table>
 
 <script>
+"use strict";
+
+//global variables here
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight
+
+      //--- parameters the user can change via sliders if made visible
+      // -- global variables
+      var x0 = params.x0.val;
+      var x1 = params.x1.val;
+      var y0 = params.y0.val;
+      var y1 = params.y1.val;
+      const fixedOrigin = params.fixedOrigin.val;
+
+      const xIntervals=250;
+
+      //wip
+      const iGrid=20;
+      const drawGrid=true;
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+
+      reMap.objCanvas = ctx;
+
+      //--- calculated params
+      var dx = reMap.dx();
+      var dy = reMap.dy();
+
+
+
+//---------------------------------------
+function init(){
+
+  genNavigation("twoD");
+  generateControls();
+  fileToParameters(); //initiate event listener for file uploader
+  reMap.drawAxis();
+  plotAll();
+
+}
+//---------------------------------------
+function loadvaluesandgo() {
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+        reMap.x0 = x0;
+        reMap.x1 = x1;
+        reMap.y0 = y0;
+        reMap.y1 = y1;
+        reMap.clearcanvas();
+        plotAll();
+        reMap.drawAxis();
+      }
+//---------------------------------------
+
+function plotAll(){
+  plotFunction(f,"#121212");
+  //plotFunction(g,"#AA0000");
+  //plotFunction(h,"#BB0000");
+
+}
+
+
+
 
 function f(x) {
   return Math.sin(x);  
@@ -20,59 +113,9 @@ function h(x) {
 
 
 
-const cW=1400;
-const cH=700;
-const c = document.getElementById("myCanvas");
-const ctx = c.getContext("2d"); 
-const x0=-1;
-const x1=10;
-const y0=-1;
-const y1=1;
-const xIntervals=500;
-const iGrid=20;
-const drawGrid=true;
-
-//--------------
-//mapping paramenters (linear transformation of the given intervals to the canvas rect)
-const ax=cW/(x1-x0);
-const bx=-1*x0*ax;
-const ay=cH/(y0-y1);
-const by=-1*y1*ay;
-
-function xMap(x){
-  return ax*x+bx;
-}
-function yMap(y){
-  return ay*y+by;
-}
 
 
 
-function drawSegment(cx,cy,iSize,isHorizontal) {
-  // this is for the short segments along the axis
-  
-  ctx.beginPath();
-
-  if (isHorizontal){
-      ctx.moveTo(cx-iSize/2,cy);
-      ctx.lineTo(cx+iSize/2, cy);
-    } else {
-      ctx.moveTo(cx,cy-iSize/2);  
-      ctx.lineTo(cx, cy+iSize/2);  
-  };
-  ctx.stroke();
-}
-//-------------------------------------------
-function drawAxis() {  
-  ctx.strokeStyle = "#000000"; 
-  ctx.moveTo(xMap(x0),yMap(0));
-  ctx.lineTo(xMap(x1),yMap(0));
-  ctx.stroke();
-  ctx.moveTo(xMap(0),yMap(y0));
-  ctx.lineTo(xMap(0),yMap(y1));
-  ctx.stroke();  
-};
-//-------------------------------------------
 
 
 
@@ -81,24 +124,24 @@ function plotFunction(objF,strColor) {
 
   ctx.beginPath();
   ctx.strokeStyle = strColor; //"#FF0000";
+  ctx.strokeStyle = "#D3D3D3";
+  ctx.lineWidth = 0.5;
 
-  var i=0;
   var xi=x0;
   var yi=objF(x0);
-  const iInterval=(x1-x0)/xIntervals;
-  ctx.moveTo(xMap(xi),yMap(yi)); //first point on the map
+  ctx.moveTo(reMap.x(xi),reMap.y(yi)); //first point on the map
   
-  for (let i = 0; i < xIntervals; i++) {
+  do {
     
     //calculate next point
-    var xii=xi+iInterval;
+    var xii=xi+dx;
     var yii=objF(xii);
-    ctx.lineTo(xMap(xii),yMap(yii));
+    ctx.lineTo(reMap.x(xii),reMap.y(yii));
     ctx.stroke();  
     xi=xii;
     yi=yii;
-    ctx.moveTo(xMap(xi),yMap(yi)); //move to next point
-  }
+    ctx.moveTo(reMap.x(xi),reMap.y(yi)); //move to next point
+  } while (xii < x1);
 
 
 
@@ -106,11 +149,7 @@ function plotFunction(objF,strColor) {
 }
 //-------------------------------------------
 
-drawAxis();
 
-plotFunction(f,"#FF0000");
-plotFunction(g,"#AA0000");
-plotFunction(h,"#BB0000");
 </script> 
 
 </body>

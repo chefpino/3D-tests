@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../navigation/menu.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="../../fractals/fractals-data/rotations.data.js"></script>
+  </head>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td valign="top">
+              <div id="menu"></div>
+              <hr>
+              <div id="content"></div>
+              <hr>
+              <div id="dynamicSliders">placeholder</div>
+                  <hr>
+              <button onclick="rotateButton();">ROTATE</button>
+              <button onclick="shiftButton();">SHIFT</button>
+              <input type="button" id="startbutton" value="AUTO"></input>
+              <button onclick="location.reload();">CLEAR</button>
+              <hr>
+              <b>Chosen Vector</b>
+              <div id="vector"></div>
+              <hr>
+              <b>Coordinates</b><div id="mousecoordinates"></div>
+        </td>
+        <td valign="top">
+          <canvas
+            id="myCanvas"
+            width="700"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+      </tr>
+    </table>
+
+    <script>
+      "use strict";
+
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight;
+
+      // -- range
+      const x0 = -1.1;
+      const x1 = 1.1;
+      const y0 = -1.1;
+      const y1 = 1.1;
+      const fixedOrigin = true; //params.fixedOrigin.val;
+
+      var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
+          reMap.objCanvas=ctx;
+
+      const dx=reMap.dx();    //delta in x represented by 1px
+
+      var arrPoints = new Array(); //array of complex numbers
+      var rotationVector = new c(0, 0);
+     //---------------------------------------------------------------------------------
+     
+     function getMousePos(evt) {
+        var rect = myCanvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top,
+        };
+      }
+      //---
+      function writeMessage(message) {
+        document.getElementById("mousecoordinates").innerHTML=message;
+      }
+      //........... debug only ..................................
+      function writePoints(arrPoints) {
+        var strTemp = "";
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          strTemp += index + ": " + element.x + " + i" + element.y + "<br>";
+        }
+        document.getElementById("vector").innerHTML = strTemp;
+      }
+      //..........................................................
+      function plotArray(a, strColor) {
+        for (let index = 0; index < a.length; index++) {
+          const element = a[index];
+          if (index > 0) {
+            reMap.drawSegment(a[index], a[index - 1], strColor);
+          }
+        }
+      }
+      //..........................................................
+      function calcRotation(tempC) {
+
+        var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          arrNewPoints[index] = p(arrPoints[index], tempC); // rotation
+        }
+        return {
+           newArray: arrNewPoints
+          } 
+      }
+      //..........................................................
+      function calcShift(tempC) {
+
+        var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          arrNewPoints[index] = s(arrPoints[index], tempC); // shift
+        }
+        return {
+           newArray: arrNewPoints
+          } 
+      }
+      //..........................................................
+      function getBoundaries(objArray) {
+        //measures the smallest and largest module of the complex points
+        var rMin=m(objArray[0]).z;
+        var rMax=rMin;
+        var tempC;
+        for (let index = 1; index < objArray.length; index++) {
+          tempC=objArray[index];
+          if (m(tempC).z < rMin){rMin=m(tempC).z};
+          if (m(tempC).z > rMax){rMax=m(tempC).z};
+        }
+        return {min: rMin, max: rMax};
+      }
+
+      //..........................................................
+      function clearAndPlot(bClear) {
+
+        if (bClear){
+        reMap.clearcanvas();  
+        }
+        //draw polygon
+        plotArray(arrPoints, "#0000FF");
+        //draw rotator vector
+        var or = new c(0, 0);
+        reMap.drawSegment(or, rotationVector, "#00FF00");
+        reMap.drawAxis();
+        reMap.drawUnitCircle();
+
+      }
+      //----------------------------------------------------------------------
+      function rotateButton() {
+        //draw rotated polygon
+        arrPoints = calcRotation(rotationVector).newArray;
+        plotArray(arrPoints, "#0000FF");
+      }
+      function shiftButton() {
+        //draw rotated polygon
+        arrPoints = calcShift(rotationVector).newArray;
+        plotArray(arrPoints, "#0000FF");
+      }
+      //----------------------------------------------------------------------
+      function vectorDetails(v) {
+        return `|z|=${m(v).z}<br>a=${v.x}<br>b=${v.y}`;
+      }
+
+      //***********************************************************
+      function init() {
+        
+        genNavigation("complex");
+
+        generateControls();
+        fileToParameters(); //initiate event listener for file uploader
+
+        reMap.drawAxis();
+        reMap.drawUnitCircle();
+
+        document.getElementById("startbutton").addEventListener(
+          "click",
+          function (){
+            //document.getElementById("startstopbutton").value=(startstopbutton?"START":"STOP");
+              //*** under construction
+              const z=m(rotationVector).z;
+
+              if (z<1){
+                do {
+                rotateButton();
+                 } while (getBoundaries(arrPoints).max > dx);
+              }
+              if (z==1){
+                for (let index = 0; index < 100; index++) {
+                  rotateButton();                  
+                } 
+              }
+              if (z>1){
+                do {
+                rotateButton();
+                 } while (getBoundaries(arrPoints).min < 2); //hardcoded, not great
+              }
+          }          
+        )
+
+        //--- mouse coordinates event listener
+        myCanvas.addEventListener(
+          "mousemove",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
+            var message = `a=${tempC.x}<br>b=${tempC.y}<br>|z|=${m(tempC).z}`;
+            writeMessage(message);
+          },
+          false
+        );
+
+        //--- mouse click event listener
+        myCanvas.addEventListener(
+          "click",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
+            arrPoints.push(tempC);
+            if (arrPoints.length > 1) {
+              reMap.drawSegment(tempC, arrPoints[arrPoints.length - 2], "#000000");
+            }
+          },
+          false
+        );
+        //--- mouse dbl click event listener
+        myCanvas.addEventListener(
+          "dblclick",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            rotationVector.x = reMap.m2x(mousePos.x);
+            rotationVector.y = reMap.m2y(mousePos.y);
+            document.getElementById("vector").innerHTML = vectorDetails(
+              rotationVector
+            );
+            arrPoints.pop(); //remove last element added by last click
+            arrPoints.pop(); //remove last element added by last click
+            clearAndPlot(true);
+          },
+          false
+        );
+      }
+
+
+
+      //----------------------------------------------
+    </script>
+  </body>
+</html>

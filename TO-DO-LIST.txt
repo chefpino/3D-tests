@@ -11,8 +11,7 @@ functions and see if they can be saved in the params
 also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
 
-COMPLEX PLANE
-/plotmathfunctions/complexplane/index.html
+ROTATIONS (COMPLEX PLANE)
 add params (for sure) and save?
 don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array

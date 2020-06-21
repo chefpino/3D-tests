@@ -1,10 +1,3 @@
- /*
-WIP
-this is a page containing menu/navigation global variables
-in form of an object/json file
-
-WIP: class="vertical-menu"
-*/
 
 var navigation = {
   home: {

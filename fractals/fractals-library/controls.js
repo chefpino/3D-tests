@@ -151,17 +151,13 @@ function fileToParameters() {
     };
     fr.readAsText(this.files[0]);
   });
-}
+} 
 //--- string of parameters generated dynamically --------------------------------------
 function parametersToJSON() {
   var rTemp = 0;
   var strTemp = "{";
   for (var key in params) {
     
-    /*
-    rTemp = document.getElementById(key).value;
-    strTemp += '"' + key + '":' + sliderToParam(key, rTemp) + ",";
-    */
    strTemp += `"${key}":${params[key].val}`;
    strTemp += ",";  
     

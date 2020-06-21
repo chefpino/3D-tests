@@ -12,7 +12,8 @@ also, the function launched by the go button should be dynamic
 the z stretching doesn't make sense at the moment
 
 COMPLEX PLANE
-  add save params?
+/plotmathfunctions/complexplane/index.html
+add params (for sure) and save?
 don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array
 remove last points, think about it
@@ -22,7 +23,6 @@ color change w radius? or magnitude
 
 FRACTALS
 better binding of sliders to params
-save fixed center true/false among params, save file after zooming, include other params
 double-click zoom out? (messy to deal with double click)
 separate functions for zoomIn and zoomOut
 for all fractals: const fixedOrigin = params.fixedOrigin.val;

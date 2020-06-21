@@ -10,7 +10,7 @@ var navigation = {
   home: {
     id: "home",
     link: "https://chefpino.github.io/fun/",
-    label: "HOME (Work In Progress)",
+    label: "HOME (w.i.p.)",
     hasChildren: true,
     children: {
       item1: "fractals",
@@ -80,28 +80,28 @@ var navigation = {
     hasChildren: true,
     children: {
       item0: "unitcircle",
-      item1: "twoD",
-      item2: "threeD",
-      item3: "complex",
+      item1: "complex",
+      item2: "twoD",
+      item3: "threeD",
     },
   },
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "2D (Work In Progress)",
+    label: "2D (w.i.p.)",
     hasChildren: false,
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "3D (Work In Progress)",
+    label: "3D (w.i.p.)",
     hasChildren: false,
   },
   complex: {
     id: "complex",
     link:
-      "../../plotmathfunctions/complexplane/index.html",
-    label: "ROTATIONS (Work In Progress)",
+      "../../plotmathfunctions/rotations/index.html",
+    label: "ROTATIONS (w.i.p.)",
     hasChildren: false,
     content: "Click on the complex plane to draw a polygon.<br>Double click to choose a vector.<br>Apply a rotation or a translation.<br>Auto applies the rotation until polygon becomes smaller than a pixel or larger than the canvas."
   },
@@ -129,7 +129,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   }
 
 
-  strTemp = strTemp + "<tr><td>" + tirets(nestinglevel) + strLabel + "</td></tr>";
+  strTemp = strTemp + "<tr><td>" + indent(nestinglevel) + strLabel + "</td></tr>";
   
   if (navigation[strKey].hasChildren == true) {
     //if it has children list them here
@@ -159,6 +159,6 @@ function genNavigation(strCurrentPage) {
 
 //-----------------------------------------
 // just spaces for indentation
-function tirets(n) {
+function indent(n) {
   return "&nbsp;".repeat(3*n);
 }

@@ -42,15 +42,15 @@
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
 
-      const cW = 700; //ctx.clientWidth;
-      const cH = 700; //ctx.clientHeight;
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight;
 
       // -- range
       const x0 = -1.1;
       const x1 = 1.1;
       const y0 = -1.1;
       const y1 = 1.1;
-      const fixedOrigin = params.fixedOrigin.val;
+      const fixedOrigin = true; //params.fixedOrigin.val;
 
       var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
           reMap.objCanvas=ctx;
@@ -189,8 +189,6 @@
                 rotateButton();
                  } while (getBoundaries(arrPoints).min < 2); //hardcoded, not great
               }
-              
-
           }          
         )
 

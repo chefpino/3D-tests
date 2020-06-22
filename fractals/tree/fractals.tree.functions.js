@@ -67,7 +67,7 @@ function leaf(x, y, l, alpha, beta) {
   ctx.fill();
   ctx.stroke();
 }
-
+ 
 //---------- DRAW --------------------------------------------
 function draw(x, y, angle, len, trunk) {
   var newx = x + len * Math.cos(angle);

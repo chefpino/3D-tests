@@ -9,7 +9,7 @@ class ReMap {
     this.fixedOrigin = fixedOrigin;
   }
 
-  //methods --------------------------------------------------------------------------
+  //methods -----------------
 
   //convert x+iy complex number into canvas coordinates
   x(x) {
@@ -23,7 +23,7 @@ class ReMap {
     )
   }
 
-  //mouse coordinates translated in point x+iy of the complex plane 
+  //canvas' mouse coordinates translated in point x+iy of the complex plane 
   m2x(x) {
     return (this.fixedOrigin ? (x - this.cW / 2) * (this.x1 - this.x0) / this.cW  : x * (this.x1 - this.x0) / this.cW + this.x0);
   }
@@ -118,7 +118,7 @@ class ReMap {
   }
   //-------------------------
 
-} //--- end of class definition ---
+} //--- end of class definition ============================================================
 
 //mouse coordinates on the canvas
       //--------------------------------------------

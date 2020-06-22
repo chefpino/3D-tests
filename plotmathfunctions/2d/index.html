@@ -41,6 +41,7 @@
       const cW = myCanvas.clientWidth;
       const cH = myCanvas.clientHeight
 
+
       //--- parameters the user can change via sliders if made visible
       // -- global variables
       var x0 = params.x0.val;
@@ -93,16 +94,14 @@ function loadvaluesandgo() {
 
 function plotAll(){
   plotFunction(f,"#121212");
-  //plotFunction(g,"#AA0000");
-  //plotFunction(h,"#BB0000");
+  plotFunction(g,"#AA0000");
+  plotFunction(h,"#00BB00");
 
 }
 
-
-
-
+//________________________________________________________
 function f(x) {
-  return 1/x; //Math.sin(x);  
+  return Math.sin(x);  
 };
 function g(x) {
   return .5*Math.sin(2*x);  
@@ -110,13 +109,7 @@ function g(x) {
 function h(x) {
   return .33*Math.sin(3*x);   
 };
-
-
-
-
-
-
-
+//_______________________________________________________
 
 
 //-------------------------------------------
@@ -124,13 +117,15 @@ function plotFunction(objF,strColor) {
 
   ctx.beginPath();
   ctx.strokeStyle = strColor; //"#FF0000";
-  ctx.strokeStyle = "#D3D3D3";
-  ctx.lineWidth = 0.5;
+//  ctx.strokeStyle = "#0000D3";
 
   var xi=x0;
   var yi=objF(x0);
-  ctx.moveTo(reMap.x(xi),reMap.y(yi)); //first point on the map
+  var yii=0;
+  var yc=0;
   
+  ctx.moveTo(0,reMap.y(yi)); //first point on the map
+  /*
   do {
     
     //calculate next point
@@ -143,7 +138,16 @@ function plotFunction(objF,strColor) {
     ctx.moveTo(reMap.x(xi),reMap.y(yi)); //move to next point
   } while (xii < x1);
 
-
+*/
+//max resolution, 1px at the time
+  for (let xc = 0; xc < cW+1; xc++) {
+    xc=xc+1; //next canvas point
+    yii=objF(reMap.m2x(xc));
+    yc=reMap.y(yii);
+    ctx.lineTo(xc,yc);
+    ctx.stroke();
+    ctx.moveTo(xc,yc); //move to next point  
+  }
 
   
 }

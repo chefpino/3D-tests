@@ -21,13 +21,24 @@
               <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td valign="top">
-          <canvas
-            id="myCanvas"
-            width="1100"
-            height="700"
-            style="border: 1px solid;"
-          ></canvas>
-        </td>
+          <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
+            <canvas
+              id="myCanvas"
+              width="1000"
+              height="700"
+              style="z-index: 1;
+                      position:absolute;
+                      left:0px;
+                      top:0px;"
+  
+            ></canvas>
+            <canvas id="transparentLayer"
+            style="z-index: 2;
+            position:absolute;
+            left:0px;
+            top:0px;"
+            height="700px" width="1000">          </div>
+          </td>
       </tr>
     </table>
 
@@ -69,6 +80,40 @@
 //---------------------------------------
 function init(){
 
+        //--- mouse coordinates event listener --------------------------
+        transparentLayer.addEventListener(
+          "mousemove",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
+            var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
+            writeMessage(message);
+
+          },
+          false
+        );
+
+        //--- mouse click event listener -------------------------------
+        transparentLayer.addEventListener(
+          "click",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+
+          
+           //zoom WIP
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
+        
+            loadvaluesandgo();
+
+          },
+          false
+        );
+
+  
+
   genNavigation("twoD");
   generateControls();
   fileToParameters(); //initiate event listener for file uploader
@@ -93,21 +138,40 @@ function loadvaluesandgo() {
 //---------------------------------------
 
 function plotAll(){
-  plotFunction(f,"#121212");
-  plotFunction(g,"#AA0000");
-  plotFunction(h,"#00BB00");
+
+  for (const key in params.functions) {
+      const element = params.functions[key];
+      if (element != false){
+      function f(x) {  
+         return eval(element);  
+      };  
+      plotFunction(f,"#121212");
+    }
+  }
+
+
+  //plotFunction(g,"#AA0000");
+  //plotFunction(h,"#00BB00");
 
 }
 
 //________________________________________________________
-function f(x) {
-  return Math.sin(x);  
+
+/*
+function evil(fn) {
+  return new Function('return ' + fn)();
+}
+*/
+
+function f(exp) {  
+  return eval(exp);  
 };
+
 function g(x) {
-  return .5*Math.sin(2*x);  
+  return Math.sin(2*x);  
 };
 function h(x) {
-  return .33*Math.sin(3*x);   
+  return Math.sin(3*x);   
 };
 //_______________________________________________________
 
@@ -117,6 +181,7 @@ function plotFunction(objF,strColor) {
 
   ctx.beginPath();
   ctx.strokeStyle = strColor; //"#FF0000";
+  ctx.lineWidth=0.5;
 //  ctx.strokeStyle = "#0000D3";
 
   var xi=x0;
@@ -125,31 +190,31 @@ function plotFunction(objF,strColor) {
   var yc=0;
   
   ctx.moveTo(0,reMap.y(yi)); //first point on the map
-  /*
+/*  
   do {
     
     //calculate next point
-    var xii=xi+dx;
-    var yii=objF(xii);
-    ctx.lineTo(reMap.x(xii),reMap.y(yii));
-    ctx.stroke();  
-    xi=xii;
-    yi=yii;
+    var xi=xi+dx;
+    var yi=objF(xi);
+    ctx.lineTo(reMap.x(xi),reMap.y(yi));
+    //xi=xii;
+    //yi=yii;
     ctx.moveTo(reMap.x(xi),reMap.y(yi)); //move to next point
-  } while (xii < x1);
+  } while (xi < x1);
 
-*/
+  ctx.stroke();  
+  */ 
+
 //max resolution, 1px at the time
   for (let xc = 0; xc < cW+1; xc++) {
     xc=xc+1; //next canvas point
     yii=objF(reMap.m2x(xc));
     yc=reMap.y(yii);
     ctx.lineTo(xc,yc);
-    ctx.stroke();
     ctx.moveTo(xc,yc); //move to next point  
   }
-
-  
+    ctx.stroke();
+ 
 }
 //-------------------------------------------
 

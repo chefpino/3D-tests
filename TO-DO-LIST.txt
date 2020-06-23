@@ -4,10 +4,11 @@ resolution of sliders? TAI
 GENERIC
 fix once for all CSS
 json to menu: add active element css class?
+readme file for git
 
 2D
 zoom?
-mouse coordinates
+lock ratio, slider done. Add to reMap class etc
 
 
 3D COLOR

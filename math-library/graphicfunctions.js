@@ -116,6 +116,10 @@ class ReMap {
   set objCanvas(obj) {
     this._objCanvas = obj;
   }
+  //wip---
+  set lockRatio(bool){
+    this._lockRatio=bool;
+  }
   //-------------------------
 
 } //--- end of class definition ============================================================

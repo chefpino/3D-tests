@@ -1,12 +1,3 @@
-/*
-const x0=-2;
-const x1=2;
-const y0=-2;
-const y1=2;
-const z0=-2;
-const z1=2;
-*/
-
 var params = {
   x0: {
     val: -2,

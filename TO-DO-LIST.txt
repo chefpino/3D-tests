@@ -1,4 +1,4 @@
-TO DO LIST
+TO DO LIST 
 resolution of sliders? TAI
 
 GENERIC
@@ -7,8 +7,7 @@ json to menu: add active element css class?
 readme file for git
 
 2D
-zoom?
-lock ratio, slider done. Add to reMap class etc
+lock ratio, slider done. Add to reMap class etc - DEBUG
 
 
 3D COLOR

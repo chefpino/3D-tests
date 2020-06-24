@@ -36,7 +36,8 @@
             style="z-index: 2;
             position:absolute;
             left:0px;
-            top:0px;"
+            top:0px;
+            border:1px solid;"
             height="700px" width="1000">          </div>
           </td>
       </tr>
@@ -49,8 +50,8 @@
       //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
-      const cW = myCanvas.clientWidth;
-      const cH = myCanvas.clientHeight
+      var   cW = myCanvas.clientWidth;
+      var   cH = myCanvas.clientHeight
 
 
       //--- parameters the user can change via sliders if made visible
@@ -60,6 +61,7 @@
       var y0 = params.y0.val;
       var y1 = params.y1.val;
       const fixedOrigin = params.fixedOrigin.val;
+      var lockRatio=params.lockratio.val;
 
       const xIntervals=250;
 
@@ -68,7 +70,6 @@
       const drawGrid=true;
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-
       reMap.objCanvas = ctx;
 
       //--- calculated params
@@ -86,9 +87,8 @@ function init(){
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
-            var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
+            var message = `x=${tempC.x}<br>y=${tempC.y}`;
             writeMessage(message);
-
           },
           false
         );
@@ -99,13 +99,12 @@ function init(){
           function (evt) {
             var mousePos = getMousePos(evt);
 
-          
            //zoom WIP
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-        
+
             loadvaluesandgo();
 
           },
@@ -123,19 +122,58 @@ function init(){
 }
 //---------------------------------------
 function loadvaluesandgo() {
+
+        checkLockRatio();
         x0 = params.x0.val;
         x1 = params.x1.val;
         y0 = params.y0.val;
         y1 = params.y1.val;
+
         reMap.x0 = x0;
         reMap.x1 = x1;
         reMap.y0 = y0;
         reMap.y1 = y1;
+        
+         
+
+
         reMap.clearcanvas();
         plotAll();
         reMap.drawAxis();
       }
 //---------------------------------------
+
+function checkLockRatio(){
+
+             if (params.lockratio.val==1){
+              
+              cH=cW*(y1-y0)/(x1-x0); //new canvas height
+              //resize canvases (visible and invisible)
+              reMap.cH=cH;
+              myCanvas.height = cH;
+              document.getElementById("transparentLayer").height = cH;
+
+              //make y sliders invisible:
+              document.getElementById("y0").style.display="none";
+              document.getElementById("y1").style.display="none";
+             }
+
+             if (params.lockratio.val==0){
+              
+              cH=700;; //new canvas height
+              //resize canvases (visible and invisible)
+              reMap.cH=cH;
+              myCanvas.height = cH;
+              document.getElementById("transparentLayer").height = cH;
+
+              //make y sliders visible:
+              document.getElementById("y0").style.display="block";
+              document.getElementById("y1").style.display="block";
+              
+             }
+
+}
+
 
 function plotAll(){
 
@@ -150,29 +188,17 @@ function plotAll(){
   }
 
 
-  //plotFunction(g,"#AA0000");
-  //plotFunction(h,"#00BB00");
-
 }
 
 //________________________________________________________
 
-/*
-function evil(fn) {
-  return new Function('return ' + fn)();
-}
-*/
+
 
 function f(exp) {  
   return eval(exp);  
 };
 
-function g(x) {
-  return Math.sin(2*x);  
-};
-function h(x) {
-  return Math.sin(3*x);   
-};
+
 //_______________________________________________________
 
 

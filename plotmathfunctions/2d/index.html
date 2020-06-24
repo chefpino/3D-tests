@@ -6,6 +6,7 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="2d-library.js"></script>
     <script src="../../fractals/fractals-data/twod.data.js"></script>
   </head>
   <body onload="init();">
@@ -17,6 +18,8 @@
               <div id="content"></div>
               <hr>
               <div id="dynamicSliders">placeholder</div>
+              <hr>
+              <div id="listFunctions">placeholder</div>
               <hr>
               <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
@@ -115,6 +118,7 @@ function init(){
 
   genNavigation("twoD");
   generateControls();
+  displayFunctions();
   fileToParameters(); //initiate event listener for file uploader
   reMap.drawAxis();
   plotAll();
@@ -133,8 +137,6 @@ function loadvaluesandgo() {
         reMap.x1 = x1;
         reMap.y0 = y0;
         reMap.y1 = y1;
-        
-         
 
 
         reMap.clearcanvas();
@@ -172,6 +174,8 @@ function checkLockRatio(){
               
              }
 
+
+
 }
 
 
@@ -191,14 +195,9 @@ function plotAll(){
 }
 
 //________________________________________________________
-
-
-
 function f(exp) {  
   return eval(exp);  
 };
-
-
 //_______________________________________________________
 
 
@@ -243,6 +242,13 @@ function plotFunction(objF,strColor) {
  
 }
 //-------------------------------------------
+
+function displayFunctions(){
+
+ document.getElementById("listFunctions").innerHTML=listFunctions();
+
+}
+
 
 
 </script> 

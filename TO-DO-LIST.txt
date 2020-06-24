@@ -9,7 +9,6 @@ readme file for git
 2D
 lock ratio, slider done. Add to reMap class etc - DEBUG
 
-
 3D COLOR
 wip: 3d-color wip page. think about having several
 functions and see if they can be saved in the params

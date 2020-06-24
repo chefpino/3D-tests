@@ -12,7 +12,7 @@ function generateControls() {
   var strHTML = '<table style="border: 1px solid black;">';
   strHTML += tr;
   strHTML += td("<b>Parameter</b>");
-  strHTML += td("<b>Mix</b>");
+  strHTML += td("<b>Min</b>");
   strHTML += td("<b>Select</b>");
   strHTML += td("<b>Max</b>");
   strHTML += td("<b>Current</b>");

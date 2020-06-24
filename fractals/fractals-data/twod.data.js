@@ -51,10 +51,8 @@ var params = {
     visible: true,
   },
   functions: {
-    f1: "x*x",
-    f2: "Math.sin(x)",
-    f3: "x*x*x",
-    f4: "Math.exp(x)",
+    f1: "2*x-1",
+    f2: "x*x",
     visible: false,
   },
   lockratio: {

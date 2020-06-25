@@ -7,7 +7,8 @@ json to menu: add active element css class?
 readme file for git
 
 2D
-lock ratio, slider done. Add to reMap class etc - DEBUG
+lock ratio, slider done. Add to reMap class etc
+DEBUG resize of canvas, occasionally must be done twice
 
 3D COLOR
 wip: 3d-color wip page. think about having several
@@ -39,7 +40,8 @@ MANDELBROT
 perhaps it's worth writing a function that updates 
 one object properties starting from another object having the same prop names 
 
- 
+BURNING SHIP
+red vectors? if not remove from description 
 
   TREE
 fractal tree fuctions remove px, py?

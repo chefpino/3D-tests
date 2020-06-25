@@ -9,8 +9,11 @@ function listFunctions() {
       if (params.functions[key] != false){
           strTable += "<tr>";
           strTable += "<td>" + key + "</td>";
-          strTable += "<td> " + params.functions[key] + "</td>";
-          strTable += "<td>" + `<a href="#" onclick="return deleteFunction('${key}')"> delete </a>` + "</td>";
+          strTable += `<td><input type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
+          strTable += "<td>";
+          strTable += `<a href="#" onclick="return deleteFunction('${key}')"> delete </a> `;
+          strTable += `<a href="#" onclick="return updateFunction('${key}')"> update </a> `;
+          strTable += "</td>";
           strTable += "</tr>";
           if (functionNumber(key) > i) {i=functionNumber(key)};
       }
@@ -32,6 +35,12 @@ function listFunctions() {
 function deleteKey(obj,key){
   delete obj[key];
 }
+function updateFunction(key){
+  params.functions[key]=document.getElementById(key).value;
+  displayFunctions();
+  loadvaluesandgo(); 
+}
+
 
 //wrapper for functions
 function deleteFunction(key){

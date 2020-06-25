@@ -81,21 +81,22 @@ var navigation = {
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "2D (w.i.p.)",
+    label: "FUNCTIONS y = f(x)",
     hasChildren: false,
-    content: "page under construction"
+    content: "Click on the graph to zoom. Page under construction"
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "3D (w.i.p.)",
+    label: "FUNCTIONS z = f(x,y)",
     hasChildren: false,
+    content: "Page under construction"
   },
   complex: {
     id: "complex",
     link:
       "../../plotmathfunctions/rotations/index.html",
-    label: "ROTATIONS (w.i.p.)",
+    label: "ROTATIONS",
     hasChildren: false,
     content: "Click on the complex plane to draw a polygon.<br>Double click to choose a vector.<br>Apply a rotation or a translation.<br>Auto applies the rotation until polygon becomes smaller than a pixel or larger than the canvas."
   },

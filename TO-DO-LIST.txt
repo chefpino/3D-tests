@@ -48,4 +48,10 @@ fractal tree fuctions remove px, py?
 
   BARNSLEY
   add zoom function?
+  ===========================================
+
+  ideas:
+
+  fourier?
+  
   

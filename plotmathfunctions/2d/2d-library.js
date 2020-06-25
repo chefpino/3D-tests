@@ -1,5 +1,5 @@
 function listFunctions() {
-  var strTable = "<table border=1>";
+  var strTable = "<table>";
   var i=0;
 
   for (const key in params.functions) {
@@ -12,7 +12,7 @@ function listFunctions() {
           strTable += "<td> " + params.functions[key] + "</td>";
           strTable += "<td>" + `<a href="#" onclick="return deleteFunction('${key}')"> delete </a>` + "</td>";
           strTable += "</tr>";
-          i++;
+          if (functionNumber(key) > i) {i=functionNumber(key)};
       }
     }
   }
@@ -44,4 +44,11 @@ function addFunction(key){
   params.functions[key]=document.getElementById("newF").value;
   displayFunctions();
   loadvaluesandgo(); 
+}
+
+function functionNumber(str){
+
+  var tempStr=str.substring(1);
+  return eval(tempStr);
+
 }

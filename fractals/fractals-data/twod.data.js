@@ -51,8 +51,8 @@ var params = {
     visible: true,
   },
   functions: {
-    f1: "2*x-1",
-    f2: "x*x",
+    f1: "Math.sin(x)",
+    f2: "Math.cos(x)",
     visible: false,
   },
   lockratio: {

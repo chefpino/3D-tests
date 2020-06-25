@@ -53,5 +53,5 @@ fractal tree fuctions remove px, py?
   ideas:
 
   fourier?
-  
+  generic: update intervals after zoom? if not the go button should act like a zoomOut
   

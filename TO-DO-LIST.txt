@@ -41,7 +41,7 @@ perhaps it's worth writing a function that updates
 one object properties starting from another object having the same prop names 
 
 BURNING SHIP
-red vectors? if not remove from description 
+red vectors? 
 
   TREE
 fractal tree fuctions remove px, py?

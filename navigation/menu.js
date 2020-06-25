@@ -27,42 +27,42 @@ var navigation = {
   mandelbrot: {
     id: "mandelbrot",
     link: "../../fractals/mandelbrot/index.html",
-    label: "MANDELBROT",
+    label: "Mandelbrot",
     hasChildren: false,
     content: "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite."
   },
   julia: {
     id: "julia",
     link: "../../fractals/julia/index.html",
-    label: "JULIA",
+    label: "Julia",
     hasChildren: false,
     content: "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite."
   },
   burningship: {
     id: "burningship",
     link: "../../fractals/burningship/index.html",
-    label: "BURNING SHIP",
+    label: "Burning Ship",
     hasChildren: false,
     content: "Click on the fractal to zoom.",
   },
   tree: {
     id: "tree",
     link: "../../fractals/tree/index.html",
-    label: "TREE",
+    label: "Tree",
     hasChildren: false,
     content: "Change the parameters to generate different fractal trees."
   },
   barnsley: {
     id: "barnsley",
     link: "../../fractals/barnsley/index.html",
-    label: "BARNSLEY",
+    label: "Barnsley",
     hasChildren: false,
     content: "Change the parameter to increase number of points."
   },
   unitcircle: {
     id: "unitcircle",
     link: "../../plotmathfunctions/unitcircle/index.html",
-    label: "UNIT CIRCLE",
+    label: "Unit Circle",
     hasChildren: false,
     content: "z -> z^2"
   },
@@ -81,14 +81,14 @@ var navigation = {
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "FUNCTIONS y = f(x)",
+    label: "Functions y = f(x)",
     hasChildren: false,
     content: "Click on the graph to zoom. Page under construction"
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "FUNCTIONS z = f(x,y)",
+    label: "Functions z = f(x,y)",
     hasChildren: false,
     content: "Page under construction"
   },
@@ -96,7 +96,7 @@ var navigation = {
     id: "complex",
     link:
       "../../plotmathfunctions/rotations/index.html",
-    label: "ROTATIONS",
+    label: "Rotations",
     hasChildren: false,
     content: "Click on the complex plane to draw a polygon.<br>Double click to choose a vector.<br>Apply a rotation or a translation.<br>Auto applies the rotation until polygon becomes smaller than a pixel or larger than the canvas."
   },
@@ -155,5 +155,5 @@ function genNavigation(strCurrentPage) {
 //-----------------------------------------
 // just spaces for indentation
 function indent(n) {
-  return "&nbsp;".repeat(3*n);
+  return "&nbsp;".repeat(5*n);
 }

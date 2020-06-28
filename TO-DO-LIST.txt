@@ -1,26 +1,36 @@
 TO DO LIST 
-resolution of sliders? TAI
+resolution of sliders? TAI 
+
+
+ideas:
+
+  fourier?
+  generic: update intervals after zoom? if not the go button should act like a zoomOut
+  
 
 GENERIC
 fix once for all CSS
 json to menu: add active element css class?
 readme file for git
 
-2D
-lock ratio, slider done. Add to reMap class etc
-DEBUG resize of canvas, occasionally must be done twice
 
 3D COLOR
+- make pavement static and larger, possibly with dynamic angles
+- z factor (0-1], not range
+- pavement grid depends only on chosen resolution
+- drop down with functions
+- enter/update function
+
+
 wip: 3d-color wip page. think about having several
 functions and see if they can be saved in the params
 also, the function launched by the go button should be dynamic
-the z stretching doesn't make sense at the moment
 
 ROTATIONS (COMPLEX PLANE)
 add params (for sure) and save?
 don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array
-remove last points, think about it
+when over the list highlight corresponding dot
 red dots before starting the animation
 lock to 1 radius
 color change w radius? or magnitude
@@ -49,9 +59,3 @@ fractal tree fuctions remove px, py?
   BARNSLEY
   add zoom function?
   ===========================================
-
-  ideas:
-
-  fourier?
-  generic: update intervals after zoom? if not the go button should act like a zoomOut
-  

@@ -72,10 +72,10 @@ var navigation = {
     label: "FUNCTIONS",
     hasChildren: true,
     children: {
-      item0: "unitcircle",
-      item1: "complex",
-      item2: "twoD",
-      item3: "threeD",
+      item0: "twoD",
+      item1: "threeD",
+      item2: "complex",
+      item3: "unitcircle",
     },
   },
   twoD: {

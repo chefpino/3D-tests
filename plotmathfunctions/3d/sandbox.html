@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<table>
+  <tr>
+    <td><canvas id="myCanvas" width="100" height="100" style="border:1px solid"></canvas></td>
+    <td>
+        <div id="a"></div><br>
+        <div id="b"></div><br>
+        <div id="c"></div><br>
+        <div id="d"></div><br>
+    </td>
+</tr>
+</table>
+<script>
+
+  var alpha=0; //Math.PI/4; //45°
+  var beta=-Math.PI/4; //45°;
+
+function proj(x,y,z){
+       
+       //1 to 1 projected points onto a screen
+
+       var xp = x * Math.cos(alpha) - y * Math.sin(alpha);
+
+       //distance from screen
+       var p  = Math.sqrt(x*x+y*y-xp*xp);
+
+       var yp = p * Math.sin(beta) + z * Math.cos(beta);
+       
+       return {
+         xp: xp,
+         yp: yp
+       } 
+
+     }
+
+    console.log(proj(0,1,2).xp);
+    console.log(proj(0,1,2).yp);
+
+
+
+     
+     
+     
+     </script>
+</body>
+</html>

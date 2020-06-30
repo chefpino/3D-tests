@@ -64,8 +64,21 @@ var params = {
    minLabel: "off",
    maxLabel: "on",
    visible: true,
-   integer: true
+   integer: true,
+   steps: 1
 
-  }
+  },
+  zoomIn: {
+    val: 1,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 1,
+    label: "zoom",
+    minLabel: "out",
+    maxLabel: "in",
+    integer: true,
+    steps: 1,
+  },
 
 };

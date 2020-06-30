@@ -54,10 +54,10 @@ var params = {
     maxLabel: "500",
     integer: true,
   },
-  "fixedOrigin":{
+  fixedOrigin: {
     val: false,
-    visible: false
-     },
+    visible: false,
+  },
   x0: {
     val: -2,
     min: -4,
@@ -123,6 +123,18 @@ var params = {
     maxLabel: "+1",
     integer: false,
   },
+  zoomIn: {
+    val: 1,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 1,
+    label: "zoom",
+    minLabel: "out",
+    maxLabel: "in",
+    integer: true,
+    steps: 1,
+  },
 };
 //____________________________________________________
 var juliaExamples = {
@@ -135,7 +147,7 @@ var juliaExamples = {
     x1: 2,
     y0: -2,
     y1: 2,
-    iterations: 250
+    iterations: 250,
   },
   ex1: {
     label: "-0.4 + 0.6i",
@@ -146,7 +158,7 @@ var juliaExamples = {
     x1: 2,
     y0: -2,
     y1: 2,
-    iterations: 250
+    iterations: 250,
   },
   ex2: {
     label: "0.285 + 0.01i",
@@ -157,7 +169,7 @@ var juliaExamples = {
     x1: 2,
     y0: -2,
     y1: 2,
-    iterations: 250
+    iterations: 250,
   },
   ex3: {
     label: "0.45 + 0.1428i",
@@ -168,7 +180,7 @@ var juliaExamples = {
     x1: 2,
     y0: -2,
     y1: 2,
-    iterations: 250
+    iterations: 250,
   },
   ex4: {
     label: "-0.70176  -0.3842i",
@@ -179,7 +191,7 @@ var juliaExamples = {
     x1: 2,
     y0: -2,
     y1: 2,
-    iterations: 250
+    iterations: 250,
   },
   ex5: {
     label: "-0.835 - 0.2321i",
@@ -190,6 +202,6 @@ var juliaExamples = {
     x1: 2,
     y0: -2,
     y1: 2,
-    iterations: 250
+    iterations: 250,
   },
 };

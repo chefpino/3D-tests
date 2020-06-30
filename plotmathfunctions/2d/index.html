@@ -65,6 +65,7 @@
       var y1 = params.y1.val;
       const fixedOrigin = params.fixedOrigin.val;
       var lockRatio=params.lockratio.val;
+      var zoomIn=params.zoomIn.val;      
 
       const xIntervals=250;
 
@@ -102,11 +103,21 @@ function init(){
           function (evt) {
             var mousePos = getMousePos(evt);
 
-           //zoom WIP
+            zoomIn=params.zoomIn.val;
+
+            //zoom in
+            if (zoomIn==1){
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
+            }
+            else {
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
+            }
 
             loadvaluesandgo();
 

@@ -1,5 +1,5 @@
 TO DO LIST 
-resolution of sliders? TAI 
+resolution of sliders: add values in params object
 
 
 ideas:
@@ -12,7 +12,9 @@ GENERIC
 fix once for all CSS
 json to menu: add active element css class?
 readme file for git
+customize action for each slider?
 
+2D, cleanup and zoom out
 
 3D COLOR
 - make pavement static and larger, possibly with dynamic angles
@@ -37,12 +39,13 @@ color change w radius? or magnitude
 
 FRACTALS
 better binding of sliders to params
-double-click zoom out? (messy to deal with double click)
+
 separate functions for zoomIn and zoomOut
+ Julia, burning ship, 2D
 
 
 MANDELBROT
-  clean mandelbrot code, useless functions for other fractals
+  
 
   JULIA
   in the event listener I need to go through the object returned by the drop down change

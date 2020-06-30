@@ -27,10 +27,7 @@ function generateControls() {
 
     defaultValue = paramToSlider(key, params[key].default);
     steps=params[key].steps;
-    console.log(key + ": " + steps);
     steps=(typeof(steps)=='undefined' ? 100:steps);
-    console.log(key + ": " + steps);
-
 
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);
@@ -110,6 +107,7 @@ function updateParam(x) {
 //----------------------------------------------------------------------------------
 //these functions map the 0-100 value of a slider to a given range for a
 //given parameter and viceversa
+//default 100 value can be specified in object values as steps: xy
 
 function paramToSlider(strParam, iValue) {
   var x1 = 1 * params[strParam].min;

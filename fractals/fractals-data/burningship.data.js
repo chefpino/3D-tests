@@ -33,7 +33,8 @@ var params = {
    label:"upperbound",
    minLabel:"2",
    maxLabel:"4",
-   integer:false
+   integer:true,
+   steps: 2
    },
  "iterations":{
    val:75,
@@ -41,7 +42,7 @@ var params = {
    max:450,
    default:75,
    label:"iterations",
-   minLabel:"75",
+   minLabel:"50",
    maxLabel:"450",
    integer:true
    },

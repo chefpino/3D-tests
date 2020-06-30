@@ -28,6 +28,7 @@ function generateControls() {
     defaultValue = paramToSlider(key, params[key].default);
     steps=params[key].steps;
     steps=(typeof(steps)=='undefined' ? 100:steps);
+    //steps=(params[key].integer==true? 1 * (params[key].max-params[key].min):steps);
 
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);

@@ -9,6 +9,8 @@ function generateControls() {
   const trc = "</tr>";
 
   var defaultValue = 0;
+  var steps=100; //resolution of the slider 
+
   var strHTML = '<table style="border: 1px solid black;">';
   strHTML += tr;
   strHTML += td("<b>Parameter</b>");
@@ -24,6 +26,11 @@ function generateControls() {
     if (params[key].visible != false){
 
     defaultValue = paramToSlider(key, params[key].default);
+    steps=params[key].steps;
+    console.log(key + ": " + steps);
+    steps=(typeof(steps)=='undefined' ? 100:steps);
+    console.log(key + ": " + steps);
+
 
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);
@@ -31,7 +38,7 @@ function generateControls() {
     strHTML =
       strHTML +
       td(
-        "<input type='range' min='0' max='100' value='" +
+        `<input type='range' min='0' max='${steps}' value='` +
           defaultValue +
           "' id='" +
           key +
@@ -107,13 +114,17 @@ function updateParam(x) {
 function paramToSlider(strParam, iValue) {
   var x1 = 1 * params[strParam].min;
   var x2 = 1 * params[strParam].max;
-  return Math.round((100 * (1 * iValue - x1)) / (x2 - x1));
+  var steps = params[strParam].steps;
+  steps=(typeof(steps)=="undefined" ? 100: 1* steps);  //default resolution is 100 steps
+  return Math.round((steps * (1 * iValue - x1)) / (x2 - x1));
 }
 
 function sliderToParam(strParam, iValue) {
   var x1 = 1 * params[strParam].min;
   var x2 = 1 * params[strParam].max;
-  var iTemp = x1 + (iValue * (x2 - x1)) / 100;
+  var steps = params[strParam].steps;
+  steps=(typeof(steps)=="undefined" ? 100: 1* steps); //default resolution is 100 steps
+  var iTemp = x1 + (iValue * (x2 - x1)) / steps;
   if (params[strParam].integer) {
     iTemp = Math.round(iTemp);
   }

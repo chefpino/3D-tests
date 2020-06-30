@@ -53,7 +53,7 @@
       var cW = myCanvas.clientWidth;
       var cH = myCanvas.clientHeight;
 
-      //--- parameters the user can change is made visible w/ sliders
+      //--- parameters the user can change are made visible w/ sliders
       // -- global variables
       var x0 = params.x0.val;
       var x1 = params.x1.val;
@@ -62,6 +62,7 @@
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
       const fixedOrigin = params.fixedOrigin.val;
+      var zoomIn=params.zoomIn.val;      
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
       var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
@@ -106,9 +107,7 @@
             var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
             writeMessage(message);
             
-            //*** WIP ***
             drawEscapeRoute(tempC);
-
           },
           false
         );
@@ -118,16 +117,23 @@
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
+            
+           zoomIn=params.zoomIn.val;
 
-
-           //zoom
+           //zoom in
+            if (zoomIn==1){
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-        
+            }
+            else {
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
+            }
             loadvaluesandgo();
-
           },
           false
         );
@@ -138,7 +144,7 @@
         fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.drawAxis();
-        reMap.drawUnitCircle(); //ellipse representing the unit circle
+        //reMap.drawUnitCircle(); //ellipse representing the unit circle
         
       }
       //---------------------------------------------------------------------
@@ -175,6 +181,7 @@
 
         maxItr = params.iterations.val;
         uBound = params.upperbound.val;
+        zoomIn = params.zoomIn.val;
 
         reMap.x0 = x0;
         reMap.x1 = x1;

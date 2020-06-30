@@ -45,20 +45,15 @@
     <script>
       "use strict";
       //--- global PARAMETERS ------------------------------------------------------------------
-
-      //WIP
-      var dclick=0;
-
-
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
       const transparentLayer = document.getElementById("transparentLayer");
       const ctxT = transparentLayer.getContext("2d");
 
-      const cW = 1000; //ctx.clientWidth;
-      const cH = 700; //ctx.clientHeight;a
+      var cW = myCanvas.clientWidth;
+      var cH = myCanvas.clientHeight;
 
-      //--- parameters the user can change (WIP)
+      //--- parameters the user can change are made visible w/ sliders
       // -- global variables
       var x0 = params.x0.val;
       var x1 = params.x1.val;
@@ -67,7 +62,7 @@
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
       const fixedOrigin = params.fixedOrigin.val;
-  
+      var zoomIn=params.zoomIn.val;      
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
       var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
@@ -112,9 +107,7 @@
             var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
             writeMessage(message);
             
-            //*** WIP ***
             drawEscapeRoute(tempC);
-
           },
           false
         );
@@ -123,48 +116,27 @@
         transparentLayer.addEventListener(
           "click",
           function (evt) {
-
-            dclick = dclick + 1;
-            console.log("from click = " + dclick + " .. " + Math.random());
-
-            if (dclick = 1){
-                var mousePos = getMousePos(evt);
-              //zoom
-                params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
-                params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
-                params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
-                params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-                loadvaluesandgo();
-                dclick=0;
-          }
-          },
-          false
-        );
-
-        transparentLayer.addEventListener(
-          "dblclick",
-          function (evt) {
-
-            dclick = dclick + 1001;
-            console.log("from dblclick = " + dclick);
-            dclick=0;
-
-
             var mousePos = getMousePos(evt);
-            /*
-           //zoom
+            
+           zoomIn=params.zoomIn.val;
+
+           //zoom in
+            if (zoomIn==1){
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-        
+            }
+            else {
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
+            }
             loadvaluesandgo();
-            */
-           //window.alert("dblclick");
           },
           false
         );
-
 
 
         genNavigation("mandelbrot");
@@ -172,7 +144,7 @@
         fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.drawAxis();
-        reMap.drawUnitCircle(); //ellipse representing the unit circle
+        //reMap.drawUnitCircle(); //ellipse representing the unit circle
         
       }
       //---------------------------------------------------------------------
@@ -209,6 +181,7 @@
 
         maxItr = params.iterations.val;
         uBound = params.upperbound.val;
+        zoomIn = params.zoomIn.val;
 
         reMap.x0 = x0;
         reMap.x1 = x1;

@@ -3,12 +3,12 @@ var params = {
     default: 10,
     val: 10,
     min: 2,
-    max: 200,
+    max: 500,
     integer: true,
     visible: true,
     "label":"mod",
     "minLabel":"2",
-    "maxLabel":"200",
+    "maxLabel":"500",
 
   },
   "factor":{

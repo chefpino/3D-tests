@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="../../fractals/fractals-data/modules.data.js"></script>
+    <script src="../../navigation/menu.js"></script>
+  </head>
+  <body onload="init();">
+
+    <table border="0">
+      <tr>
+        <td valign="top">
+          <div id="menu" ></div>
+          <hr>
+          <div id="content"></div>
+          <hr>
+          <div id="dynamicSliders"></div>
+        </td>
+        <td valign="top">
+          <canvas
+            id="myCanvas"
+            width="700"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+      </tr>
+    </table>
+    <script>
+
+      "use strict";
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight;
+      /*/
+const cW=ctx.clientWidth;
+const cH=ctx.clientHeight;
+*/
+      // -- range
+      const x0 = -1.1;
+      const x1 = 1.1;
+      const y0 = -1.1;
+      const y1 = 1.1;
+
+      const π = Math.PI;
+
+      const fixedOrigin=false;
+
+      var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
+          reMap.objCanvas=ctx;
+      
+
+      var module = params.module.val;      
+      var factor = params.factor.val;
+
+      //------------------------------------------------
+      function init() {
+        genNavigation("modules"); //add navigation
+        generateControls();
+        fileToParameters(); //initiate event listener for file uploader
+        loadvaluesandgo(); // WIP !
+      }
+      //-------------------------------------------------
+
+      function loadvaluesandgo() {
+        //go! button
+        draw();
+        reMap.drawAxis();
+      }
+
+      //_______________________________________________________________________________________
+
+      function draw() {
+        //---clear canvas
+        reMap.clearcanvas();
+
+        var ar=buildArray(module);
+        var c1=new c(0,0);
+        var c2=new c(0,0);
+
+        for (let index = 0; index < module; index++) {
+
+          c1.x = ar[index].x;
+          c1.y = ar[index].y;
+                    
+          c2 = ar[index % module];
+          
+          console.log("c1.y: " + c1.y);
+          console.log("mod: " + (index % module));
+          console.log("c2.x: " + c2.x);
+          console.log("---");
+          
+          reMap.drawSegment(c1, c2);
+        }
+      }
+      
+      function buildArray(n){
+
+        const dStep = (2 * π) / n;
+        var c1=new c(0,0);
+        var ar=new Array(n);
+        for (let index = 0; index < n; index++) {
+          c1.x = r(1, dStep * (index + 1)).x;
+          c1.y = r(1, dStep * (index + 1)).y;
+          console.log(index + " : " + c1.x + ", " + c1.y);
+          ar[index]=c1;
+        }
+        return ar;
+      }
+
+
+
+      //-------------------------------------------
+    </script>
+  </body>
+</html>

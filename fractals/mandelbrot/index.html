@@ -161,8 +161,15 @@
       }
       //--------------------------------------------------------------------
       function fs(z, k) {
+        
+        const exponent = 1* params.exponent.val;
+        var tempC=z;
+        for (var i = 1; i < exponent; i++) {
+          tempC=p(tempC,z);
+          }
+          tempC=s(tempC,k);
         return {
-          mandelbrot: s(p(z, z), k),
+          mandelbrot: tempC,
         };
         
       }

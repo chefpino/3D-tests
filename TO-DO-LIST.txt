@@ -37,6 +37,11 @@ red dots before starting the animation
 lock to 1 radius
 color change w radius? or magnitude
 
+MODULES
+description of page
+better details on factor in R+ (and not N)
+
+
 FRACTALS
 better binding of sliders to params
 

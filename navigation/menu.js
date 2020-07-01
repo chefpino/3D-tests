@@ -29,7 +29,7 @@ var navigation = {
     label: "Mandelbrot",
     hasChildren: false,
     content:
-      "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
+        "Fractal equation: Zn+1=(Zn)^exp + C.<br>Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
   },
   julia: {
     id: "julia",
@@ -69,7 +69,7 @@ var navigation = {
   },
   modules: {
     id: "modules",
-    link: "../../plotmathfunctions/unitcircle/wip-modules.html",
+    link: "../../plotmathfunctions/unitcircle/modules.html",
     label: "Modules (WIP)",
     hasChildren: false,
     content: "under constructions",

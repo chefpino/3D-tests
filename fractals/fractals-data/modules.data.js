@@ -16,7 +16,7 @@ var params = {
     val: 2,
     min: 2,
     max: 100,
-    integer: false,
+    integer: true,
     visible: true,
     "label":"factor",
     "minLabel":"2",

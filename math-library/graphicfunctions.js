@@ -50,7 +50,7 @@ class ReMap {
   }
 */
   drawAxis() {
-    //improvements:
+    //possible improvements:
     //origin showing or not, plus writing coordinates on edges of canvas true/false
     //
 

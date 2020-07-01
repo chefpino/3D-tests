@@ -1,47 +1,3 @@
-/*
-for copy n paste:
-PI symbol:	&pi;
-
-input elements must have an ID="keyname"
-these must be global variables
-
-
-const cW=1400;  //ctx.clientWidth;
-const cH=700;  //ctx.clientHeight;a
-
-const cW=ctx.clientWidth;
-const cH=ctx.clientHeight;
-
--- range
-const x0=-3;
-const x1=2;
-const y0=-1;
-const y1=1;
-const grid=1400;
-const dx=(x1-x0)/grid;
-const dy=(y1-y0)/grid; //dy=dx
-const maxItr=1000;
-const uBound=4;
-
-
-/*
-var pageinfo = {
-
-  "title":"Mandelbrot Set",
-  "description":"short description",
-  "instructions":"Click to zoom"
-
-}
-
-var buttons = {
-  
-    "bt1":{
-      label:"go!",
-      "onclick":"enter function to execute"
-
-    }
-}
-*/
 
 var params = {
 
@@ -125,7 +81,18 @@ var params = {
           maxLabel:"2",
           integer:false,
           "visible":false
-        }
+        },
+     exponent: {
+          val: 2,
+          min: 1,
+          max: 10,
+          default:2,
+          label:"exp",
+          minLabel:"1",
+          maxLabel:"10",
+          integer:true,
+          "visible":true
+     }   
     
 
 }

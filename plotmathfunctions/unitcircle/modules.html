@@ -38,10 +38,7 @@
 
       const cW = myCanvas.clientWidth;
       const cH = myCanvas.clientHeight;
-      /*/
-const cW=ctx.clientWidth;
-const cH=ctx.clientHeight;
-*/
+
       // -- range
       const x0 = -1.1;
       const x1 = 1.1;
@@ -68,9 +65,6 @@ const cH=ctx.clientHeight;
       function loadvaluesandgo() {
         //go! button
 
-        //buildArray(module);
-
-
         draw();
         reMap.drawAxis();
       }
@@ -78,12 +72,12 @@ const cH=ctx.clientHeight;
       //_______________________________________________________________________________________
 
       function draw() {
+
         //---clear canvas
         reMap.clearcanvas();
 
         module = 1 * params.module.val;      
         factor = 1 * params.factor.val;
-
         
         var dStep = (2 * Math.PI) / module;
         var alpha=0;
@@ -91,50 +85,26 @@ const cH=ctx.clientHeight;
         var arrPoints=new Array();
         arrPoints=buildArray(module);
 
-        /*
-        for (let index = 0; index < module; index++) {
-          tempC=new c(Math.cos(alpha),Math.sin(alpha));
-         // tempC.x = Math.cos(alpha);
-          //tempC.y = Math.sin(alpha);
-          arrPoints.push(tempC);
-          /*
-          console.log("index: " + index);
-          console.log("c1.x: " + c1.x);
-          console.log("c1.y: " + c1.y);
-          console.log("ar.x: " + arrPoints[index].x);
-          console.log("ar.y: " + arrPoints[index].y);
-          console.log("---");
-        
-          plot(reMap.x(tempC.x),reMap.y(tempC.y));
-          alpha = alpha + dStep;
-
-        }
-          */
-
-        console.log("ar.length : " + arrPoints.length);
-        console.log("module : " + module);
-
-        //var c1; //=new c(0,0);
-        //var c2; //=new c(0,0);
 
         for (let index = 0; index < arrPoints.length; index++) {
 
           const c1 = arrPoints[index];
-          const c2 = arrPoints[Math.round((index * factor) % module)];          
+          const c2 = arrPoints[(index * factor) % module];          
           
           reMap.drawSegment(c1, c2, "#00FF00");
         }
       }
-      
+ //-------------------------------------------------------     
       function buildArray(n){
 
         const dStep = (2 * Math.PI) / n;
-        var alpha=0;
+        var alpha = 0;
         var c1; //=new c(0,0);
-        var arrPoints=new Array();
+        var arrPoints = new Array();
+
         for (let index = 0; index <= n; index++) {
 
-          c1=new c(Math.cos(alpha),Math.sin(alpha));
+          c1 = new c(Math.cos(alpha),Math.sin(alpha));
           arrPoints.push(c1);
           plot(reMap.x(c1.x),reMap.y(c1.y)); //red dot
           alpha = alpha + dStep;
@@ -152,8 +122,7 @@ const cH=ctx.clientHeight;
           
         }
       }
-
-
+//--------------------------------------------------------
   function plot(x, y) {
     //x,y are canvas coordinates
 

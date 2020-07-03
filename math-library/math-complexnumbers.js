@@ -40,3 +40,11 @@ function c(x,y) {
         }
     }
   //__________________________________________________________
+  //inverse
+  function inv(c){
+    var d=c.x*c.x+c.y*c.y;
+    return {
+       x: c.x/d,
+       y: -1 * c.y/d 
+    }
+  }

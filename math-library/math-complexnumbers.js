@@ -48,3 +48,11 @@ function c(x,y) {
        y: -1 * c.y/d 
     }
   }
+  //_________________________________________________________
+  //sin
+  function sin(c) {
+    return {
+      x: Math.sin(c.x) * Math.cosh(c.y),
+      y: Math.cos(c.x) * Math.sinh(c.y),
+    };
+  }

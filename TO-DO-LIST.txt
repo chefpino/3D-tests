@@ -1,6 +1,7 @@
 TO DO LIST 
 resolution of sliders: add values of "steps" in params object
 if declared integer the number of steps should be max-min
+attendere prego!
 
 ideas:
 

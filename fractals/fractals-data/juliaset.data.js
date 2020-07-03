@@ -32,7 +32,7 @@ var dropdowns = {
   },
 };
 //--------------------------------------------------------------
-//params is a global variable with many values that can be saved in a txt file
+//params is a global variable with many values that can be saved in a txt file 
 var params = {
   upperbound: {
     val: 4,

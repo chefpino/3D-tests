@@ -116,7 +116,7 @@
 
         
         fileToParameters(); //initiate event listener for file uploader
-        go();
+        //go();
         reMap.drawAxis();
       }
       //--- global PARAMETERS ------------------------------------------------------------------
@@ -158,10 +158,12 @@
       function julia(z, k, strF) {
 
         var z0=z;
+
         strF="cube";
+
           //-- classic Zn+1=(Zn)^2+k
           for (let i = 0; i < maxItr + 1; i++) {
-            var z0 = new c(funz.functions(z0,k)[strF].x,funz.functions(z0,k)[strF].y);
+            var z0 = julias(z0,k)[strF].c;
             if (z0.x * z0.x + z0.y * z0.y > uBound) {
               return i;
           }
@@ -211,7 +213,7 @@
         //loop and keep applying Julia criteria
         for (let index = 0; index < maxItr; index++) {
           arrPoints.push(tempZ);
-          tempZ=s(p(tempZ,tempZ),k);
+          tempZ=julias(tempZ,k)["cube"].c;
         }
         //plot array
         for (let index = 0; index < arrPoints.length; index++) {

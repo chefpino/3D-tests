@@ -53,6 +53,15 @@ better binding of sliders to params
 perhaps it's worth writing a function that updates 
 one object properties starting from another object having the same prop names 
 
+in the test page
+ fix escape route to reflect selected function
+ bind the drop downs in cascade
+ dd1: functions
+  dd2: examples of k, boundaries etc
+
+
+
+
 BURNING SHIP
 red vectors? 
 

@@ -204,4 +204,53 @@ var juliaExamples = {
     y1: 2,
     iterations: 250,
   },
-};
+  ex6: {
+    label: "3i/2 (for sin(z)*k)",
+    val: "ex6",
+    cx: 0,
+    cy: 1.5,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250,
+
+
+  },
+  ex7: {
+    label: "0.984808 + 0.173648i (for sin(z)*k)",
+    val: "ex7",
+    cx: 0.984808,
+    cy: 0.173648,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250,
+},
+//c = c = 
+ex8: {
+  label: "-0.2 + i (for sin(z)*k)",
+  val: "ex8",
+  cx: -0.2,
+  cy: 1,
+  x0: -2,
+  x1: 2,
+  y0: -2,
+  y1: 2,
+  iterations: 250,
+},
+ex9: {
+  label: "-1.29904 + -0.75i (for sin(z)*k)",
+  val: "ex9",
+  cx: -1.29904,
+  cy: -0.75,
+  x0: -2,
+  x1: 2,
+  y0: -2,
+  y1: 2,
+  iterations: 250,
+},
+
+
+}

@@ -223,10 +223,11 @@
         for (let i = 0; i < cW; i++) {
           x = x + dx;
           y = y0;
+          tz.x = x;
 
           for (let j = 0; j < cH; j++) {
             y = y + dy;
-            tz.x=x;
+            
             tz.y=y;
             itr = mandel(tz);
             if (itr < maxItr) {

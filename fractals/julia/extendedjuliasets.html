@@ -137,9 +137,11 @@
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
       const fixedOrigin = params.fixedOrigin.val;
-      var zoomIn=params.zoomIn.val;      
-      const testF="cube";
-
+      var zoomIn=params.zoomIn.val;   
+      
+      //************************************
+      const testF="sinjulia";
+      //************************************
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
       var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
@@ -151,20 +153,16 @@
       var dx = reMap.dx();
       var dy = reMap.dy();
 
-      //--- use class of functions
 
-      var funz = new Fractalfunctions();
 
       //----------------------------------------------------------
-      function julia(z, k, strF) {
+      function julia(z, k) {
 
         var z0=z;
 
-        strF=testF;
-
           //-- classic Zn+1=(Zn)^2+k
           for (let i = 0; i < maxItr + 1; i++) {
-            var z0 = julias(z0,k)[strF].c;
+            var z0 = julias(z0,k)[testF].c;
             if (z0.x * z0.x + z0.y * z0.y > uBound) {
               return i;
           }

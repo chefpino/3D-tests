@@ -150,14 +150,10 @@
       var dy = reMap.dy();
 
       //----------------------------------------------------------
-      function julia(z, k, strF) {
+      function julia(z, k) {
         var z0 = z;
         //var z0x = z.x; //hyperbolic needs extra variable to calculate in 2 steps 
-        if (strF == null) {
-          strID = "z2c";
-        }
 
-        if (strF == "z2c") {
           //-- classic Zn+1=(Zn)^2+k
           for (let i = 0; i < maxItr + 1; i++) {
             z0 = s(p(z0, z0), k);
@@ -165,7 +161,7 @@
               return i;
             }
           }
-        }
+        
 
 
         return maxItr;
@@ -225,7 +221,6 @@
       //__________________________________________________________________
       function go() {
         //selected function
-        var strF = "z2c"; // getDropDownSelectedValue("dd1");
 
         //---clear canvas
         reMap.clearcanvas();
@@ -251,7 +246,7 @@
             tz.x=x;
             tz.y=y;
 
-            itr = julia(tz, k, strF);
+            itr = julia(tz, k);
             if (itr < maxItr) {
               clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr;

@@ -14,6 +14,19 @@ function c(x,y) {
           y: c1.x*c2.y + c1.y*c2.x         
         }
     }
+
+ //___________________________
+ //for polynomial exponents ---
+ function exp(c,n){
+   
+   var tempC=c;
+   for (let index = 1; index < n; index++) {
+    tempC=p(tempC,c);     
+   }
+   
+   return tempC;
+
+ } 
 //______________________________________________________
    // -- sum of a+ib, c+id ---
     function s(c1,c2) {

@@ -4,8 +4,6 @@ function julias(z,k){
 
   return {
     classic: {
-      x: s(p(z, z), k).x,
-      y: s(p(z, z), k).y,
       c: s(p(z, z), k),
       label: "classic Zn+1=Zn^2+k",
       examples: {
@@ -23,22 +21,27 @@ function julias(z,k){
     },
     cube: {
       c: s(p(z, p(z, z)), k),
-      x: s(p(z, p(z, z)), k).x,
-      y: s(p(z, p(z, z)), k).y,
       label: "classic Zn+1=Zn^3+k",
     },
     
     sinjulia: {
       c: p(sin(z), k),
-      x: p(sin(z), k).x,
-      y: p(sin(z), k).y,
     },
 
     cosjulia: {
       c: p(cos(z), p(k,i)),
-      x: p(cos(z), p(k,i)).x,
-      y: p(cos(z), p(k,i)).y,
     },    
+
+    functionslist: {
+     
+      f1: "classic",
+      f2: "cube",
+      f3: "sinjulia",
+      f4: "cosjulia",
+
+    }
+
+
   }
 
 

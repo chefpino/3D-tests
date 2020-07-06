@@ -90,7 +90,7 @@
           false
         );
 
-        genNavigation("julia");
+        genNavigation("extendedjuliasets");
         generateControls(); //sliders
 
         //generate drop down with julia parameters examples
@@ -138,6 +138,7 @@
       var uBound = params.upperbound.val;
       const fixedOrigin = params.fixedOrigin.val;
       var zoomIn=params.zoomIn.val;      
+      const testF="cosjulia";
 
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
@@ -159,7 +160,7 @@
 
         var z0=z;
 
-        strF="cube";
+        strF=testF;
 
           //-- classic Zn+1=(Zn)^2+k
           for (let i = 0; i < maxItr + 1; i++) {
@@ -213,7 +214,7 @@
         //loop and keep applying Julia criteria
         for (let index = 0; index < maxItr; index++) {
           arrPoints.push(tempZ);
-          tempZ=julias(tempZ,k)["cube"].c;
+          tempZ=julias(tempZ,k)[testF].c;
         }
         //plot array
         for (let index = 0; index < arrPoints.length; index++) {

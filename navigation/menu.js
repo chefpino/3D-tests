@@ -35,10 +35,22 @@ var navigation = {
     id: "julia",
     link: "../../fractals/julia/index.html",
     label: "Julia",
+    hasChildren: true,
+    children: {
+          item1: "extendedjuliasets",
+    },
+    content:
+      "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
+  },
+  extendedjuliasets: {
+    id: "extendedjuliasets",
+    link: "../../fractals/julia/extendedjuliasets.html",
+    label: "Extended Julia Sets (WIP: very slow)",
     hasChildren: false,
     content:
       "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
   },
+   
   burningship: {
     id: "burningship",
     link: "../../fractals/burningship/index.html",

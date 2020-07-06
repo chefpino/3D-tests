@@ -56,3 +56,13 @@ function c(x,y) {
       y: Math.cos(c.x) * Math.sinh(c.y),
     };
   }
+  //___________________________________________________________
+  //cos(a+bi)=cosacoshb−isinasinhb
+  function cos(c){
+
+     return {
+      x: Math.cos(c.x) * Math.cos(c.y),
+      y: Math.sin(c.x) * Math.sinh(c.y)
+     }
+
+  }

@@ -20,7 +20,8 @@
           <hr>
           <div id="dynamicSliders"></div>
           <hr>
-          examples of c in f(z)=z^2+c <div id="examples"></div>
+          functions <div id="functions"></div>
+          values of c <div id="examples"></div>
           <hr>
           <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
@@ -47,8 +48,65 @@
     </table>
     <script>
       "use strict";
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+      const transparentLayer = document.getElementById("transparentLayer");
+      const ctxT = transparentLayer.getContext("2d");
+
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight
+
+      //--- parameters the user can change via sliders if made visible
+      // -- global variables
+      var x0 = params.x0.val;
+      var x1 = params.x1.val;
+      var y0 = params.y0.val;
+      var y1 = params.y1.val;
+      var maxItr = params.iterations.val;
+      var uBound = params.upperbound.val;
+      const fixedOrigin = params.fixedOrigin.val;
+      var zoomIn=params.zoomIn.val;   
+      
+      //************************************
+      var selectedFunction="classic"; //this is the default value
+      //************************************
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+
+      reMap.objCanvas = ctx;
+      reMapT.objCanvas = ctxT;
+
+      //--- calculated params
+      var dx = reMap.dx();
+      var dy = reMap.dy();
+
+
+
+
+     
+  //************* end global parameters *************************************
+
+
+
+
+
       //--------------------------------------------
       function init() {
+
+              //--- generate controls
+      genNavigation("extendedjuliasets");
+      generateControls(); //sliders
+
+      //generate drop down with julia functions examples
+      document.getElementById("functions").innerHTML=genDropDownFromObj("functionSelector","label","val","null",dropdowns.dd1.elements); 
+        
+      //generate drop down with julia functions examples
+      document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","val","null",dropdowns.dd1.elements.classic.examples);
+
+
+
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(
           "mousemove",
@@ -90,24 +148,33 @@
           false
         );
 
-        genNavigation("extendedjuliasets");
-        generateControls(); //sliders
 
-        //generate drop down with julia parameters examples
-        document.getElementById("examples").innerHTML=genDropDownFromObj("examplesSelector","label","val","null",juliaExamples);
         
+        //event listener for function change
+        document.getElementById("functionSelector").addEventListener("change", function () {
+          
+          selectedFunction = getDropDownSelectedValue("functionSelector");          
+          console.log(selectedFunction);
+          //update second dropdown with values related to function
+          document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","val","null",dropdowns.dd1.elements[selectedFunction].examples);
+
+
+        });
+
+
         //--- value change listener for examplesSelector
         //function fileToParameters() {
-        document.getElementById("examplesSelector").addEventListener("change", function () {
+        document.getElementById("exampleSelector").addEventListener("change", function () {
           
-          var tempObj=dropDownToObj("examplesSelector",juliaExamples,["cx","cy","iterations"]);
+          var tempObj=dropDownToObj("exampleSelector",dropdowns.dd1.elements[selectedFunction].examples,["cx","cy"]);
           
+          console.log("cx: " + tempObj.cx);
 
-          //here loops through array of values (not just x and y)
+          //here loops through array of values (could be more than just x and y)
           //and updates the object (global var), then new values are loaded and run 
           params.cx.val=tempObj.cx;
           params.cy.val=tempObj.cy;
-          params.iterations.val=tempObj.iterations;
+          //params.iterations.val=tempObj.iterations;
 
           loadValues();
 
@@ -119,50 +186,17 @@
         //go();
         reMap.drawAxis();
       }
-      //--- global PARAMETERS ------------------------------------------------------------------
-      const myCanvas = document.getElementById("myCanvas");
-      const ctx = myCanvas.getContext("2d");
-      const transparentLayer = document.getElementById("transparentLayer");
-      const ctxT = transparentLayer.getContext("2d");
-
-      const cW = myCanvas.clientWidth;
-      const cH = myCanvas.clientHeight
-
-      //--- parameters the user can change via sliders if made visible
-      // -- global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      var maxItr = params.iterations.val;
-      var uBound = params.upperbound.val;
-      const fixedOrigin = params.fixedOrigin.val;
-      var zoomIn=params.zoomIn.val;   
-      
-      //************************************
-      const testF="sinjulia";
-      //************************************
-
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-
-      reMap.objCanvas = ctx;
-      reMapT.objCanvas = ctxT;
-
-      //--- calculated params
-      var dx = reMap.dx();
-      var dy = reMap.dy();
-
 
 
       //----------------------------------------------------------
       function julia(z, k) {
 
         var z0=z;
+        //selectedFunction is a global parameter
 
           //-- classic Zn+1=(Zn)^2+k
           for (let i = 0; i < maxItr + 1; i++) {
-            var z0 = julias(z0,k)[testF].c;
+            var z0 = julias(z0,k)[selectedFunction].c;
             if (z0.x * z0.x + z0.y * z0.y > uBound) {
               return i;
           }
@@ -212,7 +246,7 @@
         //loop and keep applying Julia criteria
         for (let index = 0; index < maxItr; index++) {
           arrPoints.push(tempZ);
-          tempZ=julias(tempZ,k)[testF].c;
+          tempZ=julias(tempZ,k)[selectedFunction].c;
         }
         //plot array
         for (let index = 0; index < arrPoints.length; index++) {
@@ -225,8 +259,6 @@
 
       //__________________________________________________________________
       function go() {
-        //selected function
-        var strF = "z2c"; // getDropDownSelectedValue("dd1");
 
         //---clear canvas
         reMap.clearcanvas();
@@ -252,7 +284,7 @@
             y = y + dy;
             tz.y=y;
 
-            itr = julia(tz, k, strF);
+            itr = julia(tz, k);
             if (itr < maxItr) {
               clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr;

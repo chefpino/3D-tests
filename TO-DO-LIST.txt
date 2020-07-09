@@ -2,6 +2,9 @@ TO DO LIST
 resolution of sliders: add values of "steps" in params object
 if declared integer the number of steps should be max-min
 attendere prego!
+sliders: switch instead of slide if boolean
+coloring as option
+extend sum and multiplication to real x complex
 
 ideas:
 

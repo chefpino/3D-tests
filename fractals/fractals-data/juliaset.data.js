@@ -1,17 +1,9 @@
 /*
-for copy n paste:
-PI symbol:	&pi;
 
 input elements must have an ID="keyname"
 these must be global variables
 
-
 */
-var pageinfo = {
-  title: "title goes here, if necessary",
-  description: "short description",
-  instructions: "instructions here",
-};
 
 var buttons = {
   bt1: {
@@ -24,15 +16,106 @@ var dropdowns = {
   dd1: {
     id: "selectFunction",
     ext_label: "function",
-    elements: [
-      { val: "z2c", label: "classic: Zn+1=(Zn)^2+c" },
-      { val: "hyp", label: "hyperbolic Zn+1=c*sin(Zn)" },
-    ],
-    selected: "z2c",
-  },
-};
+    elements: {
+      classic: {
+        val: "classic",
+        label: "classic: Zn+1=(Zn)^2+c",
+        examples: {
+            e1: {
+            val: "-0.54 + 0.54i",
+            label: "classic ex1",
+            cx: -0.54,
+            cy: 0.54,
+            },
+            e2: {
+            val: "-0.54 + 0.54i",
+            label: "classic ex2",
+            cx: 2,
+            cy: 2,          
+            }
+          },
+      },    
+      cube: {
+        val: "cube",
+        label: "cube: Zn+1=(Zn)^3+c",
+        examples:
+           { 
+           e1: {
+            val: "-0.54 + 0.54i",
+            label: "cube ex1",
+            cx: 2,
+            cy: 2,
+          },
+          e2: {
+            val: "-0.54 + 0.54i",
+            label: "cube ex2",
+            cx: 2,
+            cy: 2
+          },
+        },
+      },
+      poly: {
+        val: "poly",
+        label: "polynomial Zn+1=Zn^3-3a^2z+b",
+        examples:
+           { 
+           e1: {
+            val: "-0.54 + 0.54i",
+            label: "poly ex1",
+            cx: 2,
+            cy: 2,
+          },
+          e2: {
+            val: "-0.54 + 0.54i",
+            label: "poly ex2",
+            cx: 2,
+            cy: 2
+          },
+        },
+      },
+      sinjulia: {
+        val: "sinjulia",
+        label: "hyperbolic sine Zn+1=c*sin(Zn)",
+        examples:{ 
+            e1: {
+            val: "-0.54 + 0.54i",
+            label: "sinj ex1",
+            cx: 2,
+            cy: 2
+          },
+          e2:{
+            val: "-0.54 + 0.54i",
+            label: "sinj ex2",
+            cx: 2,
+            cy: 2
+          },
+        },
+      },
+      cosjulia: {
+        val: "cosjulia",
+        label: "hyperbolic cosine Zn+1=i*c*cos(Zn)",
+        examples: {
+            e1:       {
+            val: "-0.54 + 0.54i",
+            label: "cosj ex1",
+            cx: 2,
+            cy: 2
+          },
+          e2:
+          {
+            val: "-0.54 + 0.54i",
+            label: "cosj ex2",
+            cx: 2,
+            cy: 2
+          },
+        },
+      },
+    },
+    selected: "classic",
+  }
+}
 //--------------------------------------------------------------
-//params is a global variable with many values that can be saved in a txt file 
+//params is a global variable with many values that can be saved in a txt file
 var params = {
   upperbound: {
     val: 4,
@@ -214,8 +297,6 @@ var juliaExamples = {
     y0: -2,
     y1: 2,
     iterations: 250,
-
-
   },
   ex7: {
     label: "0.984808 + 0.173648i (for sin(z)*k)",
@@ -227,30 +308,28 @@ var juliaExamples = {
     y0: -2,
     y1: 2,
     iterations: 250,
-},
-//c = c = 
-ex8: {
-  label: "-0.2 + i (for sin(z)*k)",
-  val: "ex8",
-  cx: -0.2,
-  cy: 1,
-  x0: -2,
-  x1: 2,
-  y0: -2,
-  y1: 2,
-  iterations: 250,
-},
-ex9: {
-  label: "-1.29904 + -0.75i (for sin(z)*k)",
-  val: "ex9",
-  cx: -1.29904,
-  cy: -0.75,
-  x0: -2,
-  x1: 2,
-  y0: -2,
-  y1: 2,
-  iterations: 250,
-},
-
-
-}
+  },
+  //c = c =
+  ex8: {
+    label: "-0.2 + i (for sin(z)*k)",
+    val: "ex8",
+    cx: -0.2,
+    cy: 1,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250,
+  },
+  ex9: {
+    label: "-1.29904 + -0.75i (for sin(z)*k)",
+    val: "ex9",
+    cx: -1.29904,
+    cy: -0.75,
+    x0: -2,
+    x1: 2,
+    y0: -2,
+    y1: 2,
+    iterations: 250,
+  },
+};

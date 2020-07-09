@@ -1,6 +1,8 @@
 function julias(z,k){
 
   const i=new c(0,1);
+  const a=new c(k.x,0);
+  const b=new c(0,k.y);
 
   return {
     classic: {
@@ -17,11 +19,15 @@ function julias(z,k){
           y: 1,
           label: "1 + i1"
         },
-      },
+      }, 
     },
     cube: {
       c: s(p(z, p(z, z)), k),
       label: "classic Zn+1=Zn^3+k",
+    },
+    poly: {
+      c: s(s(exp(z,3),p(-3,p(exp(a,2),z))), b),
+      label: "polynomial Zn+1=Zn^3-3a^2z+b",
     },
     
     sinjulia: {
@@ -32,18 +38,10 @@ function julias(z,k){
       c: p(cos(z), p(k,i)),
     },    
 
-    functionslist: {
-     
-      f1: "classic",
-      f2: "cube",
-      f3: "sinjulia",
-      f4: "cosjulia",
-
-    }
-
-
   }
 
 
 
 }
+
+//f(z)=z3−3a2z+b 

@@ -9,9 +9,13 @@ function c(x,y) {
 
     // -- product of a+ib, c+id ---
     function p(c1,c2) {
+
+      const tc1 = (typeof(c1)=="object")?c1:new c(c1,0);
+      const tc2 = (typeof(c2)=="object")?c2:new c(c2,0);
+      
       return {
-          x: c1.x*c2.x - c1.y*c2.y,
-          y: c1.x*c2.y + c1.y*c2.x         
+          x: tc1.x*tc2.x - tc1.y*tc2.y,
+          y: tc1.x*tc2.y + tc1.y*tc2.x         
         }
     }
 
@@ -30,9 +34,13 @@ function c(x,y) {
 //______________________________________________________
    // -- sum of a+ib, c+id ---
     function s(c1,c2) {
+
+      const tc1 = (typeof(c1)=="object")?c1:new c(c1,0);
+      const tc2 = (typeof(c2)=="object")?c2:new c(c2,0);
+
       return {
-          x: c1.x + c2.x,
-          y: c1.y + c2.y          
+          x: tc1.x + tc2.x,
+          y: tc1.y + tc2.y          
         }
     }
 //______________________________________________________

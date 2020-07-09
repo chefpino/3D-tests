@@ -163,17 +163,11 @@
       function fs(z, k) {
         
         const exponent = 1* params.exponent.val;
-        var tempC;
-        
-        tempC=inv(s(z,k));
-        //tempC=s(z,k);
-        //tempC=p(tempC,tempC);
-        /*
+        var tempC=z;
         for (var i = 1; i < exponent; i++) {
-          tempC=p(tempC,tempC);
+          tempC=p(tempC,z);
           }
-          //tempC=s(tempC,k);
-          */
+          tempC=s(tempC,k);
         return {
           mandelbrot: tempC,
         };
@@ -229,17 +223,24 @@
         for (let i = 0; i < cW; i++) {
           x = x + dx;
           y = y0;
+          tz.x = x;
 
           for (let j = 0; j < cH; j++) {
             y = y + dy;
-            tz.x=x;
+            
             tz.y=y;
             itr = mandel(tz);
+            clr = Math.round((itr * 255) / maxItr);
+
             if (itr < maxItr) {
-              clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr; //grey scale
-              plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
             }
+            else 
+            {
+              itr=Math.round((itr-maxItr)*255);
+              clr = "#FF" + itr + itr; //color scale
+            }
+            plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
           }
         }
       }

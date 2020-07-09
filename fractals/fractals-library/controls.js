@@ -220,7 +220,6 @@ function getDropDownSelectedValue(strID){
 function genDropDownFromObj(id,label,value,selected,obj) {
 
   var strTemp = `<select id="${id}" name="${id}">`;
-  var arrPropertiesNames=Object.getOwnPropertyNames(obj); 
 
   for (const property in obj) {
     strTemp += `<option value="${obj[property][value]}" `;

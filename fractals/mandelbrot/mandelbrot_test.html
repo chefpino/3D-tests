@@ -204,8 +204,7 @@
         dx = reMap.dx(); //max resolution
         dy = reMap.dy(); //max resolution
         
-        //--- WIP --- attendere prego!
-        reMapT.canvasMessage(true,"attendere prego!")
+        
         go();
         reMap.drawAxis();
         reMap.drawUnitCircle(); //ellipse representing the unit circle
@@ -213,8 +212,11 @@
 
       //__________________________________________________________________
       function go() {
-        //---clear canvas
-        reMap.clearcanvas();
+
+        
+        writeMessage("CALCULATING... Please wait");
+
+
 
         var x = x0;
         var y = y0;

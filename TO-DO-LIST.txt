@@ -6,9 +6,6 @@ sliders: switch instead of slide if boolean
 coloring as option
 length of escape route to color inside?
 
-ideas:
-
-  fourier?
   
 
 GENERIC
@@ -70,6 +67,4 @@ red vectors?
   TREE
 fractal tree fuctions remove px, py?
 
-  BARNSLEY
-  add zoom function?
   ===========================================

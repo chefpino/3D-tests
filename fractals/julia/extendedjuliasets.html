@@ -42,7 +42,15 @@
           position:absolute;
           left:0px;
           top:0px;"
-          height="700px" width="1000">          </div>
+          height="700px" width="1000">
+          <canvas id="msgLayer"
+          style="z-index: 3;
+          position:absolute;
+          left:0px;
+          top:0px;
+          border:1px"
+          height="100px" width="300"></canvas>
+        </div>
         </td>
       </tr>
     </table>
@@ -53,6 +61,9 @@
       const ctx = myCanvas.getContext("2d");
       const transparentLayer = document.getElementById("transparentLayer");
       const ctxT = transparentLayer.getContext("2d");
+      const msgLayer = document.getElementById("msgLayer");
+      const ctxM = msgLayer.getContext("2d");
+      
 
       const cW = myCanvas.clientWidth;
       const cH = myCanvas.clientHeight
@@ -94,6 +105,9 @@
 
       //--------------------------------------------
       function init() {
+
+
+
 
 
               //--- generate controls
@@ -236,8 +250,7 @@
         reMap.drawAxis();
         reMap.drawUnitCircle();
       }
-      //----------- W I P -------------------------------------------------
-      //*** plot all points of recursive function
+      // --- plot all points of recursive function
       function drawEscapeRoute(z) {
         //clear rectangle (because mouse moves)
         reMapT.clearcanvas();
@@ -261,26 +274,13 @@
       //__________________________________________________________________
       function go() {
 
-        //--- wip ---
-        //setTimeout(function(){ canvasMessage(true,"calculating!"); }, 1000);
-        //const btemp=reMapT.canvasMessage(true,"calculating!")
-        
-        
-        reMapT.canvasMessage(true,"calculating!");  
-        transparentLayer.width+=0;
         reMap.clearcanvas();
-        
 
         var x = x0;
         var y = y0;
         var itr = 0;
         var clr;
 
-        //var k=new c(-0.54,0.54); // ***** WIP *************
-        //var k=new c(0.355,0.355); // ***** WIP *************
-        //var k=new c(0.355,0.355); // ***** WIP *************
-        //c = 0.355534 - 0.337292i
-        //var k=new c(0.3555534,0.337292);
         var k =  new c(params.cx.val, params.cy.val);
         var tz = new c(0,0);
 

@@ -95,6 +95,7 @@
       //--------------------------------------------
       function init() {
 
+
               //--- generate controls
       genNavigation("extendedjuliasets");
       generateControls(); //sliders
@@ -260,8 +261,16 @@
       //__________________________________________________________________
       function go() {
 
-        //---clear canvas
+        //--- wip ---
+        //setTimeout(function(){ canvasMessage(true,"calculating!"); }, 1000);
+        //const btemp=reMapT.canvasMessage(true,"calculating!")
+        
+        
+        reMapT.canvasMessage(true,"calculating!");  
+        transparentLayer.width+=0;
         reMap.clearcanvas();
+        
+
         var x = x0;
         var y = y0;
         var itr = 0;

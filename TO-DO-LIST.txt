@@ -4,12 +4,11 @@ if declared integer the number of steps should be max-min
 attendere prego!
 sliders: switch instead of slide if boolean
 coloring as option
-extend sum and multiplication to real x complex
+length of escape route to color inside?
 
 ideas:
 
   fourier?
-  generic: update intervals after zoom? if not the go button should act like a zoomOut
   
 
 GENERIC
@@ -55,6 +54,7 @@ better binding of sliders to params
   update the parameters and reload/go
 perhaps it's worth writing a function that updates 
 one object properties starting from another object having the same prop names 
+destructuring?
 
 in the test page
  bind the drop downs in cascade

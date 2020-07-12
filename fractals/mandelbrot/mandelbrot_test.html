@@ -203,7 +203,9 @@
         //--- calculated params
         dx = reMap.dx(); //max resolution
         dy = reMap.dy(); //max resolution
-
+        
+        //--- WIP --- attendere prego!
+        reMapT.canvasMessage(true,"attendere prego!")
         go();
         reMap.drawAxis();
         reMap.drawUnitCircle(); //ellipse representing the unit circle
@@ -230,17 +232,11 @@
             
             tz.y=y;
             itr = mandel(tz);
-            clr = Math.round((itr * 255) / maxItr);
-
             if (itr < maxItr) {
+              clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr; //grey scale
+              plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
             }
-            else 
-            {
-              itr=Math.round((itr-maxItr)*255);
-              clr = "#FF" + itr + itr; //color scale
-            }
-            plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
           }
         }
       }

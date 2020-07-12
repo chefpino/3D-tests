@@ -121,6 +121,21 @@ class ReMap {
     this._lockRatio=bool;
   }
   //-------------------------
+  
+  canvasMessage(boolClear,strText){
+
+     if (boolClear){
+      this.clearcanvas();
+     }
+     this._objCanvas.fillStyle = "red";
+     this._objCanvas.font = "20px Georgia";
+     this._objCanvas.fillText(strText, this.cW / 2, this.cH / 2);
+     return null;
+
+  }
+
+
+
 
 } //--- end of class definition ============================================================
 

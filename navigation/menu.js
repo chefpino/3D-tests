@@ -45,7 +45,7 @@ var navigation = {
   extendedjuliasets: {
     id: "extendedjuliasets",
     link: "../../fractals/julia/extendedjuliasets.html",
-    label: "Extended Julia Sets (WIP: very slow)",
+    label: "Extended Julia(slow)",
     hasChildren: false,
     content:
       "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",

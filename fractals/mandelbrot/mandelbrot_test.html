@@ -160,16 +160,19 @@
         return maxItr;
       }
       //--------------------------------------------------------------------
-      function fs(z, k) {
+      function fs(z, k) {              
         
-        const exponent = 1* params.exponent.val;
-        var tempC=z;
-        for (var i = 1; i < exponent; i++) {
-          tempC=p(tempC,z);
-          }
-          tempC=s(tempC,k);
+        var zn=z;
+
+        zn=exp(zn,3);
+        zn=s(zn,k);
+
+        //zn=p(-1,zn);
+        //zn=s(zn,k);
+        //zn=s(z,zn);  
+ 
         return {
-          mandelbrot: tempC,
+          mandelbrot: zn,
         };
         
       }
@@ -203,8 +206,7 @@
         //--- calculated params
         dx = reMap.dx(); //max resolution
         dy = reMap.dy(); //max resolution
-        
-        
+
         go();
         reMap.drawAxis();
         reMap.drawUnitCircle(); //ellipse representing the unit circle
@@ -213,10 +215,8 @@
       //__________________________________________________________________
       function go() {
 
-        
-        writeMessage("CALCULATING... Please wait");
-
-
+        //---clear canvas
+        reMap.clearcanvas();
 
         var x = x0;
         var y = y0;
@@ -241,6 +241,8 @@
             }
           }
         }
+
+
       }
     </script>
   </body>

@@ -35,8 +35,8 @@ var params = {
      default:130,
      label:"trunk initial height",
      minLabel:"25",
-     maxLabel:"150"
-
+     maxLabel:"150",
+     integer: true
      },
    "minLen":{
      val:20,
@@ -45,8 +45,8 @@ var params = {
      default:20,
      label:"branch min length",
      minLabel:"15",
-     maxLabel:"40"
-
+     maxLabel:"40",
+     integer: true
      },
    "reduction":{
      val:0.8,
@@ -65,8 +65,8 @@ var params = {
      default:20,
      label:"trunk initial thickness",
      minLabel:"1",
-     maxLabel:"50"
-
+     maxLabel:"50",
+     integer: true
      },
    "trunkReduction":{
      val:0.5, 
@@ -85,7 +85,17 @@ var params = {
      label:"branch min thickness",
      minLabel:"0.1",
      maxLabel:"1"
-
+     },
+     
+   "nTrees":{
+     val:1,
+     min:1,
+     max:10,
+     default:1,
+     label:"# trees",
+     minLabel:"1",
+     maxLabel:"10 (forest)",
+     integer: true
      }
 
 }

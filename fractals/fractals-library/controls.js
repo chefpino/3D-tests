@@ -45,9 +45,9 @@ function generateControls() {
     strHTML = strHTML + td(params[key].maxLabel);
     strHTML =
       strHTML +
-      td(`<div id="val_${key}">${params[key].default}</div>`);
+      td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`);
     strHTML = strHTML + trc;
-    } // - end if
+    } // - end if = ;
   }
   strHTML = strHTML + "<tr><td colspan=5>";
   strHTML = strHTML + '<button onclick="loadvaluesandgo();">GO!</button>&nbsp';
@@ -89,7 +89,7 @@ function loadValues() {
     var tempVal = paramToSlider(key, params[key].val);
     if (params[key].visible != false){
         document.getElementById(key).value = tempVal;
-        document.getElementById("val_" + key).innerHTML = params[key].val;
+        document.getElementById("val_" + key).innerHTML = Math.round(params[x].val*1000)/1000;
     }
   }
 }
@@ -103,7 +103,7 @@ function loadValues() {
 function updateParam(x) {
   var iTemp = 1 * document.getElementById(x).value;
   params[x].val = sliderToParam(x, iTemp);
-  document.getElementById("val_" + x).innerHTML = params[x].val;
+  document.getElementById("val_" + x).innerHTML = Math.round(params[x].val*1000)/1000;
 }
 //----------------------------------------------------------------------------------
 //these functions map the 0-100 value of a slider to a given range for a

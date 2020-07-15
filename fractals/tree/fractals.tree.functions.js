@@ -114,7 +114,7 @@ function draw(x, y, angle, len, trunk) {
 //--- this functions remap the canvas. The origin is the middle point of the rect base.
 function px(x) {
   return cW / 2 + x;
-}
+  }
 function py(y) {
   return cH - y;
 }

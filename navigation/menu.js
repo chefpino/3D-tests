@@ -45,7 +45,7 @@ var navigation = {
   extendedjuliasets: {
     id: "extendedjuliasets",
     link: "../../fractals/julia/extendedjuliasets.html",
-    label: "Extended Julia(slow)",
+    label: "Extended Julia",
     hasChildren: false,
     content:
       "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
@@ -179,5 +179,5 @@ function genNavigation(strCurrentPage) {
 //-----------------------------------------
 // just spaces for indentation
 function indent(n) {
-  return "&nbsp;".repeat(5 * n);
+  return "&#10052; "+"&nbsp;".repeat(n);
 }

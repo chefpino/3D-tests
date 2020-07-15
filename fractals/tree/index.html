@@ -69,14 +69,11 @@ function loadvaluesandgo() {
     nTrees=1 * params.nTrees.val;
 
   //---clear canvas
-  ctx.clearRect(0, 0, cW, cH);
-  
+  ctx.clearRect(0, 0, cW, cH);  
 
   //--- draw trees
-  for (let index = 1; index <= nTrees; index++) {
-    
-    draw(cW/(nTrees+1)*index-cW/2,0,initAngle,initLen,initTrunk);
-    
+  for (let index = 1; index <= nTrees; index++) {    
+    draw(cW/(nTrees+1)*index-cW/2,0,initAngle,initLen,initTrunk);    
   }
   
 }
@@ -84,8 +81,6 @@ function loadvaluesandgo() {
 function resetReload() {
   location.reload();  
 }
-
-
 
 </script> 
 </body>

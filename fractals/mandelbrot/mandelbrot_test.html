@@ -160,19 +160,16 @@
         return maxItr;
       }
       //--------------------------------------------------------------------
-      function fs(z, k) {              
+      function fs(z, k) {
         
-        var zn=z;
-
-        zn=exp(zn,3);
-        zn=s(zn,k);
-
-        //zn=p(-1,zn);
-        //zn=s(zn,k);
-        //zn=s(z,zn);  
- 
+        const exponent = 1* params.exponent.val;
+        var tempC=z;
+        for (var i = 1; i < exponent; i++) {
+          tempC=p(tempC,z);
+          }
+          tempC=s(tempC,k);
         return {
-          mandelbrot: zn,
+          mandelbrot: tempC,
         };
         
       }

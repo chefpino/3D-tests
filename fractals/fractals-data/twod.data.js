@@ -80,5 +80,17 @@ var params = {
     integer: true,
     steps: 1,
   },
+  grid: {
+    val: 1,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 1,
+    label: "show grid",
+    minLabel: "no",
+    maxLabel: "yes",
+    integer: true,
+    steps: 1,
+  }, 
 
 };

@@ -99,6 +99,37 @@ class ReMap {
     this._objCanvas.stroke();
   }
 
+  //wip --- plot on x axis
+  drawGrid(){
+    
+    var pointsArray=gridCoords(this.x0,this.x1);
+
+    this._objCanvas.strokeStyle = "#AAAAAA";
+    this._objCanvas.lineWidth = "0.1";
+
+
+    for (let index = 0; index < pointsArray.length; index++) {
+      const tempX = Math.floor(this.x(pointsArray[index]));
+      
+      this._objCanvas.moveTo(tempX, 0);
+      this._objCanvas.lineTo(tempX, this.cH);
+      this._objCanvas.stroke();      
+    }
+    
+    pointsArray=gridCoords(this.y0,this.y1);
+    for (let index = 0; index < pointsArray.length; index++) {
+      const tempY = Math.floor(this.y(pointsArray[index]));
+      this._objCanvas.moveTo(0,tempY);
+      this._objCanvas.lineTo(this.cW,tempY);
+      this._objCanvas.stroke();      
+    }
+    
+  }
+
+
+
+
+
   drawSegment(c1, c2, strColor) {
     this._objCanvas.beginPath();
     this._objCanvas.lineWidth = "0.5";
@@ -142,7 +173,37 @@ class ReMap {
       function writeMessage(message) {
         document.getElementById("mousecoordinates").innerHTML=message
       }
-      //----------------------------------------------------------
+//----------------------------------------------------------
+
+// math functions for the grid 
+function dRound(x,n){
+  const p = Math.pow(10,n);
+  return Math.round(x * p) / p;
+}
+
+function gridCoords(x0,x1){
+  
+  var arrX=new Array();
+  var xStart=intScale(x0,x1).inf;
+  var dx = intScale(x0,x1).dx;
+  var s=xStart;
+  do {
+    s=s+dx;
+    arrX.push(s);
+  } while (s < x1);
+  
+  return arrX;
+
+}
+//--- this function decides the size of the grid
+function intScale(x0,x1){
+  const y=Math.round(Math.log10(x1-x0));   
+  const z=Math.pow(10,y-1);
+  return {
+        dx: z,
+        inf: dRound(x0,Math.log10(1/z))
+  }
+ }
 
 
 

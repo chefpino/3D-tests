@@ -6,6 +6,8 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="../../fractals/fractals-library/library.js"></script>
+
     <script src="2d-library.js"></script>
     <script src="../../fractals/fractals-data/twod.data.js"></script>
   </head>
@@ -132,6 +134,7 @@ function init(){
   displayFunctions();
   fileToParameters(); //initiate event listener for file uploader
   reMap.drawAxis();
+  if (params.grid.val==true){ reMap.drawGrid()};
   plotAll();
 
 }
@@ -143,7 +146,7 @@ function loadvaluesandgo() {
         x1 = params.x1.val;
         y0 = params.y0.val;
         y1 = params.y1.val;
-
+        
         reMap.x0 = x0;
         reMap.x1 = x1;
         reMap.y0 = y0;
@@ -153,6 +156,8 @@ function loadvaluesandgo() {
         reMap.clearcanvas();
         plotAll();
         reMap.drawAxis();
+        if (params.grid.val==true){ reMap.drawGrid()};
+
       }
 //---------------------------------------
 

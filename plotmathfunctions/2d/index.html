@@ -18,12 +18,6 @@
               <div id="menu"></div>
               <hr>
               <div id="content"></div>
-              <hr>
-              <div id="dynamicSliders">placeholder</div>
-              <hr>
-              <div id="listFunctions">placeholder</div>
-              <hr>
-              <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td valign="top">
           <div id="canvasesdiv" style="position:relative; width:1000px; height:500px"> 
@@ -45,6 +39,13 @@
             border:1px solid;"
             height="500px" width="1000">          </div>
           </td>
+          <td valign=top>
+            <div id="dynamicSliders">placeholder</div>
+            <hr>
+            <div id="listFunctions">placeholder</div>
+            <hr>
+            <b>Coordinates</b><div id="mousecoordinates"></div>
+        </td>
       </tr>
     </table>
 
@@ -129,7 +130,7 @@ function init(){
 
   
 
-  genNavigation("twoD");
+  genNavigation("twoD",false);
   generateControls();
   displayFunctions();
   fileToParameters(); //initiate event listener for file uploader

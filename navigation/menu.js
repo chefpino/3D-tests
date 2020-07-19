@@ -125,7 +125,7 @@ var navigation = {
 };
 
 //----------------------------------------------------------------------------------
-// -- this is a recursive function to generate the menu, it can be improved
+// -- this is a recursive function to generate a vertical menu, it can be improved
 function genMenu(strKey, nestinglevel, strCurrentPage) {
   var strTemp = nestinglevel == 0 ? "<table width='50%'>" : "";
   var oChildren; //object containing children
@@ -161,13 +161,66 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   strTemp += nestinglevel == 0 ? "</table>" : "";
   return strTemp;
 }
+//---------------------------------------------
+//horizontal menu
 
-function genNavigation(strCurrentPage) {
+function genHMenu(strKey, nestinglevel, strCurrentPage) {
+  var strTemp = nestinglevel == 0 ? "<table border=1 width='100%'><tr>" : "<table><tr>";
+  var oChildren; //object containing children
+
+  var strLabel = navigation[strKey].label;
+  var strLink = navigation[strKey].link;
+
+  //highlight if current page (puts it in bold, but can be improved)
+  if (strCurrentPage == strKey) {
+    strLabel = "<b>" + strLabel + "</b>";
+  }
+
+  //if it's a link add link tags
+  if (navigation[strKey].link != "#") {
+    strLabel = '<a href="' + strLink + '">' + strLabel + "</a>";
+  }
+
+  strTemp =
+    strTemp + "<td>" + strLabel ; //+ indent(nestinglevel) + "</td>"  
+
+  if (navigation[strKey].hasChildren == true) {
+    //if it has children list them here
+    oChildren = navigation[strKey].children;
+
+    for (const property in oChildren) {
+      strTempKey = oChildren[property];
+      strTemp +=  genHMenu(strTempKey, nestinglevel + 1, strCurrentPage);// : genMenu(strTempKey, nestinglevel + 1, strCurrentPage);
+    }
+  }
+  strTemp += "</td>";
+  strTemp += "</tr></table>"; //nestinglevel == 0 ? "
+  return strTemp;
+}
+
+
+
+
+
+
+
+function genNavigation(strCurrentPage, isHorizontal) {
+  
+  if(!isHorizontal){
   document.getElementById("menu").innerHTML = genMenu(
     "home",
     0,
     strCurrentPage
   ); //add navigation
+  }
+  if(isHorizontal){
+  document.getElementById("menu").innerHTML = genHMenu(
+    "home",
+    0,
+    strCurrentPage
+  ); //add navigation
+}
+
   document.title = navigation[strCurrentPage].label;
   document.getElementById("content").innerHTML =
     "<b>" +

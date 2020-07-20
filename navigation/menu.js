@@ -129,9 +129,7 @@ var navigation = {
 function genMenu(strKey, nestinglevel, strCurrentPage) {
 
 
-  //console.log(strKey + " : " + nestinglevel);
-
-
+  const highlighted=(strCurrentPage == strKey);
   var strTemp = nestinglevel == 0 ? "<table width='100%'>" : "";
   var oChildren; //object containing children
 
@@ -139,8 +137,8 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   var strLink = navigation[strKey].link;
 
   //highlight if current page (puts it in bold, but can be improved)
-  if (strCurrentPage == strKey) {
-    strLabel = "<b>" + strLabel + "</b>";
+  if (highlighted) {
+    strLabel = "<b style='background-color:#AAAAAA'>" + strLabel + "</b>";
   }
 
   //if it's a link add link tags
@@ -173,7 +171,7 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
   console.log(strKey + " : " + nestinglevel);
 
-  var strTemp = (nestinglevel == 0) ? "<table border=1 width='100%'><tr>" : "";
+  var strTemp = (nestinglevel == 0) ? "<table width='50%'><tr>" : "";
   var oChildren; //object containing children
 
   var strLabel = navigation[strKey].label;
@@ -183,7 +181,7 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
   //highlight if current page (puts it in bold, but can be improved)
   if (highlighted) {
-    strLabel = "<b>" + strLabel + "</b>";
+    strLabel = "<b style='background-color:#AAAAAA'>" + strLabel + "</b>";
   }
 
   //if it's a link add link tags

@@ -127,7 +127,12 @@ var navigation = {
 //----------------------------------------------------------------------------------
 // -- this is a recursive function to generate a vertical menu, it can be improved
 function genMenu(strKey, nestinglevel, strCurrentPage) {
-  var strTemp = nestinglevel == 0 ? "<table width='50%'>" : "";
+
+
+  //console.log(strKey + " : " + nestinglevel);
+
+
+  var strTemp = nestinglevel == 0 ? "<table width='100%'>" : "";
   var oChildren; //object containing children
 
   var strLabel = navigation[strKey].label;
@@ -144,7 +149,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   }
 
   strTemp =
-    strTemp + "<tr><td>" + indent(nestinglevel) + strLabel + "</td></tr>";
+    strTemp + "<tr><td>" + indent(nestinglevel,false) + strLabel + "</td></tr>";
 
   if (navigation[strKey].hasChildren == true) {
     //if it has children list them here
@@ -162,17 +167,22 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   return strTemp;
 }
 //---------------------------------------------
-//horizontal menu
+//horizontal menu - work in progress - ugly
 
 function genHMenu(strKey, nestinglevel, strCurrentPage) {
-  var strTemp = nestinglevel == 0 ? "<table border=1 width='100%'><tr>" : "<table><tr>";
+
+  console.log(strKey + " : " + nestinglevel);
+
+  var strTemp = (nestinglevel == 0) ? "<table border=1 width='100%'><tr>" : "";
   var oChildren; //object containing children
 
   var strLabel = navigation[strKey].label;
   var strLink = navigation[strKey].link;
 
+  const highlighted=(strCurrentPage == strKey);
+
   //highlight if current page (puts it in bold, but can be improved)
-  if (strCurrentPage == strKey) {
+  if (highlighted) {
     strLabel = "<b>" + strLabel + "</b>";
   }
 
@@ -181,8 +191,7 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
     strLabel = '<a href="' + strLink + '">' + strLabel + "</a>";
   }
 
-  strTemp =
-    strTemp + "<td>" + strLabel ; //+ indent(nestinglevel) + "</td>"  
+  strTemp += ((nestinglevel<2) ? "<td valign=top>":"") + indent(nestinglevel,highlighted) + strLabel; //+ "</td>"  
 
   if (navigation[strKey].hasChildren == true) {
     //if it has children list them here
@@ -190,11 +199,11 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
     for (const property in oChildren) {
       strTempKey = oChildren[property];
-      strTemp +=  genHMenu(strTempKey, nestinglevel + 1, strCurrentPage);// : genMenu(strTempKey, nestinglevel + 1, strCurrentPage);
+      strTemp +=  ((nestinglevel>0)?"<br/>":"") + genHMenu(strTempKey, nestinglevel + 1, strCurrentPage);// : genMenu(strTempKey, nestinglevel + 1, strCurrentPage);
     }
   }
-  strTemp += "</td>";
-  strTemp += "</tr></table>"; //nestinglevel == 0 ? "
+  strTemp += ((nestinglevel < 2) ? "</td>":"");
+  strTemp += ((nestinglevel==0) ? "</tr></table>":"");
   return strTemp;
 }
 
@@ -231,6 +240,9 @@ function genNavigation(strCurrentPage, isHorizontal) {
 
 //-----------------------------------------
 // just spaces for indentation
-function indent(n) {
-  return "&#10052; "+"&nbsp;".repeat(n);
+function indent(n,highlighted) {
+  return (highlighted ? "<b>":"") + 
+          "&#10052;" +
+          "&nbsp;".repeat(n) + 
+          (highlighted ? "</b>":"");
 }

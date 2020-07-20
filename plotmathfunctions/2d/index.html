@@ -14,11 +14,13 @@
   <body onload="init();">
     <table border="0">
       <tr>
-        <td valign="top">
+        <td valign="top" colspan="2">
               <div id="menu"></div>
               <hr>
               <div id="content"></div>
         </td>
+      </tr>
+      <tr>  
         <td valign="top">
           <div id="canvasesdiv" style="position:relative; width:1000px; height:500px"> 
             <canvas
@@ -130,7 +132,7 @@ function init(){
 
   
 
-  genNavigation("twoD",false);
+  genNavigation("twoD",true);
   generateControls();
   displayFunctions();
   fileToParameters(); //initiate event listener for file uploader

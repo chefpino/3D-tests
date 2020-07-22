@@ -41,6 +41,10 @@ MODULES
 description of page
 better details on factor in R+ (and not N)
 
+POLAR 
+consolidate library scripts with 2d functions
+polar grid
+
 
 FRACTALS
 better binding of sliders to params

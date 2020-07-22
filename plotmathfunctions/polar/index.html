@@ -52,42 +52,28 @@
 <script>
 "use strict";
 
-//global variables here
-      //--- global PARAMETERS ------------------------------------------------------------------
+//global variables here ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
-      var   cW = myCanvas.clientWidth;
-      var   cH = myCanvas.clientHeight
-
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight
+      const fixedOrigin = false;
 
       //--- parameters the user can change via sliders if made visible
       // -- global variables
-        var t0 = params.t0.val;
-        var t1 = params.t1.val;
-        var dt = params.dt.val;
-        var x0 = params.x0.val;
-        var x1 = params.x1.val;
+        var t0;
+        var t1;
+        var dt;
+        var x0;
+        var x1;
+        var y0;
+        var y1;    
+        var zoomIn;
         
-      
-      const fixedOrigin = false;
-      var lockRatio=true;
-      var zoomIn=params.zoomIn.val;      
+        loadValues();  
 
-      const xIntervals=250;
-
-      //wip
-      const iGrid=20;
-      const drawGrid=true;
-
-      var reMap = new ReMap(cW, cH, x0, x1, x0, x1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
       reMap.objCanvas = ctx;
-
-        reMap.x0 = x0;
-        reMap.x1 = x1;
-        reMap.y0 = x0;
-        reMap.y1 = x1;
-
-     
 
 
 
@@ -119,10 +105,14 @@ function init(){
             if (zoomIn==1){
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
+            params.y0.val=reMap.m2y(mousePos.y)-(x1-x0)/4;
+            params.y1.val=reMap.m2y(mousePos.y)+(x1-x0)/4;
             }
             else {
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
+            params.y0.val=reMap.m2y(mousePos.y)-(x1-x0);
+            params.y1.val=reMap.m2y(mousePos.y)+(x1-x0);
             }
 
             loadvaluesandgo();
@@ -144,18 +134,13 @@ function init(){
 }
 //---------------------------------------
 function loadvaluesandgo() {
-
-        t0 = params.t0.val;
-        t1 = params.t1.val;
-        dt = params.dt.val;
-        x0 = params.x0.val;
-        x1 = params.x1.val;
         
+        loadValues();
+
         reMap.x0 = x0;
         reMap.x1 = x1;
-        reMap.y0 = x0;
-        reMap.y1 = x1;
-
+        reMap.y0 = y0;
+        reMap.y1 = y1;
 
         reMap.clearcanvas();
         plotAll();
@@ -164,6 +149,19 @@ function loadvaluesandgo() {
 
       }
 //---------------------------------------
+
+function loadValues(){
+        t0 = params.t0.val;
+        t1 = params.t1.val;
+        dt = params.dt.val;
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val; 
+        zoomIn=params.zoomIn.val;      
+}
+
+
 
 
 

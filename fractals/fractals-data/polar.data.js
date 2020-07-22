@@ -2,10 +2,10 @@
 
 var params = {
   dt: {
-    val: 0.05,
+    val: 0.01,
     min: 0.01,
     max: 1,
-    default:0.05,
+    default:0.01,
     label: "dt",
     minLabel: "0.01",
     maxLabel: "1",
@@ -41,7 +41,7 @@ var params = {
     label: "x0",
     minLabel: "-4",
     maxLabel: "4",
-    integer: false,
+    integer: true,
     visible: true,
   },
   x1: {
@@ -52,14 +52,34 @@ var params = {
     label: "x1",
     minLabel: "1",
     maxLabel: "4",
-    integer: false,
+    integer: true,
     visible: true,
   },
-
+  y0: {
+    val: -2,
+    min: -4,
+    max: 4,
+    default: -2,
+    label: "y0",
+    minLabel: "-4",
+    maxLabel: "4",
+    integer: true,
+    visible: false,
+  },
+  y1: {
+    val: 2,
+    min: 1,
+    max: 4,
+    default: 2,
+    label: "y1",
+    minLabel: "1",
+    maxLabel: "4",
+    integer: true,
+    visible: false,
+  },
   functions: {
     f1: "t",
-    f2: "t*t",
-    f3: "Math.sin(t)",
+    f2: "Math.sin(4*t)",
     visible: false,
   },
   zoomIn: {

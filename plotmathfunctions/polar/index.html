@@ -8,25 +8,23 @@
     <script src="../../fractals/fractals-library/controls.js"></script>
     <script src="../../fractals/fractals-library/library.js"></script>
 
-    <script src="2d-library.js"></script>
-    <script src="../../fractals/fractals-data/twod.data.js"></script>
+    <script src="polar-library.js"></script>
+    <script src="../../fractals/fractals-data/polar.data.js"></script>
   </head>
   <body onload="init();">
     <table border="0">
       <tr>
-        <td valign="top" colspan="2">
+        <td valign="top">
               <div id="menu"></div>
               <hr>
               <div id="content"></div>
         </td>
-      </tr>
-      <tr>  
         <td valign="top">
-          <div id="canvasesdiv" style="position:relative; width:1000px; height:500px"> 
+          <div id="canvasesdiv" style="position:relative; width:700px; height:700px"> 
             <canvas
               id="myCanvas"
-              width="1000"
-              height="500"
+              width="700"
+              height="700"
               style="z-index: 1;
                       position:absolute;
                       left:0px;
@@ -39,7 +37,7 @@
             left:0px;
             top:0px;
             border:1px solid;"
-            height="500px" width="1000">          </div>
+            height="700" width="700">          </div>
           </td>
           <td valign=top>
             <div id="dynamicSliders">placeholder</div>
@@ -64,12 +62,15 @@
 
       //--- parameters the user can change via sliders if made visible
       // -- global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      const fixedOrigin = params.fixedOrigin.val;
-      var lockRatio=params.lockratio.val;
+        var t0 = params.t0.val;
+        var t1 = params.t1.val;
+        var dt = params.dt.val;
+        var x0 = params.x0.val;
+        var x1 = params.x1.val;
+        
+      
+      const fixedOrigin = false;
+      var lockRatio=true;
       var zoomIn=params.zoomIn.val;      
 
       const xIntervals=250;
@@ -78,12 +79,15 @@
       const iGrid=20;
       const drawGrid=true;
 
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMap = new ReMap(cW, cH, x0, x1, x0, x1, fixedOrigin); //functions to map real value to canvas coordinates
       reMap.objCanvas = ctx;
 
-      //--- calculated params
-      var dx = reMap.dx();
-      var dy = reMap.dy();
+        reMap.x0 = x0;
+        reMap.x1 = x1;
+        reMap.y0 = x0;
+        reMap.y1 = x1;
+
+     
 
 
 
@@ -109,101 +113,67 @@ function init(){
             var mousePos = getMousePos(evt);
 
             zoomIn=params.zoomIn.val;
+           
 
             //zoom in
             if (zoomIn==1){
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
-            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
-            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
             }
             else {
             params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
-            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
-            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
             }
 
             loadvaluesandgo();
-
+            
           },
           false
         );
 
   
 
-  genNavigation("twoD",true);
+  genNavigation("polar",false);
   generateControls();
   displayFunctions();
   fileToParameters(); //initiate event listener for file uploader
   reMap.drawAxis();
-  if (params.grid.val==true){ reMap.drawGrid()};
+  //if (params.grid.val==true){ reMap.drawGrid()};
   plotAll();
 
 }
 //---------------------------------------
 function loadvaluesandgo() {
 
-        checkLockRatio();
+        t0 = params.t0.val;
+        t1 = params.t1.val;
+        dt = params.dt.val;
         x0 = params.x0.val;
         x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
         
         reMap.x0 = x0;
         reMap.x1 = x1;
-        reMap.y0 = y0;
-        reMap.y1 = y1;
+        reMap.y0 = x0;
+        reMap.y1 = x1;
 
 
         reMap.clearcanvas();
         plotAll();
         reMap.drawAxis();
-        if (params.grid.val==true){ reMap.drawGrid()};
+        //if (params.grid.val==true){ reMap.drawGrid()};
 
       }
 //---------------------------------------
 
-function checkLockRatio(){
-
-             if (params.lockratio.val==1){
-              
-              cH=cW*(y1-y0)/(x1-x0); //new canvas height
-              //resize canvases (visible and invisible)
-              reMap.cH=cH;
-              myCanvas.height = cH;
-              document.getElementById("transparentLayer").height = cH;
-
-              //make y sliders invisible:
-              document.getElementById("y0").style.display="none";
-              document.getElementById("y1").style.display="none";
-             }
-
-             if (params.lockratio.val==0){
-              
-              cH=700;; //new canvas height
-              //resize canvases (visible and invisible)
-              reMap.cH=cH;
-              myCanvas.height = cH;
-              document.getElementById("transparentLayer").height = cH;
-
-              //make y sliders visible:
-              document.getElementById("y0").style.display="block";
-              document.getElementById("y1").style.display="block";
-              
-             }
-
-
-
-}
 
 
 function plotAll(){
 
   for (const key in params.functions) {
       const element = params.functions[key];
+      
       if (element != false){
-      function f(x) {  
+      function f(t) {  
          return eval(element);  
       };  
       plotFunction(f,"#121212");
@@ -213,7 +183,13 @@ function plotAll(){
 
 }
 
-
+//________________________________________________________
+/*
+function f(exp) {  
+  return eval(exp);  
+};
+*/
+//_______________________________________________________
 
 
 //-------------------------------------------
@@ -224,32 +200,17 @@ function plotFunction(objF,strColor) {
   ctx.lineWidth=0.5;
 //  ctx.strokeStyle = "#0000D3";
 
-  var xi=x0;
-  var yi=objF(x0);
-  var yii=0;
-  var yc=0;
+  var ri=objF(t0);
+  var rii=0;
+  var xc,yc;
   
-  ctx.moveTo(0,reMap.y(yi)); //first point on the map
-/*  
-  do {
-    
-    //calculate next point
-    var xi=xi+dx;
-    var yi=objF(xi);
-    ctx.lineTo(reMap.x(xi),reMap.y(yi));
-    //xi=xii;
-    //yi=yii;
-    ctx.moveTo(reMap.x(xi),reMap.y(yi)); //move to next point
-  } while (xi < x1);
+  ctx.moveTo(reMap.x(p2c(ri,t0).x),reMap.y(p2c(ri,t0).y)); //first point on the map
 
-  ctx.stroke();  
-  */ 
-
-//max resolution, 1px at the time
-  for (let xc = 0; xc < cW+1; xc++) {
-    xc=xc+1; //next canvas point
-    yii=objF(reMap.m2x(xc));
-    yc=reMap.y(yii);
+  for (let ti = t0+dt; ti < t1; ti=ti+dt) {
+    console.log(ti);
+    rii=objF(ti);
+    xc=reMap.x(p2c(rii,ti).x);
+    yc=reMap.y(p2c(rii,ti).y);
     ctx.lineTo(xc,yc);
     ctx.moveTo(xc,yc); //move to next point  
   }
@@ -257,6 +218,15 @@ function plotFunction(objF,strColor) {
  
 }
 //-------------------------------------------
+// polar to cartesian
+function p2c(r,t){
+  return {
+         x: r * Math.cos(t),
+         y: r * Math.sin(t)
+         }
+}
+//-------------------------------------------
+
 
 function displayFunctions(){
 

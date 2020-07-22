@@ -1,15 +1,37 @@
 var navigation = {
+  origin: {
+    id: "origin",
+    link: "https://chefpino.github.io/fun/",
+    label: "origin (w.i.p.)",
+    hasChildren: true,
+    children: {
+      item1: "home",
+      item2: "about"
+    },
+    visible: true,
+  },
   home: {
     id: "home",
     link: "https://chefpino.github.io/fun/",
     label: "HOME (w.i.p.)",
     hasChildren: true,
     children: {
+      item0: "about",
       item1: "fractals",
       item2: "plotmathfunctions",
     },
     visible: true,
   },
+  about: {
+    id: "about",
+    link: "/about.html",
+    label: "ABOUT (w.i.p.)",
+    hasChildren: false,
+    visible: true,
+    content: "work in progress"
+
+  },
+  
   fractals: {
     id: "fractals",
     link: "#",
@@ -97,7 +119,8 @@ var navigation = {
       item1: "threeD",
       item2: "complex",
       item3: "unitcircle",
-      item4: "modules"
+      item4: "modules",
+      item5: "polar"
     },
   },
   twoD: {
@@ -121,6 +144,14 @@ var navigation = {
     hasChildren: false,
     content:
       "Click on the complex plane to draw a polygon.<br>Double click to choose a vector.<br>Apply a rotation or a translation.<br>Auto applies the rotation until polygon becomes smaller than a pixel or larger than the canvas.",
+  },
+  polar: {
+    id: "polar",
+    link: "../../plotmathfunctions/polar/index.html",
+    label: "Polar",
+    hasChildren: false,
+    content:
+      "under development",
   },
 };
 

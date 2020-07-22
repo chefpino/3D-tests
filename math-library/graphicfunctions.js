@@ -78,8 +78,8 @@ class ReMap {
 
         //--- y axis -------------------------
         if (this.x(0) >= 0 && this.x(0) <= this.cW) {
-          this._objCanvas.moveTo(this.x(0), this.y(y0));
-          this._objCanvas.lineTo(this.x(0), this.y(y1));
+          this._objCanvas.moveTo(this.x(0), this.y(this.y0));
+          this._objCanvas.lineTo(this.x(0), this.y(this.y1));
           this._objCanvas.stroke();
           this._objCanvas.fillText(this.y0, this.x(0), this.cH - 5);
           this._objCanvas.fillText(this.y1, this.x(0), 10);

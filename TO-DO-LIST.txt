@@ -10,12 +10,8 @@ polar functions
   
 
 GENERIC
-fix once for all CSS
-json to menu: add active element css class?
 readme file for git
 customize action for each slider?
-show axis as a parameter
-show grid as a parameter
 
 
 2D, cleanup

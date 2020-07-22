@@ -53,6 +53,7 @@ var params = {
   functions: {
     f1: "Math.sin(x)",
     f2: "Math.cos(x)",
+    f3: "Math.exp(-x*x)",
     visible: false,
   },
   lockratio: {

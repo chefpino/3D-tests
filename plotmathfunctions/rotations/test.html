@@ -5,8 +5,6 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
-    <script src="../../fractals/fractals-library/controls.js"></script>
-    <script src="../../fractals/fractals-data/rotations.data.js"></script>
   </head>
   <body onload="init();">
     <table border="0">
@@ -16,8 +14,6 @@
               <hr>
               <div id="content"></div>
               <hr>
-              <div id="dynamicSliders">placeholder</div>
-                  <hr>
               <button onclick="rotateButton();">ROTATE</button>
               <button onclick="shiftButton();">SHIFT</button>
               <input type="button" id="startbutton" value="AUTO"></input>
@@ -72,7 +68,7 @@
           y: evt.clientY - rect.top,
         };
       }
-      //---
+      //----
       function writeMessage(message) {
         document.getElementById("mousecoordinates").innerHTML=message;
       }
@@ -167,9 +163,6 @@
       function init() {
         
         genNavigation("complex",false);
-
-        generateControls();
-        fileToParameters(); //initiate event listener for file uploader
 
         reMap.drawAxis();
         reMap.drawUnitCircle();

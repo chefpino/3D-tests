@@ -90,7 +90,7 @@ var navigation = {
   barnsley: {
     id: "barnsley",
     link: "../../fractals/barnsley/index.html",
-    label: "Barnsley",
+    label: "Barnsley Fern",
     hasChildren: false,
     content: "Change the parameter to increase number of points.",
   },

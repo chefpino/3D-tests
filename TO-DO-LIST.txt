@@ -13,6 +13,8 @@ GENERIC
 readme file for git
 about page
 customize action for each slider?
+loadvalues function, mimic what done in polar fuctions
+save functions when saving file, at the moment is undefined
 
 
 2D, cleanup

@@ -14,81 +14,87 @@
     <table border="0">
       <tr>
         <td valign="top">
-              <div id="menu"></div>
-              <hr>
-              <div id="content"></div>
+          <div id="menu"></div>
+          <hr />
+          <div id="content"></div>
         </td>
         <td valign="top">
-          <div id="canvasesdiv" style="position:relative; width:700px; height:700px"> 
+          <div
+            id="canvasesdiv"
+            style="position: relative; width: 700px; height: 700px;"
+          >
             <canvas
               id="myCanvas"
               width="700"
               height="700"
-              style="z-index: 1;
-                      position:absolute;
-                      left:0px;
-                      top:0px;"
-  
+              style="z-index: 1; position: absolute; left: 0px; top: 0px;"
             ></canvas>
-            <canvas id="transparentLayer"
-            style="z-index: 2;
-            position:absolute;
-            left:0px;
-            top:0px;
-            border:1px solid;"
-            height="700" width="700">          </div>
-          </td>
-          <td valign=top>
-            <div id="dynamicSliders">placeholder</div>
-            <hr>
-            <div id="listFunctions">placeholder</div>
-            <hr>
-            <b>Coordinates</b><div id="mousecoordinates"></div>
+            <canvas
+              id="transparentLayer"
+              style="
+                z-index: 2;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                border: 1px solid;
+              "
+              height="700"
+              width="700"
+            ></canvas>
+          </div>
+        </td>
+        <td valign="top">
+          <div id="dynamicSliders">placeholder</div>
+          <hr />
+          <div id="listFunctions">placeholder</div>
+          <hr />
+          <b>Coordinates</b>
+          <div id="mousecoordinates"></div>
         </td>
       </tr>
     </table>
 
-<script>
-"use strict";
+    <script>
+      "use strict";
 
-//global variables here ------------------------------------------------------------------
+      //global variables here ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
       const transparentLayer = document.getElementById("transparentLayer");
       const ctxT = transparentLayer.getContext("2d");
       const cW = myCanvas.clientWidth;
-      const cH = myCanvas.clientHeight
+      const cH = myCanvas.clientHeight;
       const fixedOrigin = false;
 
       var t0, t1, dt;
       var x0, x1, y0, y1;
       var zoomIn;
-        
-      loadValues();  
 
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      loadValues();
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); 
       reMap.objCanvas = ctx;
 
-      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
       reMapT.objCanvas = ctxT;
 
-//---------------------------------------
-function init(){
-
+      //---------------------------------------
+      function init() {
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(
           "mousemove",
           function (evt) {
             var mousePos = getMousePos(evt);
-            var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
-            var message = `x: ${tempC.x}<br>y: ${tempC.y}<br>z: ${m(tempC).z}<br>angle: ${m(tempC).theta}`;
+            var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
+            var message = `x: ${tempC.x}<br>y: ${tempC.y}<br>z: ${
+              m(tempC).z
+            }<br>angle: ${m(tempC).theta}`;
             writeMessage(message);
 
             //--- red vector from origin ---
-            var o=new c(0,0);
+            var o = new c(0, 0);
             reMapT.clearcanvas();
             reMapT.drawSegment(o, tempC, "#FF0000");
-
           },
           false
         );
@@ -98,44 +104,38 @@ function init(){
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
-            const interval=(x1-x0);
+            const interval = x1 - x0;
 
-            zoomIn=params.zoomIn.val;           
+            zoomIn = params.zoomIn.val;
 
             //zoom in
-            if (zoomIn==1){
-            params.x0.val=reMap.m2x(mousePos.x)-interval/4; 
-            params.x1.val=reMap.m2x(mousePos.x)+interval/4;
-            params.y0.val=reMap.m2y(mousePos.y)-interval/4;
-            params.y1.val=reMap.m2y(mousePos.y)+interval/4;
-            }
-            else {
-            params.x0.val=reMap.m2x(mousePos.x)-interval; 
-            params.x1.val=reMap.m2x(mousePos.x)+interval;
-            params.y0.val=reMap.m2y(mousePos.y)-interval;
-            params.y1.val=reMap.m2y(mousePos.y)+interval;
+            if (zoomIn == 1) {
+              params.x0.val = reMap.m2x(mousePos.x) - interval / 4;
+              params.x1.val = reMap.m2x(mousePos.x) + interval / 4;
+              params.y0.val = reMap.m2y(mousePos.y) - interval / 4;
+              params.y1.val = reMap.m2y(mousePos.y) + interval / 4;
+            } else {
+              params.x0.val = reMap.m2x(mousePos.x) - interval;
+              params.x1.val = reMap.m2x(mousePos.x) + interval;
+              params.y0.val = reMap.m2y(mousePos.y) - interval;
+              params.y1.val = reMap.m2y(mousePos.y) + interval;
             }
 
             loadvaluesandgo();
-            
           },
           false
         );
 
-  
-
-  genNavigation("polar",false);
-  generateControls();
-  displayFunctions();
-  fileToParameters(); //initiate event listener for file uploader
-  reMap.drawAxis();
-  //if (params.grid.val==true){ reMap.drawGrid()};
-  plotAll();
-
-}
-//---------------------------------------
-function loadvaluesandgo() {
-        
+        genNavigation("polar", false);
+        generateControls();
+        displayFunctions();
+        fileToParameters(); //initiate event listener for file uploader
+        reMap.drawAxis();
+        //if (params.grid.val==true){ reMap.drawGrid()};
+        plotAll();
+      }
+      //---------------------------------------
+      function loadvaluesandgo() {
         loadValues();
 
         reMap.x0 = x0;
@@ -152,73 +152,66 @@ function loadvaluesandgo() {
         plotAll();
         reMap.drawAxis();
         //if (params.grid.val==true){ reMap.drawGrid()};
-
       }
-//---------------------------------------
-function loadValues(){
+      //---------------------------------------
+      function loadValues() {
         t0 = params.t0.val;
         t1 = params.t1.val;
         dt = params.dt.val;
         x0 = params.x0.val;
         x1 = params.x1.val;
         y0 = params.y0.val;
-        y1 = params.y1.val; 
-        zoomIn=params.zoomIn.val;      
-}
-//---------------------------------------
-function plotAll(){
+        y1 = params.y1.val;
+        zoomIn = params.zoomIn.val;
+      }
+      //---------------------------------------
+      function plotAll() {
+        for (const key in params.functions) {
+          const element = params.functions[key];
 
-  for (const key in params.functions) {
-      const element = params.functions[key];
-      
-      if (element != false){
-      function f(t) {  
-         return eval(element);  
-      };  
-      plotFunction(f,"#121212");
-    }
-  }
-}
-//-------------------------------------------
-function plotFunction(objF,strColor) {
+          if (element != false) {
+            function f(t) {
+              return eval(element);
+            }
+            plotFunction(f, "#121212");
+          }
+        }
+      }
+      //-------------------------------------------
+      function plotFunction(objF, strColor) {
+        ctx.beginPath();
+        ctx.strokeStyle = strColor; //"#FF0000";
+        ctx.lineWidth = 0.5;
+        //  ctx.strokeStyle = "#0000D3";
 
-  ctx.beginPath();
-  ctx.strokeStyle = strColor; //"#FF0000";
-  ctx.lineWidth=0.5;
-//  ctx.strokeStyle = "#0000D3";
+        var ri = objF(t0);
+        var rii = 0;
+        var xc, yc;
 
-  var ri=objF(t0);
-  var rii=0;
-  var xc,yc;
-  
-  ctx.moveTo(reMap.x(p2c(ri,t0).x),reMap.y(p2c(ri,t0).y)); //first point on the map
+        ctx.moveTo(reMap.x(p2c(ri, t0).x), reMap.y(p2c(ri, t0).y)); //first point on the map
 
-  for (let ti = t0+dt; ti < t1; ti=ti+dt) {
-    rii=objF(ti);
-    xc=reMap.x(p2c(rii,ti).x);
-    yc=reMap.y(p2c(rii,ti).y);
-    ctx.lineTo(xc,yc);
-    ctx.moveTo(xc,yc); //move to next point  
-  }
-    ctx.stroke();
- 
-}
-//-------------------------------------------
-// polar to cartesian
-function p2c(r,t){
-  return {
-         x: r * Math.cos(t),
-         y: r * Math.sin(t)
-         }
-}
-//-------------------------------------------
-function displayFunctions(){
- document.getElementById("listFunctions").innerHTML=listFunctions();
-}
-//-------------------------------------------
-
-
-</script> 
-
-</body>
+        for (let ti = t0 + dt; ti < t1; ti = ti + dt) {
+          rii = objF(ti);
+          xc = reMap.x(p2c(rii, ti).x);
+          yc = reMap.y(p2c(rii, ti).y);
+          ctx.lineTo(xc, yc);
+          ctx.moveTo(xc, yc); //move to next point
+        }
+        ctx.stroke();
+      }
+      //-------------------------------------------
+      // polar to cartesian
+      function p2c(r, t) {
+        return {
+          x: r * Math.cos(t),
+          y: r * Math.sin(t),
+        };
+      }
+      //-------------------------------------------
+      function displayFunctions() {
+        document.getElementById("listFunctions").innerHTML = listFunctions();
+      }
+      //-------------------------------------------
+    </script>
+  </body>
 </html>

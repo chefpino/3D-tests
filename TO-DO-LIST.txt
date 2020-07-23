@@ -43,7 +43,7 @@ description of page
 better details on factor in R+ (and not N)
 
 POLAR 
-polar grid
+polar grid - unit circle with PI divisions
 bug when changing x0,x1 through sliders
 
 FRACTALS

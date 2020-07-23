@@ -7,8 +7,7 @@
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../fractals/fractals-library/controls.js"></script>
     <script src="../../fractals/fractals-library/library.js"></script>
-
-    <script src="polar-library.js"></script>
+    <script src="../2d/2d-library.js"></script>
     <script src="../../fractals/fractals-data/polar.data.js"></script>
   </head>
   <body onload="init();">
@@ -59,18 +58,11 @@
       const cH = myCanvas.clientHeight
       const fixedOrigin = false;
 
-      //--- parameters the user can change via sliders if made visible
-      // -- global variables
-        var t0;
-        var t1;
-        var dt;
-        var x0;
-        var x1;
-        var y0;
-        var y1;    
-        var zoomIn;
+      var t0, t1, dt;
+      var x0, x1, y0, y1;
+      var zoomIn;
         
-        loadValues();  
+      loadValues();  
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
       reMap.objCanvas = ctx;
@@ -160,10 +152,7 @@ function loadValues(){
         y1 = params.y1.val; 
         zoomIn=params.zoomIn.val;      
 }
-
-
-
-
+//---------------------------------------
 
 function plotAll(){
 
@@ -180,16 +169,6 @@ function plotAll(){
 
 
 }
-
-//________________________________________________________
-/*
-function f(exp) {  
-  return eval(exp);  
-};
-*/
-//_______________________________________________________
-
-
 //-------------------------------------------
 function plotFunction(objF,strColor) {
 

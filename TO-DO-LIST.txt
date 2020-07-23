@@ -11,6 +11,7 @@ polar functions
 
 GENERIC
 readme file for git
+about page
 customize action for each slider?
 
 
@@ -42,13 +43,11 @@ description of page
 better details on factor in R+ (and not N)
 
 POLAR 
-consolidate library scripts with 2d functions
 polar grid
-
+bug when changing x0,x1 through sliders
 
 FRACTALS
 better binding of sliders to params
-
 
   JULIA
   in the event listener I need to go through the object returned by the drop down change

@@ -78,7 +78,7 @@ var params = {
     visible: false,
   },
   functions: {
-    f1: "t",
+    f1: "Math.tan(t/10)",
     f2: "Math.sin(4*t)",
     visible: false,
   },

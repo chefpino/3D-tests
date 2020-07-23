@@ -39,16 +39,7 @@ class ReMap {
     dy() {
       return (this.y1 - this.y0) / this.cH;
     }
-/*
-  plot(x, y) {
-    //x,y are canvas coordinates
-
-    this._myCanvas.beginPath();
-    this._myCanvas.fillStyle = "red"; //hard coded!!!
-    this._myCanvas.arc(x, y, 2, 0, 2 * Math.PI); //.arc(x,y,2,1);
-    this._myCanvas.fill();
-  }
-*/
+  //----------------------------------------------------------------
   drawAxis() {
     //possible improvements:
     //origin showing or not, plus writing coordinates on edges of canvas true/false
@@ -125,11 +116,7 @@ class ReMap {
     }
     
   }
-
-
-
-
-
+//---------------------------------------------------
   drawSegment(c1, c2, strColor) {
     this._objCanvas.beginPath();
     this._objCanvas.lineWidth = "0.5";
@@ -138,11 +125,11 @@ class ReMap {
     this._objCanvas.lineTo(this.x(c2.x), this.y(c2.y));
     this._objCanvas.stroke();
   }
-
-  clearcanvas(){
+//---------------------------------------------------
+clearcanvas(){
     this._objCanvas.clearRect(0, 0, cW, cH);
   }
-  // properties --------------------------------------
+// properties --------------------------------------
   //--- pass canvas ctx object
   set objCanvas(obj) {
     this._objCanvas = obj;

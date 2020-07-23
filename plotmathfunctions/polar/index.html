@@ -97,22 +97,22 @@ function init(){
           "click",
           function (evt) {
             var mousePos = getMousePos(evt);
+            const interval=(x1-x0);
 
-            zoomIn=params.zoomIn.val;
-           
+            zoomIn=params.zoomIn.val;           
 
             //zoom in
             if (zoomIn==1){
-            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
-            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
-            params.y0.val=reMap.m2y(mousePos.y)-(x1-x0)/4;
-            params.y1.val=reMap.m2y(mousePos.y)+(x1-x0)/4;
+            params.x0.val=reMap.m2x(mousePos.x)-interval/4; 
+            params.x1.val=reMap.m2x(mousePos.x)+interval/4;
+            params.y0.val=reMap.m2y(mousePos.y)-interval/4;
+            params.y1.val=reMap.m2y(mousePos.y)+interval/4;
             }
             else {
-            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
-            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
-            params.y0.val=reMap.m2y(mousePos.y)-(x1-x0);
-            params.y1.val=reMap.m2y(mousePos.y)+(x1-x0);
+            params.x0.val=reMap.m2x(mousePos.x)-interval; 
+            params.x1.val=reMap.m2x(mousePos.x)+interval;
+            params.y0.val=reMap.m2y(mousePos.y)-interval;
+            params.y1.val=reMap.m2y(mousePos.y)+interval;
             }
 
             loadvaluesandgo();

@@ -45,7 +45,7 @@ var params = {
     minLabel: "-4",
     maxLabel: "4",
     integer: true,
-    visible: true,
+    visible: false,
     recalc: true,
   },
   x1: {
@@ -57,7 +57,7 @@ var params = {
     minLabel: "1",
     maxLabel: "4",
     integer: true,
-    visible: true,
+    visible: false,
     recalc: true,
   },
   y0: {

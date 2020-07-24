@@ -29,6 +29,7 @@ function generateControls() {
     steps=params[key].steps;
     steps=(typeof(steps)=='undefined' ? 100:steps);
     //steps=(params[key].integer==true? 1 * (params[key].max-params[key].min):steps);
+    var recalc=(params[key].recalc == true ? "loadvaluesandgo();" : "");
 
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);
@@ -40,7 +41,7 @@ function generateControls() {
           defaultValue +
           "' id='" +
           key +
-          "' onchange='updateParam(this.id)' >"
+          `' onchange='updateParam(this.id);${recalc}' >`
       );
     strHTML = strHTML + td(params[key].maxLabel);
     strHTML =

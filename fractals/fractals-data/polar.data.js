@@ -11,6 +11,7 @@ var params = {
     maxLabel: "1",
     integer: false,
     visible: true,
+    recalc: true,
   },  t0: {
     val: 0,
     min: -2*Math.PI,
@@ -21,6 +22,7 @@ var params = {
     maxLabel: "PI",
     integer: false,
     visible: true,
+    recalc: true,
   },
   t1: {
     val: 2* Math.PI,
@@ -32,6 +34,7 @@ var params = {
     maxLabel: "4PI",
     integer: false,
     visible: true,
+    recalc: true,
   },
   x0: {
     val: -2,
@@ -43,6 +46,7 @@ var params = {
     maxLabel: "4",
     integer: true,
     visible: true,
+    recalc: true,
   },
   x1: {
     val: 2,
@@ -54,6 +58,7 @@ var params = {
     maxLabel: "4",
     integer: true,
     visible: true,
+    recalc: true,
   },
   y0: {
     val: -2,
@@ -105,6 +110,7 @@ var params = {
     maxLabel: "yes",
     integer: true,
     steps: 1,
+    recalc: true,
   }, 
 
 };

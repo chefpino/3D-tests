@@ -5,7 +5,6 @@ attendere prego!
 sliders: switch instead of slide if boolean
 coloring as option
 length of escape route to color inside?
-polar functions
 
   
 
@@ -15,6 +14,7 @@ about page
 customize action for each slider?
 loadvalues function, mimic what done in polar fuctions
 save functions when saving file, at the moment is undefined
+parameter: update immediately after change ON/OFF - makes sense for grids and othe ops where there's no waiting
 
 
 2D, cleanup
@@ -45,8 +45,8 @@ description of page
 better details on factor in R+ (and not N)
 
 POLAR 
-polar grid - unit circle with PI divisions
 bug when changing x0,x1 through sliders
+grid bug when zooming out 
 
 FRACTALS
 better binding of sliders to params

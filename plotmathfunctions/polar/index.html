@@ -131,6 +131,11 @@
         displayFunctions();
         fileToParameters(); //initiate event listener for file uploader
         reMap.drawAxis();
+        
+        if (params.grid.val==true){polarGrid(ctx,c(0,0),0.1,Math.sqrt(2)*Math.max(x1,y1),0.1,Math.PI/8)};
+
+
+
         //if (params.grid.val==true){ reMap.drawGrid()};
         plotAll();
       }
@@ -151,7 +156,8 @@
         reMap.clearcanvas();
         plotAll();
         reMap.drawAxis();
-        //if (params.grid.val==true){ reMap.drawGrid()};
+
+        if (params.grid.val==true){polarGrid(ctx,c(0,0),0.1,Math.sqrt(2)*Math.max(x1,y1),0.1,Math.PI/8)};
       }
       //---------------------------------------
       function loadValues() {
@@ -212,6 +218,30 @@
         document.getElementById("listFunctions").innerHTML = listFunctions();
       }
       //-------------------------------------------
+
+      function polarGrid(objC,origin, rMin, rMax, dr, dt){
+
+          var tempC; 
+
+          for (let r = 0; r < rMax+dr; r=r+dr) {
+            objC.beginPath();
+            objC.lineWidth = "0.1";
+            objC.ellipse(reMap.x(origin.x), reMap.y(origin.y), r*cW/(x1-x0), r*cW/(x1-x0),0,0, 2 * Math.PI); //.arc(x,y,2,1); //hardcoded!
+            objC.stroke();
+           }
+           for (let t = 0; t < Math.PI*2; t=t+dt) {
+            tempC = s(origin,c(rMax*Math.cos(t),rMax*Math.sin(t))); 
+            objC.beginPath();
+            objC.lineWidth = "0.1";
+            objC.strokeStyle = "#121212";
+            objC.moveTo(reMap.x(origin.x), reMap.y(origin.y));
+            objC.lineTo(reMap.x(tempC.x), reMap.y(tempC.y));
+            objC.stroke();
+           }          
+
+      }
+
+
     </script>
   </body>
 </html>

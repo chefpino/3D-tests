@@ -9,7 +9,7 @@ var params = {
     "label":"mod",
     "minLabel":"2",
     "maxLabel":"500",
-
+    recalc: true,
   },
   "factor":{
     default: 2,
@@ -21,7 +21,7 @@ var params = {
     "label":"factor",
     "minLabel":"2",
     "maxLabel":"100",
-
+    recalc: true,
   },
      "fixedOrigin":{
         val: false,

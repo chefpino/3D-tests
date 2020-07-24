@@ -7,6 +7,7 @@ var params = {
     label: "x0",
     minLabel: "-2",
     maxLabel: "10",
+    recalc: true,
   },
   x1: {
     val: 2,
@@ -16,6 +17,7 @@ var params = {
     label: "x1",
     minLabel: "-2",
     maxLabel: "10",
+    recalc: true,
   },
   y0: {
     val: -2,
@@ -25,6 +27,7 @@ var params = {
     label: "y0",
     minLabel: "-2",
     maxLabel: "10",
+    recalc: true,
   },
   y1: {
     val: 2,
@@ -34,6 +37,7 @@ var params = {
     label: "y1",
     minLabel: "-2",
     maxLabel: "10",
+    recalc: true,
   },
   z0: {
     val: -2,
@@ -61,7 +65,8 @@ var params = {
     label: "resolution",
     minLabel: "30",
     maxLabel: "100",
-    integer: true
+    integer: true,
+    recalc: true,
   }
 };
 

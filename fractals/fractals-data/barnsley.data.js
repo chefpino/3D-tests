@@ -12,6 +12,7 @@ var params = {
     minLabel: "10000",
     maxLabel: "1000000",
     integer: true,
+    recalc: true,
   },
   "fixedOrigin":{
     val: false,

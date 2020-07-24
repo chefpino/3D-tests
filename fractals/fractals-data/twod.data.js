@@ -15,6 +15,7 @@ var params = {
     maxLabel: "10",
     integer: true,
     visible: true,
+    recalc: true,
   },
   x1: {
     val: 2,
@@ -26,6 +27,7 @@ var params = {
     maxLabel: "10",
     integer: true,
     visible: true,
+    recalc: true,
   },
 
   y0: {
@@ -38,6 +40,7 @@ var params = {
     maxLabel: "10",
     integer: true,
     visible: true,
+    recalc: true,
   },
   y1: {
     val: 1,
@@ -49,6 +52,7 @@ var params = {
     maxLabel: "10",
     integer: true,
     visible: true,
+    recalc: true,
   },
   functions: {
     f1: "Math.sin(x)",
@@ -66,7 +70,8 @@ var params = {
    maxLabel: "on",
    visible: true,
    integer: true,
-   steps: 1
+   steps: 1,
+   recalc: true,
 
   },
   zoomIn: {
@@ -92,6 +97,7 @@ var params = {
     maxLabel: "yes",
     integer: true,
     steps: 1,
+    recalc: true,
   }, 
 
 };

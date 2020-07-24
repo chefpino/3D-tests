@@ -11,15 +11,14 @@ length of escape route to color inside?
 GENERIC
 readme file for git
 about page
-customize action for each slider?
-loadvalues function, mimic what done in polar fuctions
+mimic what I have done in polar fuctions, consoldidate loadvalues
 save functions when saving file, at the moment is undefined
 parameter: update immediately after change ON/OFF - makes sense for grids and othe ops where there's no waiting
 
 
 2D, cleanup
 
-3D COLOR
+3D COLOR - major WIP
 - make pavement static and larger, possibly with dynamic angles
 - z factor (0-1], not range
 - pavement grid depends only on chosen resolution
@@ -67,9 +66,8 @@ in the test page
 
 
 BURNING SHIP
-red vectors? 
-
-  TREE
+red vectors?
+TREE
 fractal tree fuctions remove px, py?
 
   ===========================================

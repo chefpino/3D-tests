@@ -12,8 +12,9 @@ var params = {
    "another idea":"onchange event",
    "parameter to save on JSON file":false,
    "show":true,
-   "integer":true
-   },
+   "integer":true,
+    recalc: true,
+},
    "fixedOrigin":{
       val: false,
       visible: false

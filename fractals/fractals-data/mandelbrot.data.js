@@ -9,7 +9,7 @@ var params = {
    label:"upperbound",
    minLabel:"2",
    maxLabel:"100",
-   integer:false
+   integer:true
    },
  "iterations":{
    val:75,

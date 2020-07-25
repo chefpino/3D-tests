@@ -1,13 +1,10 @@
-TO DO LIST 
-resolution of sliders: add values of "steps" in params object
-+ and - next to slider current value <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-if declared integer the number of steps should be max-min
-attendere prego!
+TO DO LIST:
 sliders: switch instead of slide if boolean
 coloring as option
 length of escape route to color inside?
 check entered functions, perhaps make input user friendly
 pass parameters as URL
+
   
 
 GENERIC

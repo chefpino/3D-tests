@@ -80,13 +80,13 @@ function generateControls() {
 function upAndDown(strKey,j){
    //j is -1 or +1
    // needs better calculations especially with rounding of values and integers
-  var steps=params[strKey].steps;
-  var min=params[strKey].min;
-  var max=params[strKey].max;
+  var steps = params[strKey].steps;
+  var min = params[strKey].min;
+  var max = params[strKey].max;
   var currentVal=params[strKey].val;
-  steps=(typeof(steps)=='undefined' ? 100:steps);
+  steps = (typeof(steps) == 'undefined' ? 100 : steps);
   var step = (max-min)/steps;
-  step=j * (params[strKey].integer==true? 1 : step);
+  step = j * (params[strKey].integer==true? 1 : step);
   currentVal = currentVal+step;
   currentVal = (currentVal < min) ? min : currentVal;
   currentVal = (currentVal > max) ? max : currentVal;

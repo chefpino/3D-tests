@@ -35,7 +35,8 @@ var params = {
     minLabel: "out",
     maxLabel: "in",
     integer: true,
-    steps: 1
+    steps: 1,
+    controlType: "checkbox",
   }, 
    "x0":{
     val:-2,

@@ -98,6 +98,7 @@ var params = {
     maxLabel: "in",
     integer: true,
     steps: 1,
+    controlType: "checkbox",
   },
   grid: {
     val: 1,
@@ -111,6 +112,7 @@ var params = {
     integer: true,
     steps: 1,
     recalc: true,
+    controlType: "checkbox",
   }, 
 
 };

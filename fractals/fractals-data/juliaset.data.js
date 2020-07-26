@@ -217,6 +217,7 @@ var params = {
     maxLabel: "in",
     integer: true,
     steps: 1,
+    controlType: "checkbox",
   },
 };
 //____________________________________________________

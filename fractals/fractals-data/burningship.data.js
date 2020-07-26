@@ -57,6 +57,7 @@ var params = {
     maxLabel: "in",
     integer: true,
     steps: 1,
+    controlType: "checkbox",
   },
    "fixedOrigin":{
     val: false,

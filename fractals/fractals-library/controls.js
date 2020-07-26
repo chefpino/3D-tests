@@ -11,6 +11,7 @@ function generateControls() {
   var defaultValue = 0;
   var steps=100; //resolution of the slider 
   var min, max, step;
+  var controlType="";
 
   var strHTML = '<table style="border: 1px solid black;">';
   strHTML += tr;
@@ -27,7 +28,7 @@ function generateControls() {
 
     if (params[key].visible != false){
 
-    defaultValue = params[key].default;
+    defaultValue = 1 * params[key].default;
     min = params[key].min;
     max = params[key].max;
     steps=params[key].steps;
@@ -35,19 +36,48 @@ function generateControls() {
     step = (max-min)/steps;
     step=(params[key].integer==true? 1 : step);
     var recalc=(params[key].recalc == true ? "loadvaluesandgo();" : "");
-
+    controlType = (typeof(params[key].controlType) == "undefined" ? "range" : params[key].controlType);
+     
+    controlType
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);
     strHTML = strHTML + td(params[key].minLabel);
-    strHTML =
-      strHTML +
-      td(
-        `<input type='range' min='${min}' max='${max}' step='${step}' value='` +
-          defaultValue +
-          "' id='" +
-          key +
-          `' onchange='updateParam(this.id);${recalc}' >`
-      );
+    
+    switch (controlType){
+
+     case "range":
+           
+          strHTML =
+          strHTML +
+          td(
+            `<input type='range' min='${min}' max='${max}' step='${step}' value='` +
+              defaultValue +
+              "' id='" +
+              key +
+              `' onchange='updateParam(this.id);${recalc}' >`
+          );
+          break;
+
+      case "checkbox":
+
+        strHTML =
+        strHTML +
+        td(
+          `<input type='checkbox' value='` +
+            defaultValue + "'" + 
+            `${(defaultValue != 0) ? " checked " : " "} ` +  
+            " id='" +
+            key +
+            `' onchange='updateParam(this.id);${recalc}' >`
+        );
+        break;
+
+    }
+
+
+
+
+
     strHTML = strHTML + td(params[key].maxLabel);
     strHTML =
       strHTML +
@@ -111,15 +141,20 @@ function loadValues() {
     }
   }
 }
-
-
-
-
 //----------------------------------------------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
 //and most important updates value in the params object!
 function updateParam(x) {
-  var iTemp = 1 * document.getElementById(x).value;
+  var controlType=document.getElementById(x).type;
+  var iTemp;
+  switch (controlType){
+    case "range":
+          iTemp = 1 * document.getElementById(x).value;
+          break;
+    case "checkbox":      
+          iTemp = document.getElementById(x).checked? 1 : 0;
+          break;
+  }
   params[x].val = iTemp;
   document.getElementById("val_" + x).innerHTML = Math.round(iTemp*1000)/1000;
 }
@@ -222,7 +257,7 @@ function readJSONfile(tempReader) {
 }
 //-----------------------------------------------------------------
 function td(x) {
-  return "<td style='border: 1px solid black;'>" + x + "</td>";
+  return "<td align=center style='border: 1px solid black;'>" + x + "</td>";
 }
 //===========================================================================
 // section dedicated to dropdown menus.

@@ -41,15 +41,16 @@ function generateControls() {
     var recalc=(params[key].recalc == true ? "loadvaluesandgo();" : "");
     controlType = (typeof(params[key].controlType) == "undefined" ? "range" : params[key].controlType);
      
-    controlType
+    
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);
-    strHTML = strHTML + td(params[key].minLabel);
     
     switch (controlType){
 
      case "range":
-           
+
+          strHTML = strHTML + td(params[key].minLabel);
+
           strHTML =
           strHTML +
           td(
@@ -59,10 +60,15 @@ function generateControls() {
               key +
               `' onchange='updateParam(this.id);${recalc}' >`
           );
+          strHTML = strHTML + td(params[key].maxLabel);
+          strHTML +=
+          td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`);
+          strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);">+</a><br><a href="#" onclick="upAndDown('${key}',-1);">-</a>`);
           break;
-
+          
       case "checkbox":
 
+        strHTML += td(""); //no minLabel
         strHTML =
         strHTML +
         td(
@@ -73,25 +79,14 @@ function generateControls() {
             key +
             `' onchange='updateParam(this.id);${recalc}' >`
         );
+        strHTML += td(""); //no maxLabel
+        strHTML +=  td(`<div id="val_${key}">${(params[key].default==params[key].min?params[key].minLabel:params[key].maxLabel)}</div>`);
+        strHTML += td("");
         break;
 
     }
-
-
-
-
-
-    strHTML = strHTML + td(params[key].maxLabel);
-    if (controlType == "range"){  
-      strHTML +=
-      td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`);
-    strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);">+</a><br><a href="#" onclick="upAndDown('${key}',-1);">-</a>`);
-    } else {
-    strHTML +=  td(`<div id="val_${key}">${(params[key].default==params[key].min?params[key].minLabel:params[key].maxLabel)}</div>`);
-    strHTML += td("");
-    }
     strHTML = strHTML + trc;
-    } // - end if = ;
+    } // - end if visible ;
   }
   strHTML = strHTML + "<tr><td colspan=6>";
   strHTML = strHTML + '<button onclick="loadvaluesandgo();">go!</button>&nbsp';
@@ -130,6 +125,15 @@ function upAndDown(strKey,j){
   document.getElementById(strKey).value = currentVal;
   params[strKey].val=currentVal;
   document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal*1000)/1000;
+
+  //if recalc is true reload with new values
+  if (params[strKey].recalc == true){
+    loadvaluesandgo();
+  }
+
+
+
+
 
 }
 

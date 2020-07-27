@@ -15,12 +15,15 @@ function generateControls() {
 
   var strHTML = '<table style="border: 1px solid black;">';
   strHTML += tr;
-  strHTML += td("<b>Parameter</b>");
+
+  strHTML += "<td colspan=6 align=left><b>Parameters</b></td>";
+  /*
   strHTML += td("<b>Min</b>");
   strHTML += td("<b>Select</b>");
   strHTML += td("<b>Max</b>");
   strHTML += td("<b>Current</b>");
   strHTML += td("<b>+/-</b>");
+  */
   strHTML += trc;
 
   //---generate html
@@ -79,21 +82,24 @@ function generateControls() {
 
 
     strHTML = strHTML + td(params[key].maxLabel);
-    strHTML =
-      strHTML +
+    if (controlType == "range"){  
+      strHTML +=
       td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`);
     strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);">+</a><br><a href="#" onclick="upAndDown('${key}',-1);">-</a>`);
-
+    } else {
+    strHTML +=  td(`<div id="val_${key}">${(params[key].default==params[key].min?params[key].minLabel:params[key].maxLabel)}</div>`);
+    strHTML += td("");
+    }
     strHTML = strHTML + trc;
     } // - end if = ;
   }
   strHTML = strHTML + "<tr><td colspan=6>";
-  strHTML = strHTML + '<button onclick="loadvaluesandgo();">GO!</button>&nbsp';
+  strHTML = strHTML + '<button onclick="loadvaluesandgo();">go!</button>&nbsp';
   strHTML =
     strHTML +
     '<button onclick="return download(' +
     strFilename +
-    ',parametersToJSON());">Save</button>&nbsp';
+    ',parametersToJSON());">save</button>&nbsp';
   strHTML =
     strHTML + '<input type="file" name="inputfile" id="inputfile"></input>';
   strHTML = strHTML + "</td></tr>";
@@ -150,13 +156,15 @@ function updateParam(x) {
   switch (controlType){
     case "range":
           iTemp = 1 * document.getElementById(x).value;
+          document.getElementById("val_" + x).innerHTML = Math.round(iTemp*1000)/1000;
           break;
     case "checkbox":      
           iTemp = document.getElementById(x).checked? 1 : 0;
+          document.getElementById("val_" + x).innerHTML = (iTemp==0?params[x].minLabel:params[x].maxLabel);
           break;
   }
   params[x].val = iTemp;
-  document.getElementById("val_" + x).innerHTML = Math.round(iTemp*1000)/1000;
+  
 }
 //----------------------------------------------------------------------------------
 //these functions map the 0-100 value of a slider to a given range for a

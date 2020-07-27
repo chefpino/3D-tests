@@ -200,8 +200,6 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
 
 function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
-  console.log(strKey + " : " + nestinglevel);
-
   var strTemp = (nestinglevel == 0) ? "<table width='50%'><tr>" : "";
   var oChildren; //object containing children
 

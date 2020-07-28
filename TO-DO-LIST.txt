@@ -1,15 +1,11 @@
 TO DO LIST:
-sliders: switch instead of slide if boolean
- document.getElementById("myCheck").type;
- document.getElementById("myCheck").checked
- <input type="checkbox" id="myCheck" value="myvalue">
- apply to all possible on/off parameters (json files)
 
 coloring as option
 length of escape route to color inside?
 check entered functions, perhaps make input user friendly
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+scroll up down?
 
 GENERIC
 readme file for git

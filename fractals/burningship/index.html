@@ -38,27 +38,23 @@
       //--- global PARAMETERS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
-
       const cW = 1000; //ctx.clientWidth;
       const cH = 700; //ctx.clientHeight;a
-
-      //--- parameters the user can change via sliders if made evisible
-      // -- global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      var maxItr = params.iterations.val;
-      var uBound = params.upperbound.val;
       const fixedOrigin = params.fixedOrigin.val;
-      var zoomIn=params.zoomIn.val;      
 
-      var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
-          reMap.objCanvas=ctx;
-
+      // -- global variables
+      var x0,x1,y0,y1;
+      var maxItr;
+      var uBound;
+      var zoomIn=params.zoomIn.val;   
       //--- calculated params
-      var dx = reMap.dx();
-      var dy = reMap.dy();
+      var dx,dy;   
+
+      var reMap=new ReMap(cW,cH,0,0,0,0,fixedOrigin); //functions to map real value to canvas coordinates
+          reMap.objCanvas=ctx;
+      
+         
+
 //---------------------------------------------------------------
 function init() {
 
@@ -94,29 +90,20 @@ function init() {
             params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
-            }
-            
-            loadvaluesandgo();
-
+             }             
+             loadvaluesandgo();  
           },
           false
         );
 
-
-
-
-
-
-
   genNavigation("burningship",false); //navigation menu
   generateControls(); // parameters panel
   fileToParameters(); //initiate event listener
-  go();
-  reMap.drawAxis();
+  loadvaluesandgo();
   }
 //---------------------------------------------------------------
-function loadvaluesandgo() {
-        //go! button
+
+function loadvalues(){
 
         x0 = params.x0.val;
         x1 = params.x1.val;
@@ -134,12 +121,18 @@ function loadvaluesandgo() {
         dx = reMap.dx();
         dy = reMap.dy();
 
+}
+
+//-------------------------------------------------------------------
+function loadvaluesandgo() {
+        //go! button
+        loadvalues();
         go();
         reMap.drawAxis();
         reMap.drawUnitCircle();
       }
-      //------------------------------------------------------------
-      function go() {
+//------------------------------------------------------------
+function go() {
         //---clear canvas
         reMap.clearcanvas();
         

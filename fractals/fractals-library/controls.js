@@ -231,7 +231,6 @@ function fileToParameters() {
 } 
 //--- string of parameters generated dynamically --------------------------------------
 function parametersToJSON() {
-  var rTemp = 0;
   var strTemp = "{";
   for (var key in params) {
     

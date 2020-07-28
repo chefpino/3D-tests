@@ -6,13 +6,13 @@ check entered functions, perhaps make input user friendly
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 pan all directions?
+remove save and do a link instead?
 
 GENERIC
 readme file for git
 about page
 mimic what I have done in polar fuctions, consoldidate loadvalues
 save functions when saving file, at the moment is undefined
-parameter: update immediately after change ON/OFF - makes sense for grids and othe ops where there's no waiting
 after slider is updated via software the recalc function is not triggered
 
 2D, cleanup

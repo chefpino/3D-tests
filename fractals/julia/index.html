@@ -45,7 +45,43 @@
       </tr>
     </table>
     <script>
-      "use strict";
+    "use strict";
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+      const transparentLayer = document.getElementById("transparentLayer");
+      const ctxT = transparentLayer.getContext("2d");
+
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight
+
+      //--- parameters the user can change via sliders if made visible
+      // -- global variables
+      var x0 = params.x0.val;
+      var x1 = params.x1.val;
+      var y0 = params.y0.val;
+      var y1 = params.y1.val;
+      var maxItr = params.iterations.val;
+      var uBound = params.upperbound.val;
+      const fixedOrigin = params.fixedOrigin.val;
+      var zoomIn=params.zoomIn.val;      
+
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+
+      reMap.objCanvas = ctx;
+      reMapT.objCanvas = ctxT;
+
+      //--- calculated params
+      var dx = reMap.dx();
+      var dy = reMap.dy();
+
+
+
+
+
+
       //--------------------------------------------
       function init() {
         //--- mouse coordinates event listener --------------------------
@@ -108,7 +144,7 @@
           params.cy.val=tempObj.cy;
           params.iterations.val=tempObj.iterations;
 
-          loadValues();
+          loadValues(); //external function
 
         });
 //}
@@ -118,37 +154,6 @@
         go();
         reMap.drawAxis();
       }
-      //--- global PARAMETERS ------------------------------------------------------------------
-      const myCanvas = document.getElementById("myCanvas");
-      const ctx = myCanvas.getContext("2d");
-      const transparentLayer = document.getElementById("transparentLayer");
-      const ctxT = transparentLayer.getContext("2d");
-
-      const cW = myCanvas.clientWidth;
-      const cH = myCanvas.clientHeight
-
-      //--- parameters the user can change via sliders if made visible
-      // -- global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      var maxItr = params.iterations.val;
-      var uBound = params.upperbound.val;
-      const fixedOrigin = params.fixedOrigin.val;
-      var zoomIn=params.zoomIn.val;      
-
-
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-
-      reMap.objCanvas = ctx;
-      reMapT.objCanvas = ctxT;
-
-      //--- calculated params
-      var dx = reMap.dx();
-      var dy = reMap.dy();
-
       //----------------------------------------------------------
       function julia(z, k) {
         var z0 = z;
@@ -166,6 +171,7 @@
 
         return maxItr;
       }
+
 
       //_________________________________________________________________
       function loadvaluesandgo() {

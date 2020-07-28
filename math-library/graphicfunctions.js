@@ -7,6 +7,8 @@ class ReMap {
     this.y0 = y0;
     this.y1 = y1;
     this.fixedOrigin = fixedOrigin;
+    this.lineWidth=0.1;         //default line width
+    this.strokeStyle="#000000"; //default stroke style
   }
 
   //methods -----------------
@@ -45,8 +47,8 @@ class ReMap {
     //origin showing or not, plus writing coordinates on edges of canvas true/false
     //
 
-    this._objCanvas.strokeStyle = "#000000";
-    this._objCanvas.lineWidth = "0.2";
+    this._objCanvas.strokeStyle = this.strokeStyle;
+    this._objCanvas.lineWidth = this.lineWidth;
     this._objCanvas.fillStyle = "red";
     
     //x position of the label x1 on the canvas, in canvas coordinates
@@ -90,13 +92,13 @@ class ReMap {
     this._objCanvas.stroke();
   }
 
-  //wip --- plot on x axis
+// --------------------------------------------------------
   drawGrid(){
     
     var pointsArray=gridCoords(this.x0,this.x1);
 
-    this._objCanvas.strokeStyle = "#AAAAAA";
-    this._objCanvas.lineWidth = "0.1";
+    this._objCanvas.strokeStyle = this.strokeStyle;
+    this._objCanvas.lineWidth = this.lineWidth;
 
 
     for (let index = 0; index < pointsArray.length; index++) {
@@ -119,7 +121,7 @@ class ReMap {
 //---------------------------------------------------
   drawSegment(c1, c2, strColor) {
     this._objCanvas.beginPath();
-    this._objCanvas.lineWidth = "0.5";
+    this._objCanvas.lineWidth = this.lineWidth;;
     this._objCanvas.strokeStyle = strColor;
     this._objCanvas.moveTo(this.x(c1.x), this.y(c1.y));
     this._objCanvas.lineTo(this.x(c2.x), this.y(c2.y));
@@ -156,7 +158,7 @@ clearcanvas(){
         };
       }
 
-//--------------------------------------------
+//---------- hard coded crap -------------
       function writeMessage(message) {
         document.getElementById("mousecoordinates").innerHTML=message
       }

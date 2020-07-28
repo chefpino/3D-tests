@@ -5,7 +5,7 @@ length of escape route to color inside?
 check entered functions, perhaps make input user friendly
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
-scroll up down?
+pan all directions?
 
 GENERIC
 readme file for git

@@ -99,18 +99,10 @@
      
   //************* end global parameters *************************************
 
-
-
-
-
       //--------------------------------------------
       function init() {
 
-
-
-
-
-              //--- generate controls
+      //--- generate controls
       genNavigation("extendedjuliasets",false);
       generateControls(); //sliders
 
@@ -262,7 +254,8 @@
           arrPoints.push(tempZ);
           tempZ=julias(tempZ,k)[selectedFunction].c;
         }
-        //plot array
+        //draw array
+        reMapT.lineWidth=0.2;
         for (let index = 0; index < arrPoints.length; index++) {
           const element = arrPoints[index];
           if (index > 0) {

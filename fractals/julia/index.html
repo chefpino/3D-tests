@@ -46,7 +46,7 @@
     </table>
     <script>
     "use strict";
-      //--- global PARAMETERS ------------------------------------------------------------------
+      //--- global variables  ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
       const transparentLayer = document.getElementById("transparentLayer");
@@ -55,20 +55,16 @@
       const cW = myCanvas.clientWidth;
       const cH = myCanvas.clientHeight
 
-      //--- parameters the user can change via sliders if made visible
-      // -- global variables
       var x0 = params.x0.val;
       var x1 = params.x1.val;
       var y0 = params.y0.val;
       var y1 = params.y1.val;
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
-      const fixedOrigin = params.fixedOrigin.val;
-      var zoomIn=params.zoomIn.val;      
+      var zoomIn=params.zoomIn.val;
 
-
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
 
       reMap.objCanvas = ctx;
       reMapT.objCanvas = ctxT;
@@ -77,10 +73,7 @@
       var dx = reMap.dx();
       var dy = reMap.dy();
 
-
-
-
-
+     //--- end global variables ----------------------------------------- 
 
       //--------------------------------------------
       function init() {
@@ -147,13 +140,12 @@
           loadValues(); //external function
 
         });
-//}
 
         
         fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.drawAxis();
-      }
+}
       //----------------------------------------------------------
       function julia(z, k) {
         var z0 = z;
@@ -215,6 +207,7 @@
           arrPoints.push(tempZ);
           tempZ=s(p(tempZ,tempZ),k);
         }
+        reMapT.lineWidth=0.2;
         //plot array
         for (let index = 0; index < arrPoints.length; index++) {
           const element = arrPoints[index];

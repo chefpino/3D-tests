@@ -70,6 +70,9 @@
       reMap.objCanvas = ctx;
       reMapT.objCanvas = ctxT;
 
+      reMap.lineWidth=0.2;
+      console.log(reMap.lineWidth);
+
       //--- calculated params
       var dx = reMap.dx(); //max resolution
       var dy = reMap.dy(); //max resolution
@@ -89,6 +92,7 @@
         for (let index = 0; index < arrPoints.length; index++) {
           const element = arrPoints[index];
           if (index > 0) {
+            reMapT.lineWidth=0.3;
             reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
           }
       }
@@ -143,6 +147,8 @@
         generateControls();
         fileToParameters(); //initiate event listener for file uploader
         go();
+        reMap.lineWidth=0.2;
+        reMap.strokeStyle="#BBBBBB";
         reMap.drawAxis();
         //reMap.drawUnitCircle(); //ellipse representing the unit circle
         

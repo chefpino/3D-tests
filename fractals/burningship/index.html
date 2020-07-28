@@ -128,7 +128,6 @@ function loadvaluesandgo() {
         loadvalues();
         go();
         reMap.drawAxis();
-        reMap.drawUnitCircle();
       }
 //------------------------------------------------------------
 function go() {
@@ -170,7 +169,7 @@ function go() {
       function mandel(k) {
         var z0 = new c(0, 0);
         for (let i = 0; i < maxItr + 1; i++) {
-          z0 = fs(z0, k).burning;
+          z0 = burningship(z0,k) ;
           if (z0.x * z0.x + z0.y * z0.y > uBound) {
             return i;
           }
@@ -178,38 +177,12 @@ function go() {
         return maxItr;
       }
       //________________________
-      function fs(z, k) {
-        return {
-          mandelbrot: s(p(z, z), k),
-          burning: burningship(z, k),
-        };
-        //________________________
-      }
       function burningship(z, k) {
         var k1 = new c(-1 * k.x, -1 * k.y);
         var x = new c(Math.abs(z.x), Math.abs(z.y));
         x = s(p(x, x), k1);
         return x;
       }
-
-      //__________________________________________________________________
-      function f(z, k) {
-        //var tz=z;
-        //z=s(p(z,z),k);   //z^2+k
-        var k1 = new c(-1 * k.x, -1 * k.y);
-
-        //burning ship --------------------------
-        var x = new c(Math.abs(z.x), Math.abs(z.y));
-        x = p(x, x);
-        x = s(x, k1);
-
-
-        return x;
-      }
-      //_________________________________________________________________
-
-
-      //__________________________________________________________________
       //__________________________________________________________________
 
 

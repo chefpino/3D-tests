@@ -61,14 +61,16 @@
       var y1 = params.y1.val;
       var maxItr = params.iterations.val;
       var uBound = params.upperbound.val;
-      const fixedOrigin = params.fixedOrigin.val;
       var zoomIn=params.zoomIn.val;      
 
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
 
       reMap.objCanvas = ctx;
       reMapT.objCanvas = ctxT;
+
+      reMap.lineWidth=0.2;
+      console.log(reMap.lineWidth);
 
       //--- calculated params
       var dx = reMap.dx(); //max resolution
@@ -89,6 +91,7 @@
         for (let index = 0; index < arrPoints.length; index++) {
           const element = arrPoints[index];
           if (index > 0) {
+            reMapT.lineWidth=0.3;
             reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
           }
       }
@@ -143,8 +146,9 @@
         generateControls();
         fileToParameters(); //initiate event listener for file uploader
         go();
+        reMap.lineWidth=0.2;
+        reMap.strokeStyle="#BBBBBB";
         reMap.drawAxis();
-        //reMap.drawUnitCircle(); //ellipse representing the unit circle
         
       }
       //---------------------------------------------------------------------

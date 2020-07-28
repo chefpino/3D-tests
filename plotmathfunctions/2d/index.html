@@ -136,6 +136,8 @@ function init(){
   generateControls();
   displayFunctions();
   fileToParameters(); //initiate event listener for file uploader
+  reMap.lineWidth=0.1;
+  reMap.strokeStyle="#BBBBBB";
   reMap.drawAxis();
   if (params.grid.val==true){ reMap.drawGrid()};
   plotAll();
@@ -206,7 +208,7 @@ function plotAll(){
       function f(x) {  
          return eval(element);  
       };  
-      plotFunction(f,"#121212");
+      plotFunction(f,"#0000FF");
     }
   }
 
@@ -221,7 +223,7 @@ function plotFunction(objF,strColor) {
 
   ctx.beginPath();
   ctx.strokeStyle = strColor; //"#FF0000";
-  ctx.lineWidth=0.5;
+  ctx.lineWidth=0.3;
 //  ctx.strokeStyle = "#0000D3";
 
   var xi=x0;

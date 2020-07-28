@@ -52,7 +52,8 @@ var navigation = {
     hasChildren: false,
     content:
         "Fractal equation: Zn+1=(Zn)^exp + C.<br>Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
-  },
+    equationImg: "equation.mandelbrot.gif", 
+      },
   julia: {
     id: "julia",
     link: "../../fractals/julia/index.html",
@@ -255,7 +256,12 @@ function genNavigation(strCurrentPage, isHorizontal) {
     0,
     strCurrentPage
   ); //add navigation
-}
+  }
+  var equationImg=navigation[strCurrentPage].equationImg;
+  equationImg=(equationImg==undefined) ? "":"https://chefpino.github.io/fun/imgs/equations/" + equationImg;
+
+  console.log(equationImg); 
+
 
   document.title = navigation[strCurrentPage].label;
   document.getElementById("content").innerHTML =

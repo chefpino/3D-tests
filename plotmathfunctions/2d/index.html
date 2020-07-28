@@ -157,7 +157,6 @@ function loadvaluesandgo() {
         reMap.y0 = y0;
         reMap.y1 = y1;
 
-
         reMap.clearcanvas();
         plotAll();
         reMap.drawAxis();
@@ -186,8 +185,8 @@ function checkLockRatio(){
 
              if (params.lockratio.val==0){
               
-              cH=700;; //new canvas height
-              //resize canvases (visible and invisible)
+              cH=700;; //new canvas height - HARDCODED
+              //resize canvases
               reMap.cH=cH;
               myCanvas.height = cH;
               document.getElementById("transparentLayer").height = cH;
@@ -202,7 +201,7 @@ function checkLockRatio(){
 
 }
 
-
+//--------------------------------------------------------
 function plotAll(){
 
   for (const key in params.functions) {
@@ -214,13 +213,7 @@ function plotAll(){
       plotFunction(f,"#0000FF");
     }
   }
-
-
 }
-
-
-
-
 //-------------------------------------------
 function plotFunction(objF,strColor) {
 
@@ -235,20 +228,7 @@ function plotFunction(objF,strColor) {
   var yc=0;
   
   ctx.moveTo(0,reMap.y(yi)); //first point on the map
-/*  
-  do {
-    
-    //calculate next point
-    var xi=xi+dx;
-    var yi=objF(xi);
-    ctx.lineTo(reMap.x(xi),reMap.y(yi));
-    //xi=xii;
-    //yi=yii;
-    ctx.moveTo(reMap.x(xi),reMap.y(yi)); //move to next point
-  } while (xi < x1);
 
-  ctx.stroke();  
-  */ 
 
 //max resolution, 1px at the time
   for (let xc = 0; xc < cW+1; xc++) {

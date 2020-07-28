@@ -161,7 +161,10 @@ function loadvaluesandgo() {
         reMap.clearcanvas();
         plotAll();
         reMap.drawAxis();
-        if (params.grid.val==true){ reMap.drawGrid()};
+        if (params.grid.val==true){ 
+            reMap.lineWidth=0.1;
+            reMap.drawGrid();
+          };
 
       }
 //---------------------------------------

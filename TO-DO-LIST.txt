@@ -1,7 +1,7 @@
 TO DO LIST:
 
 coloring as option
-length of escape route to color inside?
+length of escape route to color inside? find formula or give up
 check entered functions, perhaps make input user friendly
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
@@ -59,17 +59,8 @@ destructuring?
    fix parameters' choices
 
 
-in the test page
- bind the drop downs in cascade
- dd1: functions
-  dd2: examples of k, boundaries etc
 
 
 
-
-BURNING SHIP
-red vectors?
-TREE
-fractal tree fuctions remove px, py?
 
   ===========================================

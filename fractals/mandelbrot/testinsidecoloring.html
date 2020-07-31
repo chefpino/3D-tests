@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../fractals-data/mandelbrot.data.js"></script>
+    <script src="../fractals-library/controls.js"></script>
+    <script src="../fractals-library/library.js"></script>
+    <script src="../../navigation/menu.js"></script>
+  </head>
+  <body onload="init();">
+    <table border="0">
+      <tr>
+        <td valign="top">
+          <div id="menu"></div>
+          <hr>
+          <div id="content"></div>
+          <hr>
+          <div id="dynamicSliders"></div>
+          <hr>
+          <b>Coordinates</b><div id="mousecoordinates"></div>
+        </td>
+        <td valign="top">
+          <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
+          <canvas
+            id="myCanvas"
+            width="1000"
+            height="700"
+            style="z-index: 1;
+                    position:absolute;
+                    left:0px;
+                    top:0px;"
+
+          ></canvas>
+          <canvas id="transparentLayer"
+          style="z-index: 2;
+          position:absolute;
+          left:0px;
+          top:0px;"
+          height="700px" width="1000">          </div>
+        </td>
+      </tr>
+    </table>
+    <script>
+      "use strict";
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+      const transparentLayer = document.getElementById("transparentLayer");
+      const ctxT = transparentLayer.getContext("2d");
+
+      var cW = myCanvas.clientWidth;
+      var cH = myCanvas.clientHeight;
+
+      //--- parameters the user can change are made visible w/ sliders
+      // -- global variables
+      var x0 = params.x0.val;
+      var x1 = params.x1.val;
+      var y0 = params.y0.val;
+      var y1 = params.y1.val;
+      var maxItr = params.iterations.val;
+      var uBound = params.upperbound.val;
+      var zoomIn=params.zoomIn.val;      
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
+
+      reMap.objCanvas = ctx;
+      reMapT.objCanvas = ctxT;
+
+
+      //--- calculated params
+      var dx = reMap.dx(); //max resolution
+      var dy = reMap.dy(); //max resolution
+     //-------------------------------------------
+     //*** plot all points of recursive function
+      function drawEscapeRoute(k) {
+        //clear rectangle (because mouse moves)
+        reMapT.clearcanvas();
+        var arrPoints = new Array(); //array of complex numbers
+        var tempZ=new c(0,0);
+        var tempZ1=new c(0,0);
+        //loop and keep applying mandelbrot
+        //calculate length of route
+        var routeLenght=0;
+        for (let index = 0; index < maxItr; index++) {
+          arrPoints.push(tempZ);
+          tempZ1=fs(tempZ,k).mandelbrot;
+         routeLenght+d(tempZ,tempZ1);
+          tempZ=tempZ1;
+        }
+ 
+
+        //plot array
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          if (index > 0) {
+            reMapT.lineWidth=0.3;
+            reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
+          }
+      }
+      } 
+      
+
+      //--------------------------------------------
+      function init() {
+
+        //--- mouse coordinates event listener --------------------------
+        transparentLayer.addEventListener(
+          "mousemove",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
+            var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
+            //writeMessage(message);
+            
+            drawEscapeRoute(tempC);
+          },
+          false
+        );
+
+        //--- mouse click event listener -------------------------------
+        transparentLayer.addEventListener(
+          "click",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            
+           zoomIn=params.zoomIn.val;
+
+           //zoom in
+            if (zoomIn==1){
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
+            }
+            else {
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
+            }
+            loadvaluesandgo();
+          },
+          false
+        );
+
+
+        genNavigation("mandelbrot",false);
+        generateControls();
+        fileToParameters(); //initiate event listener for file uploader
+        go();
+        reMap.lineWidth=0.2;
+        reMap.strokeStyle="#BBBBBB";
+        reMap.drawAxis();
+        
+      }
+      //---------------------------------------------------------------------
+      function mandel(k) {
+        var z0 = new c(0, 0); //always starts from origin of complex plane
+        var i = 0;
+        for (i = 0; i < maxItr + 1; i++) {
+          z0 = fs(z0, k).mandelbrot;
+          if (z0.x * z0.x + z0.y * z0.y > uBound) {
+            return i;
+          }
+        }
+        return maxItr;
+      }
+      //--------------------------------------------------------------------
+      function fs(z, k) {
+        
+        const exponent = 1* params.exponent.val;
+        var tempC=z;
+        for (var i = 1; i < exponent; i++) {
+          tempC=p(tempC,z);
+          }
+          tempC=s(tempC,k);
+        return {
+          mandelbrot: tempC,
+        };
+        
+      }
+
+      //_________________________________________________________________
+      function loadvaluesandgo() {
+        //go! button
+
+        //should update sliders too
+
+        //load parameters from object
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+
+        maxItr = params.iterations.val;
+        uBound = params.upperbound.val;
+        zoomIn = params.zoomIn.val;
+
+        reMap.x0 = x0;
+        reMap.x1 = x1;
+        reMap.y0 = y0;
+        reMap.y1 = y1;
+
+        reMapT.x0 = x0;
+        reMapT.x1 = x1;
+        reMapT.y0 = y0;
+        reMapT.y1 = y1;
+
+        //--- calculated params
+        dx = reMap.dx(); //max resolution
+        dy = reMap.dy(); //max resolution
+
+        go();
+        reMap.drawAxis();
+        reMap.drawUnitCircle(); //ellipse representing the unit circle
+      }
+
+      //__________________________________________________________________
+      function go() {
+
+        //---clear canvas
+        reMap.clearcanvas();
+
+        var x = x0;
+        var y = y0;
+        var itr = 0;
+        var clr = 0;
+        var tz=new c(0,0);
+
+        for (let i = 0; i < cW; i++) {
+          x = x + dx;
+          y = y0;
+          tz.x = x;
+
+          for (let j = 0; j < cH; j++) {
+            y = y + dy;
+            
+            tz.y=y;
+            itr = mandel(tz);
+            if (itr < maxItr) {
+              clr = Math.round((itr * 255) / maxItr);
+              clr = "#" + clr + clr + clr; //grey scale
+              plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
+            }
+            else {
+              clr = Math.round(escapeRouteLenght(tz)*255/150);
+              clr = "#" + clr + clr + "AA";
+              plot(reMap.x(x), reMap.y(y), clr); //this is the painting of the canvas
+            }
+          }
+        }
+      }
+
+      function escapeRouteLenght(k) {
+        var tempZ=new c(0,0);
+        var tempZ1=new c(0,0);
+        //loop and keep applying mandelbrot
+        //calculate length of route
+        var routeLenght=0;
+        for (let index = 0; index < maxItr; index++) {
+          tempZ1=fs(tempZ,k).mandelbrot;
+         routeLenght + d(tempZ,tempZ1);
+          tempZ=tempZ1;
+        }
+        return routeLenght;
+      } 
+      
+
+
+
+
+
+
+    </script>
+  </body>
+</html>

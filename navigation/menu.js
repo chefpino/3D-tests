@@ -257,14 +257,13 @@ function genNavigation(strCurrentPage, isHorizontal) {
     strCurrentPage
   ); //add navigation
   }
+  
   var equationImg=navigation[strCurrentPage].equationImg;
   equationImg=(equationImg==undefined) ? "":"https://chefpino.github.io/fun/imgs/equations/" + equationImg;
 
-  console.log(equationImg); 
-
-
   document.title = navigation[strCurrentPage].label;
   document.getElementById("content").innerHTML =
+    ((equationImg!="")?`<img src="${equationImg}"><br>`:"") + 
     "<b>" +
     navigation[strCurrentPage].label +
     "</b><br>" +

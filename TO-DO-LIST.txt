@@ -18,19 +18,21 @@ save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
 
 2D, cleanup
-
+---------------------------------------------------------------
 3D COLOR - major WIP
+vertical pavement
+z range
+x,y,z on axis, perhaps arrow points too
 - make pavement static and larger, possibly with dynamic angles
 - z factor (0-1], not range
 - pavement grid depends only on chosen resolution
 - drop down with functions
 - enter/update function
 
-
 wip: 3d-color wip page. think about having several
 functions and see if they can be saved in the params
 also, the function launched by the go button should be dynamic
-
+---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)
 add params (for sure) and save?
 don't wipe when changing vector? think about it

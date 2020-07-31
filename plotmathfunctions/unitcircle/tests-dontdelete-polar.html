@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../../fractals/fractals-library/controls.js"></script>
+    <script src="../../fractals/fractals-data/unit.circle.data.js"></script>
+    <script src="../../navigation/menu.js"></script>
+  </head>
+  <body onload="init();">
+
+    <table border="0">
+      <tr>
+        <td valign="top">
+          <div id="menu" ></div>
+          <hr>
+          <div id="content"></div>
+          <hr>
+          <div id="dynamicSliders"></div>
+        </td>
+        <td valign="top">
+          <canvas
+            id="myCanvas"
+            width="700"
+            height="700"
+            style="border: 1px solid;"
+          ></canvas>
+        </td>
+      </tr>
+    </table>
+    <script>
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight;
+      /*/
+const cW=ctx.clientWidth;
+const cH=ctx.clientHeight;
+*/
+      // -- range
+      const x0 = -10;
+      const x1 = 10;
+      const y0 = -10;
+      const y1 = 10;
+
+      const π = Math.PI;
+
+      const fixedOrigin=false;
+
+      var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
+          reMap.objCanvas=ctx;
+      
+
+      
+
+      //------------------------------------------------
+      function init() {
+        genNavigation("unitcircle",false); //add navigation
+        generateControls();
+        fileToParameters(); //initiate event listener for file uploader
+        loadvaluesandgo(); // WIP !
+      }
+      //-------------------------------------------------
+
+      function loadvaluesandgo() {
+        //go! button
+        points = params.points.val;        
+        plotTest();
+        //reMap.drawAxis();
+      }
+
+      //_______________________________________________________________________________________
+
+      function plotTest() {
+        //---clear canvas
+        reMap.clearcanvas();
+        
+        //c1=new c(.5*Math.sqrt(3),.5);
+        c1=new r(1,-π/6);
+        c2=new r(1,π+π/3);
+        c2=p(c1,c2);  
+        o=c(0,0);
+        reMap.lineWidth=1;
+        reMap.drawSegment(o, c(1,0), "red");
+        reMap.drawSegment(o, c(0,1), "red");
+        reMap.drawSegment(o, c1, "blue");
+        reMap.drawSegment(o, c2, "blue");
+
+        //reMap.drawSegment(o, s(c1,c2), "green");
+      let testP3D={x:1.5,y:1,z:.5};
+      x=testP3D.x;
+      y=testP3D.y;
+      z=testP3D.z;
+
+      t=ct(x,y,z,c1,c2);
+
+      reMap.drawSegment(o, baseChange(c(x,y),c1,c2), "green");
+      reMap.drawSegment(c(t.x,t.y), c(t.x,t.z), "yellow");
+      di=0.05;
+
+      var res=10; //pavement resolution
+      //borrow idea from original pavement, this one sucks
+
+      for (x=x0;x <= x1; x=x+(x1-x0)/res){
+         for (y=y0; y<=y1;y=y+(y1-y0)/res){
+           
+           t1=baseChange(c(x,y0),c1,c2);
+           t2=baseChange(c(x,y1),c1,c2);
+           reMap.lineWidth=.1;
+           reMap.drawSegment(t1, t2, "lightgrey");
+           t1=baseChange(c(x0,y),c1,c2);
+           t2=baseChange(c(x1,y),c1,c2);
+           reMap.lineWidth=.1;
+           reMap.drawSegment(t1, t2, "lightgrey");
+         }
+      }
+
+      var res=100; //function resolution
+
+       
+      dx=(x1-x0)/res;
+      dy=(y1-y0)/res;
+
+        var x = x0;
+        var y = y0;
+        var i = 0;
+        var j = 0;
+
+      reMap.lineWidth=1;
+
+      for (i=0; i <= res; i++){
+
+           x=x0+i*dx;
+
+         for (j=0; j<=res;j++){
+           y=y0+j*dy;
+
+           pt=ct(x,y,g(x,y),c1,c2); // point transformed in new coord system
+           ctx.beginPath();
+           ctx.moveTo(reMap.x(pt.x),reMap.y(pt.z));
+           pt=ct(x+dx,y,g(x+dx,y),c1,c2)
+           ctx.lineTo(reMap.x(pt.x),reMap.y(pt.z));
+           pt=ct(x+dx,y+dy,g(x+dx,y+dy),c1,c2);
+           ctx.lineTo(reMap.x(pt.x),reMap.y(pt.z));
+           pt=ct(x,y+dy,g(x,y+dy),c1,c2);
+           ctx.lineTo(reMap.x(pt.x),reMap.y(pt.z));
+           ctx.closePath();
+            iTemp = 3 * Math.round((256 * g(x, y)));
+            ctx.stroke();
+            ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
+            ctx.fill();
+
+            reMap.lineWidth=.1;   
+
+           t1=ct(x,y,g(x,y),c1,c2); //baseChange(c(x,y0),c1,c2);
+           t2=ct(x+dx,y,g(x+dx,y),c1,c2);
+           reMap.drawSegment(c(t1.x,t1.z), c(t2.x,t2.z), "blue");
+           t2=ct(x,y+dy,g(x,y+dy),c1,c2);
+           reMap.drawSegment(c(t1.x,t1.z), c(t2.x,t2.z), "blue");
+         }
+      }
+
+
+
+
+
+      reMap.lineWidth=.5;
+/*      
+  FOR POLAR 3D
+   for (i=0;i<=2*Math.PI;i=i+di){
+          
+        k=r(i/4,i*3);
+        x=k.x;
+        y=k.y;
+        z=.1*i; //function for z
+        t0=ct(x,y,z,c1,c2);
+
+        k=r((i+di)/4,(i+di)*3);
+        x=k.x;
+        y=k.y;
+        z=.1*(i+di); //function for z
+        
+        t1=ct(x,y,z,c1,c2);        //
+        
+        //reMap.drawSegment(o, baseChange(c(x,y),c1,c2), "green");
+        reMap.drawSegment(c(t0.x,t0.z), c(t1.x,t1.z), "red");
+        //reMap.plot(t.x,t.z, "red");
+  
+      }
+
+*/
+       
+      }
+      //---------------------
+      function g(x, y) {
+        //return 10*Math.sin(.02*(x*x+y*y)); //--sgabello
+        //return Math.sqrt((x-.1)*(x-1)+y*y);         //--cono
+        //return 5-Math.abs(x+y)-Math.abs(x-y);
+        return Math.sin(0.5 * x + y) * Math.cos(0.5 * y - x); //bello,0,10,0,10,-12,12
+         //return x*(.5*x-2*y);
+        //return 50/(x*x+y*y);
+        //return x*x-.3*y*y;
+        //return 0;
+      }
+
+      function baseChange(z,c1,c2){
+        //works because initial base is 1,0 and 0,1 (1 and i)
+        return s(p(z.x,c1),p(z.y,c2));
+
+      }
+      
+      function ct(x,y,z,c1,c2){
+          
+        var tempC=baseChange(c(x,y),c1,c2);
+        return {
+                x: tempC.x,
+                y: tempC.y,
+                z: tempC.y+z
+                }
+        
+      }
+
+
+
+      //-------------------------------------------
+    </script>
+  </body>
+</html>

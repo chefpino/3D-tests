@@ -1,5 +1,7 @@
 TO DO LIST:
 
+3d polar
+
 coloring as option
 length of escape route to color inside? find formula or give up
 check entered functions, perhaps make input user friendly

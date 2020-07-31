@@ -127,6 +127,15 @@ class ReMap {
     this._objCanvas.lineTo(this.x(c2.x), this.y(c2.y));
     this._objCanvas.stroke();
   }
+//------------------------------
+ plot(x, y, clr) {
+  this._objCanvas.beginPath();
+  this._objCanvas.fillStyle = clr;
+  this._objCanvas.fillRect(this.x(x), this.y(y), 1, 1);
+  this._objCanvas.fill();
+}
+
+
 //---------------------------------------------------
 clearcanvas(){
     this._objCanvas.clearRect(0, 0, cW, cH);

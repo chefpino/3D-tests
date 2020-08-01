@@ -16,22 +16,27 @@ about page
 mimic what I have done in polar fuctions, consoldidate loadvalues
 save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
+go button - on/off via params
 
 2D, cleanup
 ---------------------------------------------------------------
 3D COLOR - major WIP
-vertical pavement
-z range
-x,y,z on axis, perhaps arrow points too
-- make pavement static and larger, possibly with dynamic angles
-- z factor (0-1], not range
-- pavement grid depends only on chosen resolution
-- drop down with functions
-- enter/update function
+vertical pavement 
+ - what to do when it's not in the origin
+ - make it parametric to any vertical plane.
+ - on/off
+ - decide height depending on z range, - z factor (0-1], not range
+ - c1, c2 as parameters?
 
-wip: 3d-color wip page. think about having several
-functions and see if they can be saved in the params
-also, the function launched by the go button should be dynamic
+graphic improvements:
+- x,y,z on axis, perhaps arrow points too
+- pavement grid depends only on chosen resolution
+- enter/update functions
+- ctx.globalAlpha = 0.5; //opacity : make dynamic
+- auto pan to better fit - ahhhh
+
+- zoom out shrinks everything?
+
 ---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)
 add params (for sure) and save?

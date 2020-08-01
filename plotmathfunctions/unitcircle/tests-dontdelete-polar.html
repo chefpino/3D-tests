@@ -22,7 +22,7 @@
         <td valign="top">
           <canvas
             id="myCanvas"
-            width="700"
+            width="1000"
             height="700"
             style="border: 1px solid;"
           ></canvas>
@@ -41,10 +41,10 @@ const cW=ctx.clientWidth;
 const cH=ctx.clientHeight;
 */
       // -- range
-      const x0 = -10;
-      const x1 = 10;
-      const y0 = -10;
-      const y1 = 10;
+      const x0 = -3;
+      const x1 = 3;
+      const y0 = -3;
+      const y1 = 3;
 
       const π = Math.PI;
 
@@ -112,7 +112,18 @@ const cH=ctx.clientHeight;
 //      for (x=x0;x <= x1; x=x+(x1-x0)/res){
 //         for (y=y0; y<=y1;y=y+(y1-y0)/res){
 
+      //horizontal -----------------------------------------
       for (x=0;x <= x1; x=x+(x1)/res){
+
+          //--- vertical along x axis
+           t1=baseChange(c(x,0),c1,c2);
+           t2=ct(x,0,x1,c1,c2);
+           reMap.lineWidth=1;
+           reMap.drawSegment(t1, c(t2.x,t2.z), "lightgrey");
+
+
+
+
          for (y=0; y<=y1;y=y+(y1)/res){
            
            t1=baseChange(c(x,0),c1,c2);
@@ -121,12 +132,29 @@ const cH=ctx.clientHeight;
            reMap.drawSegment(t1, t2, "lightgrey");
            t1=baseChange(c(0,y),c1,c2);
            t2=baseChange(c(x1,y),c1,c2);
-           reMap.lineWidth=.1;
+           reMap.lineWidth=1;
            reMap.drawSegment(t1, t2, "lightgrey");
+
+           t2=ct(0,y,x1,c1,c2);
+           reMap.drawSegment(t1, c(t2.x,t2.z), "lightgrey");
+
+
          }
       }
+      //---------------------------------------------------
+      
+      
+      for (z=0; z<=x1;z=z+(x1)/res){
 
-      var res=100; //function resolution
+           t1=ct(0,0,z,c1,c2);
+           t2=ct(x1,0,z,c1,c2);
+           reMap.lineWidth=1;
+           reMap.drawSegment(c(t1.x,t1.z), c(t2.x,t2.z), "lightgrey");
+           t2=ct(0,y1,z,c1,c2);
+           reMap.drawSegment(c(t1.x,t1.z), c(t2.x,t2.z), "lightgrey");
+      }
+     
+      var res=40; //function resolution
 
        
       dx=(x1-x0)/res;
@@ -162,7 +190,7 @@ const cH=ctx.clientHeight;
             ctx.fill();
 
             reMap.lineWidth=.1;   
-            ctx.globalAlpha = 0.2; //opacity
+            ctx.globalAlpha = 0.5; //opacity
 
            t1=ct(x,y,g(x,y),c1,c2); //baseChange(c(x,y0),c1,c2);
            t2=ct(x+dx,y,g(x+dx,y),c1,c2);
@@ -205,10 +233,11 @@ const cH=ctx.clientHeight;
       }
       //---------------------
       function g(x, y) {
-        return .1-Math.sin(.1*(x*x*2+y*y*3)); //--sgabello
+        //return x/3; //Math.sin(x);
+        //return .1-Math.sin(.1*(x*x*2+y*y*3)); //--sgabello
         //return Math.sqrt((x-.1)*(x-1)+y*y);         //--cono
         //return 5-Math.abs(x+y)-Math.abs(x-y);
-        //return 2*Math.sin(0.5 * x + y) * Math.cos(0.5 * y - x); //bello,0,10,0,10,-12,12
+        return 2*Math.sin(0.5 * x + y) * Math.cos(0.5 * y - x); //bello,0,10,0,10,-12,12
          //return x*(.5*x-2*y);
         //return 50/(x*x+y*y);
         //return .1*x*x-.3*y*y;

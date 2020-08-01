@@ -124,7 +124,7 @@ function upAndDown(strKey,j){
 
   document.getElementById(strKey).value = currentVal;
   params[strKey].val=currentVal;
-  document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal*1000)/1000;
+  document.getElementById("val_" + strKey).innerHTML = currentVal;// Math.round(currentVal*1000)/1000;
 
   //if recalc is true reload with new values
   if (params[strKey].recalc == true){

@@ -15,13 +15,16 @@ class ReMap {
 
   //convert x+iy complex number into canvas coordinates
   x(x) {
+    var sf = (this._scaleFactor == null ? 1 : this._scaleFactor);
+
     return (
-      (this.fixedOrigin ? this.cW/2+x*this.cW/(this.x1-this.x0):(x-this.x0)*this.cW/(this.x1-this.x0))  
+      (this.fixedOrigin ? this.cW/2+ sf * x * this.cW/(this.x1-this.x0): sf * (x-this.x0)*this.cW/(this.x1-this.x0))  
     )
   }
   y(y) {
+    var sf = (this._scaleFactor == null ? 1 : this._scaleFactor);
     return (
-      (this.fixedOrigin ? this.cH/2-y*this.cH/(this.y1-this.y0):this.cH-(y-this.y0)*this.cH/(this.y1-this.y0))
+      (this.fixedOrigin ? this.cH/2 - sf * y * this.cH/(this.y1-this.y0):this.cH- sf * (y-this.y0) * this.cH/(this.y1-this.y0))
     )
   }
 
@@ -148,6 +151,9 @@ clearcanvas(){
   //wip---
   set lockRatio(bool){
     this._lockRatio=bool;
+  }
+  set scaleFactor(s){
+    this._scaleFactor= s * 1;
   }
   //-------------------------
   

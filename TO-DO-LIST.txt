@@ -21,7 +21,7 @@ go button - on/off via params
 2D, cleanup
 ---------------------------------------------------------------
 3D COLOR - major WIP
-vertical pavement 
+ - vertical pavement fix bug
  - what to do when it's not in the origin
  - make it parametric to any vertical plane.
  - on/off

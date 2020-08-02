@@ -123,6 +123,10 @@ function upAndDown(strKey,j){
   currentVal = (currentVal > max) ? max : currentVal;
 
   document.getElementById(strKey).value = currentVal;
+
+  //update param function?
+  
+
   params[strKey].val=currentVal;
   document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal*1000)/1000;
 
@@ -160,7 +164,7 @@ function updateParam(x) {
   switch (controlType){
     case "range":
           iTemp = 1 * document.getElementById(x).value;
-          document.getElementById("val_" + x).innerHTML = Math.round(iTemp*1000)/1000;
+          document.getElementById("val_" + x).innerHTML = (Math.round(iTemp*1000)/1000);
           break;
     case "checkbox":      
           iTemp = document.getElementById(x).checked? 1 : 0;
@@ -313,7 +317,7 @@ function genDropDownFromObj(id,label,value,selected,obj) {
     return retObj;
 
   }
-
+//-------------------------------------------
 
 
 

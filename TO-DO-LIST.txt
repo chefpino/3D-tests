@@ -17,6 +17,7 @@ mimic what I have done in polar fuctions, consoldidate loadvalues
 save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
 go button - on/off via params
+fix upanddown function
 
 2D, cleanup
 ---------------------------------------------------------------

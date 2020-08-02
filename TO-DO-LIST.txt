@@ -18,6 +18,7 @@ save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
 go button - on/off via params
 fix upanddown function
+sliders still buggy, either add the dx to the params or add rounding to 2 decimals
 
 2D, cleanup
 ---------------------------------------------------------------
@@ -28,6 +29,7 @@ fix upanddown function
  - on/off
  - decide height depending on z range, - z factor (0-1], not range
  - c1, c2 as parameters?
+ - pavement should be centered around axis, now it's off as it starts from the edges of the domain
 
 graphic improvements:
 - x,y,z on axis, perhaps arrow points too

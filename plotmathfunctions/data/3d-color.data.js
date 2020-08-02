@@ -108,6 +108,19 @@ var params = {
     recalc: true,
     visible: true
   },
+  rotationAngle: {
+    val: -Math.PI/6,
+    min: -Math.PI,
+    max: Math.PI,
+    default: -Math.PI/6,
+    label: "rotation",
+    minLabel: "-π",
+    maxLabel: "+π",
+    recalc: true,
+    integer: false,
+    visible: true,
+  },
+
 
 };
 

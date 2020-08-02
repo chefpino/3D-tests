@@ -23,7 +23,7 @@
           <canvas
             id="myCanvas"
             width="1000"
-            height="700"
+            height="600"
             style="border: 1px solid;"
           ></canvas>
         </td>
@@ -35,7 +35,7 @@
       //-----------------------------
       const canvas = document.getElementById("myCanvas");
       const cW = 1000; //canvas.clientWidth;
-      const cH = 700; //canvas.clientHeight;
+      const cH = 600; //canvas.clientHeight;
       const ctx = canvas.getContext("2d");
       canvas.width = cW;
       canvas.height = cH;
@@ -171,6 +171,10 @@
         reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "blue");
 
 
+        arrowHead(x1 * (1 + 2/res),0,0,1/2*(x1-x0)/gridRes); //x
+        arrowHead(0,y1 * (1 + 2/res),0,1/2*(y1-y0)/gridRes); //y 
+        arrowHead(0,0,z1 * (1 + 2/res),1/2*(x1-x0)/gridRes); //y 
+
       }
       //-----------------------------------------------
 
@@ -233,7 +237,8 @@
         ctx.fillText("x1", reMap.x(tempP.x), reMap.y(tempP.y));
         tempP=ct(x0,y1,0);
         ctx.fillText("y1", reMap.x(tempP.x), reMap.y(tempP.y));
-        console.table(tempP);
+        //console.table(tempP);
+
 
 
 
@@ -271,11 +276,39 @@
       }
 
       //--------------
-      function arrowHead(){
-        
+      function arrowHead(x,y,z,arrLength){
+         //k is the complex number representing the tip of the arrow on the x,y plane
+         //k1 is 45° and of module proportional to the x0,x1,res
+         reMap.lineWidth=1;
+         if (z==0){
+          var k=c(x,y);
+          var k1=p(k,c(-1,1/2)); //angle of arrow sides
+          k1=r(arrLength,m(k1).theta); //new vector, same angle, reduced magnitude
+          k1=s(k,k1); // tip of one side of arrow
+          var t1=ct(k.x,k.y,0);
+          var t2=ct(k1.x,k1.y,0);
+          reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+
+          k1=p(k,c(-1,-1/2)); //opposite angle of arrow side
+          k1=r(arrLength,m(k1).theta); //new vector, same angle, reduced magnitude
+          k1=s(k,k1); // tip of one side of arrow
+          var t2=ct(k1.x,k1.y,0);
+          reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+        }
+        else //z > 0, temporary arrow, improve with quaternions
+        {
+           t1=ct(x,y,z);
+           t2=ct(x+arrLength/2,y,z-arrLength);
+           reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+           t2=ct(x-arrLength/2,y,z-arrLength);
+           reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+        }
+
+         
+
       }
 
 
-    </script>
+    </script> 
   </body>
 </html>

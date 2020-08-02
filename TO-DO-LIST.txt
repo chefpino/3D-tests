@@ -20,6 +20,7 @@ go button - on/off via params
 fix upanddown function
 sliders still buggy, either add the dx to the params or add rounding to 2 decimals
 animation button next to control!? 
+fix table of control, via css, current value width around 50px
 
 2D, cleanup
 ---------------------------------------------------------------
@@ -27,9 +28,7 @@ animation button next to control!?
  - vertical pavement fix bug
  - what to do when it's not in the origin
  - make it parametric to any vertical plane.
- - on/off
- - decide height depending on z range, - z factor (0-1], not range
- - c1, c2 as parameters?
+ - on/off pavement?
  - pavement should be centered around axis, now it's off as it starts from the edges of the domain
 
 graphic improvements:

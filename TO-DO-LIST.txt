@@ -30,11 +30,12 @@ vertical pavement
 
 graphic improvements:
 - x,y,z on axis, perhaps arrow points too
+. assi ben visibili
 - pavement grid depends only on chosen resolution
 - enter/update functions
 - ctx.globalAlpha = 0.5; //opacity : make dynamic
 - auto pan to better fit - ahhhh
-
+- line width, once for all
 - zoom out shrinks everything?
 
 ---------------------------------------------------------------

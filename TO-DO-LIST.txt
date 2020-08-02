@@ -19,6 +19,7 @@ after slider is updated via software the recalc function is not triggered
 go button - on/off via params
 fix upanddown function
 sliders still buggy, either add the dx to the params or add rounding to 2 decimals
+animation button next to control!? 
 
 2D, cleanup
 ---------------------------------------------------------------

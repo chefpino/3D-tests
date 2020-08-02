@@ -52,6 +52,7 @@
       var funcOpacity=params.funcOpacity.val;
       var scaleFactor=params.scaleFactor.val;
       var rotationAngle=params.rotationAngle.val;
+      var zFact=params.zFact.val;
       
       const fixedOrigin = true; //can be a parameter also
       const π = Math.PI;
@@ -87,6 +88,7 @@
         funcOpacity=params.funcOpacity.val;
         scaleFactor=params.scaleFactor.val;
         rotationAngle=params.rotationAngle.val;
+        zFact=params.zFact.val;
 
         c1 = new r(1, rotationAngle);
         // c2 = new r(1, π + π / 3);
@@ -242,10 +244,6 @@
         tempP=ct(0,0,0);
         ctx.fillText("o", reMap.x(tempP.x), reMap.y(tempP.y));
 
-
-
-
-
       }
 
 
@@ -261,7 +259,7 @@
         var tempC = baseChange(c(x, y));
         return {
           x: tempC.x,
-          y: tempC.y + z,
+          y: tempC.y + z  * zFact,
         };
       }
 

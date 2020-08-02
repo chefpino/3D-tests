@@ -50,13 +50,15 @@ var params = {
   zFact: {
     val: 1,
     min: 0.1,
-    max: 10,
+    max: 1,
     default: 1,
     label: "z factor",
     minLabel: ".1",
-    maxLabel: "10",
+    maxLabel: "1",
+    recalc: true,
     visible: true,
     integer: false,
+    steps: 9
   },
   funcRes: {
     val: 30,

@@ -7,24 +7,31 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../fractals/fractals-library/controls.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../2d/2d-library.js"></script>
   </head>
 
   <body onload="init();">
     <table border="0">
-      <tr>
+        <tr>
+          <td valign="top" colspan="2">
+                <div id="menu"></div>
+          <hr>      
+          </td>
+        </tr>
+        <tr>
         <td valign="top">
-          <div id="menu"></div>
-          <hr /> 
           <div id="content"></div>
           <hr />
-          <div id="dynamicSliders"></div>
+          <div id="listFunctions">placeholder</div>
+          <hr>
+        <div id="dynamicSliders"></div>
         </td>
-        <td valign=top>
+        <td valign="top">
           <canvas
             id="myCanvas"
             width="1000"
-            height="600"
-            style="border: 1px solid;"
+            height="500"
+            style="border: 1px solid; padding: 1px;"
           ></canvas>
         </td>
       </tr>
@@ -35,7 +42,7 @@
       //-----------------------------
       const canvas = document.getElementById("myCanvas");
       const cW = 1000; //canvas.clientWidth;
-      const cH = 600; //canvas.clientHeight;
+      const cH = 500; //canvas.clientHeight;
       const ctx = canvas.getContext("2d");
       canvas.width = cW;
       canvas.height = cH;
@@ -68,8 +75,9 @@
 
       //------------------------------------------------------------------
       function init() {
-        genNavigation("threeD", false);
+        genNavigation("threeD", true);
         generateControls();
+        displayFunctions();
         fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();
       }
@@ -109,7 +117,7 @@
         drawPavement(gridRes);
 
         //---plot function
-        plotColoredFunction(funcRes);
+        plotAll();
       }
 
       //-------------------------------------------------
@@ -180,8 +188,11 @@
       }
       //-----------------------------------------------
 
-      function plotColoredFunction(res) {
+      function plotColoredFunction(objF, res) {
 
+        
+        console.table(objF);
+        console.log(objF(1,5));
 
         var dx = (x1 - x0) / res;
         var dy = (y1 - y0) / res;
@@ -203,26 +214,26 @@
           for (j = 0; j <= res; j++) {
             y = y0 + j * dy;
 
-            pt = ct(x, y, g(x, y)); // point transformed in new coord system
+            pt = ct(x, y, objF(x, y)); // point transformed in new coord system
             ctx.beginPath();
             ctx.moveTo(reMap.x(pt.x), reMap.y(pt.y));
-            pt = ct(x + dx, y, g(x + dx, y));
+            pt = ct(x + dx, y, objF(x + dx, y));
             ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
-            pt = ct(x + dx, y + dy, g(x + dx, y + dy));
+            pt = ct(x + dx, y + dy, objF(x + dx, y + dy));
             ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
-            pt = ct(x, y + dy, g(x, y + dy));
+            pt = ct(x, y + dy, objF(x, y + dy));
             ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
             ctx.closePath();
-            iTemp = Math.round(256 * g(x, y));
+            iTemp = Math.round(256 * objF(x, y));
             ctx.stroke();
             ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
             ctx.fill();
 
 
-            t1 = ct(x, y, g(x, y)); //baseChange(c(x,y0),c1,c2);
-            t2 = ct(x + dx, y, g(x + dx, y));
+            t1 = ct(x, y, objF(x, y)); //baseChange(c(x,y0),c1,c2);
+            t2 = ct(x + dx, y, objF(x + dx, y));
             reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
-            t2 = ct(x, y + dy, g(x, y + dy));
+            t2 = ct(x, y + dy, objF(x, y + dy));
             reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
           }
         }
@@ -264,7 +275,7 @@
       }
 
       //---------------------------------------------------------------
-      function g(x, y) {
+      function old_g(x, y) {
         //return x*x+y*y;
         return 2-2*Math.sin((x*x+y*y)); //--sgabello
         //return Math.sqrt(x*x+y*y);         //--cono
@@ -303,13 +314,30 @@
            reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
            t2=ct(x-arrLength/2,y,z-arrLength);
            reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
-        }
-
-         
+        }       
 
       }
+//-----------------------------------------------      
+      function displayFunctions(){
 
+document.getElementById("listFunctions").innerHTML=listFunctions();
 
+}
+//------------------------------
+function plotAll(){
+
+for (const key in params.functions) {
+    const element = params.functions[key];
+    if (element != false){
+    function g(x,y) {  
+       return eval(element);  
+    };  
+    console.table(g);
+
+    plotColoredFunction(g,funcRes);
+  }
+}
+}
     </script> 
   </body>
 </html>

@@ -1,14 +1,13 @@
 TO DO LIST:
 
 3d polar
-
 coloring as option
 length of escape route to color inside? find formula or give up
 check entered functions, perhaps make input user friendly
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 pan all directions?
-remove save and do a link instead?
+remove save and do a url link instead. access clipboard?
 
 GENERIC
 readme file for git
@@ -16,7 +15,7 @@ about page
 mimic what I have done in polar fuctions, consoldidate loadvalues
 save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
-go button - on/off via params
+go button - show/hide via page params
 fix upanddown function
 sliders still buggy, either add the dx to the params or add rounding to 2 decimals
 animation button next to control!? 
@@ -30,16 +29,13 @@ fix table of control, via css, current value width around 50px
  - make it parametric to any vertical plane.
  - on/off pavement?
  - pavement should be centered around axis, now it's off as it starts from the edges of the domain
-
+ - coloring
+ - z1?
 graphic improvements:
-- x,y,z on axis, perhaps arrow points too
-. assi ben visibili
 - pavement grid depends only on chosen resolution
 - enter/update functions
-- ctx.globalAlpha = 0.5; //opacity : make dynamic
 - auto pan to better fit - ahhhh
 - line width, once for all
-- zoom out shrinks everything?
 
 ---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)

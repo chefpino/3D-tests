@@ -28,10 +28,11 @@ table {
 
 table, th, td {
   border: 0px solid black;
-  padding: 2px;
+  padding: 1px;
 }
 tr {
   height: 10px;
+  padding: 0px;
 }
 hr  {
   border-top: 1px solid black;

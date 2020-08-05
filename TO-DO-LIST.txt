@@ -46,15 +46,15 @@ when over the list highlight corresponding dot
 red dots before starting the animation
 lock to 1 radius
 color change w radius? or magnitude
-
+---------------------------------------------------------------
 MODULES
 description of page
 better details on factor in R+ (and not N)
-
+---------------------------------------------------------------
 POLAR 
 bug when changing x0,x1 through sliders
 grid bug when zooming out 
-
+---------------------------------------------------------------
 FRACTALS
 better binding of sliders to params
 

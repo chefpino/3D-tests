@@ -209,6 +209,12 @@ function intScale(x0,x1){
   }
  }
 
-
+//---------------------------
+function plot(x, y, clr) {
+  ctx.beginPath();
+  ctx.fillStyle = clr;
+  ctx.fillRect(x, y, 1, 1);
+  ctx.fill();
+}
 
 

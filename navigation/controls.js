@@ -12,6 +12,8 @@ function generateControls() {
   var steps=100; //resolution of the slider 
   var min, max, step;
   var controlType="";
+  var goButton=params.goButton.show; //boolean, show yes/no
+      goButton=(typeof(goButton)=="undefined" ? true : goButton);  
 
   var strHTML = '<table style="border: 1px solid black;">';
   strHTML += tr;
@@ -40,7 +42,7 @@ function generateControls() {
     step=(params[key].integer==true? 1 : step);
     var recalc=(params[key].recalc == true ? "loadvaluesandgo();" : "");
     controlType = (typeof(params[key].controlType) == "undefined" ? "range" : params[key].controlType);
-     
+    
     
     strHTML = strHTML + tr;
     strHTML = strHTML + td(params[key].label);
@@ -89,7 +91,9 @@ function generateControls() {
     } // - end if visible ;
   }
   strHTML = strHTML + "<tr><td colspan=6>";
-  strHTML = strHTML + '<button onclick="loadvaluesandgo();">go!</button>&nbsp';
+  if (goButton){
+      strHTML = strHTML + '<button onclick="loadvaluesandgo();">go!</button>&nbsp';
+  }
   strHTML =
     strHTML +
     '<button onclick="return download(' +

@@ -1,4 +1,9 @@
 var params = {
+  
+  goButton: {
+    show: false,
+  },
+
   "module": {
     default: 10,
     val: 10,

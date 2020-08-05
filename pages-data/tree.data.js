@@ -96,6 +96,10 @@ var params = {
      minLabel:"1",
      maxLabel:"10 (forest)",
      integer: true
-     }
+     },
+     
+    goButton: {
+      show: true,
+    },
 
 }

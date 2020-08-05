@@ -114,5 +114,7 @@ var params = {
     recalc: true,
     controlType: "checkbox",
   }, 
-
+  goButton: {
+    show: false,
+  },
 };

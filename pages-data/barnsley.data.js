@@ -37,6 +37,10 @@ var params = {
     val: 10,
     integer: false,
     visible: false,
+  },
+  goButton: {
+    show: false,
   }
+
 };
 //____________________________________________________

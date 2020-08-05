@@ -219,6 +219,10 @@ var params = {
     steps: 1,
     controlType: "checkbox",
   },
+  goButton: {
+    show: true,
+  }
+
 };
 //____________________________________________________
 var juliaExamples = {

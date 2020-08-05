@@ -126,6 +126,9 @@ var params = {
     f1: "x*x+y*y",
     visible: false,
   },
+  goButton: {
+    show: false,
+  }
 
 };
 

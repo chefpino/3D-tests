@@ -25,6 +25,10 @@ var buttons = {
 
 
 var params = {
+  goButton: {
+    show: true,
+  },
+
  "upperbound":{
    val:4,
    min:2,

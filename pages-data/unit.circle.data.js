@@ -18,5 +18,9 @@ var params = {
    "fixedOrigin":{
       val: false,
       visible: false
-       }
+       },
+
+       goButton: {
+         show: false,
+       },      
   }

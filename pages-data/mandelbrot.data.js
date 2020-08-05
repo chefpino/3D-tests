@@ -1,5 +1,9 @@
 
 var params = {
+  
+  goButton: {
+    show: true,
+  },
 
  "upperbound":{
    val:4,

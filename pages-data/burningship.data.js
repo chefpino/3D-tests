@@ -27,6 +27,7 @@ var buttons = {
 var params = {
   goButton: {
     show: true,
+    visible: false,
   },
 
  "upperbound":{

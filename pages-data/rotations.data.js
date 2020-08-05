@@ -11,5 +11,6 @@ var params = {
   },
   goButton: {
     show: false,
+    visible: false,
   },
 };

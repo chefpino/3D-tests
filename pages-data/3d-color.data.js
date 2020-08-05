@@ -133,8 +133,7 @@ var params = {
 
 };
 
-//----------------------------------------------------------------------------------
-
+//-------------------------------------------
 function updateParam(x) {
   var iTemp = 1 * document.getElementById(x).value;
   params[x].val = sliderToParam(x, iTemp);

@@ -71,7 +71,7 @@
       var c2 = p(c1, c2);
       const o = c(0, 0); //origin
 
-      //------------------------------------------------------------------
+//-------------------------------------------
       function init() {
         genNavigation("threeD", true);
         generateControls();
@@ -79,7 +79,7 @@
         fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();
       }
-      //------------------
+//-------------------------------------------
       function loadValues(){
        x0 = params.x0.val;
        x1 = params.x1.val;
@@ -96,7 +96,7 @@
       }
 
 
-      //-----------------------------------------------------------------------
+//-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
@@ -125,7 +125,7 @@
         plotAll();
       }
 
-      //-------------------------------------------------
+//-------------------------------------------
       function drawPavement(res) {
 
         reMap.lineWidth = 1;
@@ -191,8 +191,7 @@
         arrowHead(0,0,z1 * (1 + 2/res),1/2*(x1-x0)/gridRes); //y 
 
       }
-      //-----------------------------------------------
-
+//-------------------------------------------
       function plotColoredFunction(objF, res) {
 
         
@@ -278,21 +277,7 @@
           y: tempC.y + z  * zFact,
         };
       }
-
-      //---------------------------------------------------------------
-      function old_g(x, y) {
-        //return x*x+y*y;
-        return 2-2*Math.sin((x*x+y*y)); //--sgabello
-        //return Math.sqrt(x*x+y*y);         //--cono
-        //return 5-Math.abs(x+y)-Math.abs(x-y);
-        //return Math.sin(0.5 * x + y) * Math.cos(0.5 * y - x); //bello,0,10,0,10,-12,12
-        // return x*(.5*x-2*y);
-        //return 50/(x*x+y*y);
-        //return x*x-.3*y*y;
-        //return 0;
-      }
-
-      //--------------
+//-------------------------------------------
       function arrowHead(x,y,z,arrLength){
          //k is the complex number representing the tip of the arrow on the x,y plane
          //k1 is 45° and of module proportional to the x0,x1,res
@@ -322,13 +307,11 @@
         }       
 
       }
-//-----------------------------------------------      
-      function displayFunctions(){
-
-document.getElementById("listFunctions").innerHTML=listFunctions();
-
+//-------------------------------------------
+function displayFunctions(){
+  document.getElementById("listFunctions").innerHTML=listFunctions();
 }
-//------------------------------
+//-------------------------------------------
 function plotAll(){
 
 for (const key in params.functions) {

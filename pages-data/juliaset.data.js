@@ -11,7 +11,7 @@ var buttons = {
     onclick: "enter function to execute",
   },
 };
-//--------------------------------------------------------------
+//-------------------------------------------
 var dropdowns = {
   dd1: {
     id: "selectFunction",
@@ -114,8 +114,7 @@ var dropdowns = {
     selected: "classic",
   }
 }
-//--------------------------------------------------------------
-//params is a global variable with many values that can be saved in a txt file
+//-------------------------------------------
 var params = {
   upperbound: {
     val: 4,
@@ -225,7 +224,7 @@ var params = {
   }
 
 };
-//____________________________________________________
+//-------------------------------------------
 var juliaExamples = {
   ex0: {
     label: "-0.54 + 0.54i",

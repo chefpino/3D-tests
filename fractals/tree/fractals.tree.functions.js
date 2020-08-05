@@ -109,8 +109,7 @@ function draw(x, y, angle, len, trunk) {
     leaf(newx, newy, len, angle, (2 * pi) / 3);
   }
 }
-//-----------------------------------------------------------------------
-
+//-------------------------------------------
 //--- this functions remap the canvas. The origin is the middle point of the rect base.
 function px(x) {
   return cW / 2 + x;
@@ -118,8 +117,7 @@ function px(x) {
 function py(y) {
   return cH - y;
 }
-//------------------------------------------------------------------------------------
-
+//-------------------------------------------
 function plot(x, y) {
   //for debugging only
   ctx.beginPath();
@@ -130,4 +128,4 @@ function plot(x, y) {
 function rnd(iMin, iMax) {
   return iMin + Math.random() * (iMax - iMin);
 }
-//------------------------------------------------------------------------------------
+//-------------------------------------------

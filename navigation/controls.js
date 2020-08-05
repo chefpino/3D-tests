@@ -110,8 +110,7 @@ function generateControls() {
   //with the sliderToParam function
   //loadDefaults();
 }
-//----------------------------------------------------------------------------------
-
+//-------------------------------------------
 function upAndDown(strKey,j){
    //j is -1 or +1
    // needs better calculations especially with rounding of values and integers
@@ -147,7 +146,7 @@ function upAndDown(strKey,j){
 
 
 
-//----------------------------------------------------------------------------------
+//-------------------------------------------
 function loadValues_() {
   // load all values from params object and updates sliders+interface
   var tempVal;
@@ -159,7 +158,7 @@ function loadValues_() {
     }
   }
 }
-//----------------------------------------------------------------------------------
+//-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
 //and most important updates value in the params object!
 function updateParam(x) {
@@ -178,9 +177,7 @@ function updateParam(x) {
   params[x].val = iTemp;
   
 }
-//----------------------------------------------------------------------------------
-//these functions map the 0-100 value of a slider to a given range for a
-//given parameter and viceversa
+//-------------------------------------------
 //default 100 value can be specified in object values as steps: xy
 
 function paramToSlider(strParam, iValue) {
@@ -202,8 +199,7 @@ function sliderToParam(strParam, iValue) {
   }
   return iTemp;
 }
-//------------------------------------------------------------------------------------
-
+//-------------------------------------------
 // TO SAVE PARAMETERS TO A FILE
 //--- this function creates a temporary a element, clicks on it and then removes it from
 //    the page
@@ -222,8 +218,7 @@ function download(filename, text) {
   element.click();
   document.body.removeChild(element);
 }
-//---------------------------------------------------------------------------------
-
+//-------------------------------------------
 /* TO LOAD PARAMETERS FROM A FILE
 <input type="file" name="inputfile" id="inputfile"> 
 */
@@ -252,7 +247,7 @@ function parametersToJSON() {
   strTemp += "}";
   return strTemp;
 }
-//-------------------------------------------------------------------------------------_
+//-------------------------------------------
 function readJSONfile(tempReader) {
   //WIP
   //tempReader is an object, the .result method contains the file
@@ -274,21 +269,21 @@ function readJSONfile(tempReader) {
     }
   }
 }
-//-----------------------------------------------------------------
+//-------------------------------------------
 function td(x) {
   return "<td align=center style='border: 1px solid black;'>" + x + "</td>";
 }
 //===========================================================================
 // section dedicated to dropdown menus.
 
-//-------------------------------------------------
+//-------------------------------------------
 function getDropDownSelectedValue(strID){
   var e = document.getElementById(strID);
   return e.options[e.selectedIndex].value;
 }
 
 //--- more elaborate drop down generator and values retrievers
-//---------------------------------------------------------------------------         
+//-------------------------------------------
 function genDropDownFromObj(id,label,value,selected,obj) {
 
   var strTemp = `<select id="${id}" name="${id}">`;
@@ -304,7 +299,7 @@ function genDropDownFromObj(id,label,value,selected,obj) {
   return strTemp;   
   
   }
-//----------------------------------------------------------------------------
+//-------------------------------------------
   function dropDownToObj(dd_id,src_obj,arr_keys){
 
     var e = document.getElementById(dd_id);

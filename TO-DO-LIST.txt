@@ -23,9 +23,9 @@ animation button next to control!?
 fix table of control, via css, current value width around 50px
 css, color navigation and controls,
 css, padding
-
+use a standard separator for all functions/declarations
 2D, cleanup
----------------------------------------------------------------
+//-------------------------------------------
 3D COLOR - major WIP
  - vertical pavement fix bug
  - what to do when it's not in the origin

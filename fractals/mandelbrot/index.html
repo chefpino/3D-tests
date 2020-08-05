@@ -94,7 +94,7 @@
       } 
       
 
-      //--------------------------------------------
+//-------------------------------------------
       function init() {
 
         //--- mouse coordinates event listener --------------------------
@@ -147,7 +147,7 @@
         reMap.drawAxis();
         
       }
-      //---------------------------------------------------------------------
+//-------------------------------------------
       function mandel(k) {
         var z0 = new c(0, 0); //always starts from origin of complex plane
         var i = 0;
@@ -159,7 +159,7 @@
         }
         return maxItr;
       }
-      //--------------------------------------------------------------------
+//-------------------------------------------
       function fs(z, k) {
         
         const exponent = 1* params.exponent.val;
@@ -174,8 +174,7 @@
         
       }
 
-      //-------------------
-      
+//-------------------------------------------
       function loadValues(){
         x0 = params.x0.val;
         x1 = params.x1.val;
@@ -185,8 +184,7 @@
         uBound = params.upperbound.val;
         zoomIn=params.zoomIn.val;  
       }
-
-      //_________________________________________________________________
+//-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
@@ -214,8 +212,8 @@
         reMap.drawUnitCircle(); //ellipse representing the unit circle
       }
 
-      //__________________________________________________________________
-      function go() {
+//-------------------------------------------
+  function go() {
 
         //---clear canvas
         reMap.clearcanvas();

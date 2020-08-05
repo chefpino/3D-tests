@@ -53,24 +53,21 @@
       var module = 1 * params.module.val;      
       var factor = 1 * params.factor.val;
 
-      //------------------------------------------------
+//-------------------------------------------
       function init() {
         genNavigation("modules",false); //add navigation
         generateControls();
         fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo(); // WIP !
       }
-      //-------------------------------------------------
-
+//-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
         draw();
         reMap.drawAxis();
       }
-
-      //_______________________________________________________________________________________
-
+//-------------------------------------------
       function draw() {
 
         //---clear canvas
@@ -94,7 +91,7 @@
           reMap.drawSegment(c1, c2, "#00FF00");
         }
       }
- //-------------------------------------------------------     
+//-------------------------------------------
       function buildArray(n){
 
         const dStep = (2 * Math.PI) / n;
@@ -113,7 +110,7 @@
 
         return arrPoints;
       }
-//--------------------------------------------------------
+//-------------------------------------------
       function plotArray(a, strColor) {
         for (let index = 0; index < a.length; index++) {
           const element = a[index];
@@ -122,7 +119,7 @@
           
         }
       }
-//--------------------------------------------------------
+//-------------------------------------------
   function plot(x, y) {
     //x,y are canvas coordinates
 

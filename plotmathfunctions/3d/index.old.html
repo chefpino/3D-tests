@@ -46,7 +46,7 @@
       var z1 = params.z1.val;
       var resolution = 30;
 
-      //------------------------------------------------------------------
+//-------------------------------------------
       function init() {
         genNavigation("threeD",false);
         generateControls();
@@ -54,7 +54,7 @@
         drawPavement(10);
         loadvaluesandgo();
       }
-      //-----------------------------------------------------------------------
+//-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
@@ -78,7 +78,7 @@
         //---plot function
         plotColoredFunction(resolution);
       }
-      //---------------------------------------------------------------
+//-------------------------------------------
       function g(x, y) {
         //return 2-2*Math.sin(.02*(x*x+y*y)); //--sgabello
         //return Math.sqrt(x*x+y*y);         //--cono
@@ -124,8 +124,7 @@
         //ctx.fillStyle = "#FF0000";
         ctx.fillRect(x, y, 2, 2);
       }
-      //-------------------------------------------
-
+//-------------------------------------------
       function mapLine(xo, yo, xe, ye) {
         ctx.beginPath();
         ctx.moveTo(mapToCanvas(xo, yo).mx, mapToCanvas(xo, yo).my);
@@ -133,7 +132,7 @@
         ctx.strokeStyle = "#D3D3D3";
         ctx.stroke();
       }
-      //-------------------------------------------------
+//-------------------------------------------
       function drawPavement(n) {
         const dx = (x1 - x0) / n;
         const dy = (y1 - y0) / n;
@@ -143,8 +142,7 @@
           mapLine(x0, y0 + index * dy, x1, y0 + index * dy);
         }
       }
-      //-----------------------------------------------
-
+//-------------------------------------------
       function drawColumns(n) {
         const dx = (x1 - x0) / n;
         const dy = (y1 - y0) / n;

@@ -156,7 +156,7 @@ var navigation = {
   },
 };
 
-//----------------------------------------------------------------------------------
+//-------------------------------------------
 // -- this is a recursive function to generate a vertical menu, it can be improved
 function genMenu(strKey, nestinglevel, strCurrentPage) {
 
@@ -196,8 +196,8 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
   strTemp += nestinglevel == 0 ? "</table>" : "";
   return strTemp;
 }
-//---------------------------------------------
-//horizontal menu - work in progress - ugly
+//-------------------------------------------
+//horizontal menu - work in progress
 
 function genHMenu(strKey, nestinglevel, strCurrentPage) {
 

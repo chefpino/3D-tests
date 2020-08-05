@@ -30,7 +30,7 @@
       </tr>
     </table>
     <script>
-      //--- global PARAMETERS ------------------------------------------------------------------
+      //------- GLOBAL VARS --------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
 
@@ -49,25 +49,21 @@
           reMap.objCanvas=ctx;   
 
       var points = params.points.val;
-
-      //------------------------------------------------
+      //-------------------------------------------
       function init() {
         genNavigation("unitcircle",false); //add navigation
         generateControls();
         fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo(); // WIP !
       }
-      //-------------------------------------------------
-
+      //-------------------------------------------
       function loadvaluesandgo() {
         //go! button
         points = params.points.val;        
         unitCircle();
         reMap.drawAxis();
       }
-
-      //_______________________________________________________________________________________
-
+      //-------------------------------------------
       function unitCircle() {
         //---clear canvas
         reMap.clearcanvas();
@@ -86,8 +82,6 @@
           reMap.drawSegment(c1, c2);
         }
       }
-
-
       //-------------------------------------------
     </script>
   </body>

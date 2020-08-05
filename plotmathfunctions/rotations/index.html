@@ -59,8 +59,7 @@
 
       var arrPoints = new Array(); //array of complex numbers
       var rotationVector = new c(0, 0);
-     //---------------------------------------------------------------------------------
-     
+//-------------------------------------------     
      function getMousePos(evt) {
         var rect = myCanvas.getBoundingClientRect();
         return {
@@ -68,10 +67,11 @@
           y: evt.clientY - rect.top,
         };
       }
-      //----
+//-------------------------------------------
       function writeMessage(message) {
         document.getElementById("mousecoordinates").innerHTML=message;
       }
+//-------------------------------------------
       //........... debug only ..................................
       function writePoints(arrPoints) {
         var strTemp = "";
@@ -81,7 +81,7 @@
         }
         document.getElementById("vector").innerHTML = strTemp;
       }
-      //..........................................................
+//-------------------------------------------
       function plotArray(a, strColor) {
         reMap.lineWidth=0.2;
         for (let index = 0; index < a.length; index++) {
@@ -91,7 +91,7 @@
           }
         }
       }
-      //..........................................................
+//-------------------------------------------
       function calcRotation(tempC) {
 
         var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
@@ -103,7 +103,7 @@
            newArray: arrNewPoints
           } 
       }
-      //..........................................................
+//-------------------------------------------
       function calcShift(tempC) {
 
         var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
@@ -115,7 +115,7 @@
            newArray: arrNewPoints
           } 
       }
-      //..........................................................
+//-------------------------------------------
       function getBoundaries(objArray) {
         //measures the smallest and largest module of the complex points
         var rMin=m(objArray[0]).z;
@@ -128,8 +128,7 @@
         }
         return {min: rMin, max: rMax};
       }
-
-      //..........................................................
+//-------------------------------------------
       function clearAndPlot(bClear) {
 
         if (bClear){
@@ -144,23 +143,23 @@
         reMap.drawUnitCircle();
 
       }
-      //----------------------------------------------------------------------
-      function rotateButton() {
+//-------------------------------------------
+function rotateButton() {
         //draw rotated polygon
         arrPoints = calcRotation(rotationVector).newArray;
         plotArray(arrPoints, "#0000FF");
       }
+//-------------------------------------------
       function shiftButton() {
         //draw rotated polygon
         arrPoints = calcShift(rotationVector).newArray;
         plotArray(arrPoints, "#0000FF");
       }
-      //----------------------------------------------------------------------
+//-------------------------------------------
       function vectorDetails(v) {
         return `|z|=${m(v).z}<br>a=${v.x}<br>b=${v.y}`;
       }
-
-      //***********************************************************
+//-------------------------------------------
       function init() {
         
         genNavigation("complex",false);
@@ -238,7 +237,7 @@
 
 
 
-      //----------------------------------------------
+//-------------------------------------------
     </script>
   </body>
 </html>

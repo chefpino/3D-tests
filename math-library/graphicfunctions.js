@@ -44,7 +44,7 @@ class ReMap {
     dy() {
       return (this.y1 - this.y0) / this.cH;
     }
-  //----------------------------------------------------------------
+//-------------------------------------------
   drawAxis() {
     //possible improvements:
     //origin showing or not, plus writing coordinates on edges of canvas true/false
@@ -121,7 +121,7 @@ class ReMap {
     }
     
   }
-//---------------------------------------------------
+//-------------------------------------------
   drawSegment(c1, c2, strColor) {
     this._objCanvas.beginPath();
     this._objCanvas.lineWidth = this.lineWidth;;
@@ -139,7 +139,7 @@ class ReMap {
 }
 
 
-//---------------------------------------------------
+//-------------------------------------------
 clearcanvas(){
     this._objCanvas.clearRect(0, 0, cW, cH);
   }
@@ -163,8 +163,7 @@ clearcanvas(){
 
 } //--- end of class definition ============================================================
 
-//mouse coordinates on the canvas
-      //--------------------------------------------
+//-------------------------------------------
       function getMousePos(evt) {
         var rect = myCanvas.getBoundingClientRect();
         return {
@@ -177,8 +176,7 @@ clearcanvas(){
       function writeMessage(message) {
         document.getElementById("mousecoordinates").innerHTML=message
       }
-//----------------------------------------------------------
-
+//-------------------------------------------
 // math functions for the grid 
 function dRound(x,n){
   const p = Math.pow(10,n);

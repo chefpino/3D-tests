@@ -35,16 +35,14 @@
     </table>
     <script>
       "use strict";
-      //--------------------------------------------
+      //-------------------------------------------
       function init() {
-
-
         genNavigation("barnsley");
         generateControls(); //sliders
         fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();
       }
-     //--- global PARAMETERS ------------------------------------------------------------------
+     //--- global VARS ------------------------------------------------------------------
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
 
@@ -67,8 +65,7 @@
 
       reMap.objCanvas = ctx;
 
-
-      //----------------------------------------------------------
+      //-------------------------------------------
       function barnsley(x,y,iterations) {
 
         for (let index = 0; index < iterations; index++) {
@@ -94,8 +91,7 @@
             y=ny;
         }
       }
-
-      //_________________________________________________________________
+      //-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
@@ -103,11 +99,9 @@
         reMap.drawAxis();
         barnsley(0,0,params.iterations.val);
       }
-
-      //__________________________________________________________________
-
+      //-------------------------------------------
       function randgp(max) {return Math.floor(Math.random()*max)}
-
+      //-------------------------------------------
 
     </script>
   </body>

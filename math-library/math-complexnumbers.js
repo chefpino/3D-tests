@@ -1,3 +1,4 @@
+//-------------------------------------------
 //--- obj complex number
 function c(x, y) {
   return {
@@ -5,8 +6,7 @@ function c(x, y) {
     y: y,
   };
 }
-//______________________________________________________
-
+//-------------------------------------------
 // -- product of a+ib, c+id ---
 function p(c1, c2) {
   const tc1 = typeof c1 == "object" ? c1 : new c(c1, 0);
@@ -17,8 +17,7 @@ function p(c1, c2) {
     y: tc1.x * tc2.y + tc1.y * tc2.x,
   };
 }
-
-//___________________________
+//-------------------------------------------
 //for polynomial exponents ---
 function exp(c, n) {
   var tempC = c;
@@ -28,7 +27,7 @@ function exp(c, n) {
 
   return tempC;
 }
-//______________________________________________________
+//-------------------------------------------
 // -- sum of a+ib, c+id ---
 function s(c1, c2) {
   const tc1 = typeof c1 == "object" ? c1 : new c(c1, 0);
@@ -39,7 +38,7 @@ function s(c1, c2) {
     y: tc1.y + tc2.y,
   };
 }
-//______________________________________________________
+//-------------------------------------------
 // -- module, θ --
 function m(c) {
   return {
@@ -52,7 +51,7 @@ function m(c) {
 function d(c1,c2){
   return Math.sqrt((c2.x-c1.x)*(c2.x-c1.x)+(c2.y-c1.y)*(c2.y-c1.y));
 }
-//______________________________________________________
+//-------------------------------------------
 // -- rotations θ
 // input module and angle, returns couple x, y => (x+iy)
 function r(z, theta) {
@@ -61,7 +60,7 @@ function r(z, theta) {
     y: z * Math.sin(theta),
   };
 }
-//__________________________________________________________
+//-------------------------------------------
 //inverse
 function inv(c) {
   var d = c.x * c.x + c.y * c.y;
@@ -70,7 +69,7 @@ function inv(c) {
     y: (-1 * c.y) / d,
   };
 }
-//_________________________________________________________
+//-------------------------------------------
 //sin
 function sin(c) {
   return {
@@ -78,7 +77,7 @@ function sin(c) {
     y: Math.cos(c.x) * Math.sinh(c.y),
   };
 }
-//___________________________________________________________
+//-------------------------------------------
 //cos(a+bi)=cosacoshb−isinasinhb
 function cos(c) {
   return {

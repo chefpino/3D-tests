@@ -1,6 +1,3 @@
-
-//--------------------------------------------------------------
-//params is a global variable with many values that can be saved in a txt file
 var params = {
 
   iterations: {
@@ -44,4 +41,3 @@ var params = {
   }
 
 };
-//____________________________________________________

@@ -71,8 +71,8 @@
 
      //--- end global variables ----------------------------------------- 
 
-      //--------------------------------------------
-      function init() {
+//-------------------------------------------
+   function init() {
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(
           "mousemove",
@@ -142,7 +142,7 @@
         go();
         reMap.drawAxis();
 }
-      //----------------------------------------------------------
+//-------------------------------------------
       function julia(z, k) {
         var z0 = z;
         //var z0x = z.x; //hyperbolic needs extra variable to calculate in 2 steps 
@@ -159,7 +159,7 @@
 
         return maxItr;
       }
-
+//-------------------------------------------
       function loadValues(){
         x0 = params.x0.val;
         x1 = params.x1.val;
@@ -169,7 +169,7 @@
         uBound = params.upperbound.val;
         zoomIn=params.zoomIn.val;  
       }
-      //_________________________________________________________________
+/-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
@@ -215,8 +215,7 @@
           }
       }
       } 
-
-      //__________________________________________________________________
+//-------------------------------------------
       function go() {
         //selected function
 

@@ -55,13 +55,11 @@
 
       //--- parameters the user can change are made visible w/ sliders
       // -- global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      var maxItr = params.iterations.val;
-      var uBound = params.upperbound.val;
-      var zoomIn=params.zoomIn.val;      
+      var x0, x1, y0, y1;;
+      var maxItr, uBound, zoomIn;     
+      
+      loadValues();
+
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
       var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
@@ -176,6 +174,18 @@
         
       }
 
+      //-------------------
+      
+      function loadValues(){
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+        maxItr = params.iterations.val;
+        uBound = params.upperbound.val;
+        zoomIn=params.zoomIn.val;  
+      }
+
       //_________________________________________________________________
       function loadvaluesandgo() {
         //go! button
@@ -183,14 +193,7 @@
         //should update sliders too
 
         //load parameters from object
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-
-        maxItr = params.iterations.val;
-        uBound = params.upperbound.val;
-        zoomIn = params.zoomIn.val;
+        loadValues();
 
         reMap.x0 = x0;
         reMap.x1 = x1;

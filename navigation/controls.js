@@ -148,7 +148,7 @@ function upAndDown(strKey,j){
 
 
 //----------------------------------------------------------------------------------
-function loadValues() {
+function loadValues_() {
   // load all values from params object and updates sliders+interface
   var tempVal;
   for (var key in params) {

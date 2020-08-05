@@ -36,23 +36,17 @@
 
       const cW = myCanvas.clientWidth;
       const cH = myCanvas.clientHeight;
-      /*/
-const cW=ctx.clientWidth;
-const cH=ctx.clientHeight;
-*/
+      const π = Math.PI;
+      const fixedOrigin=false;
+
       // -- range
       const x0 = -1.1;
       const x1 = 1.1;
       const y0 = -1.1;
       const y1 = 1.1;
 
-      const π = Math.PI;
-
-      const fixedOrigin=false;
-
       var reMap=new ReMap(cW,cH,x0,x1,y0,y1,fixedOrigin); //functions to map real value to canvas coordinates
-          reMap.objCanvas=ctx;
-      
+          reMap.objCanvas=ctx;   
 
       var points = params.points.val;
 

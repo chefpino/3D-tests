@@ -59,22 +59,17 @@
       const ctx = myCanvas.getContext("2d");
       var   cW = myCanvas.clientWidth;
       var   cH = myCanvas.clientHeight
-
+      const fixedOrigin = params.fixedOrigin.val;
 
       //--- parameters the user can change via sliders if made visible
       // -- global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      const fixedOrigin = params.fixedOrigin.val;
+      var x0, x1, y0, y1;
+      var zoomIn;
+      loadValues();
       var lockRatio=params.lockratio.val;
-      var zoomIn=params.zoomIn.val;      
 
-      const xIntervals=250;
 
       //wip
-      const iGrid=20;
       const drawGrid=true;
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
@@ -143,14 +138,21 @@ function init(){
 
 }
 //---------------------------------------
-function loadvaluesandgo() {
-
-        checkLockRatio();
+function loadValues(){
         x0 = params.x0.val;
         x1 = params.x1.val;
         y0 = params.y0.val;
         y1 = params.y1.val;
-        
+        zoomIn=params.zoomIn.val;
+
+}
+//---------------------------------------
+function loadvaluesandgo() {
+
+        checkLockRatio();
+        loadValues();
+         
+        //assign values to reMap object
         reMap.x0 = x0;
         reMap.x1 = x1;
         reMap.y0 = y0;

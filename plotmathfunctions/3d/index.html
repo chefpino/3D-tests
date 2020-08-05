@@ -46,23 +46,21 @@
       const ctx = canvas.getContext("2d");
       canvas.width = cW;
       canvas.height = cH;
-
-      //--- declare global variables
-      var x0 = params.x0.val;
-      var x1 = params.x1.val;
-      var y0 = params.y0.val;
-      var y1 = params.y1.val;
-      var z0 = params.y0.val;
-      var z1 = params.y1.val;
-      var gridRes=params.gridRes.val;
-      var funcRes=params.funcRes.val;
-      var funcOpacity=params.funcOpacity.val;
-      var scaleFactor=params.scaleFactor.val;
-      var rotationAngle=params.rotationAngle.val;
-      var zFact=params.zFact.val;
-      
       const fixedOrigin = true; //can be a parameter also
       const π = Math.PI;
+
+      //--- declare global variables
+      var x0, x1, y0, y1;
+      var z0, z1;
+      var gridRes;
+      var funcRes;
+      var funcOpacity;
+      var scaleFactor;
+      var rotationAngle;
+      var zFact;
+
+      loadValues();
+      
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
       reMap.objCanvas = ctx;
@@ -81,22 +79,29 @@
         fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();
       }
+      //------------------
+      function loadValues(){
+       x0 = params.x0.val;
+       x1 = params.x1.val;
+       y0 = params.y0.val;
+       y1 = params.y1.val;
+       z0 = params.y0.val;
+       z1 = params.y1.val;
+       gridRes=params.gridRes.val;
+       funcRes=params.funcRes.val;
+       funcOpacity=params.funcOpacity.val;
+       scaleFactor=params.scaleFactor.val;
+       rotationAngle=params.rotationAngle.val;
+       zFact=params.zFact.val;
+      }
+
+
       //-----------------------------------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
         // -- load parameters from params object
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-
-        gridRes=params.gridRes.val;
-        funcRes=params.funcRes.val;
-        funcOpacity=params.funcOpacity.val;
-        scaleFactor=params.scaleFactor.val;
-        rotationAngle=params.rotationAngle.val;
-        zFact=params.zFact.val;
+        loadValues();
 
         c1 = new r(1, rotationAngle);
         // c2 = new r(1, π + π / 3);
@@ -191,8 +196,8 @@
       function plotColoredFunction(objF, res) {
 
         
-        console.table(objF);
-        console.log(objF(1,5));
+        //console.table(objF);
+        //console.log(objF(1,5));
 
         var dx = (x1 - x0) / res;
         var dy = (y1 - y0) / res;
@@ -332,8 +337,7 @@ for (const key in params.functions) {
     function g(x,y) {  
        return eval(element);  
     };  
-    console.table(g);
-
+    //console.table(g);
     plotColoredFunction(g,funcRes);
   }
 }

@@ -8,6 +8,7 @@ pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 pan all directions?
 remove save and do a url link instead. access clipboard?
+remove console.table and log
 
 GENERIC
 readme file for git
@@ -20,6 +21,8 @@ fix upanddown function
 sliders still buggy, either add the dx to the params or add rounding to 2 decimals
 animation button next to control!? 
 fix table of control, via css, current value width around 50px
+css, color navigation and controls,
+css, padding
 
 2D, cleanup
 ---------------------------------------------------------------
@@ -31,6 +34,7 @@ fix table of control, via css, current value width around 50px
  - pavement should be centered around axis, now it's off as it starts from the edges of the domain
  - coloring
  - z1?
+ - separate math functions from main script
 graphic improvements:
 - pavement grid depends only on chosen resolution
 - enter/update functions

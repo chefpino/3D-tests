@@ -72,16 +72,6 @@
         document.getElementById("mousecoordinates").innerHTML=message;
       }
 //-------------------------------------------
-      //........... debug only ..................................
-      function writePoints(arrPoints) {
-        var strTemp = "";
-        for (let index = 0; index < arrPoints.length; index++) {
-          const element = arrPoints[index];
-          strTemp += index + ": " + element.x + " + i" + element.y + "<br>";
-        }
-        document.getElementById("vector").innerHTML = strTemp;
-      }
-//-------------------------------------------
       function plotArray(a, strColor) {
         reMap.lineWidth=0.2;
         for (let index = 0; index < a.length; index++) {
@@ -212,7 +202,8 @@ function rotateButton() {
             var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
             arrPoints.push(tempC);
             if (arrPoints.length > 1) {
-              reMap.drawSegment(tempC, arrPoints[arrPoints.length - 2], "#000000");
+              reMap.lineWidth=0.5;
+              reMap.drawSegment(tempC, arrPoints[arrPoints.length - 2], "black");
             }
           },
           false

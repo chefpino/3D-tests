@@ -103,7 +103,6 @@ class ReMap {
     this._objCanvas.strokeStyle = this.strokeStyle;
     this._objCanvas.lineWidth = this.lineWidth;
 
-
     for (let index = 0; index < pointsArray.length; index++) {
       const tempX = Math.floor(this.x(pointsArray[index]));
       
@@ -137,8 +136,6 @@ class ReMap {
   this._objCanvas.fillRect(this.x(x), this.y(y), 1, 1);
   this._objCanvas.fill();
 }
-
-
 //-------------------------------------------
 clearcanvas(){
     this._objCanvas.clearRect(0, 0, cW, cH);
@@ -156,11 +153,6 @@ clearcanvas(){
     this._scaleFactor= s * 1;
   }
   //-------------------------
-  
-
-
-
-
 } //--- end of class definition ============================================================
 
 //-------------------------------------------
@@ -182,7 +174,7 @@ function dRound(x,n){
   const p = Math.pow(10,n);
   return Math.round(x * p) / p;
 }
-
+//-------------------------------------------
 function gridCoords(x0,x1){
   
   var arrX=new Array();

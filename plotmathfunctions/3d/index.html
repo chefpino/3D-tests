@@ -194,10 +194,6 @@
 //-------------------------------------------
       function plotColoredFunction(objF, res) {
 
-        
-        //console.table(objF);
-        //console.log(objF(1,5));
-
         var dx = (x1 - x0) / res;
         var dy = (y1 - y0) / res;
 
@@ -320,7 +316,6 @@ for (const key in params.functions) {
     function g(x,y) {  
        return eval(element);  
     };  
-    //console.table(g);
     plotColoredFunction(g,funcRes);
   }
 }

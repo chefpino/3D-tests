@@ -156,7 +156,6 @@
         document.getElementById("functionSelector").addEventListener("change", function () {
           
           selectedFunction = getDropDownSelectedValue("functionSelector");          
-          console.log(selectedFunction);
           //update second dropdown with values related to function
           document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","val","null",dropdowns.dd1.elements[selectedFunction].examples);
 
@@ -170,8 +169,6 @@
           
           var tempObj=dropDownToObj("exampleSelector",dropdowns.dd1.elements[selectedFunction].examples,["cx","cy"]);
           
-          console.log("cx: " + tempObj.cx);
-
           //here loops through array of values (could be more than just x and y)
           //and updates the object (global var), then new values are loaded and run 
           params.cx.val=tempObj.cx;

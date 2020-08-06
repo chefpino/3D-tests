@@ -19,13 +19,7 @@ function generateControls() {
   strHTML += tr;
 
   strHTML += "<td colspan=6 align=left><b>Parameters</b></td>";
-  /*
-  strHTML += td("<b>Min</b>");
-  strHTML += td("<b>Select</b>");
-  strHTML += td("<b>Max</b>");
-  strHTML += td("<b>Current</b>");
-  strHTML += td("<b>+/-</b>");
-  */
+
   strHTML += trc;
 
   //---generate html
@@ -65,7 +59,7 @@ function generateControls() {
           strHTML = strHTML + td(params[key].maxLabel);
           strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);">+</a><br><a href="#" onclick="upAndDown('${key}',-1);">-</a>`);
           strHTML +=
-          td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`);
+          td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`,65);
           break;
           
       case "checkbox":
@@ -90,10 +84,13 @@ function generateControls() {
     strHTML = strHTML + trc;
     } // - end if visible ;
   }
-  strHTML = strHTML + "<tr><td colspan=6>";
+  
   if (goButton){
+      strHTML = strHTML + "<tr><td colspan=6>"; 
       strHTML = strHTML + '<button onclick="loadvaluesandgo();">go!</button>&nbsp';
-  }
+      strHTML = strHTML + "</td></tr>";
+    }
+/*
   strHTML =
     strHTML +
     '<button onclick="return download(' +
@@ -101,7 +98,7 @@ function generateControls() {
     ',parametersToJSON());">save</button>&nbsp';
   strHTML =
     strHTML + '<input type="file" name="inputfile" id="inputfile"></input>';
-  strHTML = strHTML + "</td></tr>";
+*/
   strHTML = strHTML + "</table>";
   document.getElementById("dynamicSliders").innerHTML = strHTML;
 
@@ -143,21 +140,6 @@ function upAndDown(strKey,j){
 
 
 }
-
-
-
-//-------------------------------------------
-function loadValues_() {
-  // load all values from params object and updates sliders+interface
-  var tempVal;
-  for (var key in params) {
-    var tempVal = params[key].val;
-    if (params[key].visible != false){
-        document.getElementById(key).value = tempVal;
-        document.getElementById("val_" + key).innerHTML = Math.round(params[x].val*1000)/1000;
-    }
-  }
-}
 //-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
 //and most important updates value in the params object!
@@ -187,7 +169,7 @@ function paramToSlider(strParam, iValue) {
   steps=(typeof(steps)=="undefined" ? 100: 1* steps);  //default resolution is 100 steps
   return Math.round((steps * (1 * iValue - x1)) / (x2 - x1));
 }
-
+//-------------------------------------------
 function sliderToParam(strParam, iValue) {
   var x1 = 1 * params[strParam].min;
   var x2 = 1 * params[strParam].max;
@@ -200,78 +182,9 @@ function sliderToParam(strParam, iValue) {
   return iTemp;
 }
 //-------------------------------------------
-// TO SAVE PARAMETERS TO A FILE
-//--- this function creates a temporary a element, clicks on it and then removes it from
-//    the page
-//    <button onclick="return download('json-text.txt',strJSONtext);">SAVE</button>
-// will have to enhance by adding a JSONfied string of all the current params values
-
-function download(filename, text) {
-  var element = document.createElement("a");
-  element.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
-  );
-  element.setAttribute("download", filename); //download attribute, saves when clicked
-  element.style.display = "none"; //invisible
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-}
-//-------------------------------------------
-/* TO LOAD PARAMETERS FROM A FILE
-<input type="file" name="inputfile" id="inputfile"> 
-*/
-
-function fileToParameters() {
-  document.getElementById("inputfile").addEventListener("change", function () {
-    var fr = new FileReader();
-    fr.onload = function () {
-      readJSONfile(fr);
-    };
-    fr.readAsText(this.files[0]);
-  });
-} 
-//--- string of parameters generated dynamically --------------------------------------
-function parametersToJSON() {
-  var strTemp = "{";
-  for (var key in params) {
-    
-   strTemp += `"${key}":${params[key].val}`;
-   strTemp += ",";  
-    
-
-  }
-  //remove last comma
-  strTemp = strTemp.substring(0, strTemp.length - 1);
-  strTemp += "}";
-  return strTemp;
-}
-//-------------------------------------------
-function readJSONfile(tempReader) {
-  //WIP
-  //tempReader is an object, the .result method contains the file
-
-  var rTemp = 0; //real number, value of parameter
-  var tempJSONobj = JSON.parse(tempReader.result);
-
-  for (var key in params) {
-    rTemp = tempJSONobj[key];
-    //assign values to params
-    params[key].val = rTemp;
-    
-    if (params[key].visible != false){
-      //move sliders
-      document.getElementById(key).value = rTemp;
-    
-      //update box on the right of the slider, current value of parameter
-      updateParam(key, rTemp);
-    }
-  }
-}
-//-------------------------------------------
-function td(x) {
-  return "<td align=center style='border: 1px solid black;'>" + x + "</td>";
+function td(x,w) {
+  w=(typeof(w)=="undefined") ? "":"width=" + w;
+  return `<td ${w} align=center style='border: 1px solid black;'>` + x + "</td>";
 }
 //===========================================================================
 // section dedicated to dropdown menus.

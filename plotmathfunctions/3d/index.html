@@ -76,7 +76,7 @@
         genNavigation("threeD", true);
         generateControls();
         displayFunctions();
-        fileToParameters(); //initiate event listener for file uploader
+        //fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();
       }
 //-------------------------------------------
@@ -128,7 +128,7 @@
 //-------------------------------------------
       function drawPavement(res) {
 
-        reMap.lineWidth = 1;
+        reMap.lineWidth = 0.5;
        //height = avrg(x1,y1), can be improved
        var z1 = (x1+y1)/2;
 
@@ -137,13 +137,13 @@
           for (var x = x0; x <= x1; x = x + (x1-x0) / res) {
             var t1 = ct(x, y0, 0);
             var t2 = ct(x, y1, 0);
-            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "lightgrey");
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
           }
           //lines parallel to x axe
           for (var y = y0; y <= y1; y = y + (y1-y0) / res) {
             var t1 = ct(x0, y, 0);
             var t2 = ct(x1, y, 0);
-            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "lightgrey");
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
           }
        
        //vertical pavement, passing by origin (can be improved by passing per mid of range?)   

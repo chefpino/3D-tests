@@ -5,8 +5,7 @@
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../pages-data/mandelbrot.data.js"></script>
-    <script src="../../navigation/controls.js"></script>
-    
+    <script src="../../navigation/controls.js"></script>    
     <script src="../../navigation/menu.js"></script>
   </head>
   <body onload="init();">
@@ -140,7 +139,7 @@
 
         genNavigation("mandelbrot",false);
         generateControls();
-        fileToParameters(); //initiate event listener for file uploader
+        // fileToParameters(); //initiate event listener for file uploader
         go();
         reMap.lineWidth=0.2;
         reMap.strokeStyle="#BBBBBB";

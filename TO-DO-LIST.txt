@@ -38,7 +38,6 @@ graphic improvements:
 
 ---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)
-add params (for sure) and save?
 don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array
 when over the list highlight corresponding dot

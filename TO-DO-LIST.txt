@@ -25,9 +25,7 @@ dynamic cW, cH depending on page size
 
 //-------------------------------------------
 3D COLOR - major WIP
- - vertical pavement fix bug
  - what to do when it's not in the origin
- - make it parametric to any vertical plane.
  - on/off pavement?
  - pavement should be centered around axis, now it's off as it starts from the edges of the domain
  - coloring
@@ -46,7 +44,6 @@ list of selected points with possibility of deleting from array
 when over the list highlight corresponding dot
 red dots before starting the animation
 lock to 1 radius
-color change w radius? or magnitude
 ---------------------------------------------------------------
 MODULES
 description of page

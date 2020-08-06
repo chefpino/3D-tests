@@ -122,8 +122,8 @@ function upAndDown(strKey,j){
   var step = (max-min)/steps;
   step = j * (params[strKey].integer==true? 1 : step);
   currentVal = currentVal+step;
-  currentVal = (currentVal < min) ? min : currentVal;
-  currentVal = (currentVal > max) ? max : currentVal;
+  currentVal = (currentVal < min) ? max : currentVal;
+  currentVal = (currentVal > max) ? min : currentVal;
 
   document.getElementById(strKey).value = currentVal;
 

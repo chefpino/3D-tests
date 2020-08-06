@@ -16,22 +16,11 @@ var navigation = {
     label: "HOME (w.i.p.)",
     hasChildren: true,
     children: {
-      item0: "about",
       item1: "fractals",
       item2: "plotmathfunctions",
     },
     visible: true,
   },
-  about: {
-    id: "about",
-    link: "/about.html",
-    label: "ABOUT (w.i.p.)",
-    hasChildren: false,
-    visible: true,
-    content: "work in progress"
-
-  },
-  
   fractals: {
     id: "fractals",
     link: "#",

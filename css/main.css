@@ -3,14 +3,12 @@ body {
   font-weight: 100;
   font-size: 12px;
   color: rgb(10, 10, 10);
-  background: rgba(239, 247, 239, 0.041);
 }
 button, input {
   font-family: "Courier New", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 12px;
   color: rgb(10, 10, 10);
-  background: rgba(239, 247, 239, 0.041);
   border: 1px solid black;
 }
 a:link {
@@ -22,18 +20,17 @@ a:visited {
 a:hover {
   text-decoration: none;
 }
-table {
-  border-collapse: collapse;   
-}
-
-table, th, td {
-  border: 0px solid black;
+table, td {
+  border-collapse: collapse;  
+  border: 1px solid black;
   padding: 1px;
 }
-tr {
-  height: 10px;
+hr {
+  border: 0.5px solid grey;
   padding: 0px;
 }
-hr  {
-  border-top: 1px solid black;
+navmenu {
+  border: 0px solid black;
+  padding: 1px;
+  background: rgba(179, 167, 10, 0.356);
 }

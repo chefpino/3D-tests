@@ -3,11 +3,10 @@ TO DO LIST:
 3d polar
 coloring as option
 length of escape route to color inside? find formula or give up
-check entered functions, perhaps make input user friendly
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 pan all directions?
-remove save and do a url link instead. access clipboard?
+save a url link. access clipboard?
 
 GENERIC
 readme file for git
@@ -15,9 +14,7 @@ about page
 save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
 fix upanddown function
-sliders still buggy, either add the dx to the params or add rounding to 2 decimals
 animation button next to control!? 
-fix table of control, via css, current value width around 50px
 css, color navigation and controls,
 css, padding
 2D, cleanup - fix function colors, perhaps different color for each function

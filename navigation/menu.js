@@ -151,7 +151,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
 
 
   const highlighted=(strCurrentPage == strKey);
-  var strTemp = nestinglevel == 0 ? "<table width='100%'>" : "";
+  var strTemp = (nestinglevel == 0) ? "<table class='navmenu'>" : "";
   var oChildren; //object containing children
 
   var strLabel = navigation[strKey].label;
@@ -190,7 +190,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
 
 function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
-  var strTemp = (nestinglevel == 0) ? "<table width='50%'><tr>" : "";
+  var strTemp = (nestinglevel == 0) ? "<table class='navmenu'><tr>" : "";
   var oChildren; //object containing children
 
   var strLabel = navigation[strKey].label;

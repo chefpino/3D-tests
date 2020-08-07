@@ -190,7 +190,7 @@ function genMenu(strKey, nestinglevel, strCurrentPage) {
 
 function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
-  var strTemp = (nestinglevel == 0) ? "<table class='navmenu'><tr>" : "";
+  var strTemp = (nestinglevel == 0) ? "<table width=403 class='navmenu'><tr>" : "";
   var oChildren; //object containing children
 
   var strLabel = navigation[strKey].label;

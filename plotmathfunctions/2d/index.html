@@ -21,7 +21,16 @@
         </td>
       </tr>
       <tr>  
-        <td valign="top">
+        <td valign="top" width="100">
+          <div id="content"></div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <div id="listFunctions">placeholder</div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <div id="dynamicSliders"></div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <b>Coordinates</b><div id="mousecoordinates"></div>
+        </td>
+      <td valign="top">
           <div id="canvasesdiv" style="position:relative; width:1000px; height:500px"> 
             <canvas
               id="myCanvas"
@@ -30,24 +39,17 @@
               style="z-index: 1;
                       position:absolute;
                       left:0px;
-                      top:0px;"
-  
+                      top:0px;
+                      border:0px solid;"
             ></canvas>
             <canvas id="transparentLayer"
             style="z-index: 2;
             position:absolute;
             left:0px;
             top:0px;
-            border:1px solid;"
+            border:0px solid;"
             height="500px" width="1000">          </div>
           </td>
-          <td valign=top>
-            <div id="dynamicSliders">placeholder</div>
-            <hr>
-            <div id="listFunctions">placeholder</div>
-            <hr>
-            <b>Coordinates</b><div id="mousecoordinates"></div>
-        </td>
       </tr>
     </table>
 <script>

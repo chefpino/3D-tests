@@ -29,7 +29,7 @@ hr {
   border: 0.5px solid grey;
   padding: 0px;
 }
-navmenu {
+table.navmenu {
   border: 0px solid black;
   padding: 1px;
   background: rgba(179, 167, 10, 0.356);

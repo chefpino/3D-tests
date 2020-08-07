@@ -14,9 +14,9 @@
       <tr>
         <td valign="top">
           <div id="menu" ></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="content"></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="dynamicSliders"></div>
         </td>
         <td valign="top">
@@ -24,7 +24,7 @@
             id="myCanvas"
             width="700"
             height="700"
-            style="border: 1px solid;"
+            style="border: 0px solid;"
           ></canvas>
         </td>
       </tr>
@@ -51,7 +51,7 @@
       var points = params.points.val;
       //-------------------------------------------
       function init() {
-        genNavigation("unitcircle",false); //add navigation
+        genNavigation("unitcircle",true); //add navigation
         generateControls();
         //fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo(); // WIP !

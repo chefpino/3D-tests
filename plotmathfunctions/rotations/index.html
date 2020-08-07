@@ -9,19 +9,19 @@
   <body onload="init();">
     <table border="0">
       <tr>
-        <td valign="top">
+        <td valign="top" width=200>
               <div id="menu"></div>
-              <hr>
-              <div id="content"></div>
-              <hr>
+              <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+              <div id="content"></div><br>
+              <img height=1 width=400 src="../../imgs/1pxBlack.gif">
               <button onclick="rotateButton();">ROTATE</button>
               <button onclick="shiftButton();">SHIFT</button>
               <input type="button" id="startbutton" value="AUTO"></input>
-              <button onclick="location.reload();">CLEAR</button>
-              <hr>
+              <button onclick="location.reload();">CLEAR</button><br>
+              <img height=1 width=400 src="../../imgs/1pxBlack.gif">
               <b>Chosen Vector</b>
               <div id="vector"></div>
-              <hr>
+              <img height=1 width=400 src="../../imgs/1pxBlack.gif">
               <b>Coordinates</b><div id="mousecoordinates"></div>
         </td>
         <td valign="top">
@@ -29,7 +29,7 @@
             id="myCanvas"
             width="700"
             height="700"
-            style="border: 1px solid;"
+            style="border: 0px solid;"
           ></canvas>
         </td>
       </tr>
@@ -152,7 +152,7 @@ function rotateButton() {
 //-------------------------------------------
       function init() {
         
-        genNavigation("complex",false);
+        genNavigation("complex",true);
 
         reMap.drawAxis();
         reMap.drawUnitCircle();

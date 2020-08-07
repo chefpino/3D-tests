@@ -13,10 +13,16 @@
   <body onload="init();">
     <table border="0">
       <tr>
-        <td valign="top">
+        <td valign="top" width=200>
           <div id="menu"></div>
-          <hr />
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="content"></div>
+          <div id="dynamicSliders">placeholder</div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <div id="listFunctions">placeholder</div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <b>Coordinates</b><br>
+          <div id="mousecoordinates"></div>
         </td>
         <td valign="top">
           <div
@@ -36,20 +42,12 @@
                 position: absolute;
                 left: 0px;
                 top: 0px;
-                border: 1px solid;
+                border: 0px solid;
               "
               height="700"
               width="700"
             ></canvas>
           </div>
-        </td>
-        <td valign="top">
-          <div id="dynamicSliders">placeholder</div>
-          <hr>
-          <div id="listFunctions">placeholder</div>
-          <hr>
-          <b>Coordinates</b>
-          <div id="mousecoordinates"></div>
         </td>
       </tr>
     </table>
@@ -126,7 +124,7 @@
           false
         );
 
-        genNavigation("polar", false);
+        genNavigation("polar", true);
         generateControls();
         displayFunctions();
         //fileToParameters(); //initiate event listener for file uploader

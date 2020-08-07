@@ -54,11 +54,9 @@
       var funcOpacity;
       var scaleFactor;
       var rotationAngle, zAngle;
-      var zFact;
-      
+      var zFact;      
 
-      loadValues();
-      
+      loadValues();      
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
       reMap.objCanvas = ctx;
@@ -68,6 +66,8 @@
       var c2 = p(c1, c(0,1));//perpendicular to x
       const o = c(0, 0); //origin
       var c3 = new r(1,zAngle); //test angle of z axis
+
+
 
 
 //-------------------------------------------
@@ -256,10 +256,6 @@
         ctx.fillText("o", reMap.x(tempP.x), reMap.y(tempP.y));
 
       }
-
-
-
-
       //------------------------------------------
       function baseChange(z) {
         //works because initial base is 1,0 and 0,1 (1 and i)
@@ -270,7 +266,7 @@
         var tempC = baseChange(c(x, y));
         return {
           x: tempC.x - z * Math.sin(zAngle) * zFact ,
-          y: tempC.y - z * Math.cos(zAngle) * zFact,
+          y: tempC.y - z * (1-Math.cos(zAngle)) * zFact, //*  shit!
         };
       }
 //-------------------------------------------

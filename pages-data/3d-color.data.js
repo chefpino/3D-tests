@@ -123,10 +123,10 @@ var params = {
     visible: true,
   },
   zAngle: {
-    val: -Math.PI/8,
+    val: Math.PI/8,
     min: -Math.PI,
     max: Math.PI,
-    default: -Math.PI/8,
+    default: Math.PI/8,
     label: "z angle (WIP)",
     minLabel: "-π",
     maxLabel: "+π",

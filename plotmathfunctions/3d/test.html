@@ -13,9 +13,15 @@
   <body onload="init();">
     <table style="border: 1px solid; padding: 0px;" width="100%" height="100%">
         <tr>
-          <td valign="top" colspan="2">
+          <td valign="top" >
                 <div id="menu"></div>
           </td>
+          <td rowspan=2 valign="top" align=left><canvas
+            id="myCanvas"
+            width="1000"
+            height="500"
+            style="border: 0px solid; padding: 0px;"></canvas>
+        </td>
         </tr>
         <tr>
         <td valign="top" width="100">
@@ -24,12 +30,6 @@
           <div id="listFunctions">placeholder</div>
           <img height=1 width=400 src="../../imgs/1pxBlack.gif">
         <div id="dynamicSliders"></div>
-        </td>
-        <td valign="top" align=left><canvas
-            id="myCanvas"
-            width="1000"
-            height="500"
-            style="border: 0px solid; padding: 0px;"></canvas>
         </td>
       </tr>
     </table>
@@ -265,8 +265,8 @@
       function ct(x, y, z) {
         var tempC = baseChange(c(x, y));
         return {
-          x: tempC.x - z * Math.sin(zAngle) * zFact ,
-          y: tempC.y - z * (1-Math.cos(zAngle)) * zFact, //*  shit!
+          x: tempC.x,
+          y: tempC.y + z  * zFact,
         };
       }
 //-------------------------------------------

@@ -1,8 +1,7 @@
-TO DO LIST:
+IDEAS
 
 3d polar
 coloring as option
-length of escape route to color inside? find formula or give up
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 pan all directions?
@@ -13,10 +12,8 @@ readme file for git
 about page
 save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
-fix upanddown function
 animation button next to control!? 
 css, color navigation and controls,
-css, padding
 2D, cleanup - fix function colors, perhaps different color for each function
 dynamic cW, cH depending on page size
 
@@ -32,7 +29,6 @@ graphic improvements:
 - bug: if the intervals are small the overall image is too small even zith zoom = 1
 - auto pan to better fit - ahhhh
 - line width, once for all
-
 ---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)
 don't wipe when changing vector? think about it
@@ -49,15 +45,9 @@ POLAR
 bug when changing x0,x1 through sliders
 grid bug when zooming out
 ---------------------------------------------------------------
-FRACTALS
-better binding of sliders to params
-
-  JULIA
-  in the event listener I need to go through the object returned by the drop down change
-  update the parameters and reload/go
+JULIA
+in the event listener I need to go through the object returned by the drop down change
 perhaps it's worth writing a function that updates 
-one object properties starting from another object having the same prop names 
-destructuring?
  - EXTENDED JULIA
    fix parameters' choices
   ===========================================

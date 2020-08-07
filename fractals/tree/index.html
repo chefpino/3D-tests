@@ -10,14 +10,14 @@
 <body onload="init();">
 <table border="0">
   <tr>
-    <td valign="top">
+    <td valign="top" width=200>
       <div id="menu" ></div>
-      <hr>
+      <img height=1 width=400 src="../../imgs/1pxBlack.gif">
       <div id="content"></div>
-      <hr>
-  <div id="dynamicSliders"></div>
+      <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+      <div id="dynamicSliders"></div>
     </td>
-    <td valign=top><canvas id="myCanvas" width="1000" height="700" style="border:1px solid">loading...</canvas></td>
+    <td valign=top><canvas id="myCanvas" width="1000" height="700" style="border:0px solid">loading...</canvas></td>
   </tr>  
 </table>
 
@@ -42,7 +42,7 @@ var nTrees=1;
 //-------------------------------------------
 function init(){
 
-    genNavigation("tree",false); //navigation menu
+    genNavigation("tree",true); //navigation menu
 
     ctx.shadowBlur = 5;
     ctx.shadowColor = "green";

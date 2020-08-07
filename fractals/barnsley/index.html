@@ -12,9 +12,9 @@
       <tr>
         <td valign="top">
           <div id="menu"></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="content"></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="dynamicSliders"></div>
         </td>
         <td>
@@ -27,7 +27,7 @@
                     position:absolute;
                     left:0px;
                     top:0px;
-                    border: 1px solid;"
+                    border: 0px solid;"
 
           ></canvas>
         </td>
@@ -37,7 +37,7 @@
       "use strict";
       //-------------------------------------------
       function init() {
-        genNavigation("barnsley");
+        genNavigation("barnsley", true);
         generateControls(); //sliders
         //fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();

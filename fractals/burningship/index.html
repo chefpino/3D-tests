@@ -6,22 +6,22 @@
   <body onload="init();">
     <table border="0">
       <tr>
-        <td valign="top">
+        <td valign="top" width=200>
           <div id="menu" ></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="content"></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="dynamicSliders"></div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
           <div id="mousecoordinates">Mouse Coordinates</div>
-          <hr>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
         </td>
         <td>
           <canvas
             id="myCanvas"
             width="1000"
             height="700"
-            style="border: 1px solid;"
+            style="border: 0px solid;"
           ></canvas>
         </td>
       </tr>
@@ -94,7 +94,7 @@ function init() {
           false
         );
 
-  genNavigation("burningship",false); //navigation menu
+  genNavigation("burningship",true); //navigation menu
   generateControls(); // parameters panel
   //fileToParameters(); //initiate event listener
   loadvaluesandgo();

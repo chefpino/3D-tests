@@ -122,6 +122,18 @@ var params = {
     integer: false,
     visible: true,
   },
+  zAngle: {
+    val: -Math.PI/8,
+    min: -Math.PI,
+    max: Math.PI,
+    default: -Math.PI/8,
+    label: "z angle (WIP)",
+    minLabel: "-π",
+    maxLabel: "+π",
+    recalc: true,
+    integer: false,
+    visible: true,
+  },
   functions: {
     f1: "x*x+y*y",
     visible: false,

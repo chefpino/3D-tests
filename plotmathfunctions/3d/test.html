@@ -3,228 +3,323 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../navigation/menu.js"></script>
-    <script "../../navigation/controls.js"></script>
-    <script src="../data/3d-color.data.js"></script>
+    <script src="../../pages-data/3d-color.data.js"></script>
+    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../navigation/controls.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../2d/2d-library.js"></script>
   </head>
 
   <body onload="init();">
-    <table border="0">
-      <tr>
-        <td valign="top">
-          <div id="menu"></div>
-          <hr />
+    <table style="border: 1px solid; padding: 0px;" width="100%" height="100%">
+        <tr>
+          <td valign="top" colspan="2">
+                <div id="menu"></div>
+          </td>
+        </tr>
+        <tr>
+        <td valign="top" width="100">
           <div id="content"></div>
-          <hr />
-          <div id="dynamicSliders"></div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <div id="listFunctions">placeholder</div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+        <div id="dynamicSliders"></div>
         </td>
-        <td>
-          <canvas
+        <td valign="top" align=left><canvas
             id="myCanvas"
-            width="900"
-            height="600"
-            style="border: 1px solid;"
-          ></canvas>
+            width="1000"
+            height="500"
+            style="border: 0px solid; padding: 0px;"></canvas>
         </td>
       </tr>
     </table>
     <script>
-          "use strict";
 
-
-
+      "use strict";
       //-----------------------------
       const canvas = document.getElementById("myCanvas");
-      const cW = 900; //canvas.clientWidth;
-      const cH = 600; //canvas.clientHeight;
+      const cW = 1000; //canvas.clientWidth;
+      const cH = 500; //canvas.clientHeight;
       const ctx = canvas.getContext("2d");
-      //canvas.width = cW;
-      //canvas.height = cH;
-      //ctx.scale(1,1);
+      canvas.width = cW;
+      canvas.height = cH;
+      const fixedOrigin = true; //can be a parameter also
+      const π = Math.PI;
 
       //--- declare global variables
-      var x0 = -10;
-      var x1 = 10;
-      var y0 = -10;
-      var y1 = 10;
-      var resolution = 30;
-
-      var alpha = Math.PI / 6;; //Math.PI/6;
-      var beta = 0; //-Math.PI / 4;
-
+      var x0, x1, y0, y1;
+      var z0, z1;
+      var gridRes;
+      var funcRes;
+      var funcOpacity;
+      var scaleFactor;
+      var rotationAngle, zAngle;
+      var zFact;
       
-      //---point in 3d space  
-      function p3(x, y, z) {
-        return {
-          x: x,
-          y: y,
-          z: z
-        };
-      }
-      //---point on canvas
-      function pc(x,y) {
-        return {
-          x: x,
-          y: y
-        }
-} 
 
+      loadValues();
+      
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
+      reMap.objCanvas = ctx;
+
+      //parameters that decide the new base vectors
+      var c1 = new r(1, rotationAngle);
+      var c2 = p(c1, c(0,1));//perpendicular to x
+      const o = c(0, 0); //origin
+      var c3 = new r(1,zAngle); //test angle of z axis
 
 
 //-------------------------------------------
       function init() {
-        genNavigation("threeD",false);
+        genNavigation("threeD", true);
         generateControls();
-        fileToParameters(); //initiate event listener for file uploader
-        var tempPt1,tempPt2;
-
-        //tests go here ============================
-        //console.log(r2c(0,0,0).x);
-        //plot(r2c(0,0,0).x,r2c(0,0,0).y);
-        //plot(0,0);
-        //drawPavement(50);
-         
-
-        console.log(proj(x0,y0,0)); //ok
-        console.log(proj(x1,y0,0)); //ok
-
-        console.log(proj(x0,y1,0)); //ok
-        console.log(proj(x1,y1,0)); //ok
-
-        tempPt1=r2c(x0, y0,0); 
-        tempPt2=r2c(x0, y1,0); 
-
-        console.log(tempPt1.x + " : " +tempPt1.y)
-        console.log(tempPt2.x + " : " +tempPt2.y)
-
-          drawLine(tempPt1.x, tempPt1.y, tempPt2.x, tempPt2.y);
-
-
-
-        //==========================================
+        displayFunctions();
+        //fileToParameters(); //initiate event listener for file uploader
+        loadvaluesandgo();
       }
+//-------------------------------------------
+      function loadValues(){
+       x0 = params.x0.val;
+       x1 = params.x1.val;
+       y0 = params.y0.val;
+       y1 = params.y1.val;
+       z0 = params.y0.val;
+       z1 = params.y1.val;
+       gridRes=params.gridRes.val;
+       funcRes=params.funcRes.val;
+       funcOpacity=params.funcOpacity.val;
+       scaleFactor=params.scaleFactor.val;
+       rotationAngle=params.rotationAngle.val;
+       zAngle=params.zAngle.val;
+       zFact=params.zFact.val;
+      }
+
+
 //-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
         // -- load parameters from params object
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-        z0 = params.z0.val;
-        z1 = params.z1.val;
-        resolution = params.resolution.val;
+        loadValues();
 
-        //--- calculated params, if any
+        c1 = new r(1, rotationAngle);
+        // c2 = new r(1, π + π / 3);
+        c2 = new r(1, π/2);
+        c2 = p(c1, c2);
+
+
+        reMap.scaleFactor=scaleFactor;
+
+        //to change and improve
+        z0 = params.y0.val;
+        z1 = params.y1.val;
 
         //---clear canvas
         ctx.clearRect(0, 0, cW, cH);
 
         //--- draw base domain
-        //drawPavement(50);
+        drawPavement(gridRes);
 
         //---plot function
-        // wip plotColoredFunction(resolution);
+        plotAll();
       }
+
 //-------------------------------------------
-      function g(x, y) {
-        //return 2-2*Math.sin(.02*(x*x+y*y)); //--sgabello
-        //return Math.sqrt(x*x+y*y);         //--cono
-        //return 5-Math.abs(x+y)-Math.abs(x-y);
-        //return Math.sin(0.5 * x + y) * Math.cos(0.5 * y - x); //bello,0,10,0,10,-12,12
-        // return x*(.5*x-2*y);
-        //return 50/(x*x+y*y);
-        //return x*x-.3*y*y;
-        return 0;
-      }
-//-------------------------------------------
-      function proj(x, y, z) {
-        //1 to 1 projected points onto a screen
+      function drawPavement(res) {
 
-        var xp = x * Math.cos(alpha) - y * Math.sin(alpha);
+        reMap.lineWidth = 0.5;
+       //height = avrg(x1,y1), can be improved
+       var z1 = (x1+y1)/2;
 
-        //distance from screen
-        var p = Math.sqrt(x * x + y * y - xp * xp);
-
-        var yp = p * Math.sin(beta) + z * Math.cos(beta);
-
-        var pt=new pc(xp,yp); //canvas 1 to 1 coordinates
-
-        return pt;
-        
-      }
-//-------------------------------------------
-      function ptoC(xp,yp) {
-
-        //maps the projected point to fit the size of the canvas
-        //function 2d => 2d 
-
-        //middle of actual range
-        var xm = (x1 + x0) / 2;
-        var ym = (y1 + y0) / 2;
-
-        var pmc=proj(xm,ym,0); //middle point of range projected on canvas
-
-        var K=10; //scale
-        
-        return {
-          x: cW/2 + (xp - pmc.x) * K,
-          y: cH/2 - ((yp - pmc.y)) * K
-        };
-      }
-      //====================================================
+        //full horizontal pavement
+          //lines parallel to y axe
+          for (var x = x0; x <= x1; x = x + (x1-x0) / res) {
+            var t1 = ct(x, y0, 0);
+            var t2 = ct(x, y1, 0);
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+          }
+          //lines parallel to x axe
+          for (var y = y0; y <= y1; y = y + (y1-y0) / res) {
+            var t1 = ct(x0, y, 0);
+            var t2 = ct(x1, y, 0);
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+          }
        
-     //--- real point R3 to canvas
+       //vertical pavement, passing by origin (can be improved by passing per mid of range?)   
 
-      function r2c(x,y,z){
-
-         var pt=proj(x,y,z);
-         return ptoC(pt.x,pt.y); //returns ptoC.x, ptoC.y
-
-      }
-       
-      function drawPavement(n){
-        
-        //tiling pavement, then mapping it to canvas
-        const dx = (x1 - x0) / n;
-        const dy = (y1 - y0) / n;
-        var tempPt1;
-        var tempPt2;
-
-        for (let index = 0; index < n + 1; index++) {
-          
-          tempPt1=r2c(x0 + index * dx, y0,0); 
-          tempPt2=r2c(x0 + index * dx, y1,0); 
-
-          drawLine(tempPt1.x, tempPt1.y, tempPt2.x, tempPt2.y);
-
-          tempPt1=r2c(x0, y0 + index * dy,0); 
-          tempPt2=r2c(x1, y0 + index * dy,0); 
-
-          drawLine(tempPt1.x, tempPt1.y, tempPt2.x, tempPt2.y);
-        }
-
-      }
-
-      function drawLine(xo, yo, xe, ye) {
-        ctx.beginPath();
-        ctx.moveTo(xo, yo);
-        ctx.lineTo(xe, ye);
-        ctx.strokeStyle = "#D3D3D3";
-        ctx.stroke();
-      }
-
-
-
-      //-------------------------------------------
-      function plot(x, y) {
-        ctx.beginPath();
-        //ctx.fillStyle = "#FF0000";
-        ctx.fillRect(x, y, 2, 2);
-      }
-      //-------------------------------------------
+       //--- vertical lines along x axe
+       for (var x = 0; x <= x1; x = x + 2 * (x1) / res) {
+            var t1 = ct(x, 0, 0);
+            var t2 = ct(x, 0, z1);
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+          }
+       // --- vertical lines along y axe   
+       for (var y = 0; y <= y1; y = y + 2* (y1) / res) {
+            var t1 = ct(0, y, 0);
+            var t2 = ct(0, y, z1);
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+          }
+      // -- horizontal lines parallel to x axis    
+      for (var z = 0; z <= z1; z = z + 2* (z1) / res) {
+            var t1 = ct(0, 0, z);
+            var t2 = ct(0, y1, z);
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+          }
+      // -- horizontal lines parallel to y axis    
+      for (var z = 0; z <= z1; z = z + 2* (z1) / res) {
+            var t1 = ct(0, 0, z);
+            var t2 = ct(x1, 0, z);
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+          }
 
       
-    </script>
+        //axes in blue, longer than range
+        var t1 = ct(x0 * (1 + 2/res), 0, 0);
+        var t2 = ct(x1 * (1 + 2/res), 0, 0);
+        reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "blue");
+        var t1 = ct(0, y0 * (1 + 2/res), 0);
+        var t2 = ct(0, y1 * (1 + 2/res), 0);
+        reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "blue");
+        var t1 = ct(0, 0, -z1 * (1 + 2/res));
+        var t2 = ct(0, 0, z1 * (1+2/res));
+        reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "blue");
+
+
+        arrowHead(x1 * (1 + 2/res),0,0,1/2*(x1-x0)/gridRes); //x
+        arrowHead(0,y1 * (1 + 2/res),0,1/2*(y1-y0)/gridRes); //y 
+        arrowHead(0,0,z1 * (1 + 2/res),1/2*(x1-x0)/gridRes); //y 
+
+      }
+//-------------------------------------------
+      function plotColoredFunction(objF, res) {
+
+        var dx = (x1 - x0) / res;
+        var dy = (y1 - y0) / res;
+
+        var x = x0;
+        var y = y0;
+        var i = 0;
+        var j = 0;
+
+        var pt, t1, t2;
+        var iTemp;
+
+        reMap.lineWidth = 0.5;
+        ctx.globalAlpha = funcOpacity; //opacity
+
+        for (i = 0; i <= res; i++) {
+          x = x0 + i * dx;
+
+          for (j = 0; j <= res; j++) {
+            y = y0 + j * dy;
+
+            pt = ct(x, y, objF(x, y)); // point transformed in new coord system
+            ctx.beginPath();
+            ctx.moveTo(reMap.x(pt.x), reMap.y(pt.y));
+            pt = ct(x + dx, y, objF(x + dx, y));
+            ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
+            pt = ct(x + dx, y + dy, objF(x + dx, y + dy));
+            ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
+            pt = ct(x, y + dy, objF(x, y + dy));
+            ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
+            ctx.closePath();
+            iTemp = Math.round(256 * objF(x, y));
+            ctx.stroke();
+            ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
+            ctx.fill();
+
+
+            t1 = ct(x, y, objF(x, y)); //baseChange(c(x,y0),c1,c2);
+            t2 = ct(x + dx, y, objF(x + dx, y));
+            reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
+            t2 = ct(x, y + dy, objF(x, y + dy));
+            reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
+          }
+        }
+
+        ctx.globalAlpha = 1; //opacity
+
+        //write x0,x1 etc --- can be done separately and
+        //the number should be on the correct side, following the vector direction
+        var tempP;
+        ctx.fillStyle = "red";
+        tempP=ct(x0,y0,0);
+        ctx.fillText("x0, y0", reMap.x(tempP.x), reMap.y(tempP.y));
+        tempP=ct(x1,y0,0);
+        ctx.fillText("x1, y0", reMap.x(tempP.x), reMap.y(tempP.y));
+        tempP=ct(x0,y1,0);
+        ctx.fillText("x0,y1", reMap.x(tempP.x), reMap.y(tempP.y));
+        tempP=ct(x1,y1,0);
+        ctx.fillText("x1,y1", reMap.x(tempP.x), reMap.y(tempP.y));
+        tempP=ct(0,0,0);
+        ctx.fillText("o", reMap.x(tempP.x), reMap.y(tempP.y));
+
+      }
+
+
+
+
+      //------------------------------------------
+      function baseChange(z) {
+        //works because initial base is 1,0 and 0,1 (1 and i)
+        return s(p(z.x, c1), p(z.y, c2));
+      }
+      // --- ct maps a 3d point to a 2d map representing the 3d space
+      function ct(x, y, z) {
+        var tempC = baseChange(c(x, y));
+        return {
+          x: tempC.x - z * Math.sin(zAngle) * zFact ,
+          y: tempC.y - z * Math.cos(zAngle) * zFact,
+        };
+      }
+//-------------------------------------------
+      function arrowHead(x,y,z,arrLength){
+         //k is the complex number representing the tip of the arrow on the x,y plane
+         //k1 is 45° and of module proportional to the x0,x1,res
+         reMap.lineWidth=1;
+         if (z==0){
+          var k=c(x,y);
+          var k1=p(k,c(-1,1/2)); //angle of arrow sides
+          k1=r(arrLength,m(k1).theta); //new vector, same angle, reduced magnitude
+          k1=s(k,k1); // tip of one side of arrow
+          var t1=ct(k.x,k.y,0);
+          var t2=ct(k1.x,k1.y,0);
+          reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+
+          k1=p(k,c(-1,-1/2)); //opposite angle of arrow side
+          k1=r(arrLength,m(k1).theta); //new vector, same angle, reduced magnitude
+          k1=s(k,k1); // tip of one side of arrow
+          var t2=ct(k1.x,k1.y,0);
+          reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+        }
+        else //z > 0, temporary arrow, improve with quaternions
+        {
+           t1=ct(x,y,z);
+           t2=ct(x+arrLength/2,y,z-arrLength);
+           reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+           t2=ct(x-arrLength/2,y,z-arrLength);
+           reMap.drawSegment(c(t1.x,t1.y),c(t2.x,t2.y),"black");
+        }       
+
+      }
+//-------------------------------------------
+function displayFunctions(){
+  document.getElementById("listFunctions").innerHTML=listFunctions();
+}
+//-------------------------------------------
+function plotAll(){
+
+for (const key in params.functions) {
+    const element = params.functions[key];
+    if (element != false){
+    function g(x,y) {  
+       return eval(element);  
+    };  
+    plotColoredFunction(g,funcRes);
+  }
+}
+}
+    </script> 
   </body>
 </html>

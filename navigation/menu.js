@@ -57,7 +57,7 @@ var navigation = {
   extendedjuliasets: {
     id: "extendedjuliasets",
     link: "../../fractals/julia/extendedjuliasets.html",
-    label: "Extended Julia",
+    label: "Extended",
     hasChildren: false,
     content:
       "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
@@ -107,23 +107,23 @@ var navigation = {
     children: {
       item0: "twoD",
       item1: "threeD",
-      item2: "complex",
-      item3: "unitcircle",
-      item4: "modules",
-      item5: "polar"
+      item2: "polar",
+      item3: "complex",
+      item4: "unitcircle",
+      item5: "modules",
     },
   },
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "Functions y = f(x)",
+    label: "Functions y=f(x)",
     hasChildren: false,
     content: "Click on the graph to zoom. Page under construction",
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "Functions z = f(x,y)",
+    label: "Functions z=f(x,y)",
     hasChildren: false,
     content: "Page under construction",
   },

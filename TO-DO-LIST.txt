@@ -1,5 +1,4 @@
 IDEAS
-
 3d polar
 coloring as option
 pass parameters as URL
@@ -9,13 +8,9 @@ save a url link. access clipboard?
 
 GENERIC
 readme file for git
-about page
-save functions when saving file, at the moment is undefined
 after slider is updated via software the recalc function is not triggered
-animation button next to control!? 
-css, color navigation and controls,
 2D, cleanup - fix function colors, perhaps different color for each function
-dynamic cW, cH depending on page size
+dynamic cW, cH depending on page size?
 
 //-------------------------------------------
 3D COLOR - major WIP
@@ -33,8 +28,6 @@ graphic improvements:
 ROTATIONS (COMPLEX PLANE)
 don't wipe when changing vector? think about it
 list of selected points with possibility of deleting from array
-when over the list highlight corresponding dot
-red dots before starting the animation
 lock to 1 radius
 ---------------------------------------------------------------
 MODULES

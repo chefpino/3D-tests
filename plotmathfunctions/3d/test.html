@@ -137,13 +137,13 @@
           for (var x = x0; x <= x1; x = x + (x1-x0) / res) {
             var t1 = ct(x, y0, 0);
             var t2 = ct(x, y1, 0);
-            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "grey");
           }
           //lines parallel to x axe
           for (var y = y0; y <= y1; y = y + (y1-y0) / res) {
             var t1 = ct(x0, y, 0);
             var t2 = ct(x1, y, 0);
-            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "red");
+            reMap.drawSegment(c(t1.x,t1.y), c(t2.x, t2.y), "grey");
           }
        
        //vertical pavement, passing by origin (can be improved by passing per mid of range?)   
@@ -257,16 +257,19 @@
 
       }
       //------------------------------------------
-      function baseChange(z) {
-        //works because initial base is 1,0 and 0,1 (1 and i)
-        return s(p(z.x, c1), p(z.y, c2));
-      }
+
       // --- ct maps a 3d point to a 2d map representing the 3d space
       function ct(x, y, z) {
-        var tempC = baseChange(c(x, y));
+        var pt={x:x,y:y,z:z};
+        var v1=r(1,rotationAngle); //rotation around z axis
+        var v2=r(1,zAngle);        //rotation around x axis
+        var tempC = p(c(pt.x,pt.y),v1);
+        pt.x=tempC.x; pt.y=tempC.y;
+        tempC = p(c(pt.y,z),v2);
+        pt.y=tempC.x; pt.z=tempC.y;
         return {
-          x: tempC.x,
-          y: tempC.y + z  * zFact,
+          x: pt.x,
+          y: pt.z * zFact,
         };
       }
 //-------------------------------------------

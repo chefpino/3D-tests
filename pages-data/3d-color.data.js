@@ -110,7 +110,7 @@ var params = {
     recalc: true,
     visible: true
   },
-  rotationAngle: {
+  xyAngle: {
     val: -Math.PI/6,
     min: -Math.PI,
     max: Math.PI,

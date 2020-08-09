@@ -53,7 +53,7 @@
       var funcRes;
       var funcOpacity;
       var scaleFactor;
-      var rotationAngle, zyAngle, zxAngle;
+      var xyAngle, zyAngle, zxAngle;
       var zFact;      
 
       loadValues();      
@@ -85,7 +85,7 @@
        funcRes=params.funcRes.val;
        funcOpacity=params.funcOpacity.val;
        scaleFactor=params.scaleFactor.val;
-       rotationAngle=params.rotationAngle.val;
+       xyAngle=params.xyAngle.val;
        zyAngle=params.zyAngle.val;
        zxAngle=params.zxAngle.val;
        zFact=params.zFact.val;
@@ -251,7 +251,7 @@
       // --- ct maps a 3d point to a 2d map representing the 3d space
       function ct(x, y, z) {
         var pt={x:x,y:y,z:z};
-        var v1=r(1,rotationAngle); //rotation around z axis
+        var v1=r(1,xyAngle); //rotation around z axis
         var v2=r(1,zyAngle);       //rotation around x axis
         var v3=r(1,zxAngle);       //rotation around y axis
 

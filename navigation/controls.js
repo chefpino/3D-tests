@@ -57,7 +57,7 @@ function generateControls() {
               `' onchange='updateParam(this.id);${recalc}' >`
           );
           strHTML = strHTML + td(params[key].maxLabel);
-          strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);">+</a><br><a href="#" onclick="upAndDown('${key}',-1);">-</a>`);
+          strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);">&uarr;</a><br><a href="#" onclick="upAndDown('${key}',-1);">&darr;</a>`);
           strHTML +=
           td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`,65);
           break;

@@ -6,7 +6,7 @@
     <script src="../../pages-data/3d-color.data.js"></script>
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../navigation/controls.js"></script>
-    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../../math-library/remap.js"></script>
     <script src="../2d/2d-library.js"></script>
   </head>
 
@@ -39,7 +39,7 @@
       //-----------------------------
       const canvas = document.getElementById("myCanvas");
       const cW = 1000; //canvas.clientWidth;
-      const cH = 500; //canvas.clientHeight;
+      const cH = 700; //canvas.clientHeight;
       const ctx = canvas.getContext("2d");
       canvas.width = cW;
       canvas.height = cH;
@@ -53,21 +53,16 @@
       var funcRes;
       var funcOpacity;
       var scaleFactor;
-      var rotationAngle, zAngle;
+      var rotationAngle, zyAngle, zxAngle;
       var zFact;      
 
       loadValues();      
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
       reMap.objCanvas = ctx;
+      reMap.lockRatio=true;
 
-      //parameters that decide the new base vectors
-      var c1 = new r(1, rotationAngle);
-      var c2 = p(c1, c(0,1));//perpendicular to x
-      const o = c(0, 0); //origin
-      var c3 = new r(1,zAngle); //test angle of z axis
-
-
+      
 
 
 //-------------------------------------------
@@ -77,6 +72,10 @@
         displayFunctions();
         //fileToParameters(); //initiate event listener for file uploader
         loadvaluesandgo();
+        
+        //debug
+        reMap.lineWidth = 5;
+        reMap.drawSegment(c(0,0),c(1,1),"black");
       }
 //-------------------------------------------
       function loadValues(){
@@ -91,7 +90,8 @@
        funcOpacity=params.funcOpacity.val;
        scaleFactor=params.scaleFactor.val;
        rotationAngle=params.rotationAngle.val;
-       zAngle=params.zAngle.val;
+       zyAngle=params.zyAngle.val;
+       zxAngle=params.zxAngle.val;
        zFact=params.zFact.val;
       }
 
@@ -102,12 +102,6 @@
 
         // -- load parameters from params object
         loadValues();
-
-        c1 = new r(1, rotationAngle);
-        // c2 = new r(1, π + π / 3);
-        c2 = new r(1, π/2);
-        c2 = p(c1, c2);
-
 
         reMap.scaleFactor=scaleFactor;
 
@@ -262,14 +256,21 @@
       function ct(x, y, z) {
         var pt={x:x,y:y,z:z};
         var v1=r(1,rotationAngle); //rotation around z axis
-        var v2=r(1,zAngle);        //rotation around x axis
+        var v2=r(1,zyAngle);       //rotation around x axis
+        var v3=r(1,zxAngle);       //rotation around y axis
+
         var tempC = p(c(pt.x,pt.y),v1);
         pt.x=tempC.x; pt.y=tempC.y;
         tempC = p(c(pt.y,z),v2);
         pt.y=tempC.x; pt.z=tempC.y;
+        
+        tempC = p(c(pt.x,pt.z),v3);
+        pt.x=tempC.x; pt.y=tempC.y;
+
+
         return {
           x: pt.x,
-          y: pt.z * zFact,
+          y: pt.y * zFact,
         };
       }
 //-------------------------------------------

@@ -24,6 +24,7 @@ graphic improvements:
 - bug: if the intervals are small the overall image is too small even zith zoom = 1
 - auto pan to better fit - ahhhh
 - line width, once for all
+- fix rotation around x axis
 ---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)
 don't wipe when changing vector? think about it

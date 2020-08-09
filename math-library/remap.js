@@ -1,3 +1,5 @@
+
+//for testing new features of remapping
 class ReMap {
   constructor(cW, cH, x0, x1, y0, y1, fixedOrigin) {
     this.cW = cW;
@@ -9,7 +11,7 @@ class ReMap {
     this.fixedOrigin = fixedOrigin;
     this.lineWidth=0.1;         //default line width
     this.strokeStyle="#000000"; //default stroke style
-    this._lockRatio=false;
+    
   }
 
   //methods -----------------
@@ -28,7 +30,7 @@ class ReMap {
     ratio=(this._lockRatio) ? this.cW / (this.x1 - this.x0) : ratio;
 
     return (
-      (this.fixedOrigin ? this.cH/2 - sf * y * ratio : this.cH- sf * (y-this.y0) * ratio)
+      (this.fixedOrigin ? this.cH/2 - sf * y * ratio:this.cH- sf * (y-this.y0) * ratio)
     )
   }
 

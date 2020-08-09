@@ -5,6 +5,7 @@
     <script src="../../navigation/menu.js"></script>
     <script src="../../pages-data/3d-color.data.js"></script>
     <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/math.quaternions.js"></script>
     <script src="../../navigation/controls.js"></script>
     <script src="../../math-library/remap.js"></script>
     <script src="../2d/2d-library.js"></script>
@@ -53,7 +54,7 @@
       var funcRes;
       var funcOpacity;
       var scaleFactor;
-      var rotationAngle, zyAngle, zxAngle;
+      var xyAngle, zyAngle, zxAngle;
       var zFact;      
 
       loadValues();      
@@ -71,11 +72,7 @@
         generateControls();
         displayFunctions();
         //fileToParameters(); //initiate event listener for file uploader
-        loadvaluesandgo();
-        
-        //debug
-        reMap.lineWidth = 5;
-        reMap.drawSegment(c(0,0),c(1,1),"black");
+        loadvaluesandgo();        
       }
 //-------------------------------------------
       function loadValues(){
@@ -89,7 +86,7 @@
        funcRes=params.funcRes.val;
        funcOpacity=params.funcOpacity.val;
        scaleFactor=params.scaleFactor.val;
-       rotationAngle=params.rotationAngle.val;
+       xyAngle=params.xyAngle.val;
        zyAngle=params.zyAngle.val;
        zxAngle=params.zxAngle.val;
        zFact=params.zFact.val;
@@ -254,24 +251,20 @@
 
       // --- ct maps a 3d point to a 2d map representing the 3d space
       function ct(x, y, z) {
-        var pt={x:x,y:y,z:z};
-        var v1=r(1,rotationAngle); //rotation around z axis
-        var v2=r(1,zyAngle);       //rotation around x axis
-        var v3=r(1,zxAngle);       //rotation around y axis
-
-        var tempC = p(c(pt.x,pt.y),v1);
-        pt.x=tempC.x; pt.y=tempC.y;
-        tempC = p(c(pt.y,z),v2);
-        pt.y=tempC.x; pt.z=tempC.y;
         
-        tempC = p(c(pt.x,pt.z),v3);
-        pt.x=tempC.x; pt.y=tempC.y;
-
-
+        let pt1=qt(0,x,y,z);
+        let xAxis=qt(0,1,0,0);
+        let yAxis=qt(0,0,1,0);
+        let zAxis=qt(0,0,0,1);
+        
+        pt1=qRot(zAxis,xyAngle,pt1);
+        pt1=qRot(yAxis,zxAngle,pt1);
+        pt1=qRot(xAxis,zyAngle,pt1);
+        
         return {
-          x: pt.x,
-          y: pt.y * zFact,
-        };
+          x: pt1.b,
+          y: pt1.d 
+        }
       }
 //-------------------------------------------
       function arrowHead(x,y,z,arrLength){

@@ -135,10 +135,10 @@ var params = {
     visible: true,
   },
   zxAngle: {
-    val: -Math.PI/8,
+    val: 0,
     min: -Math.PI,
     max: Math.PI,
-    default: -Math.PI/8,
+    default: 0,
     label: "x,z rotation",
     minLabel: "-π",
     maxLabel: "+π",

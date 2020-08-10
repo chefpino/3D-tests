@@ -11,6 +11,7 @@ readme file for git
 after slider is updated via software the recalc function is not triggered
 2D, cleanup - fix function colors, perhaps different color for each function
 dynamic cW, cH depending on page size?
+library math.matrices.js?
 
 //-------------------------------------------
 3D COLOR - major WIP

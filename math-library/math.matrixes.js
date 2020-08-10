@@ -109,19 +109,19 @@ function displayMatrix(mtx){
 
    var m=matrixSize(mtx).m;
    var n=matrixSize(mtx).n;
-   var str="<table border=1>";
+   var str="<table style='border: 1px solid black; padding: 1px;' >";
    
    for(var i=1; i < m+1; i++) {
     str = str + "<tr>";
       for(var j=1; j < n+1; j++) {
-        str = str + "<td>" + mtx[i][j] + "</td>";
+        str = str + "<td width=25>" + mtx[i][j] + "</td>";
       }
    str = str + "</tr>";   
    }
    str = str + "</table>";   
    return str;
 }
-
+//--------------------------------------
 
 //---unit matrix of size n
 function unitMatrix(n){
@@ -136,6 +136,22 @@ function unitMatrix(n){
   
 
 }
+//--------------------------------------
+
+function transposeMatrix(mtx){
+
+  var m=matrixSize(mtx).m;
+  var n=matrixSize(mtx).n;
+  var newmatrix=new matrix (n,m);
+  for(var i=1; i < m+1; i++) {
+    for(var j=1; j < n+1; j++) {
+      newmatrix[j][i] = mtx[i][j];
+    }
+ }
+ return newmatrix;
+
+}
+
 
 
 //--- cross product?

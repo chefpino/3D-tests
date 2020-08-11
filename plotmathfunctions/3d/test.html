@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../navigation/menu.js"></script>
-    <script src="../../pages-data/3d-color.data.js"></script>
+    <script src="../../pages-data/3d.pespective.data.js"></script>
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/math.quaternions.js"></script>
     <script src="../../navigation/controls.js"></script>
@@ -255,6 +255,9 @@
       function ct(x, y, z) {
         
         let pt1=qt(0,x,y,z);
+
+        
+
         let xAxis=qt(0,1,0,0);
         let yAxis=qt(0,0,1,0);
         let zAxis=qt(0,0,0,1);
@@ -263,11 +266,10 @@
         pt1=qRot(yAxis,zxAngle,pt1);
         pt1=qRot(xAxis,zyAngle,pt1);
 
-        //for perspective it's better to translate the point away from the canvas
-        //pt1.c + Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0))
+        //for perspective it's better to translate the rotated point away from the canvas
         let perspectiveFactor=1;
-        if (perspective){perspectiveFactor=pt1.c+Math.sqrt((y1-y0)*(y1-y0));}
-         
+        if (perspective){perspectiveFactor=pt1.c+ 2*y1;} //works, a bit far
+        //if (perspective){perspectiveFactor=4+pt1.c;} //works, a bit far
 
         return {
           x: pt1.b/perspectiveFactor,

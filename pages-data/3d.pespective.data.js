@@ -61,10 +61,10 @@ var params = {
     steps: 9
   },
   funcRes: {
-    val: 30,
+    val: 100,
     min: 10,
     max: 100,
-    default: 30,
+    default: 100,
     label: "function resolution",
     minLabel: "10",
     maxLabel: "100",
@@ -85,11 +85,11 @@ var params = {
     visible: true
   },
   funcOpacity: {
-    val: 0.2,
+    val: 0.1,
     min: 0,
     max: 1,
     steps: 10,
-    default: 0.2,
+    default: 0.1,
     label: "opacity",
     minLabel: "transparent",
     maxLabel: "opaque",
@@ -98,11 +98,11 @@ var params = {
     visible: true
   },
   scaleFactor: {
-    val: .4,
+    val: 1.6,
     min: 0,
     max: 2,
     steps: 10,
-    default: .4,
+    default: 1.6,
     label: "zoom",
     minLabel: "far",
     maxLabel: "close",
@@ -123,10 +123,10 @@ var params = {
     visible: true,
   },
   zyAngle: {
-    val: -0.314,
+    val: 0.44,
     min: -Math.PI,
     max: Math.PI,
-    default: -0.314,
+    default: 0.44,
     label: "y,z rotation",
     minLabel: "-π",
     maxLabel: "+π",
@@ -146,9 +146,24 @@ var params = {
     integer: false,
     visible: true,
   },  
- 
+  perspective: {
+    val: 1,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 1,
+    label: "perspective<br>work in progress",
+    minLabel: "off",
+    maxLabel: "on",
+    integer: true,
+    steps: 1,
+    recalc: true,
+    controlType: "checkbox",
+  }, 
+  
   functions: {
-    f1: "Math.sin(x*x+y*y)",
+    f1: "Math.sqrt(1-x*x-y*y)",
+    f2: "-Math.sqrt(1-x*x-y*y)",
     visible: false,
   },
   goButton: {

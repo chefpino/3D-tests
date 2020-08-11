@@ -1,6 +1,6 @@
 // MATRIX LIBRARY - written by Chef Pino Ficara ----
 
-
+// --- main function generating a m x n matrit prefilled with zeros -------
 function matrix(m,n){
   var newmatrix = [];
     for(var i=1; i < m+1; i++) {
@@ -65,6 +65,21 @@ function multiplyMatrix(m1,m2){
 }
 //--------------------------------------
 
+function scalarMultiplication(k,mtx){
+
+  let m=matrixSize(mtx).m; //rows of first matrix
+  let n=matrixSize(mtx).n; //columns of second
+  let newmatrix=new matrix(m,n);
+  
+  for(var i=1; i < m+1; i++) {
+      for(var j=1; j < n+1; j++) {
+        newmatrix[i][j] = k * mtx[i][j];
+      }
+   }
+
+  return newmatrix;
+}
+//--------------------------------------
 function dotProduct(v1,v2){
 
   if (v1.length != v2.length){
@@ -77,9 +92,7 @@ function dotProduct(v1,v2){
   
   return dp;
 }
-
-// --- row(mtx,r), col(mtx,c)
-
+//--------------------------------------
 function row(mtx,r){
   if (r<1 || r > matrixSize(mtx).n){
     return "ERROR: requesting row index " + r + ", max is " + matrixSize(mtx).n;
@@ -109,12 +122,12 @@ function displayMatrix(mtx){
 
    var m=matrixSize(mtx).m;
    var n=matrixSize(mtx).n;
-   var str="<table style='border: 1px solid black; padding: 1px;' >";
+   var str="<table style='border: 1px solid grey; padding: 0px;' >";
    
    for(var i=1; i < m+1; i++) {
-    str = str + "<tr>";
+    str = str + "<tr height=35 style='border: 1px solid grey; padding: 0px;'>";
       for(var j=1; j < n+1; j++) {
-        str = str + "<td width=25>" + mtx[i][j] + "</td>";
+        str = str + "<td align=center width=35 style='border: 1px solid grey; padding: 0px;'>" + mtx[i][j] + "</td>";
       }
    str = str + "</tr>";   
    }
@@ -133,25 +146,22 @@ function unitMatrix(n){
    }
 
   return newmatrix;
-  
-
-}
+  }
 //--------------------------------------
-
 function transposeMatrix(mtx){
 
   var m=matrixSize(mtx).m;
   var n=matrixSize(mtx).n;
   var newmatrix=new matrix (n,m);
+  
   for(var i=1; i < m+1; i++) {
     for(var j=1; j < n+1; j++) {
       newmatrix[j][i] = mtx[i][j];
     }
- }
+  }
  return newmatrix;
-
 }
-
+//--------------------------------------
 
 
 //--- cross product?

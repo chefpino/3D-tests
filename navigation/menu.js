@@ -123,9 +123,17 @@ var navigation = {
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "Functions z=f(x,y)",
+    label: "Functions z=f(x,y) - quaternions",
+    hasChildren: true,
+    children: {item0: "threeDmatrixes"},
+    content: "rotations obtained with quaternions",
+  },
+  threeDmatrixes: {
+    id: "threeDmatrixes",
+    link: "../../plotmathfunctions/3d/3d-matrixes.html",
+    label: "Functions z=f(x,y) - matrixes",
     hasChildren: false,
-    content: "Page under construction",
+    content: "rotations obtained with matrixes",
   },
   complex: {
     id: "complex",

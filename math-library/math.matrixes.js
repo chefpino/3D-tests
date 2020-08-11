@@ -45,16 +45,20 @@ function addMatrix(m1,m2){
 //--------------------------------------
 function multiplyMatrix(m1,m2){
 
-  let m=matrixSize(m1).m; //rows of first matrix
-  let n=matrixSize(m2).n; //columns of second
+  let m=matrixSize(m1).n; //columns of first matrix
+  let n=matrixSize(m2).m; //rows of second
 
   //verify row x column sizes
   if (m != n){
     return "ERROR, matrixes are of different sizes, cannot be multiplied"
   }
+
   
+  m=matrixSize(m1).m; //rows of first matrix
+  n=matrixSize(m2).n; //columns of second
+
   let newmatrix=new matrix(m,n);
-  
+
   for(var i=1; i < m+1; i++) {
       for(var j=1; j < n+1; j++) {
         newmatrix[i][j] = dotProduct(row(m1,i),column(m2,j));
@@ -81,10 +85,12 @@ function scalarMultiplication(k,mtx){
 }
 //--------------------------------------
 function dotProduct(v1,v2){
-
+  
+  /*
   if (v1.length != v2.length){
     return "dot product ERROR, vectors are of different sizes"
   }
+  */
   let dp=0;
   for(var i=1; i < v1.length; i++) {
     dp=dp+v1[i]*v2[i];
@@ -139,10 +145,10 @@ function displayMatrix(mtx){
 //---unit matrix of size n
 function unitMatrix(n){
 
-  let newmatrix=new matrix(n,n); //prefilled with all 0
+  let newmatrix=new matrix(n,n); //prefilled with all 0s
   
   for(var i=1; i < n+1; i++) {
-        newmatrix[i][i] = 1;
+        newmatrix[i][i] = 1;    //1s assigned to diagonal
    }
 
   return newmatrix;

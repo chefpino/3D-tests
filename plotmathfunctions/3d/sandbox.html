@@ -2,46 +2,69 @@
 <html>
 
 <body>
+  <script src="../../math-library/math.matrixes.js"></script>
+  <script src="../../pages-data/3d-color.data.js"></script>
+
 <table>
   <tr>
-    <td><canvas id="myCanvas" width="100" height="100" style="border:1px solid"></canvas></td>
-    <td>
-        <div id="a"></div><br>
-        <div id="b"></div><br>
-        <div id="c"></div><br>
-        <div id="d"></div><br>
+    <td><div id=test></div></td>
     </td>
 </tr>
 </table>
 <script>
+  "use strict";
+  var xyAngle, zyAngle, zxAngle;
 
-  var alpha=0; //Math.PI/4; //45°
-  var beta=-Math.PI/4; //45°;
+       xyAngle=params.xyAngle.val;
+       zyAngle=params.zyAngle.val;
+       zxAngle=params.zxAngle.val;
 
-function proj(x,y,z){
-       
-       //1 to 1 projected points onto a screen
 
-       var xp = x * Math.cos(alpha) - y * Math.sin(alpha);
+       let Rx=new matrix(3,3);
+            Rx[1][1]=1;
+                      Rx[2][2]=Math.cos(zyAngle); Rx[2][3]=-Math.sin(zyAngle);
+                      Rx[3][2]=Math.sin(zyAngle); Rx[3][3]= Math.cos(zyAngle);
+                      
+        let Ry=new matrix(3,3);
+            Ry[1][1]=Math.cos(zxAngle);           Ry[1][3] = Math.sin(zxAngle);
+                                       Ry[2][2]=1;
+            Ry[3][1]=-Math.sin(zxAngle);          Ry[3][3] = Math.cos(zxAngle);
 
-       //distance from screen
-       var p  = Math.sqrt(x*x+y*y-xp*xp);
+        let Rz=new matrix(3,3);
+            Rz[1][1]=Math.cos(xyAngle); Rz[1][2]= -Math.sin(xyAngle);
+            Rz[2][1]=Math.sin(xyAngle); Rz[2][2]=  Math.cos(xyAngle);
+                                                                     Rz[3][3]=1;
 
-       var yp = p * Math.sin(beta) + z * Math.cos(beta);
-       
-       return {
-         xp: xp,
-         yp: yp
-       } 
 
-     }
 
-    console.log(proj(0,1,2).xp);
-    console.log(proj(0,1,2).yp);
-
+function ct(x, y, z) {
+        
 
 
      
+        var rotatedVector=new matrix(3,1);
+        rotatedVector[1][1]=x;
+        rotatedVector[2][1]=y;
+        rotatedVector[3][1]=z;
+
+
+        //apply rotations
+        rotatedVector=multiplyMatrix(Rx,rotatedVector);
+        console.table(rotatedVector);
+        rotatedVector=multiplyMatrix(Ry,rotatedVector);
+        console.table(rotatedVector);
+        rotatedVector=multiplyMatrix(Rz,rotatedVector);
+        console.table(rotatedVector);
+
+        return {
+          x: rotatedVector[1][1],
+          y: rotatedVector[3][1]
+        }
+      }
+
+console.table(ct(1,1,1));
+
+document.getElementById("test").innerHTML=displayMatrix(Rx);
      
      
      </script>

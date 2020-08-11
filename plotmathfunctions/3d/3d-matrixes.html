@@ -6,6 +6,7 @@
     <script src="../../pages-data/3d-color.data.js"></script>
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/math.quaternions.js"></script>
+    <script src="../../math-library/math.matrixes.js"></script>
     <script src="../../navigation/controls.js"></script>
     <script src="../../math-library/remap.js"></script>
     <script src="../2d/2d-library.js"></script>
@@ -56,19 +57,21 @@
       var scaleFactor;
       var xyAngle, zyAngle, zxAngle;
       var zFact;      
+      let Rx=new matrix(3,3);
+      let Ry=new matrix(3,3);
+      let Rz=new matrix(3,3);   
 
       loadValues();      
+
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
       reMap.objCanvas = ctx;
       reMap.lockRatio=true;
 
-      
-
 
 //-------------------------------------------
       function init() {
-        genNavigation("threeD", true);
+        genNavigation("threeDmatrixes", true);
         generateControls();
         displayFunctions();
         //fileToParameters(); //initiate event listener for file uploader
@@ -90,6 +93,20 @@
        zyAngle=params.zyAngle.val;
        zxAngle=params.zxAngle.val;
        zFact=params.zFact.val;
+
+            Rx[1][1]=1;
+                      Rx[2][2]=Math.cos(zyAngle); Rx[2][3]=-Math.sin(zyAngle);
+                      Rx[3][2]=Math.sin(zyAngle); Rx[3][3]= Math.cos(zyAngle);
+                      
+            Ry[1][1]=Math.cos(zxAngle);           Ry[1][3] = Math.sin(zxAngle);
+                                       Ry[2][2]=1;
+            Ry[3][1]=-Math.sin(zxAngle);          Ry[3][3] = Math.cos(zxAngle);
+
+            Rz[1][1]=Math.cos(xyAngle); Rz[1][2]= -Math.sin(xyAngle);
+            Rz[2][1]=Math.sin(xyAngle); Rz[2][2]=  Math.cos(xyAngle);
+                                                                     Rz[3][3]=1;
+
+
       }
 
 
@@ -251,19 +268,20 @@
 
       // --- ct maps a 3d point to a 2d map representing the 3d space
       function ct(x, y, z) {
-        
-        let pt1=qt(0,x,y,z);
-        let xAxis=qt(0,1,0,0);
-        let yAxis=qt(0,0,1,0);
-        let zAxis=qt(0,0,0,1);
-        
-        pt1=qRot(zAxis,xyAngle,pt1);
-        pt1=qRot(yAxis,zxAngle,pt1);
-        pt1=qRot(xAxis,zyAngle,pt1);
-        
+     
+        var rotatedVector=new matrix(3,1);
+        rotatedVector[1][1]=x;
+        rotatedVector[2][1]=y;
+        rotatedVector[3][1]=z;
+
+        //apply rotations
+        rotatedVector=multiplyMatrix(Rz,rotatedVector);
+        rotatedVector=multiplyMatrix(Rx,rotatedVector);
+        rotatedVector=multiplyMatrix(Ry,rotatedVector);
+
         return {
-          x: pt1.b,
-          y: pt1.d 
+          x: rotatedVector[1][1],
+          y: rotatedVector[3][1]
         }
       }
 //-------------------------------------------

@@ -1,5 +1,7 @@
 IDEAS
 3d polar
+3d solids
+projectivities
 coloring as option
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams

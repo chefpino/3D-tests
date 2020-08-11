@@ -116,14 +116,14 @@ var navigation = {
   twoD: {
     id: "twoD",
     link: "../../plotmathfunctions/2d/index.html",
-    label: "Functions y=f(x)",
+    label: "y=f(x)",
     hasChildren: false,
     content: "Click on the graph to zoom. Page under construction",
   },
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "Functions z=f(x,y) - quaternions",
+    label: "f(x,y) - quaternions",
     hasChildren: true,
     children: {item0: "threeDmatrixes"},
     content: "rotations obtained with quaternions",
@@ -131,7 +131,7 @@ var navigation = {
   threeDmatrixes: {
     id: "threeDmatrixes",
     link: "../../plotmathfunctions/3d/3d-matrixes.html",
-    label: "Functions z=f(x,y) - matrixes",
+    label: "f(x,y) - matrixes",
     hasChildren: false,
     content: "rotations obtained with matrixes",
   },
@@ -146,7 +146,7 @@ var navigation = {
   polar: {
     id: "polar",
     link: "../../plotmathfunctions/polar/index.html",
-    label: "Polar",
+    label: "Polar z=f(t)",
     hasChildren: false,
     content:
       "under development",

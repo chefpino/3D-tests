@@ -1,7 +1,6 @@
 IDEAS
 3d polar
-3d solids
-projectivities
+3d solids - perhaps points in 3d
 coloring as option
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
@@ -22,6 +21,7 @@ dynamic cW, cH depending on page size?
  - coloring
  - z1?
  - separate math functions from main script
+ - improve distance from screen in perspective function
 graphic improvements:
 - bug: if the intervals are small the overall image is too small even zith zoom = 1
 - auto pan to better fit - ahhhh

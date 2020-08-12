@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../navigation/menu.js"></script>
-    <script src="../../pages-data/3d.pespective.data.js"></script>
+    <script src="../../pages-data/3d.parametrical.data.js"></script>
     <script src="../../math-library/math-complexnumbers.js"></script>
     <script src="../../math-library/math.quaternions.js"></script>
     <script src="../../navigation/controls.js"></script>
@@ -194,14 +194,17 @@
 function temp(t){
 
   return {
-      x: Math.cos(t),
-      y: Math.sin(t),
+      x: Math.cos(3*t)*(3+Math.cos(4*t)),
+      y: Math.sin(3*t)*(3+Math.cos(4*t)),
       z: Math.sin(4*t)
   }
 
 }
-
-
+/*
+x: Math.cos(3*t)*(3+Math.cos(4*t)),
+      y: Math.sin(3*t)*(3+Math.cos(4*t)),
+      z: Math.sin(4*t)
+*/
 //-------------------------------------------
       function plotColoredFunction(objF, res) {
 

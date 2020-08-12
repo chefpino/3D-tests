@@ -1,6 +1,6 @@
-//wip
+//quaternion operations library - written by chef Pino Ficara
 
-
+//---------------------------------------------------
 function qt(a,b,c,d){
   return {
     a: a,
@@ -63,7 +63,6 @@ function p_rot(u,angle){
   }
 }
 //---------------------------------------------------
-
 function qRot(axis,angle,pt){
   //u axis of rotation - quaternion with real part zero
   // angle of rotation around u
@@ -73,7 +72,7 @@ function qRot(axis,angle,pt){
   pr=p_rot(u,angle);
 
   return pq(pq(pr,pt),conj(pr));
- 
+//---------------------------------------------------
 
 
 

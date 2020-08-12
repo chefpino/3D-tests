@@ -61,13 +61,13 @@ var params = {
     steps: 9
   },
   funcRes: {
-    val: 100,
+    val: 200,
     min: 10,
-    max: 100,
-    default: 100,
+    max: 200,
+    default: 200,
     label: "function resolution",
     minLabel: "10",
-    maxLabel: "100",
+    maxLabel: "200",
     integer: true,
     recalc: true,
     visible: true
@@ -162,9 +162,10 @@ var params = {
   }, 
   
   functions: {
-    f1: "Math.sqrt(1-x*x-y*y)",
-    f2: "-Math.sqrt(1-x*x-y*y)",
-    visible: false,
+    x: "Math.cos(3*t)*(3+Math.cos(4*t))",
+    y: "Math.sin(3*t)*(3+Math.cos(4*t))",
+    z: "Math.sin(4*t)",
+  visible: false,
   },
   goButton: {
     show: false,

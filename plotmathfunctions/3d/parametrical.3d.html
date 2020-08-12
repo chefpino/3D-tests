@@ -194,9 +194,9 @@
 function temp(t){
 
   return {
-      x: Math.cos(3*t)*(3+Math.cos(4*t)),
-      y: Math.sin(3*t)*(3+Math.cos(4*t)),
-      z: Math.sin(4*t)
+      x: eval(params.functions.x),
+      y: eval(params.functions.y),
+      z: eval(params.functions.z),
   }
 
 }
@@ -294,7 +294,7 @@ x: Math.cos(3*t)*(3+Math.cos(4*t)),
       }
 //-------------------------------------------
 function displayFunctions(){
-  document.getElementById("listFunctions").innerHTML=listFunctions();
+  document.getElementById("listFunctions").innerHTML=listFunctions(false,false);
 }
 //-------------------------------------------
 function plotAll(){

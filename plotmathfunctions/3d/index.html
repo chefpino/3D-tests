@@ -57,6 +57,7 @@
       var xyAngle, zyAngle, zxAngle;
       var zFact;      
       var perspective;
+      var diagonal; //maxim distance between 2 points on the pavement
 
       loadValues();      
 
@@ -92,6 +93,7 @@
        zxAngle=params.zxAngle.val;
        zFact=params.zFact.val;
        perspective=params.perspective.val;
+       diagonal=Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
       }
 
 
@@ -267,9 +269,9 @@
         pt1=qRot(xAxis,zyAngle,pt1);
 
         //for perspective it's better to translate the rotated point away from the canvas
+        //diagonal is the size of the pavement diagonal
         let perspectiveFactor=1;
-        if (perspective){perspectiveFactor=pt1.c+ 2*y1;} //works, a bit far
-        //if (perspective){perspectiveFactor=4+pt1.c;} //works, a bit far
+        if (perspective){perspectiveFactor=pt1.c+ diagonal;} //works, a bit far
 
         return {
           x: pt1.b/perspectiveFactor,

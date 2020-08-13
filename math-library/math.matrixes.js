@@ -57,6 +57,9 @@ function multiplyMatrix(m1,m2){
   m=matrixSize(m1).m; //rows of first matrix
   n=matrixSize(m2).n; //columns of second
 
+  //console.log("m: " + m + ", n: " + n);
+
+
   let newmatrix=new matrix(m,n);
 
   for(var i=1; i < m+1; i++) {
@@ -73,6 +76,7 @@ function scalarMultiplication(k,mtx){
 
   let m=matrixSize(mtx).m; //rows of first matrix
   let n=matrixSize(mtx).n; //columns of second
+
   let newmatrix=new matrix(m,n);
   
   for(var i=1; i < m+1; i++) {
@@ -91,6 +95,10 @@ function dotProduct(v1,v2){
     return "dot product ERROR, vectors are of different sizes"
   }
   */
+  console.table(v1);
+  console.table(v2);
+
+
   let dp=0;
   for(var i=1; i < v1.length; i++) {
     dp=dp+v1[i]*v2[i];
@@ -100,7 +108,7 @@ function dotProduct(v1,v2){
 }
 //--------------------------------------
 function row(mtx,r){
-  if (r<1 || r > matrixSize(mtx).n){
+  if (r<1 || r > matrixSize(mtx).m){
     return "ERROR: requesting row index " + r + ", max is " + matrixSize(mtx).n;
   }
   var n=matrixSize(mtx).n;
@@ -108,11 +116,16 @@ function row(mtx,r){
   for(var i=1; i < n+1; i++) {
       vector[i]=mtx[r][i];
    }
+
+  //debug
+  console.log("row: " + r); 
+  console.table(vector); 
+
   return vector;
 }
 //--------------------------------------
 function column(mtx,c){
-  if (c<1 || c > matrixSize(mtx).m){
+  if (c<1 || c > matrixSize(mtx).n){
     return "ERROR: requesting column index " + c + ", max is " + matrixSize(mtx).m;
   }
   var m=matrixSize(mtx).m;
@@ -120,6 +133,9 @@ function column(mtx,c){
   for(var i=1; i < m+1; i++) {
       vector[i]=mtx[i][c];
    }
+   console.log("column: " + c); 
+   console.table(vector); 
+  
   return vector; 
 }
 //--------------------------------------

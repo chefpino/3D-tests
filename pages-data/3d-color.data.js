@@ -152,7 +152,7 @@ var params = {
     min: 0,
     max: 1,
     default: 0,
-    label: "perspective<br>work in progress",
+    label: "perspective",
     minLabel: "off",
     maxLabel: "on",
     integer: true,

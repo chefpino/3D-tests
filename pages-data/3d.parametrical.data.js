@@ -93,7 +93,9 @@ var params = {
     maxLabel: "200",
     integer: true,
     recalc: true,
-    visible: true
+    visible: true,
+    steps: 20
+
   },
   gridRes: {
     val: 10,
@@ -175,7 +177,7 @@ var params = {
     min: 0,
     max: 1,
     default: 1,
-    label: "perspective<br>work in progress",
+    label: "perspective",
     minLabel: "off",
     maxLabel: "on",
     integer: true,

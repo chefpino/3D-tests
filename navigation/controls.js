@@ -57,7 +57,7 @@ function generateControls() {
               `' onchange='updateParam(this.id);${recalc}' >`
           );
           strHTML = strHTML + td(params[key].maxLabel);
-          strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></a><br><a href="#" onclick="upAndDown('${key}',-1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></a>`);
+          strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=10 height=10 "></a><br><a href="#" onclick="upAndDown('${key}',-1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=10 height=10 "></a>`);
           strHTML +=
           td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`,65);
           break;
@@ -184,7 +184,7 @@ function sliderToParam(strParam, iValue) {
 //-------------------------------------------
 function td(x,w) {
   w=(typeof(w)=="undefined") ? "":"width=" + w;
-  return `<td ${w} align=center style='border: 1px solid black;'>` + x + "</td>";
+  return `<td ${w} align=center valign=middle style='border: 1px solid black;'>` + x + "</td>";
 }
 //===========================================================================
 // section dedicated to dropdown menus.

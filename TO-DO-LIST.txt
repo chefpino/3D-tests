@@ -21,14 +21,10 @@ dynamic cW, cH depending on page size?
  - on/off pavement?
  - pavement should be centered around axis, now it's off as it starts from the edges of the domain
  - coloring
- - z1?
- - separate math functions from main script
  - improve distance from screen in perspective function
 graphic improvements:
 - bug: if the intervals are small the overall image is too small even zith zoom = 1
 - auto pan to better fit - ahhhh
-- line width, once for all
-- fix rotation around x axis
 ---------------------------------------------------------------
 ROTATIONS (COMPLEX PLANE)
 don't wipe when changing vector? think about it

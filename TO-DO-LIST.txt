@@ -2,6 +2,7 @@ IDEAS
 3d polar
 3d solids - perhaps points in 3d
 polar 2d fix resolution not ad dt but as res
+remove z factor?
 coloring as option
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams

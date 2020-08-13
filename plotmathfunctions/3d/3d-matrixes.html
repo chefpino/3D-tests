@@ -57,9 +57,12 @@
       var scaleFactor;
       var xyAngle, zyAngle, zxAngle;
       var zFact;      
+      var perspective; //boolean
       let Rx=new matrix(3,3);
       let Ry=new matrix(3,3);
       let Rz=new matrix(3,3);   
+      var diagonal; //maxim distance between 2 points on the pavement
+
 
       loadValues();      
 
@@ -93,6 +96,8 @@
        zyAngle=params.zyAngle.val;
        zxAngle=params.zxAngle.val;
        zFact=params.zFact.val;
+       perspective=params.perspective.val;
+       diagonal=Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
 
             Rx[1][1]=1;
                       Rx[2][2]=Math.cos(zyAngle); Rx[2][3]=-Math.sin(zyAngle);
@@ -279,9 +284,14 @@
         rotatedVector=multiplyMatrix(Rx,rotatedVector);
         rotatedVector=multiplyMatrix(Ry,rotatedVector);
 
+        //for perspective it's better to traslate the rotated point away from the canvas
+        //diagonal is the size of the pavement diagonal
+        let perspectiveFactor=1;
+        if (perspective){perspectiveFactor=rotatedVector[2][1]+ diagonal;} //works, a bit far
+
         return {
-          x: rotatedVector[1][1],
-          y: rotatedVector[3][1]
+          x: rotatedVector[1][1]  / perspectiveFactor,
+          y: (rotatedVector[3][1] / perspectiveFactor) * zFact
         }
       }
 //-------------------------------------------

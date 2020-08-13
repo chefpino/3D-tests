@@ -57,9 +57,6 @@ function multiplyMatrix(m1,m2){
   m=matrixSize(m1).m; //rows of first matrix
   n=matrixSize(m2).n; //columns of second
 
-  //console.log("m: " + m + ", n: " + n);
-
-
   let newmatrix=new matrix(m,n);
 
   for(var i=1; i < m+1; i++) {
@@ -90,14 +87,9 @@ function scalarMultiplication(k,mtx){
 //--------------------------------------
 function dotProduct(v1,v2){
   
-  /*
   if (v1.length != v2.length){
     return "dot product ERROR, vectors are of different sizes"
   }
-  */
-  console.table(v1);
-  console.table(v2);
-
 
   let dp=0;
   for(var i=1; i < v1.length; i++) {
@@ -116,11 +108,6 @@ function row(mtx,r){
   for(var i=1; i < n+1; i++) {
       vector[i]=mtx[r][i];
    }
-
-  //debug
-  console.log("row: " + r); 
-  console.table(vector); 
-
   return vector;
 }
 //--------------------------------------
@@ -133,9 +120,6 @@ function column(mtx,c){
   for(var i=1; i < m+1; i++) {
       vector[i]=mtx[i][c];
    }
-   console.log("column: " + c); 
-   console.table(vector); 
-  
   return vector; 
 }
 //--------------------------------------

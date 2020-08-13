@@ -146,6 +146,20 @@ var params = {
     integer: false,
     visible: true,
   },  
+  perspective: {
+    val: 0,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 0,
+    label: "perspective<br>work in progress",
+    minLabel: "off",
+    maxLabel: "on",
+    integer: true,
+    steps: 1,
+    recalc: true,
+    controlType: "checkbox",
+  }, 
  
   functions: {
     f1: "Math.sin(x*x+y*y)",

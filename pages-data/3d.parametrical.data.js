@@ -1,5 +1,28 @@
 var params = {
-  x0: {
+  t0: {
+    val: 0,
+    min: 0,
+    max: 2*Math.PI,
+    default: 0,
+    label: "t0",
+    minLabel: "0",
+    maxLabel: "2PI",
+    recalc: true,
+    integer: false,
+    visible: true,
+  },
+  t1: {
+    val: 2*Math.PI,
+    min: 2*Math.PI,
+    max: 4*Math.PI,
+    default: 2*Math.PI,
+    label: "t1",
+    minLabel: "2PI",
+    maxLabel: "4PI",
+    recalc: true,
+    integer: false,
+    visible: true,
+  },  x0: {
     val: -2,
     min: -10,
     max: 0,

@@ -146,7 +146,18 @@ var navigation = {
   polar: {
     id: "polar",
     link: "../../plotmathfunctions/polar/index.html",
-    label: "Polar z=f(t)",
+    label: "R -> R2",
+    hasChildren: true,
+    children: {
+      item1: "RR3",
+    },
+    content:
+      "under development",
+  },
+  RR3: {
+    id: "RR3",
+    link: "../../plotmathfunctions/3d/parametrical.3d.html",
+    label: "R -> R3",
     hasChildren: false,
     content:
       "under development",

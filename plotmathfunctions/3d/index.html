@@ -53,7 +53,7 @@
 
       //--- declare global variables
       var x0, x1, y0, y1;
-      var z0, z1;
+      //var z0, z1;
       var gridRes;
       var funcRes;
       var funcOpacity;
@@ -86,8 +86,8 @@
        x1 = params.x1.val;
        y0 = params.y0.val;
        y1 = params.y1.val;
-       z0 = params.y0.val;
-       z1 = params.y1.val;
+       //z0 = params.y0.val;
+       //z1 = params.y1.val;
        gridRes=params.gridRes.val;
        funcRes=params.funcRes.val;
        funcOpacity=params.funcOpacity.val;
@@ -99,8 +99,6 @@
        perspective=params.perspective.val;
        diagonal=Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
       }
-
-
 //-------------------------------------------
       function loadvaluesandgo() {
         //go! button
@@ -111,8 +109,8 @@
         reMap.scaleFactor=scaleFactor;
 
         //to change and improve
-        z0 = params.y0.val;
-        z1 = params.y1.val;
+        //z0 = params.y0.val;
+        //z1 = params.y1.val;
 
         //---clear canvas
         ctx.clearRect(0, 0, cW, cH);
@@ -128,8 +126,8 @@
       function drawPavement(res) {
 
         reMap.lineWidth = 0.5;
-       //height = avrg(x1,y1), can be improved
-       var z1 = (x1+y1)/2;
+        //height = avrg(x1,y1), can be improved
+        var z1 = (x1+y1)/2;
 
         //full horizontal pavement
           //lines parallel to y axe

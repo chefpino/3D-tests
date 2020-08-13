@@ -53,7 +53,6 @@
 
       //--- declare global variables
       var x0, x1, y0, y1;
-      var z0, z1;
       var t0, t1;
       var gridRes;
       var funcRes;
@@ -84,8 +83,6 @@
        x1 = params.x1.val;
        y0 = params.y0.val;
        y1 = params.y1.val;
-       z0 = params.y0.val;
-       z1 = params.y1.val;
        gridRes=params.gridRes.val;
        funcRes=params.funcRes.val;
        funcOpacity=params.funcOpacity.val;
@@ -101,16 +98,11 @@
       }
 //-------------------------------------------
       function loadvaluesandgo() {
-        //go! button
 
         // -- load parameters from params object
         loadValues();
 
         reMap.scaleFactor=scaleFactor;
-
-        //to change and improve
-        z0 = params.y0.val;
-        z1 = params.y1.val;
 
         //---clear canvas
         ctx.clearRect(0, 0, cW, cH);

@@ -50,7 +50,6 @@
 
       //--- declare global variables
       var x0, x1, y0, y1;
-      var z0, z1;
       var gridRes;
       var funcRes;
       var funcOpacity;
@@ -86,8 +85,6 @@
        x1 = params.x1.val;
        y0 = params.y0.val;
        y1 = params.y1.val;
-       z0 = params.y0.val;
-       z1 = params.y1.val;
        gridRes=params.gridRes.val;
        funcRes=params.funcRes.val;
        funcOpacity=params.funcOpacity.val;
@@ -98,35 +95,29 @@
        zFact=params.zFact.val;
        perspective=params.perspective.val;
        diagonal=Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
-
+      
+       //rotation matrices ---
+            //----------------------------------------------------------------          
             Rx[1][1]=1;
                       Rx[2][2]=Math.cos(zyAngle); Rx[2][3]=-Math.sin(zyAngle);
                       Rx[3][2]=Math.sin(zyAngle); Rx[3][3]= Math.cos(zyAngle);
-                      
+            //----------------------------------------------------------------          
             Ry[1][1]=Math.cos(zxAngle);           Ry[1][3] = Math.sin(zxAngle);
                                        Ry[2][2]=1;
             Ry[3][1]=-Math.sin(zxAngle);          Ry[3][3] = Math.cos(zxAngle);
-
+            //----------------------------------------------------------------          
             Rz[1][1]=Math.cos(xyAngle); Rz[1][2]= -Math.sin(xyAngle);
             Rz[2][1]=Math.sin(xyAngle); Rz[2][2]=  Math.cos(xyAngle);
                                                                      Rz[3][3]=1;
-
-
-      }
-
-
+            //----------------------------------------------------------------          
+          }
 //-------------------------------------------
       function loadvaluesandgo() {
-        //go! button
 
         // -- load parameters from params object
         loadValues();
 
-        reMap.scaleFactor=scaleFactor;
-
-        //to change and improve
-        z0 = params.y0.val;
-        z1 = params.y1.val;
+        reMap.scaleFactor=scaleFactor; //cannot be moved inside loadValues
 
         //---clear canvas
         ctx.clearRect(0, 0, cW, cH);
@@ -137,7 +128,6 @@
         //---plot function
         plotAll();
       }
-
 //-------------------------------------------
       function drawPavement(res) {
 

@@ -25,47 +25,40 @@
 //--- global PARAMETERS ------------------------------------------------------------------  
 const myCanvas = document.getElementById("myCanvas");
 const ctx = myCanvas.getContext("2d"); 
-const cW=myCanvas.clientWidth;
-const cH=myCanvas.clientHeight;
-const pi=Math.PI;
+const cW=1000;
+const cH=700;
+const pi=Math.PI; //in use in functions file
 
-//--- defined to be global, actual values taken from the ext. file data.js
-var initAngle=0;       
-var dAngle=0;          
-var initLen=0;         
-var minLen=0;          
-var reduction=0;       
-var initTrunk=0;       
-var trunkReduction=0;   
-var minBranch=0;       
-var nTrees=1;
+var initAngle;       
+var dAngle;          
+var initLen;         
+var minLen;          
+var reduction;       
+var initTrunk;       
+var trunkReduction;   
+var minBranch;       
+var nTrees;
 //-------------------------------------------
 function init(){
-
     genNavigation("tree",true); //navigation menu
-
     ctx.shadowBlur = 5;
     ctx.shadowColor = "green";
-    
     generateControls();
-    //fileToParameters(); //initiate event listener for file uploader
     loadvaluesandgo();
   }  
 //-------------------------------------------
+function loadValues(){
+  for (var key in params) {
+        if (params[key].visible != false) {
+          eval(`${key}=params.${key}.val`);
+        }
+      }
+
+}
+//-------------------------------------------
 function loadvaluesandgo() {
 
-//go! button
-
-// -- load parameters from params object
-    initAngle=params["initAngle"].val;          
-    dAngle=params["dAngle"].val;            
-    initLen=params["initLen"].val;       
-    minLen=params["minLen"].val;  
-    reduction=params["reduction"].val;       
-    initTrunk=params["initTrunk"].val;       
-    trunkReduction=params["trunkReduction"].val;    
-    minBranch=params["minBranch"].val;  
-    nTrees=1 * params.nTrees.val;
+  loadValues();
 
   //---clear canvas
   ctx.clearRect(0, 0, cW, cH);  

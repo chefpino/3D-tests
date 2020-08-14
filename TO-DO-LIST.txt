@@ -1,4 +1,5 @@
 IDEAS
+movie from one parameter
 3d solids - perhaps points in 3d
 polar 2d fix resolution not ad dt but as res
 coloring as option
@@ -9,10 +10,10 @@ save a url link. access clipboard?
 in polar 3d display different labels for functions entered by user (boring)
 //-------------------------------------------
 GENERIC
-readme file for git
 after slider is updated via software the recalc function is not triggered
 2D, cleanup - fix function colors, perhaps different color for each function
 dynamic cW, cH depending on page size?
+fix layers size in 2d functions
 //-------------------------------------------
 3D COLOR - major WIP
  - what to do when it's not in the origin

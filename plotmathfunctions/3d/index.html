@@ -43,10 +43,8 @@
     const yAxis = qt(0, 0, 1, 0);
     const zAxis = qt(0, 0, 0, 1);
     const fixedOrigin = true; //can be a parameter also
-    const π = Math.PI;
 
     //--- declare global variables
-
     var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
     var x0, x1, y0, y1;
     var gridRes;
@@ -69,7 +67,6 @@
     //-------------------------------------------
     //load values from param object, be careful, globalvariables' names are
     //must match the key names
-
     function loadValues() {
 
       for (var key in params) {
@@ -88,7 +85,6 @@
       reMap.x1 = x1;
       reMap.y0 = y0;
       reMap.y1 = y1;
-
       reMap.lockRatio = true;
       reMap.scaleFactor = scaleFactor;
 

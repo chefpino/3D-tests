@@ -61,21 +61,15 @@
       const ctx = myCanvas.getContext("2d");
       var   cW = myCanvas.clientWidth;
       var   cH = myCanvas.clientHeight
-      const fixedOrigin = params.fixedOrigin.val;
+      const fixedOrigin = false;
 
       //--- parameters the user can change via sliders if made visible
       // -- global variables
       var x0, x1, y0, y1;
       var zoomIn;
-      loadValues();
-      var lockRatio=params.lockratio.val;
-
-
-      //wip
-      const drawGrid=true;
-
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-      reMap.objCanvas = ctx;
+      var grid=true;
+      var lockratio;
+      var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin); //functions to map real value to canvas coordinates
 
       //--- calculated params
       var dx = reMap.dx();
@@ -85,7 +79,7 @@
 
 //---------------------------------------
 function init(){
-
+       
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(
           "mousemove",
@@ -126,44 +120,43 @@ function init(){
           false
         );
 
-  
+  //init fixed values ---
+  reMap.objCanvas = ctx;
+  reMap.lineWidth=0.1;
+  reMap.strokeStyle="#BBBBBB";
 
   genNavigation("twoD",true);
   generateControls();
   displayFunctions();
-  //fileToParameters(); //initiate event listener for file uploader
-  reMap.lineWidth=0.1;
-  reMap.strokeStyle="#BBBBBB";
-  reMap.drawAxis();
-  if (params.grid.val==true){ reMap.drawGrid()};
-  plotAll();
+  loadvaluesandgo();
 
 }
 //---------------------------------------
 function loadValues(){
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-        zoomIn=params.zoomIn.val;
+  for (var key in params) {
+        if (params[key].visible != false) {
+          eval(`${key}=params.${key}.val`);
+        }
+      }
 
 }
 //---------------------------------------
 function loadvaluesandgo() {
 
-        checkLockRatio();
-        loadValues();
-         
-        //assign values to reMap object
-        reMap.x0 = x0;
-        reMap.x1 = x1;
-        reMap.y0 = y0;
-        reMap.y1 = y1;
+  loadValues();
+  checkratio();
+  
+  //assign values to reMap object
+  reMap.x0 = x0;
+  reMap.x1 = x1;
+  reMap.y0 = y0;
+  reMap.y1 = y1;
 
-        reMap.clearcanvas();
-        plotAll();
-        reMap.drawAxis();
-        if (params.grid.val==true){ 
+  reMap.clearcanvas();
+  plotAll();
+  reMap.drawAxis();
+  
+  if (grid){ 
             reMap.lineWidth=0.1;
             reMap.drawGrid();
           };
@@ -171,7 +164,7 @@ function loadvaluesandgo() {
       }
 //---------------------------------------
 
-function checkLockRatio(){
+function checkratio(){
 
              if (params.lockratio.val==1){
               
@@ -199,8 +192,6 @@ function checkLockRatio(){
               document.getElementById("y1").style.display="block";
               
              }
-
-
 
 }
 

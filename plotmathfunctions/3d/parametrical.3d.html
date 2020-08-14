@@ -203,9 +203,7 @@ x: Math.cos(3*t)*(3+Math.cos(4*t)),
         var x = temp(t).x;
         var y = temp(t).y;
         var z = temp(t).z;
-
-        console.table(temp(t));
-        
+        var strColor="";
 
         var pt1 = ct(x, y, z);
         var pt2;
@@ -217,10 +215,13 @@ x: Math.cos(3*t)*(3+Math.cos(4*t)),
 
         for (i = 1; i <= res; i++) {
           t = t0 + i * dt;
+          strColor = Math.round(256 * (t-t0)/(t1-t0));
+          console.log(strColor);
           pt2=ct(temp(t).x,temp(t).y,temp(t).z);
           
                 
           ctx.beginPath();
+          ctx.strokeStyle = `rgb(${strColor},100,100)`;
           ctx.moveTo(reMap.x(pt1.x), reMap.y(pt1.y));
           ctx.lineTo(reMap.x(pt2.x), reMap.y(pt2.y));
           ctx.stroke();
@@ -228,6 +229,7 @@ x: Math.cos(3*t)*(3+Math.cos(4*t)),
 
           }
         }
+        
 
 
       //------------------------------------------

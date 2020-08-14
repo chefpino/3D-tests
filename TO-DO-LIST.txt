@@ -1,7 +1,6 @@
 IDEAS
 3d solids - perhaps points in 3d
 polar 2d fix resolution not ad dt but as res
-remove z factor?
 coloring as option
 pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
@@ -17,10 +16,10 @@ dynamic cW, cH depending on page size?
 //-------------------------------------------
 3D COLOR - major WIP
  - what to do when it's not in the origin
- - on/off pavement?
  - pavement should be centered around axis, now it's off as it starts from the edges of the domain
  - coloring
  - improve distance from screen in perspective function
+ - improve arrowHead
 graphic improvements:
 - bug: if the intervals are small the overall image is too small even zith zoom = 1
 - auto pan to better fit - ahhhh

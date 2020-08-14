@@ -20,7 +20,7 @@
           <td rowspan=2 valign="top" align=left><canvas
             id="myCanvas"
             width="1000"
-            height="500"
+            height="700"
             style="border: 0px solid; padding: 0px;"></canvas>
         </td>
         </tr>
@@ -45,13 +45,11 @@
       const xAxis=qt(0,1,0,0);
       const yAxis=qt(0,0,1,0);
       const zAxis=qt(0,0,0,1);
-
-      canvas.width = cW;
-      canvas.height = cH;
       const fixedOrigin = true; //can be a parameter also
       const π = Math.PI;
 
       //--- declare global variables
+      var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
       var x0, x1, y0, y1;
       var t0, t1;
       var gridRes;
@@ -63,14 +61,12 @@
       var perspective;
       var diagonal; //maxim distance between 2 points on the pavement
 
-      loadValues();      
 
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
-      reMap.objCanvas = ctx;
-      reMap.lockRatio=true;
 
 //-------------------------------------------
       function init() {
+        reMap.objCanvas = ctx;
+        reMap.lockRatio=true;
         genNavigation("RR3", true);
         generateControls();
         displayFunctions();
@@ -78,31 +74,26 @@
         loadvaluesandgo();        
       }
 //-------------------------------------------
-      function loadValues(){
-       x0 = params.x0.val;
-       x1 = params.x1.val;
-       y0 = params.y0.val;
-       y1 = params.y1.val;
-       gridRes=params.gridRes.val;
-       funcRes=params.funcRes.val;
-       funcOpacity=params.funcOpacity.val;
-       scaleFactor=params.scaleFactor.val;
-       xyAngle=params.xyAngle.val;
-       zyAngle=params.zyAngle.val;
-       zxAngle=params.zxAngle.val;
-       zFact=params.zFact.val;
-       perspective=params.perspective.val;
-       diagonal=Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
-       t0=params.t0.val;
-       t1=params.t1.val;
-      }
+function loadValues() {
+
+for (var key in params) {
+  if (params[key].visible != false) {
+    eval(`${key}=params.${key}.val`);
+  }
+}
+}
 //-------------------------------------------
       function loadvaluesandgo() {
 
         // -- load parameters from params object
         loadValues();
+        reMap.x0 = x0;
+        reMap.x1 = x1;
+        reMap.y0 = y0;
+        reMap.y1 = y1;
 
         reMap.scaleFactor=scaleFactor;
+        diagonal=Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
 
         //---clear canvas
         ctx.clearRect(0, 0, cW, cH);
@@ -181,7 +172,7 @@
 
       }
 //---------------------------------
-function temp(t){
+function tempF(t){
 
   return {
       x: eval(params.functions.x),
@@ -190,19 +181,14 @@ function temp(t){
   }
 
 }
-/*
-x: Math.cos(3*t)*(3+Math.cos(4*t)),
-      y: Math.sin(3*t)*(3+Math.cos(4*t)),
-      z: Math.sin(4*t)
-*/
 //-------------------------------------------
       function plotColoredFunction(objF, res) {
 
         var t=t0;
         var dt=(t1-t0)/res; //param
-        var x = temp(t).x;
-        var y = temp(t).y;
-        var z = temp(t).z;
+        var x = tempF(t).x;
+        var y = tempF(t).y;
+        var z = tempF(t).z;
         var strColor="";
 
         var pt1 = ct(x, y, z);
@@ -216,17 +202,13 @@ x: Math.cos(3*t)*(3+Math.cos(4*t)),
         for (i = 1; i <= res; i++) {
           t = t0 + i * dt;
           strColor = Math.round(256 * (t-t0)/(t1-t0));
-          console.log(strColor);
-          pt2=ct(temp(t).x,temp(t).y,temp(t).z);
-          
-                
+          pt2=ct(tempF(t).x,tempF(t).y,tempF(t).z);                
           ctx.beginPath();
           ctx.strokeStyle = `rgb(${strColor},100,100)`;
           ctx.moveTo(reMap.x(pt1.x), reMap.y(pt1.y));
           ctx.lineTo(reMap.x(pt2.x), reMap.y(pt2.y));
           ctx.stroke();
           pt1=pt2
-
           }
         }
         

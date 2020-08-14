@@ -104,11 +104,14 @@ function crossProduct(a,b){
   if (a.length != b.length){
     return "cross product ERROR, vectors are of different sizes"
   }
+  if (a.length != 4){
+    return "cross product ERROR, vectors are not in R3"
+  }
   
   var vTemp=new Array(a.length);
       
       vTemp[1] =   a[2] * b[3] - a[3] * b[2];
-      vTemp[2] = -(a[1] * b[3] - a[3] * b[1]);
+      vTemp[2] =  (a[1] * b[3] - a[3] * b[1]) * (-1);
       vTemp[3] =   a[1] * b[2] - a[2] * b[1];
 
   return vTemp;    

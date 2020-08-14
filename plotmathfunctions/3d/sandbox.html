@@ -19,61 +19,11 @@
 </table>
 <script>
   "use strict";
-  var xyAngle, zyAngle, zxAngle;
+  
+  var a=[null,1,0,0];
+  var b=[null,0,1,0];
 
-       xyAngle=params.xyAngle.val;
-       zyAngle=params.zyAngle.val;
-       zxAngle=params.zxAngle.val;
-
-
-       let Rx=new matrix(3,3);
-            Rx[1][1]=1;
-                      Rx[2][2]=Math.cos(zyAngle); Rx[2][3]=-Math.sin(zyAngle);
-                      Rx[3][2]=Math.sin(zyAngle); Rx[3][3]= Math.cos(zyAngle);
-                      
-        let Ry=new matrix(3,3);
-            Ry[1][1]=Math.cos(zxAngle);           Ry[1][3] = Math.sin(zxAngle);
-                                       Ry[2][2]=1;
-            Ry[3][1]=-Math.sin(zxAngle);          Ry[3][3] = Math.cos(zxAngle);
-
-        let Rz=new matrix(3,3);
-            Rz[1][1]=Math.cos(xyAngle); Rz[1][2]= -Math.sin(xyAngle);
-            Rz[2][1]=Math.sin(xyAngle); Rz[2][2]=  Math.cos(xyAngle);
-                                                                     Rz[3][3]=1;
-
-
-
-function ct(x, y, z) {
-     
-        var rotatedVector=new matrix(3,1);
-        rotatedVector[1][1]=x;
-        rotatedVector[2][1]=y;
-        rotatedVector[3][1]=z;
-
-
-        //apply rotations
-        rotatedVector=multiplyMatrix(Rx,rotatedVector);
-        console.table(rotatedVector);
-        rotatedVector=multiplyMatrix(Ry,rotatedVector);
-        console.table(rotatedVector);
-        rotatedVector=multiplyMatrix(Rz,rotatedVector);
-        console.table(rotatedVector);
-
-        return {
-          x: rotatedVector[1][1],
-          y: rotatedVector[3][1]
-        }
-      }
-
-var m1=new matrix(2,1);
-m1[1][1]=1; m1[2][1]=0;
-
-var m2=new matrix(1,2);
-m2[1][1]=1; m2[1][2]=0;
-
-document.getElementById("test1").innerHTML=displayMatrix(m1);
-document.getElementById("test2").innerHTML=displayMatrix(m2);
-document.getElementById("test3").innerHTML=displayMatrix(multiplyMatrix(m1,m2));
+  console.table(crossProduct(a,b));
      
      
      </script>

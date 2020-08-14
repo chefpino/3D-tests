@@ -99,6 +99,22 @@ function dotProduct(v1,v2){
   return dp;
 }
 //--------------------------------------
+function crossProduct(a,b){
+  
+  if (a.length != b.length){
+    return "cross product ERROR, vectors are of different sizes"
+  }
+  
+  var vTemp=new Array(a.length);
+      
+      vTemp[1] =   a[2] * b[3] - a[3] * b[2];
+      vTemp[2] = -(a[1] * b[3] - a[3] * b[1]);
+      vTemp[3] =   a[1] * b[2] - a[2] * b[1];
+
+  return vTemp;    
+  
+}
+//--------------------------------------
 function row(mtx,r){
   if (r<1 || r > matrixSize(mtx).m){
     return "ERROR: requesting row index " + r + ", max is " + matrixSize(mtx).n;

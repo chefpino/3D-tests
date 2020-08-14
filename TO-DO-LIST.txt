@@ -1,5 +1,4 @@
 IDEAS
-3d polar
 3d solids - perhaps points in 3d
 polar 2d fix resolution not ad dt but as res
 remove z factor?
@@ -8,7 +7,7 @@ pass parameters as URL
 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 pan all directions?
 save a url link. access clipboard?
-in polar 3d display different labels for functions entered by user
+in polar 3d display different labels for functions entered by user (boring)
 //-------------------------------------------
 GENERIC
 readme file for git

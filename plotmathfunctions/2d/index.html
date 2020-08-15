@@ -71,9 +71,6 @@
       var lockratio;
       var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin); //functions to map real value to canvas coordinates
 
-      //--- calculated params
-      var dx = reMap.dx();
-      var dy = reMap.dy();
 
 
 
@@ -152,14 +149,21 @@ function loadvaluesandgo() {
   reMap.y0 = y0;
   reMap.y1 = y1;
 
+  //--- calculated params
+  var dx = reMap.dx();
+  var dy = reMap.dy();
+
   reMap.clearcanvas();
-  plotAll();
-  reMap.drawAxis();
+  reMap.lineWidth=0.1;
   
   if (grid){ 
-            reMap.lineWidth=0.1;
+            reMap.strokeStyle="#333333";
             reMap.drawGrid();
           };
+
+  reMap.drawAxis();
+
+  plotAll();
  }
 //---------------------------------------
 
@@ -196,32 +200,29 @@ function checkratio(){
 
 //-------------------------------------------
 function plotAll(){
-
+  
   for (const key in params.functions) {
       const element = params.functions[key];
       if (element != false){
       function f(x) {  
          return eval(element);  
       };  
-      plotFunction(f,"#0000FF");
+      plotFunction(f,"blue");
     }
   }
 }
 //-------------------------------------------
-function plotFunction(objF,strColor) {
-
-  ctx.beginPath();
-  ctx.strokeStyle = strColor; //"#FF0000";
-  ctx.lineWidth=0.3;
-//  ctx.strokeStyle = "#0000D3";
+function plotFunction(objF,strColor) {  
 
   var xi=x0;
   var yi=objF(x0);
   var yii=0;
   var yc=0;
-  
-  ctx.moveTo(0,reMap.y(yi)); //first point on the map
 
+  ctx.beginPath();
+  ctx.strokeStyle = strColor;
+  ctx.lineWidth=0.3;
+  ctx.moveTo(0,reMap.y(yi)); //first point on the map
 
 //max resolution, 1px at the time
   for (let xc = 0; xc < cW+1; xc++) {
@@ -231,17 +232,13 @@ function plotFunction(objF,strColor) {
     ctx.lineTo(xc,yc);
     ctx.moveTo(xc,yc); //move to next point  
   }
-    ctx.stroke();
- 
+  ctx.stroke();
 }
 //-------------------------------------------
-
 function displayFunctions(){
-
 document.getElementById("listFunctions").innerHTML=listFunctions();
-
 }
-
+//-------------------------------------------
 
 
 </script> 

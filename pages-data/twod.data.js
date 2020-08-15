@@ -89,11 +89,11 @@ var params = {
     controlType: "checkbox",
   },
   grid: {
-    val: 1,
+    val: 0,
     visible: true,
     min: 0,
     max: 1,
-    default: 1,
+    default: 0,
     label: "show grid",
     minLabel: "no",
     maxLabel: "yes",

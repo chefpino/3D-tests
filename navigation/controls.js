@@ -124,9 +124,7 @@ function upAndDown(strKey, j) {
 
   document.getElementById(strKey).value = currentVal;
 
-  //update param function?
-
-
+  //update param
   params[strKey].val = currentVal;
   document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal * 1000) / 1000;
 
@@ -134,11 +132,6 @@ function upAndDown(strKey, j) {
   if (params[strKey].recalc == true) {
     loadvaluesandgo();
   }
-
-
-
-
-
 }
 //-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider

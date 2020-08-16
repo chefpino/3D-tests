@@ -4,14 +4,13 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../../css/main.css" />
   <script src="../../navigation/menu.js"></script>
-  <script src="../../pages-data/3d.pespective.data.js"></script>
+  <script src="../../pages-data/3d.perspective.data.js"></script>
   <script src="../../math-library/math-complexnumbers.js"></script>
   <script src="../../math-library/math.quaternions.js"></script>
   <script src="../../navigation/controls.js"></script>
   <script src="../../math-library/remap.js"></script>
   <script src="../2d/2d-library.js"></script>
 </head>
-
 <body onload="init();">
   <table style="border: 1px solid; padding: 0px;" width="100%" height="100%">
     <tr>
@@ -20,22 +19,24 @@
       </td>
       <td rowspan=2 valign="top" align=left>
         <canvas id="myCanvas" width="1000" height="700"
-          style="z-index: 1; border: 1px solid; padding: 0px;"></canvas>
+          style="z-index: 1; border: 0px solid; padding: 0px;"></canvas>
           <div id="panningTool"
           style="z-index: 2;
-          position:absolute;
-          right:310px;
-          top:10px;"
+          position: absolute;;
+          right:100px;
+          top:20px;"
           height="300px" width="300">
           <table style="border: 1px solid">
             <tr>
-              <td></td><td align=center><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></td><td></td>
+              <td></td><td align=center><a href="#" onclick="panning('udpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></a></td><td></td>
             </tr>  
             <tr>
-              <td><img src="https://chefpino.github.io/fun/imgs/arrowLeft.jpg" width=15 height=15 "></td><td></td><td><img src="https://chefpino.github.io/fun/imgs/arrowRight.jpg" width=15 height=15 "></td>
+              <td><a href="#" onclick="panning('lrpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowLeft.jpg" width=15 height=15 "></a></td>
+              <td></td>
+              <td><a href="#" onclick="panning('lrpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowRight.jpg" width=15 height=15 "></a></td>
             </tr> 
             <tr>
-              <td></td><td><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></td><td></td>
+              <td></td><td><a href="#" onclick="panning('udpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></a></td><td></td>
             </tr>  
           </table>          
         </div>
@@ -274,10 +275,13 @@
       if (perspective) {
         perspectiveFactor = pt1.c + diagonal;
       } //works, a bit far
+      
+      let lrpanning=params.lrpanning.val * 1;
+      let udpanning=params.udpanning.val * 1;
 
       return {
-        x:  pt1.b / perspectiveFactor,
-        y: (pt1.d / perspectiveFactor) * zFact
+        x: (pt1.b / perspectiveFactor) + lrpanning,
+        y: ((pt1.d / perspectiveFactor) * zFact) + udpanning
       }
     }
     //-------------------------------------------
@@ -326,6 +330,12 @@
         }
       }
     }
+//-------------------------------
+
+
+
+
+
   </script>
 </body>
 

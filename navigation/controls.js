@@ -121,17 +121,27 @@ function upAndDown(strKey, j) {
   currentVal = currentVal + step;
   currentVal = (currentVal < min) ? max : currentVal;
   currentVal = (currentVal > max) ? min : currentVal;
-
-  document.getElementById(strKey).value = currentVal;
-
+  
+  if (params[strKey].visible){
+      document.getElementById(strKey).value = currentVal;
+      document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal * 1000) / 1000;
+    }
   //update param
   params[strKey].val = currentVal;
-  document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal * 1000) / 1000;
+  console.log(currentVal);
 
   //if recalc is true reload with new values
   if (params[strKey].recalc == true) {
     loadvaluesandgo();
   }
+}
+//------------------------------
+//simplified version of the upAndDown function, for panning only.  
+function panning(strKey, j) {
+  var currentVal = params[strKey].val;
+  currentVal = currentVal + j;
+  params[strKey].val = currentVal;
+  loadvaluesandgo();
 }
 //-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider

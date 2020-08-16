@@ -242,13 +242,7 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
   strTemp += ((nestinglevel==0) ? "</tr></table>":"");
   return strTemp;
 }
-
-
-
-
-
-
-
+//------------------------------
 function genNavigation(strCurrentPage, isHorizontal) {
   
   if(!isHorizontal){
@@ -272,9 +266,6 @@ function genNavigation(strCurrentPage, isHorizontal) {
   document.title = navigation[strCurrentPage].label;
   document.getElementById("content").innerHTML =
     ((equationImg!="")?`<img src="${equationImg}"><br>`:"") + 
-    "<b>" +
-    navigation[strCurrentPage].label +
-    "</b><br>" +
     navigation[strCurrentPage].content;
 }
 

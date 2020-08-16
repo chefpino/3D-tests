@@ -1,5 +1,5 @@
 var params = {
-  x0: {
+  x0: { 
     val: -2,
     min: -10,
     max: 0,
@@ -160,7 +160,18 @@ var params = {
     recalc: true,
     controlType: "checkbox",
   }, 
- 
+  lrpanning: {
+    val: 0,
+    min: -10,
+    max: 10,
+    default: 0,
+    label: "not visible",
+    minLabel: "not visible",
+    maxLabel: "not visible",
+    recalc: false,
+    integer: true,
+    visible: false,
+  },   
   functions: {
     f1: "Math.sin(x*x+y*y)",
     visible: false,

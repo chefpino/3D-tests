@@ -18,9 +18,28 @@
       <td valign="top">
         <div id="menu"></div>
       </td>
-      <td rowspan=2 valign="top" align=left><canvas id="myCanvas" width="1000" height="700"
-          style="border: 0px solid; padding: 0px;"></canvas>
-      </td>
+      <td rowspan=2 valign="top" align=left>
+        <canvas id="myCanvas" width="1000" height="700"
+          style="z-index: 1; border: 1px solid; padding: 0px;"></canvas>
+          <div id="panningTool"
+          style="z-index: 2;
+          position:absolute;
+          right:310px;
+          top:10px;"
+          height="300px" width="300">
+          <table style="border: 1px solid">
+            <tr>
+              <td></td><td align=center><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></td><td></td>
+            </tr>  
+            <tr>
+              <td><img src="https://chefpino.github.io/fun/imgs/arrowLeft.jpg" width=15 height=15 "></td><td></td><td><img src="https://chefpino.github.io/fun/imgs/arrowRight.jpg" width=15 height=15 "></td>
+            </tr> 
+            <tr>
+              <td></td><td><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></td><td></td>
+            </tr>  
+          </table>          
+        </div>
+       </td>
     </tr>
     <tr>
       <td valign="top" width="100">

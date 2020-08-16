@@ -13,6 +13,7 @@ GENERIC
 fix grids that are horizontal and vertical by centering them on 0.5x0.5 grid
 2D, cleanup - fix function colors, perhaps different color for each function
 fix layers size in 2d functions
+diagonal for distance doesn't work
 //-------------------------------------------
 3D COLOR - major WIP
  - what to do when it's not in the origin

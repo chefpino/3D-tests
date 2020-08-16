@@ -34,3 +34,15 @@ table.navmenu {
   padding: 1px;
   background: rgba(230, 177, 6, 0.493);
 }
+#menu {
+  background: rgba(49, 156, 17, 0.493);
+}
+#content {
+  background: rgba(230, 177, 6, 0.493);
+}
+#listFunctions {
+  background: rgba(161, 212, 241, 0.493);
+}
+#mousecoordinates {
+  background: rgba(161, 212, 241, 0.493);
+}

@@ -99,8 +99,8 @@ var params = {
   },
   scaleFactor: {
     val: 1.6,
-    min: 0,
-    max: 2,
+    min: .1,
+    max: 10,
     steps: 10,
     default: 1.6,
     label: "zoom",

@@ -187,6 +187,56 @@ function transposeMatrix(mtx){
  return newmatrix;
 }
 //--------------------------------------
+    //removes one row, one column from a given matrix
+    //@param m1: matrix
+    //@param row: index of row to remove, 0 for none
+    //@param col: index of column to remove, 0 for none 
+    function removeRC(m1, row,col) {
+      
+      const m=matrixSize(m1).m;
+      const n=matrixSize(m1).n;
 
+      if (row < 0 || row > m || col < 0 || col > n) {
+        console.log("ERROR one or more wrong indexes");
+        return "ERROR one or more wrong indexes";
+      }
+
+      var m2 = new matrix(m - (row>0?1:0), n - (col>0?1:0));
+      var i,j;
+
+      for (var r = 1; r < m + (row==0?1:0); r++) {
+        for (var c = 1; c < n + (col==0?1:0); c++) {
+           
+          i=(r < row || row==0)?0:1;
+          j=(c < col || col==0)?0:1;          
+          m2[r][c]=m1[r+i][c+j];
+
+        }
+      }
+      return m2;
+    }
+   //------------------------------
+   //compute determinant using laplace formula for row 1
+   function det(m1){
+
+     var m=matrixSize(m1).m;
+     var n=matrixSize(m1).n;
+     if (m != n || m*n <=0 ){
+       console.log("ERROR matrice is not square or one size is zero");
+     }
+     if (n==2){
+       return m1[1][1]*m1[2][2] - m1[1][2]*m1[2][1];
+     }
+     
+     var determinant=0;
+     
+     //laplace for row 1
+     for (var j=1; j < n+1;j++){
+       determinant += Math.pow(-1,j+1) * m1[1][j] * det(removeRC(m1,1,j));
+     }
+
+     return determinant;
+
+   }
 
 //--- cross product?

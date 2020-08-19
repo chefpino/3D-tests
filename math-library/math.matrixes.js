@@ -1,6 +1,6 @@
 // MATRIX LIBRARY - written by Chef Pino Ficara ----
 
-// --- main function generating a m x n matrit prefilled with zeros -------
+// --- main function generating a m x n matrix prefilled with zeros -------
 function matrix(m,n){
   var newmatrix = [];
     for(var i=1; i < m+1; i++) {
@@ -26,7 +26,7 @@ function matrixSize(mtx){
 function addMatrix(m1,m2){
 
   if ((matrixSize(m1).m != matrixSize(m2).m) || (matrixSize(m1).n != matrixSize(m2).n)){
-    return "ERROR, matrixes are of different sizes, cannot be added"
+    return "ERROR, matrixes are of different sizes, cannot be added";
   }
 
   let m=matrixSize(m1).m;
@@ -52,7 +52,6 @@ function multiplyMatrix(m1,m2){
   if (m != n){
     return "ERROR, matrixes are of different sizes, cannot be multiplied"
   }
-
   
   m=matrixSize(m1).m; //rows of first matrix
   n=matrixSize(m2).n; //columns of second
@@ -71,8 +70,8 @@ function multiplyMatrix(m1,m2){
 
 function scalarMultiplication(k,mtx){
 
-  let m=matrixSize(mtx).m; //rows of first matrix
-  let n=matrixSize(mtx).n; //columns of second
+  let m=matrixSize(mtx).m; //rows
+  let n=matrixSize(mtx).n; //columns
 
   let newmatrix=new matrix(m,n);
   
@@ -152,7 +151,11 @@ function displayMatrix(mtx){
    for(var i=1; i < m+1; i++) {
     str = str + "<tr height=35 style='border: 1px solid grey; padding: 0px;'>";
       for(var j=1; j < n+1; j++) {
-        str = str + "<td align=center width=35 style='border: 1px solid grey; padding: 0px;'>" + mtx[i][j] + "</td>";
+        str = str + "<td align=center width=35 style='border: 1px solid grey; padding: 0px;'>" + 
+            `<a href="#" title="${i},${j}" style="text-decoration: none; font-family: Courier New;">` +  
+             mtx[i][j] +
+             "</a>" +  
+             "</td>";
       }
    str = str + "</tr>";   
    }
@@ -216,7 +219,7 @@ function transposeMatrix(mtx){
       return m2;
     }
    //------------------------------
-   //compute determinant using laplace formula for row 1
+   //compute determinant using laplace expansion formula for row 1
    function det(m1){
 
      var m=matrixSize(m1).m;
@@ -232,11 +235,26 @@ function transposeMatrix(mtx){
      
      //laplace for row 1
      for (var j=1; j < n+1;j++){
-       determinant += Math.pow(-1,j+1) * m1[1][j] * det(removeRC(m1,1,j));
+       if (m1[1][j] != 0){
+          determinant += Math.pow(-1,j+1) * m1[1][j] * det(removeRC(m1,1,j));
+       }
      }
 
      return determinant;
 
    }
 
-//--- cross product?
+//----------
+// generate matrix with random values (m,n, min, max, decimals)
+function randomMatrix(m,n,min,max,decimals){
+  var newmatrix = [];
+    for(var i=1; i < m+1; i++) {
+      newmatrix[i] = [];
+        for(var j=1; j < n+1; j++) {               
+          newmatrix[i][j] = roundToNdecimals(rTemp=min+Math.random()*(max-min),decimals);
+        }
+  }
+  return newmatrix;
+}
+
+

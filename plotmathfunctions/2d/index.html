@@ -3,7 +3,7 @@
   <head>
     <script src="../../navigation/menu.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
-    <script src="../../math-library/math-complexnumbers.js"></script>
+    <script src="../../math-library/math.complexnumbers.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../navigation/controls.js"></script>
     
@@ -148,10 +148,6 @@ function loadvaluesandgo() {
   reMap.x1 = x1;
   reMap.y0 = y0;
   reMap.y1 = y1;
-
-  //--- calculated params
-  var dx = reMap.dx();
-  var dy = reMap.dy();
 
   reMap.clearcanvas();
   reMap.lineWidth=0.1;

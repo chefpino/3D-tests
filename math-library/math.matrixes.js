@@ -143,22 +143,27 @@ function column(mtx,c){
 //--------------------------------------
 
 function displayMatrix(mtx){
-
+  const v="&#9474;"  //│
+  const dr="&#9484;" //┌
    var m=matrixSize(mtx).m;
    var n=matrixSize(mtx).n;
-   var str="<table style='border: 1px solid grey; padding: 0px;' >";
+   var str="<table border=0 cellspacing=0 cellpadding=0>" + 
+            `<tr><td>${dr}</td><td colspan="${n}"></td></td><td>${dl}</td></tr>`;
    
    for(var i=1; i < m+1; i++) {
-    str = str + "<tr height=35 style='border: 1px solid grey; padding: 0px;'>";
+    str = str + "<tr>" + 
+                "<td>" + v + "&nbsp;</td>";
       for(var j=1; j < n+1; j++) {
-        str = str + "<td align=center width=35 style='border: 1px solid grey; padding: 0px;'>" + 
+        str = str + "<td align=right>" +
             `<a href="#" title="${i},${j}" style="text-decoration: none; font-family: Courier New;">` +  
              mtx[i][j] +
-             "</a>" +  
+             "</a>&nbsp;" +  
              "</td>";
       }
-   str = str + "</tr>";   
+
+   str = str + "<td>" + v + "</td></tr>";   
    }
+   str = str + `<tr><td>${ur}</td><td colspan="${n}"></td></td><td>${ul}</td></tr>`;
    str = str + "</table>";   
    return str;
 }
@@ -243,8 +248,7 @@ function transposeMatrix(mtx){
      return determinant;
 
    }
-
-//----------
+//----------------------------------------------------------------
 // generate matrix with random values (m,n, min, max, decimals)
 function randomMatrix(m,n,min,max,decimals){
   var newmatrix = [];
@@ -256,5 +260,5 @@ function randomMatrix(m,n,min,max,decimals){
   }
   return newmatrix;
 }
-
+//----------------------------------------------------------------
 

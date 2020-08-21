@@ -56,7 +56,7 @@ function generateControls() {
           strHTML = strHTML + td(params[key].maxLabel);
           strHTML += `<td><a href="#" onclick="upAndDown('${key}',1);">+</a><br>`;
           if (movie){
-             strHTML += `<a title="play/stop" href="#" onclick="playMovie('${key}');">M</a><br>`;
+             strHTML += `<a title="play/stop" href="#" onclick="playMovie('${key}');">&#9658;</a><br>`;
           }
           strHTML += `<a href="#" onclick="upAndDown('${key}',-1);">-</a></td>`;
           strHTML +=

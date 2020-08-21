@@ -147,23 +147,31 @@ var navigation = {
     id: "polar",
     link: "../../plotmathfunctions/polar/index.html",
     label: "R -> R2",
-    hasChildren: true,
+        hasChildren: true,
     children: {
       item1: "RR3",
+      item2: "R2R3",
     },
     content:
       "under development",
   },
   RR3: {
     id: "RR3",
-    link: "../../plotmathfunctions/3d/parametrical.3d.html",
+    link: "../../plotmathfunctions/3d/3d-parametrical.html",
     label: "R -> R3",
     hasChildren: false,
     content:
       "under development",
   },
+  R2R3: {
+    id: "R2R3",
+    link: "../../plotmathfunctions/3d/3d-R2toR3.html",
+    label: "R2 -> R3",
+    hasChildren: false,
+    content:
+      "under development",
+  },
 };
-
 //-------------------------------------------
 // -- this is a recursive function to generate a vertical menu, it can be improved
 function genMenu(strKey, nestinglevel, strCurrentPage) {

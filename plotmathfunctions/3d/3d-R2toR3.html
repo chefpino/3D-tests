@@ -4,49 +4,30 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../../css/main.css" />
   <script src="../../navigation/menu.js"></script>
-  <script src="../../pages-data/index.3d.quaternions.data.js"></script>
+  <script src="../../pages-data/3d.R2R3.data.js"></script>
   <script src="../../math-library/math.complexnumbers.js"></script>
   <script src="../../math-library/math.quaternions.js"></script>
+  <script src="../../math-library/math.matrixes.js"></script>
   <script src="../../navigation/controls.js"></script>
   <script src="../../math-library/remap.js"></script>
 </head>
+
 <body onload="init();">
   <table style="border: 1px solid; padding: 0px;" width="100%" height="100%">
     <tr>
-      <td valign="top" height="100">
+      <td valign="top">
         <div id="menu"></div>
       </td>
-      <td rowspan=2 valign="top" align=left>
-        <canvas id="myCanvas" width="1000" height="700"
-          style="z-index: 1; border: 0px solid; padding: 0px;"></canvas>
-          <div id="panningTool"
-          style="z-index: 2;
-          position: absolute;;
-          right:100px;
-          top:20px;"
-          height="300px" width="300">
-          <table style="border: 1px solid">
-            <tr>
-              <td></td><td align=center><a href="#" onclick="panning('udpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></a></td><td></td>
-            </tr>  
-            <tr>
-              <td><a href="#" onclick="panning('lrpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowLeft.jpg" width=15 height=15 "></a></td>
-              <td></td>
-              <td><a href="#" onclick="panning('lrpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowRight.jpg" width=15 height=15 "></a></td>
-            </tr> 
-            <tr>
-              <td></td><td><a href="#" onclick="panning('udpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></a></td><td></td>
-            </tr>  
-          </table>          
-        </div>
-       </td>
+      <td rowspan=2 valign="top" align=left><canvas id="myCanvas" width="1000" height="500"
+          style="border: 0px solid; padding: 0px;"></canvas>
+      </td>
     </tr>
     <tr>
       <td valign="top" width="100">
         <div id="content"></div>
-        <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+        <img height=1 width=400 src="../../imgs/1pxBlack.gif">
         <div id="listFunctions">placeholder</div>
-        <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+        <img height=1 width=400 src="../../imgs/1pxBlack.gif">
         <div id="dynamicSliders"></div>
       </td>
     </tr>
@@ -58,35 +39,40 @@
     const cW = 1000; //canvas.clientWidth;
     const cH = 700; //canvas.clientHeight;
     const ctx = canvas.getContext("2d");
-    const xAxis = qt(0, 1, 0, 0);
-    const yAxis = qt(0, 0, 1, 0);
-    const zAxis = qt(0, 0, 0, 1);
+    canvas.width = cW;
+    canvas.height = cH;
     const fixedOrigin = true; //can be a parameter also
 
     //--- declare global variables
-    var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
-    var x0, x1, y0, y1;
+    var x0=params.x0.val;
+    var x1=params.x1.val;
+    var y0=params.y0.val;
+    var y1=params.y1.val;
+    //---
+    var t10, t11, t20, t21;
     var gridRes;
     var funcRes;
     var funcOpacity;
     var scaleFactor;
     var xyAngle, zyAngle, zxAngle;
-    var zFact;
-    var perspective;
+    var perspective; //boolean
+    let Rx = new matrix(3, 3);
+    let Ry = new matrix(3, 3);
+    let Rz = new matrix(3, 3);
     var diagonal; //maxim distance between 2 points on the pavement
+    var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
 
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
-      genNavigation("threeD", true);
+      reMap.lockRatio = true;
+      genNavigation("R2R3", true);
       generateControls();
       displayFunctions();
+      //fileToParameters(); //initiate event listener for file uploader
       loadvaluesandgo();
-      
-     }
+    }
     //-------------------------------------------
-    //load values from param object, be careful, globalvariables' names are
-    //must match the key names
     function loadValues() {
 
       for (var key in params) {
@@ -94,6 +80,7 @@
           eval(`${key}=params.${key}.val`);
         }
       }
+
     }
     //-------------------------------------------
     function loadvaluesandgo() {
@@ -105,11 +92,31 @@
       reMap.x1 = x1;
       reMap.y0 = y0;
       reMap.y1 = y1;
-      reMap.lockRatio = true;
       reMap.scaleFactor = scaleFactor;
 
       //calculated parameter 
       diagonal = Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
+
+      //rotation matrices ---
+      //----------------------------------------------------------------          
+      Rx[1][1] = 1;
+      Rx[2][2] = Math.cos(zyAngle);
+      Rx[2][3] = -Math.sin(zyAngle);
+      Rx[3][2] = Math.sin(zyAngle);
+      Rx[3][3] = Math.cos(zyAngle);
+      //----------------------------------------------------------------          
+      Ry[1][1] = Math.cos(zxAngle);
+      Ry[1][3] = Math.sin(zxAngle);
+      Ry[2][2] = 1;
+      Ry[3][1] = -Math.sin(zxAngle);
+      Ry[3][3] = Math.cos(zxAngle);
+      //----------------------------------------------------------------          
+      Rz[1][1] = Math.cos(xyAngle);
+      Rz[1][2] = -Math.sin(xyAngle);
+      Rz[2][1] = Math.sin(xyAngle);
+      Rz[2][2] = Math.cos(xyAngle);
+      Rz[3][3] = 1;
+      //----------------------------------------------------------------   
 
       //--- clear canvas
       ctx.clearRect(0, 0, cW, cH);
@@ -119,11 +126,6 @@
 
       //--- plot function
       plotAll();
-
-      
-      
-
-
     }
 
     //-------------------------------------------
@@ -192,69 +194,57 @@
       arrowHead(0, 0, z1 * (1 + 2 / res), 1 / 2 * (x1 - x0) / gridRes); //y 
 
     }
+    //------------------------------
+    function tempF(t1,t2){
+      return {
+          x: eval(params.functions.x),
+          y: eval(params.functions.y),
+          z: eval(params.functions.z),
+      }
+     }
     //-------------------------------------------
-    function plotColoredFunction(objF, res) {
+    function plotColoredFunction(res) {
 
-      var dx = (x1 - x0) / res;
-      var dy = (y1 - y0) / res;
+      var dt1 = (t11 - t10) / res;
+      var dt2 = (t21 - t20) / res;
 
-      var x = x0;
-      var y = y0;
+      var t1 = t10;
+      var t2 = t20;
       var i = 0;
       var j = 0;
 
-      var pt, t1, t2;
-      var iTemp;
+      var pt, iTemp;
 
       reMap.lineWidth = 0.5;
       ctx.globalAlpha = funcOpacity; //opacity
 
       for (i = 0; i <= res; i++) {
-        x = x0 + i * dx;
+        t1 = t10 + i * dt1;
 
         for (j = 0; j <= res; j++) {
-          y = y0 + j * dy;
+          t2 = t20 + j * dt2;
 
-          pt = ct(x, y, objF(x, y)); // point transformed in new coord system
+          pt = ct(tempF(t1, t2).x, tempF(t1, t2).y, tempF(t1, t2).z); // point transformed in new coord system
           ctx.beginPath();
           ctx.moveTo(reMap.x(pt.x), reMap.y(pt.y));
-          pt = ct(x + dx, y, objF(x + dx, y));
+          pt = ct(tempF(t1+dt1, t2).x, tempF(t1+dt1, t2).y, tempF(t1+dt1, t2).z); // point transformed in new coord system
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
-          pt = ct(x + dx, y + dy, objF(x + dx, y + dy));
+          pt = ct(tempF(t1+dt1, t2+dt2).x, tempF(t1+dt1, t2+dt2).y, tempF(t1+dt1, t2+dt2).z); // point transformed in new coord system
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
-          pt = ct(x, y + dy, objF(x, y + dy));
+          pt = ct(tempF(t1, t2+dt2).x, tempF(t1, t2+dt2).y, tempF(t1, t2+dt2).z); // point transformed in new coord system
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
           ctx.closePath();
-          iTemp = Math.round(256 * objF(x, y));
+          iTemp = 2*Math.round(256 * tempF(t1, t2).z);
           ctx.stroke();
           ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
           ctx.fill();
 
 
-          t1 = ct(x, y, objF(x, y)); //baseChange(c(x,y0),c1,c2);
-          t2 = ct(x + dx, y, objF(x + dx, y));
-          reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
-          t2 = ct(x, y + dy, objF(x, y + dy));
-          reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
         }
       }
 
       ctx.globalAlpha = 1; //opacity
 
-      //write x0,x1 etc --- can be done separately and
-      //the number should be on the correct side, following the vector direction
-      var tempP;
-      ctx.fillStyle = "red";
-      tempP = ct(x0, y0, 0);
-      ctx.fillText("x0, y0", reMap.x(tempP.x), reMap.y(tempP.y));
-      tempP = ct(x1, y0, 0);
-      ctx.fillText("x1, y0", reMap.x(tempP.x), reMap.y(tempP.y));
-      tempP = ct(x0, y1, 0);
-      ctx.fillText("x0,y1", reMap.x(tempP.x), reMap.y(tempP.y));
-      tempP = ct(x1, y1, 0);
-      ctx.fillText("x1,y1", reMap.x(tempP.x), reMap.y(tempP.y));
-      tempP = ct(0, 0, 0);
-      ctx.fillText("o", reMap.x(tempP.x), reMap.y(tempP.y));
 
     }
     //------------------------------------------
@@ -262,25 +252,26 @@
     // --- ct maps a 3d point to a 2d map representing the 3d space
     function ct(x, y, z) {
 
-      let pt1 = qt(0, x, y, z); //point in 3d as a quaternion    
+      var rotatedVector = new matrix(3, 1);
+      rotatedVector[1][1] = x;
+      rotatedVector[2][1] = y;
+      rotatedVector[3][1] = z;
 
-      pt1 = qRot(zAxis, xyAngle, pt1); //point rotated around z axis
-      pt1 = qRot(yAxis, zxAngle, pt1); //point rotated around x axis
-      pt1 = qRot(xAxis, zyAngle, pt1); //point rotated around y axis
+      //apply rotations
+      rotatedVector = multiplyMatrix(Rz, rotatedVector);
+      rotatedVector = multiplyMatrix(Rx, rotatedVector);
+      rotatedVector = multiplyMatrix(Ry, rotatedVector);
 
       //for perspective it's better to traslate the rotated point away from the canvas
       //diagonal is the size of the pavement diagonal
       let perspectiveFactor = 1;
       if (perspective) {
-        perspectiveFactor = (pt1.c + diagonal);
+        perspectiveFactor = rotatedVector[2][1] + diagonal;
       } //works, a bit far
-      
-      let lrpanning=params.lrpanning.val * 1;
-      let udpanning=params.udpanning.val * 1;
 
       return {
-        x: (pt1.b / perspectiveFactor) + lrpanning,
-        y: ((pt1.d / perspectiveFactor) * zFact) + udpanning
+        x: rotatedVector[1][1] / perspectiveFactor,
+        y: (rotatedVector[3][1] / perspectiveFactor)
       }
     }
     //-------------------------------------------
@@ -314,27 +305,13 @@
     }
     //-------------------------------------------
     function displayFunctions() {
-      document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
+      document.getElementById("listFunctions").innerHTML = listFunctions(false, false);
     }
     //-------------------------------------------
     function plotAll() {
 
-      for (const key in params.functions) {
-        const element = params.functions[key];
-        if (element != false) {
-          function g(x, y) {
-            return eval(element);
-          };
-          plotColoredFunction(g, funcRes);
-        }
-      }
+          plotColoredFunction(funcRes);
     }
-//-------------------------------
-
-
-
-
-
   </script>
 </body>
 

@@ -142,12 +142,15 @@ function panning(strKey, j) {
 //-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
 //and most important updates value in the params object!
+//takes into account if the param must be an integer
 function updateParam(x) {
   var controlType = document.getElementById(x).type;
   var iTemp;
+  const isInteger=(true && params[x].integer);
   switch (controlType) {
     case "range":
       iTemp = 1 * document.getElementById(x).value;
+      iTemp = (isInteger)?Math.round(iTemp):iTemp;
       document.getElementById("val_" + x).innerHTML = (Math.round(iTemp * 1000) / 1000);
       break;
     case "checkbox":
@@ -159,27 +162,6 @@ function updateParam(x) {
 
 }
 //-------------------------------------------
-//default 100 value can be specified in object values as steps: xy
-
-function paramToSlider(strParam, iValue) {
-  var x1 = 1 * params[strParam].min;
-  var x2 = 1 * params[strParam].max;
-  var steps = params[strParam].steps;
-  steps = (typeof (steps) == "undefined" ? 100 : 1 * steps); //default resolution is 100 steps
-  return Math.round((steps * (1 * iValue - x1)) / (x2 - x1));
-}
-//-------------------------------------------
-function sliderToParam(strParam, iValue) {
-  var x1 = 1 * params[strParam].min;
-  var x2 = 1 * params[strParam].max;
-  var steps = params[strParam].steps;
-  steps = (typeof (steps) == "undefined" ? 100 : 1 * steps); //default resolution is 100 steps
-  var iTemp = x1 + (iValue * (x2 - x1)) / steps;
-  if (params[strParam].integer) {
-    iTemp = Math.round(iTemp);
-  }
-  return iTemp;
-}
 // --- movies section ---
 var movieOnOff = false;
 function movie() {

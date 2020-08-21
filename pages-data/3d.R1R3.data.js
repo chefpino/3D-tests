@@ -33,7 +33,7 @@ var params = {
     maxLabel: "0",
     recalc: true,
     integer: false,
-    visible: true,
+    visible: false,
   },
   x1: {
     val: 2,
@@ -45,7 +45,7 @@ var params = {
     maxLabel: "10",
     recalc: true,
     integer: false,
-    visible: true,
+    visible: false,
   },
   y0: {
     val: -2,
@@ -57,7 +57,7 @@ var params = {
     maxLabel: "0",
     recalc: true,
     integer: false,
-    visible: true,
+    visible: false,
   },
   y1: {
     val: 2,
@@ -69,7 +69,7 @@ var params = {
     maxLabel: "10",
     recalc: true,
     integer: false,
-    visible: true,
+    visible: false,
   },
   funcRes: {
     val: 200,

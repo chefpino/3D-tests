@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../navigation/menu.js"></script>
-    <script src="../../pages-data/3d.parametrical.data.js"></script>
+    <script src="../../pages-data/3d.R1R3.data.js"></script>
     <script src="../../math-library/math.complexnumbers.js"></script>
     <script src="../../math-library/math.quaternions.js"></script>
     <script src="../../navigation/controls.js"></script>
@@ -63,6 +63,10 @@
 //-------------------------------------------
       function init() {
         reMap.objCanvas = ctx;
+        x0=params.x0.val;
+        y0=params.y0.val;
+        x1 = params.x1.val;
+        y1=params.y1.val;
         reMap.lockRatio=true;
         genNavigation("RR3", true);
         generateControls();

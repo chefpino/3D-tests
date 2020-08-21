@@ -66,20 +66,22 @@
         module = 1 * params.module.val;      
         factor = 1 * params.factor.val;
         reMap.clearcanvas();
-        reMap.drawAxis();
         arrPoints=buildArray(module);
         draw();
+        reMap.drawAxis();
       }
 //-------------------------------------------
       function draw() {
         
         var dStep = (2 * Math.PI) / module;
         var alpha=0;
+        var j=1
 
-        for (let index = 0; index < arrPoints.length; index++) {
+        for (let index = 0; index < 500; index++) {
 
-          const c1 = arrPoints[index];
-          const c2 = arrPoints[(index * factor) % module];          
+          const c1 = arrPoints[j];
+          j=(j * factor) % module;
+          const c2 = arrPoints[j];          
           
           reMap.drawSegment(c1, c2, "#00FF00");
         }

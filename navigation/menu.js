@@ -13,7 +13,7 @@ var navigation = {
   home: {
     id: "home",
     link: "https://chefpino.github.io/fun/",
-    label: "HOME (w.i.p.)",
+    label: "HOME",
     hasChildren: true,
     children: {
       item1: "fractals",
@@ -89,14 +89,14 @@ var navigation = {
     link: "../../plotmathfunctions/unitcircle/index.html",
     label: "Unit Circle",
     hasChildren: false,
-    content: "z -> z^2",
+    content: "Unit circle is divided into n points,<br>the complex function f(z)=z^2 is applied to each point.",
   },
   modules: {
     id: "modules",
     link: "../../plotmathfunctions/unitcircle/modules.html",
-    label: "Modules (WIP)",
+    label: "Modules",
     hasChildren: false,
-    content: "under constructions",
+    content: "Unit circle is divided into n points,<br>point k is connected to point (k * factor) mod n.",
   },
 
   plotmathfunctions: {
@@ -157,11 +157,11 @@ var navigation = {
   },
   RR3: {
     id: "RR3",
-    link: "../../plotmathfunctions/3d/3d-parametrical.html",
+    link: "../../plotmathfunctions/3d/3d-R1toR3.html",
     label: "R -> R3",
     hasChildren: false,
     content:
-      "under development",
+    "the R1 interval [t0, t1]is plotted<br>in R3 through 3 R1 ->R1 functions.",
   },
   R2R3: {
     id: "R2R3",
@@ -169,7 +169,7 @@ var navigation = {
     label: "R2 -> R3",
     hasChildren: false,
     content:
-      "under development",
+      "the R2 domain [t1 inf, t1 sup]x[t2 inf, t2 sup] is plotted<br>in R3 through 3 R2->R1 functions.",
   },
 };
 //-------------------------------------------

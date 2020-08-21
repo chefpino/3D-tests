@@ -12,11 +12,12 @@ var params = {
     max: 500,
     integer: true,
     visible: true,
-    "label":"mod",
+    "label":"mod n",
     "minLabel":"2",
     "maxLabel":"500",
     recalc: true,
     movie: true,
+    steps: 498
   },
   "factor":{
     default: 2,
@@ -30,6 +31,7 @@ var params = {
     "maxLabel":"100",
     recalc: true,
     movie: true,
+    steps: 98
   },
      "fixedOrigin":{
         val: false,

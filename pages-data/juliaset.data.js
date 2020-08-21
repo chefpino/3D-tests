@@ -125,6 +125,7 @@ var params = {
     minLabel: "2",
     maxLabel: "50",
     integer: false,
+    visible: true,
   },
   iterations: {
     val: 150,
@@ -135,6 +136,7 @@ var params = {
     minLabel: "50",
     maxLabel: "500",
     integer: true,
+    visible: true
   },
   fixedOrigin: {
     val: false,
@@ -194,6 +196,8 @@ var params = {
     minLabel: "-1",
     maxLabel: "+1",
     integer: false,
+    visible: true
+
   },
   cy: {
     val: -0.54,
@@ -204,6 +208,8 @@ var params = {
     minLabel: "-1",
     maxLabel: "+1",
     integer: false,
+    visible: true
+
   },
   zoomIn: {
     val: 1,

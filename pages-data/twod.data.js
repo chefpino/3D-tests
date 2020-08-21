@@ -60,6 +60,12 @@ var params = {
     f3: "Math.exp(-x*x)",
     visible: false,
   },
+  functionlabel: {
+    f1: "f1(x)=",
+    f2: "f2(x)=",
+    f3: "f3(x)=",
+    visible: false,
+  },
   lockratio: {
    val: 1,
    min: 0,

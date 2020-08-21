@@ -14,6 +14,8 @@ var params = {
     show: true,
     integer: true,
     recalc: true,
+    visible: true,
+    movie: true,
   },
   fixedOrigin: {
     val: false,

@@ -6,17 +6,18 @@ var params = {
     visible: false,
   },
 
- "upperbound":{
+ upperbound:{
    val:4,
    min:2,
-   max:100,
+   max:10,
    default:4,
    label:"upperbound",
    minLabel:"2",
-   maxLabel:"100",
-   integer:true
+   maxLabel:"10",
+   integer:true,
+   visible: true
    },
- "iterations":{
+ iterations:{
    val:75,
    min:50,
    max:1000,
@@ -24,9 +25,10 @@ var params = {
    label:"iterations",
    minLabel:"75",
    maxLabel:"1000",
-   integer:true
+   integer:true,
+   visible: true
    },
- "fixedOrigin":{
+ fixedOrigin:{
   val: false,
   visible: false
    },

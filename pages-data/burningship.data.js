@@ -39,7 +39,8 @@ var params = {
    minLabel:"2",
    maxLabel:"4",
    integer:true,
-   steps: 2
+   steps: 2,
+   visible: true,
    },
  "iterations":{
    val:75,
@@ -49,7 +50,8 @@ var params = {
    label:"iterations",
    minLabel:"50",
    maxLabel:"450",
-   integer:true
+   integer:true,
+   visible: true,
    },
    zoomIn: {
     val: 1,

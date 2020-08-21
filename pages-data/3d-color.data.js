@@ -121,6 +121,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },
   zyAngle: {
     val: -0.314,
@@ -133,6 +134,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },
   zxAngle: {
     val: 0,
@@ -145,6 +147,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },  
   perspective: {
     val: 0,
@@ -174,6 +177,10 @@ var params = {
   },   
   functions: {
     f1: "Math.sin(x*x+y*y)",
+    visible: false,
+  },
+  functionlabel: {
+    f1: "f(x,y)=",
     visible: false,
   },
   goButton: {

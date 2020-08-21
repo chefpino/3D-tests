@@ -1,6 +1,3 @@
-/* 
- * this library is used also outside of the fractals folder
- */
 //---- Generates Sliders Only -------------------------------------------------
 function generateControls() {
   const strFilename = "'parameters.txt'"; //name of the file containing parameters to save
@@ -13,6 +10,7 @@ function generateControls() {
   var min, max, step;
   var controlType = "";
   var goButton = params.goButton.show; //boolean, show yes/no
+  var movie; //boolean
   goButton = (typeof (goButton) == "undefined" ? true : goButton);
 
   var strHTML = '<table style="border: 1px solid black;">';
@@ -33,10 +31,9 @@ function generateControls() {
       steps = params[key].steps;
       steps = (typeof (steps) == 'undefined' ? 100 : steps);
       step = (max - min) / steps;
-      step = (params[key].integer == true ? 1 : step);
       var recalc = (params[key].recalc == true ? "loadvaluesandgo();" : "");
       controlType = (typeof (params[key].controlType) == "undefined" ? "range" : params[key].controlType);
-
+      movie = typeof (params[key].movie) == "undefined" ? false : true;
 
       strHTML = strHTML + tr;
       strHTML = strHTML + td(params[key].label);
@@ -57,7 +54,11 @@ function generateControls() {
               `' onchange='updateParam(this.id);${recalc}' >`
             );
           strHTML = strHTML + td(params[key].maxLabel);
-          strHTML += td(`<a href="#" onclick="upAndDown('${key}',1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=12 height=12 "></a><br><a href="#" onclick="upAndDown('${key}',-1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=12 height=12 "></a>`);
+          strHTML += `<td><a href="#" onclick="upAndDown('${key}',1);">+</a><br>`;
+          if (movie){
+             strHTML += `<a href="#" onclick="playMovie('${key}');">M</a><br>`;
+          }
+          strHTML += `<a href="#" onclick="upAndDown('${key}',-1);">-</a></td>`;
           strHTML +=
             td(`<div id="val_${key}">${Math.round(params[key].default*1000)/1000}</div>`, 65);
           break;
@@ -102,10 +103,6 @@ function generateControls() {
   strHTML = strHTML + "</table>";
   document.getElementById("dynamicSliders").innerHTML = strHTML;
 
-  //--- assign default value to sliders
-  //this is a bit redundant but it works around some rounding up happening
-  //with the sliderToParam function
-  //loadDefaults();
 }
 //-------------------------------------------
 function upAndDown(strKey, j) {
@@ -128,7 +125,6 @@ function upAndDown(strKey, j) {
     }
   //update param
   params[strKey].val = currentVal;
-  console.log(currentVal);
 
   //if recalc is true reload with new values
   if (params[strKey].recalc == true) {
@@ -184,6 +180,24 @@ function sliderToParam(strParam, iValue) {
   }
   return iTemp;
 }
+// --- movies section ---
+var movieOnOff = false;
+function movie() {
+  if (movieOnOff) {
+    upAndDown(movieKey, 1);
+    setTimeout(movie, 200);
+  } else {
+    loadvaluesandgo();
+  }
+}
+//----------------------------------------------------------------
+function playMovie(str) {
+  movieKey = str;
+  movieOnOff = (movieOnOff) ? false : true;
+  movie();
+}
+//-------------------------------------------
+
 //-------------------------------------------
 function td(x, w) {
   w = (typeof (w) == "undefined") ? "" : "width=" + w;
@@ -228,8 +242,6 @@ function dropDownToObj(dd_id, src_obj, arr_keys) {
 
   }
 
-  //window.alert(strTemp);
   return retObj;
-
 }
 //-------------------------------------------

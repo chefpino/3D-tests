@@ -87,6 +87,11 @@ var params = {
     f2: "Math.sin(4*t)",
     visible: false,
   },
+  functionlabel: {
+    f1: "f1(t)=",
+    f2: "f2(t)=",
+    visible: false,
+  },
   zoomIn: {
     val: 1,
     visible: true,

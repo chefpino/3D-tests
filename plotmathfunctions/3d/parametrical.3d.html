@@ -53,10 +53,8 @@
       var t0, t1;
       var gridRes;
       var funcRes;
-      var funcOpacity;
       var scaleFactor;
       var xyAngle, zyAngle, zxAngle;
-      var zFact;      
       var perspective;
       var diagonal; //maxim distance between 2 points on the pavement
 
@@ -196,7 +194,6 @@ function tempF(t){
         var i = 0;
 
         reMap.lineWidth = .5;
-        //ctx.globalAlpha = funcOpacity; //opacity
 
         for (i = 1; i <= res; i++) {
           t = t0 + i * dt;

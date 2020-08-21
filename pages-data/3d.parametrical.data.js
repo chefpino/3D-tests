@@ -70,19 +70,6 @@ var params = {
     integer: false,
     visible: true,
   },
-  zFact: {
-    val: 1,
-    min: 0.1,
-    max: 1,
-    default: 1,
-    label: "z factor",
-    minLabel: ".1",
-    maxLabel: "1",
-    recalc: true,
-    visible: true,
-    integer: false,
-    steps: 9
-  },
   funcRes: {
     val: 200,
     min: 10,
@@ -106,19 +93,6 @@ var params = {
     minLabel: "10",
     maxLabel: "100",
     integer: true,
-    recalc: true,
-    visible: true
-  },
-  funcOpacity: {
-    val: 0.1,
-    min: 0,
-    max: 1,
-    steps: 10,
-    default: 0.1,
-    label: "opacity",
-    minLabel: "transparent",
-    maxLabel: "opaque",
-    integer: false,
     recalc: true,
     visible: true
   },
@@ -146,6 +120,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },
   zyAngle: {
     val: 0.44,
@@ -158,6 +133,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },
   zxAngle: {
     val: 0,
@@ -170,6 +146,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },  
   perspective: {
     val: 1,
@@ -184,12 +161,17 @@ var params = {
     steps: 1,
     recalc: true,
     controlType: "checkbox",
-  }, 
-  
+  },  
   functions: {
-    x: "Math.cos(3*t)*(3+Math.cos(4*t))",
-    y: "Math.sin(3*t)*(3+Math.cos(4*t))",
-    z: "Math.sin(4*t)",
+    x: "Math.cos(3*t)",
+    y: "Math.sin(3*t)",
+    z: "t/3",
+  visible: false,
+  },
+  functionlabel: {
+    x: "x(t)=",
+    y: "y(t)=",
+    z: "z(t)=",
   visible: false,
   },
   goButton: {

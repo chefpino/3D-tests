@@ -70,7 +70,8 @@ var params = {
     maxLabel: "100",
     integer: true,
     recalc: true,
-    visible: true
+    visible: true,
+    movie: true,
   },
   gridRes: {
     val: 10,
@@ -95,7 +96,8 @@ var params = {
     maxLabel: "opaque",
     integer: false,
     recalc: true,
-    visible: true
+    visible: true,
+    movie: true,
   },
   scaleFactor: {
     val: 1.6,
@@ -121,6 +123,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },
   zyAngle: {
     val: 0.44,
@@ -133,6 +136,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },
   zxAngle: {
     val: 0,
@@ -145,6 +149,7 @@ var params = {
     recalc: true,
     integer: false,
     visible: true,
+    movie: true,
   },  
   perspective: {
     val: 1,
@@ -187,6 +192,11 @@ var params = {
   functions: {
     f1: "Math.sqrt(1-x*x-y*y)",
     f2: "-Math.sqrt(1-x*x-y*y)",
+    visible: false,
+  },
+  functionlabel: {
+    f1: "f(x,y)=",
+    f2: "g(x,y)=",
     visible: false,
   },
   goButton: {

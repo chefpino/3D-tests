@@ -5,14 +5,15 @@ function listFunctions(showDeleteButton,showAddNewButton) {
 
   var strTable = "<table>";
   var i=0;
+  var functionlabel="";
 
   for (const key in params.functions) {
     if (params.functions.hasOwnProperty(key)) {
-      const element = params.functions[key];
       
       if (params.functions[key] != false){
+          functionlabel=(params.functionlabel ? params.functionlabel[key] : key);
           strTable += "<tr>";
-          strTable += "<td>" + key + "</td>";
+          strTable += "<td>" + functionlabel + "</td>";
           strTable += `<td><input type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
           strTable += "<td>";
           if (showDeleteButton){
@@ -48,24 +49,21 @@ function updateFunction(key){
   displayFunctions();
   loadvaluesandgo(); 
 }
-
-
 //wrapper for functions
 function deleteFunction(key){
   deleteKey(params.functions,key);
+  deleteKey(params.functionlabel,key);
   displayFunctions();
   loadvaluesandgo(); 
 }
-
 function addFunction(key){
   params.functions[key]=document.getElementById("newF").value;
+  params.functionlabel[key]=key;
   displayFunctions();
   loadvaluesandgo(); 
 }
 
 function functionNumber(str){
-
   var tempStr=str.substring(1);
   return eval(tempStr);
-
 }

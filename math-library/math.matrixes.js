@@ -145,9 +145,12 @@ function column(mtx,c){
 function displayMatrix(mtx){
   const v="&#9474;"  //│
   const dr="&#9484;" //┌
-   var m=matrixSize(mtx).m;
-   var n=matrixSize(mtx).n;
-   var str="<table border=0 cellspacing=0 cellpadding=0>" + 
+  const ur="&#9492;" //└
+  const ul="&#9496;" //┘
+  var m=matrixSize(mtx).m;
+  var n=matrixSize(mtx).n;
+  
+  var str="<table border=0 cellspacing=0 cellpadding=0>" + 
             `<tr><td>${dr}</td><td colspan="${n}"></td></td><td>${dl}</td></tr>`;
    
    for(var i=1; i < m+1; i++) {

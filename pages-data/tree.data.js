@@ -17,7 +17,8 @@ var params = {
      default:Math.PI/2,
      label:"trunk angle",
      minLabel:"0",
-     maxLabel:"&pi;"
+     maxLabel:"&pi;",
+     visible: true,
      },
    "dAngle":{
      val:Math.PI/8,
@@ -26,7 +27,8 @@ var params = {
      default:Math.PI/8,
      label:"branch angle",
      minLabel:"&pi;/8",
-     maxLabel:"&pi;/4"
+     maxLabel:"&pi;/4",
+     visible: true,
      },
    "initLen":{
      val:130,
@@ -36,7 +38,8 @@ var params = {
      label:"trunk initial height",
      minLabel:"25",
      maxLabel:"150",
-     integer: true
+     integer: true,
+     visible: true,
      },
    "minLen":{
      val:20,
@@ -46,7 +49,8 @@ var params = {
      label:"branch min length",
      minLabel:"15",
      maxLabel:"40",
-     integer: true
+     integer: true,
+     visible: true,
      },
    "reduction":{
      val:0.8,
@@ -55,8 +59,8 @@ var params = {
      default:0.8,
      label:"branch length factor",
      minLabel:"0.5",
-     maxLabel:"0.8"
-
+     maxLabel:"0.8",
+     visible: true,
      },
    "initTrunk":{
      val:20,
@@ -66,7 +70,8 @@ var params = {
      label:"trunk initial thickness",
      minLabel:"1",
      maxLabel:"50",
-     integer: true
+     integer: true,
+     visible: true,
      },
    "trunkReduction":{
      val:0.5, 
@@ -75,7 +80,8 @@ var params = {
      default:0.5,
      label:"trunk to branch thickness",
      minLabel:"0.1",
-     maxLabel:"0.9"
+     maxLabel:"0.9",
+     visible: true,
      },
    "minBranch":{
      val:0.1,
@@ -84,7 +90,8 @@ var params = {
      default:0.1,
      label:"branch min thickness",
      minLabel:"0.1",
-     maxLabel:"1"
+     maxLabel:"1",
+     visible: true,
      },
      
    "nTrees":{
@@ -95,7 +102,8 @@ var params = {
      label:"# trees",
      minLabel:"1",
      maxLabel:"10 (forest)",
-     integer: true
+     integer: true,
+     visible: true,
      },
      
     goButton: {

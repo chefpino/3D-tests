@@ -16,6 +16,7 @@ var params = {
     "minLabel":"2",
     "maxLabel":"500",
     recalc: true,
+    movie: true,
   },
   "factor":{
     default: 2,
@@ -28,6 +29,7 @@ var params = {
     "minLabel":"2",
     "maxLabel":"100",
     recalc: true,
+    movie: true,
   },
      "fixedOrigin":{
         val: false,

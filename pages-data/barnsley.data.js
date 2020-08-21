@@ -10,6 +10,8 @@ var params = {
     maxLabel: "1000000",
     integer: true,
     recalc: true,
+    visible: true
+
   },
   "fixedOrigin":{
     val: false,

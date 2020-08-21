@@ -9,7 +9,8 @@
   <script src="../../math-library/math.quaternions.js"></script>
   <script src="../../math-library/math.matrixes.js"></script>
   <script src="../../navigation/controls.js"></script>
-  <script src="../../math-library/remap.js"></script>
+  <script src="../../math-library/graphicfunctions.js"></script>
+  <script src="../../math-library/3d.graphic.functions.js"></script>
 </head>
 
 <body onload="init();">
@@ -66,7 +67,7 @@
     function init() {
       reMap.objCanvas = ctx;
       reMap.lockRatio = true;
-      genNavigation("threeDmatrixes", true);
+      genNavigation("R2R3", true);
       generateControls();
       displayFunctions();
       //fileToParameters(); //initiate event listener for file uploader
@@ -131,7 +132,7 @@
     //-------------------------------------------
     function drawPavement(res) {
 
-      reMap.lineWidth = 0.5;
+      reMap.lineWidth = 0.3;
       //height = avrg(x1,y1), can be improved
       var z1 = (x1 + y1) / 2;
 
@@ -150,13 +151,14 @@
       }
 
       //vertical pavement, passing by origin (can be improved by passing per mid of range?)   
-
+      /* 
       //--- vertical lines along x axe
       for (var x = 0; x <= x1; x = x + 2 * (x1) / res) {
         var t1 = ct(x, 0, 0);
         var t2 = ct(x, 0, z1);
         reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "red");
       }
+      
       // --- vertical lines along y axe   
       for (var y = 0; y <= y1; y = y + 2 * (y1) / res) {
         var t1 = ct(0, y, 0);
@@ -175,7 +177,7 @@
         var t2 = ct(x1, 0, z);
         reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "red");
       }
-
+      */
 
       //axes in blue, longer than range
       var t1 = ct(x0 * (1 + 2 / res), 0, 0);
@@ -234,7 +236,7 @@
           pt = ct(tempF(t1, t2+dt2).x, tempF(t1, t2+dt2).y, tempF(t1, t2+dt2).z); // point transformed in new coord system
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
           ctx.closePath();
-          iTemp = Math.round(256 * tempF(t1, t2).z);
+          iTemp = 2*Math.round(256 * tempF(t1, t2).z);
           ctx.stroke();
           ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
           ctx.fill();
@@ -275,34 +277,7 @@
       }
     }
     //-------------------------------------------
-    function arrowHead(x, y, z, arrLength) {
-      //k is the complex number representing the tip of the arrow on the x,y plane
-      //k1 is 45° and of module proportional to the x0,x1,res
-      reMap.lineWidth = 1;
-      if (z == 0) {
-        var k = c(x, y);
-        var k1 = p(k, c(-1, 1 / 2)); //angle of arrow sides
-        k1 = r(arrLength, m(k1).theta); //new vector, same angle, reduced magnitude
-        k1 = s(k, k1); // tip of one side of arrow
-        var t1 = ct(k.x, k.y, 0);
-        var t2 = ct(k1.x, k1.y, 0);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
 
-        k1 = p(k, c(-1, -1 / 2)); //opposite angle of arrow side
-        k1 = r(arrLength, m(k1).theta); //new vector, same angle, reduced magnitude
-        k1 = s(k, k1); // tip of one side of arrow
-        var t2 = ct(k1.x, k1.y, 0);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-      } else //z > 0, temporary arrow, improve with quaternions
-      {
-        t1 = ct(x, y, z);
-        t2 = ct(x + arrLength / 2, y, z - arrLength);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-        t2 = ct(x - arrLength / 2, y, z - arrLength);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-      }
-
-    }
     //-------------------------------------------
     function displayFunctions() {
       document.getElementById("listFunctions").innerHTML = listFunctions(false, false);
@@ -312,6 +287,10 @@
 
           plotColoredFunction(funcRes);
     }
+    //------------  
+    //-----------------------------------------------------
+
+
   </script>
 </body>
 

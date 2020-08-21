@@ -123,17 +123,17 @@ var navigation = {
   threeD: {
     id: "threeD",
     link: "../../plotmathfunctions/3d/index.html",
-    label: "f(x,y) - quaternions",
+    label: "f(x,y) - q",
     hasChildren: true,
     children: {item0: "threeDmatrixes"},
-    content: "rotations obtained with quaternions",
+    content: "rotations obtained with QUATERNIONS",
   },
   threeDmatrixes: {
     id: "threeDmatrixes",
     link: "../../plotmathfunctions/3d/3d-matrixes.html",
-    label: "f(x,y) - matrixes",
+    label: "f(x,y) - m",
     hasChildren: false,
-    content: "rotations obtained with matrixes",
+    content: "rotations obtained with MATRICES",
   },
   complex: {
     id: "complex",

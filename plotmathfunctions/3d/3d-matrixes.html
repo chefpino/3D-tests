@@ -9,7 +9,8 @@
   <script src="../../math-library/math.quaternions.js"></script>
   <script src="../../math-library/math.matrixes.js"></script>
   <script src="../../navigation/controls.js"></script>
-  <script src="../../math-library/remap.js"></script>
+  <script src="../../math-library/graphicfunctions.js"></script>
+  <script src="../../math-library/3d.graphic.functions.js"></script>
 </head>
 
 <body onload="init();">
@@ -283,34 +284,6 @@
       }
     }
     //-------------------------------------------
-    function arrowHead(x, y, z, arrLength) {
-      //k is the complex number representing the tip of the arrow on the x,y plane
-      //k1 is 45° and of module proportional to the x0,x1,res
-      reMap.lineWidth = 1;
-      if (z == 0) {
-        var k = c(x, y);
-        var k1 = p(k, c(-1, 1 / 2)); //angle of arrow sides
-        k1 = r(arrLength, m(k1).theta); //new vector, same angle, reduced magnitude
-        k1 = s(k, k1); // tip of one side of arrow
-        var t1 = ct(k.x, k.y, 0);
-        var t2 = ct(k1.x, k1.y, 0);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-
-        k1 = p(k, c(-1, -1 / 2)); //opposite angle of arrow side
-        k1 = r(arrLength, m(k1).theta); //new vector, same angle, reduced magnitude
-        k1 = s(k, k1); // tip of one side of arrow
-        var t2 = ct(k1.x, k1.y, 0);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-      } else //z > 0, temporary arrow, improve with quaternions
-      {
-        t1 = ct(x, y, z);
-        t2 = ct(x + arrLength / 2, y, z - arrLength);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-        t2 = ct(x - arrLength / 2, y, z - arrLength);
-        reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "black");
-      }
-
-    }
     //-------------------------------------------
     function displayFunctions() {
       document.getElementById("listFunctions").innerHTML = listFunctions(true, true);

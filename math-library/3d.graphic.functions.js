@@ -45,7 +45,6 @@ function drawPavement(res) {
     reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "red");
   }
 
-  draw3Daxis(res);
 
 }
 //----------------------------------------------------------------

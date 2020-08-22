@@ -4,7 +4,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../../css/main.css" />
   <script src="../../navigation/menu.js"></script>
-  <script src="../../pages-data/3d.R2R3.data.js"></script>
+  <script src="../../pages-data/3d.R2Rm.data.js"></script>
   <script src="../../math-library/math.complexnumbers.js"></script>
   <script src="../../math-library/math.quaternions.js"></script>
   <script src="../../math-library/math.matrixes.js"></script>
@@ -45,17 +45,13 @@
     const fixedOrigin = true; //can be a parameter also
 
     //--- declare global variables
-    var x0=params.x0.val;
-    var x1=params.x1.val;
-    var y0=params.y0.val;
-    var y1=params.y1.val;
-    //---
-    var t10, t11, t20, t21;
+    var x0, x1, y0, y1;
     var gridRes;
     var funcRes;
     var funcOpacity;
     var scaleFactor;
     var xyAngle, zyAngle, zxAngle;
+    var zFact;
     var perspective; //boolean
     let Rx = new matrix(3, 3);
     let Ry = new matrix(3, 3);
@@ -67,7 +63,7 @@
     function init() {
       reMap.objCanvas = ctx;
       reMap.lockRatio = true;
-      genNavigation("R2R3", true);
+      genNavigation("R2Rm", true);
       generateControls();
       displayFunctions();
       //fileToParameters(); //initiate event listener for file uploader
@@ -132,7 +128,7 @@
     //-------------------------------------------
     function drawPavement(res) {
 
-      reMap.lineWidth = 0.3;
+      reMap.lineWidth = 0.5;
       //height = avrg(x1,y1), can be improved
       var z1 = (x1 + y1) / 2;
 
@@ -151,14 +147,13 @@
       }
 
       //vertical pavement, passing by origin (can be improved by passing per mid of range?)   
-      /* 
+
       //--- vertical lines along x axe
       for (var x = 0; x <= x1; x = x + 2 * (x1) / res) {
         var t1 = ct(x, 0, 0);
         var t2 = ct(x, 0, z1);
         reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "red");
       }
-      
       // --- vertical lines along y axe   
       for (var y = 0; y <= y1; y = y + 2 * (y1) / res) {
         var t1 = ct(0, y, 0);
@@ -177,7 +172,7 @@
         var t2 = ct(x1, 0, z);
         reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "red");
       }
-      */
+
 
       //axes in blue, longer than range
       var t1 = ct(x0 * (1 + 2 / res), 0, 0);
@@ -196,57 +191,69 @@
       arrowHead(0, 0, z1 * (1 + 2 / res), 1 / 2 * (x1 - x0) / gridRes); //y 
 
     }
-    //------------------------------
-    function tempF(t1,t2){
-      return {
-          x: eval(params.functions.x),
-          y: eval(params.functions.y),
-          z: eval(params.functions.z),
-      }
-     }
     //-------------------------------------------
-    function plotColoredFunction(res) {
+    function plotColoredFunction(objF, res) {
 
-      var dt1 = (t11 - t10) / res;
-      var dt2 = (t21 - t20) / res;
+      var dx = (x1 - x0) / res;
+      var dy = (y1 - y0) / res;
 
-      var t1 = t10;
-      var t2 = t20;
+      var x = x0;
+      var y = y0;
       var i = 0;
       var j = 0;
 
-      var pt, iTemp;
+      var pt, t1, t2;
+      var iTemp;
 
       reMap.lineWidth = 0.5;
       ctx.globalAlpha = funcOpacity; //opacity
 
       for (i = 0; i <= res; i++) {
-        t1 = t10 + i * dt1;
+        x = x0 + i * dx;
 
         for (j = 0; j <= res; j++) {
-          t2 = t20 + j * dt2;
+          y = y0 + j * dy;
 
-          pt = ct(tempF(t1, t2).x, tempF(t1, t2).y, tempF(t1, t2).z); // point transformed in new coord system
+          pt = ct(x, y, objF(x, y)); // point transformed in new coord system
           ctx.beginPath();
           ctx.moveTo(reMap.x(pt.x), reMap.y(pt.y));
-          pt = ct(tempF(t1+dt1, t2).x, tempF(t1+dt1, t2).y, tempF(t1+dt1, t2).z); // point transformed in new coord system
+          pt = ct(x + dx, y, objF(x + dx, y));
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
-          pt = ct(tempF(t1+dt1, t2+dt2).x, tempF(t1+dt1, t2+dt2).y, tempF(t1+dt1, t2+dt2).z); // point transformed in new coord system
+          pt = ct(x + dx, y + dy, objF(x + dx, y + dy));
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
-          pt = ct(tempF(t1, t2+dt2).x, tempF(t1, t2+dt2).y, tempF(t1, t2+dt2).z); // point transformed in new coord system
+          pt = ct(x, y + dy, objF(x, y + dy));
           ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
           ctx.closePath();
-          iTemp = 2*Math.round(256 * tempF(t1, t2).z);
+          iTemp = Math.round(256 * objF(x, y));
           ctx.stroke();
           ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
           ctx.fill();
 
 
+          t1 = ct(x, y, objF(x, y)); //baseChange(c(x,y0),c1,c2);
+          t2 = ct(x + dx, y, objF(x + dx, y));
+          reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
+          t2 = ct(x, y + dy, objF(x, y + dy));
+          reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
         }
       }
 
       ctx.globalAlpha = 1; //opacity
 
+      //write x0,x1 etc --- can be done separately and
+      //the number should be on the correct side, following the vector direction
+      var tempP;
+      ctx.fillStyle = "red";
+      tempP = ct(x0, y0, 0);
+      ctx.fillText("x0, y0", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(x1, y0, 0);
+      ctx.fillText("x1, y0", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(x0, y1, 0);
+      ctx.fillText("x0,y1", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(x1, y1, 0);
+      ctx.fillText("x1,y1", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(0, 0, 0);
+      ctx.fillText("o", reMap.x(tempP.x), reMap.y(tempP.y));
 
     }
     //------------------------------------------
@@ -273,24 +280,27 @@
 
       return {
         x: rotatedVector[1][1] / perspectiveFactor,
-        y: (rotatedVector[3][1] / perspectiveFactor)
+        y: (rotatedVector[3][1] / perspectiveFactor) * zFact
       }
     }
     //-------------------------------------------
-
     //-------------------------------------------
     function displayFunctions() {
-      document.getElementById("listFunctions").innerHTML = listFunctions(false, false);
+      document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
     }
     //-------------------------------------------
     function plotAll() {
 
-          plotColoredFunction(funcRes);
+      for (const key in params.functions) {
+        const element = params.functions[key];
+        if (element != false) {
+          function g(x, y) {
+            return eval(element);
+          };
+          plotColoredFunction(g, funcRes);
+        }
+      }
     }
-    //------------  
-    //-----------------------------------------------------
-
-
   </script>
 </body>
 

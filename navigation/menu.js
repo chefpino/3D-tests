@@ -124,7 +124,7 @@ var navigation = {
   },
   R2R: {
     id: "R2R",
-    link: "../../plotmathfunctions/3d/index.html",
+    link: "../../plotmathfunctions/3d/3d-R2toR-q.html",
     label: "R2 -> R (quaternions)",
     hasChildren: true,
     children: {item0: "R2Rm"},
@@ -132,7 +132,7 @@ var navigation = {
   },
   R2Rm: {
     id: "R2Rm",
-    link: "../../plotmathfunctions/3d/3d-matrixes.html",
+    link: "../../plotmathfunctions/3d/3d-R2toR-m.html",
     label: "R2 -> R (matrices)",
     hasChildren: false,
     content: "rotations obtained with MATRICES",

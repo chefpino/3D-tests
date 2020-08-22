@@ -4,7 +4,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../../css/main.css" />
   <script src="../../navigation/menu.js"></script>
-  <script src="../../pages-data/3d.R2Rm.data.js"></script>
+  <script src="../../pages-data/3d.R2Rq.data.js"></script>
   <script src="../../math-library/math.complexnumbers.js"></script>
   <script src="../../math-library/math.quaternions.js"></script>
   <script src="../../math-library/math.matrixes.js"></script>
@@ -12,23 +12,43 @@
   <script src="../../math-library/graphicfunctions.js"></script>
   <script src="../../math-library/3d.graphic.functions.js"></script>
 </head>
-
 <body onload="init();">
   <table style="border: 1px solid; padding: 0px;" width="100%" height="100%">
     <tr>
-      <td valign="top">
+      <td valign="top" height="100">
         <div id="menu"></div>
       </td>
-      <td rowspan=2 valign="top" align=left><canvas id="myCanvas" width="1000" height="500"
-          style="border: 0px solid; padding: 0px;"></canvas>
-      </td>
+      <td rowspan=2 valign="top" align=left>
+        <canvas id="myCanvas" width="1000" height="700"
+          style="z-index: 1; border: 0px solid; padding: 0px;"></canvas>
+          <div id="panningTool"
+          style="z-index: 2;
+          position: absolute;;
+          right:100px;
+          top:20px;"
+          height="300px" width="300">
+          <table style="border: 1px solid">
+            <tr>
+              <td></td><td align=center><a href="#" onclick="panning('udpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></a></td><td></td>
+            </tr>  
+            <tr>
+              <td><a href="#" onclick="panning('lrpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowLeft.jpg" width=15 height=15 "></a></td>
+              <td></td>
+              <td><a href="#" onclick="panning('lrpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowRight.jpg" width=15 height=15 "></a></td>
+            </tr> 
+            <tr>
+              <td></td><td><a href="#" onclick="panning('udpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></a></td><td></td>
+            </tr>  
+          </table>          
+        </div>
+       </td>
     </tr>
     <tr>
       <td valign="top" width="100">
         <div id="content"></div>
-        <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+        <img height=1 width=420 src="../../imgs/1pxBlack.gif">
         <div id="listFunctions">placeholder</div>
-        <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+        <img height=1 width=420 src="../../imgs/1pxBlack.gif">
         <div id="dynamicSliders"></div>
       </td>
     </tr>
@@ -40,11 +60,13 @@
     const cW = 1000; //canvas.clientWidth;
     const cH = 700; //canvas.clientHeight;
     const ctx = canvas.getContext("2d");
-    canvas.width = cW;
-    canvas.height = cH;
+    const xAxis = qt(0, 1, 0, 0);
+    const yAxis = qt(0, 0, 1, 0);
+    const zAxis = qt(0, 0, 0, 1);
     const fixedOrigin = true; //can be a parameter also
 
     //--- declare global variables
+    var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
     var x0, x1, y0, y1;
     var gridRes;
     var funcRes;
@@ -52,24 +74,32 @@
     var scaleFactor;
     var xyAngle, zyAngle, zxAngle;
     var zFact;
-    var perspective; //boolean
-    let Rx = new matrix(3, 3);
-    let Ry = new matrix(3, 3);
-    let Rz = new matrix(3, 3);
+    var perspective;
     var diagonal; //maxim distance between 2 points on the pavement
-    var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
+
+    //test tree stuff
+    var initLen=1;
+    var alpha = Math.PI/4;
+    var beta = 0;
+    var fr = 0.7;
+    //const sin = (x) => Math.sin(x);
+    //const cos = (x) => Math.cos(x);
+
+
+
+
 
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
-      reMap.lockRatio = true;
-      genNavigation("R2Rm", true);
+      genNavigation("R2R", true);
       generateControls();
       displayFunctions();
-      //fileToParameters(); //initiate event listener for file uploader
-      loadvaluesandgo();
-    }
+      loadvaluesandgo();      
+     }
     //-------------------------------------------
+    //load values from param object, be careful, globalvariables' names are
+    //must match the key names
     function loadValues() {
 
       for (var key in params) {
@@ -77,7 +107,6 @@
           eval(`${key}=params.${key}.val`);
         }
       }
-
     }
     //-------------------------------------------
     function loadvaluesandgo() {
@@ -89,40 +118,26 @@
       reMap.x1 = x1;
       reMap.y0 = y0;
       reMap.y1 = y1;
+      reMap.lockRatio = true;
       reMap.scaleFactor = scaleFactor;
 
       //calculated parameter 
       diagonal = Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
 
-      //rotation matrices ---
-      //----------------------------------------------------------------          
-      Rx[1][1] = 1;
-      Rx[2][2] = Math.cos(zyAngle);
-      Rx[2][3] = -Math.sin(zyAngle);
-      Rx[3][2] = Math.sin(zyAngle);
-      Rx[3][3] = Math.cos(zyAngle);
-      //----------------------------------------------------------------          
-      Ry[1][1] = Math.cos(zxAngle);
-      Ry[1][3] = Math.sin(zxAngle);
-      Ry[2][2] = 1;
-      Ry[3][1] = -Math.sin(zxAngle);
-      Ry[3][3] = Math.cos(zxAngle);
-      //----------------------------------------------------------------          
-      Rz[1][1] = Math.cos(xyAngle);
-      Rz[1][2] = -Math.sin(xyAngle);
-      Rz[2][1] = Math.sin(xyAngle);
-      Rz[2][2] = Math.cos(xyAngle);
-      Rz[3][3] = 1;
-      //----------------------------------------------------------------   
-
       //--- clear canvas
       ctx.clearRect(0, 0, cW, cH);
 
       //--- draw base domain
-      drawPavement(gridRes);
+      //drawPavement(gridRes);
+      draw3Daxis(gridRes);
 
       //--- plot function
-      plotAll();
+      drawBranch(0,0,0,alpha,beta, initLen);
+
+      
+      
+
+
     }
 
     //-------------------------------------------
@@ -196,46 +211,65 @@
     // --- ct maps a 3d point to a 2d map representing the 3d space
     function ct(x, y, z) {
 
-      var rotatedVector = new matrix(3, 1);
-      rotatedVector[1][1] = x;
-      rotatedVector[2][1] = y;
-      rotatedVector[3][1] = z;
+      let pt1 = qt(0, x, y, z); //point in 3d as a quaternion    
 
-      //apply rotations
-      rotatedVector = multiplyMatrix(Rz, rotatedVector);
-      rotatedVector = multiplyMatrix(Rx, rotatedVector);
-      rotatedVector = multiplyMatrix(Ry, rotatedVector);
+      pt1 = qRot(zAxis, xyAngle, pt1); //point rotated around z axis
+      pt1 = qRot(yAxis, zxAngle, pt1); //point rotated around x axis
+      pt1 = qRot(xAxis, zyAngle, pt1); //point rotated around y axis
 
       //for perspective it's better to traslate the rotated point away from the canvas
       //diagonal is the size of the pavement diagonal
       let perspectiveFactor = 1;
       if (perspective) {
-        perspectiveFactor = rotatedVector[2][1] + diagonal;
+        perspectiveFactor = (pt1.c + diagonal);
       } //works, a bit far
+      
+      let lrpanning=params.lrpanning.val * 1;
+      let udpanning=params.udpanning.val * 1;
 
       return {
-        x: rotatedVector[1][1] / perspectiveFactor,
-        y: (rotatedVector[3][1] / perspectiveFactor) * zFact
+        x: (pt1.b / perspectiveFactor) + lrpanning,
+        y: ((pt1.d / perspectiveFactor) * zFact) + udpanning
       }
     }
     //-------------------------------------------
+
     //-------------------------------------------
     function displayFunctions() {
       document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
     }
     //-------------------------------------------
-    function plotAll() {
 
-      for (const key in params.functions) {
-        const element = params.functions[key];
-        if (element != false) {
-          function g(x, y) {
-            return eval(element);
-          };
-          plotColoredFunction(g, funcRes);
+
+    function drawBranch(x,y,z,alpha_j,beta_n,len) {
+        
+        var v1=sumVectors([null,x,y,z],[null,len*Math.sin(beta_n)*Math.cos(alpha_j)*fr,len*Math.sin(beta_n)*Math.cos(alpha_j)*fr,len*fr]);
+        var pt0=ct(x,y,z);
+        var pt1=ct(v1[1],v1[2],v1[3]);
+
+          ctx.beginPath();
+          ctx.strokeStyle = `rgb(${Math.round(Math.random()*100)},100,100)`;
+          ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
+          ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
+          ctx.stroke();
+          
+          //test 3 branches 
+          for (var i=0;i<3;i++){
+            let tempAlpha = Math.PI/3 * (i+1);
+          if (len>0.1){ //min length
+            drawBranch(v1[1],v1[2],v1[3],tempAlpha,beta_n+.5,len*fr);
+          }
         }
-      }
+        
+        
+
     }
+//-------------------------------
+
+
+
+
+
   </script>
 </body>
 

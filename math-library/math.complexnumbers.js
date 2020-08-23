@@ -71,7 +71,7 @@ function inv(c) {
 }
 //-------------------------------------------
 //sin
-function sin(c) {
+function complex_sin(c) {
   return {
     x: Math.sin(c.x) * Math.cosh(c.y),
     y: Math.cos(c.x) * Math.sinh(c.y),
@@ -79,7 +79,7 @@ function sin(c) {
 }
 //-------------------------------------------
 //cos(a+bi)=cosacoshb−isinasinhb
-function cos(c) {
+function complex_cos(c) {
   return {
     x: Math.cos(c.x) * Math.cos(c.y),
     y: Math.sin(c.x) * Math.sinh(c.y),

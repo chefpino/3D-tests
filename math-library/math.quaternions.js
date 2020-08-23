@@ -53,13 +53,13 @@ function invq(qt){
 function p_rot(u,angle){
    //u is a unit vector (quaternion with real part zero) 
    //p_rot is the rotation quaternion for the formula q -> pqp' (p' is the conjugate) 
-  const sin=Math.sin(angle/2);
-  const cos=Math.cos(angle/2);
+  const _sin=Math.sin(angle/2);
+  const _cos=Math.cos(angle/2);
   return {
-    a: cos,
-    b: u.b * sin,
-    c: u.c * sin,
-    d: u.d * sin
+    a: _cos,
+    b: u.b * _sin,
+    c: u.c * _sin,
+    d: u.d * _sin
   }
 }
 //---------------------------------------------------

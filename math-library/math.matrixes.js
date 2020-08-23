@@ -264,17 +264,19 @@ function randomMatrix(m,n,min,max,decimals){
   return newmatrix;
 }
 //----------------------------------------------------------------
-
 function sumVectors(v1,v2){
   if (v1.length != v2.length){
     return "sum ERROR, vectors are of different sizes"
   }
   let v=[];
   v[0]=null;
-  for(var i=1; i <= v1.length; i++) {
+  for(var i=1; i < v1.length; i++) {
     v[i]=v1[i]+v2[i];
    }  
   return v;
   
 }
-
+//----------------------------------------------------------------
+function norm(v){
+    return Math.sqrt(dotProduct(v,v));
+}

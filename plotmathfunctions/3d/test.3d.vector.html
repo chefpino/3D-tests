@@ -132,8 +132,8 @@
       draw3Daxis(gridRes);
 
       //--- plot function
-      drawBranch(0,0,0,alpha,beta, initLen);
-
+      //drawVector(.577,.577,.577,0,0,0);
+      drawVector(1,1,1,xyAngle,0,0);
       
       
 
@@ -241,30 +241,28 @@
     //-------------------------------------------
 
 
-    function drawBranch(x,y,z,alpha_j,beta_n,len) {
+    function drawVector(x,y,z,alpha,beta,gamma) {
         
-        var v1=sumVectors([null,x,y,z],[null,len*Math.sin(beta_n)*Math.cos(alpha_j),len*Math.sin(beta_n)*Math.sin(alpha_j),len]);
-        var pt0=ct(x,y,z);
-        var pt1=ct(v1[1],v1[2],v1[3]);
+      let ptq1 = qt(0, x, y, z); //point in 3d as a quaternion   
+      const pt0 = ct(0,0,0); 
+
+      ptq1 = qRot(zAxis, alpha, ptq1); //point rotated around z axis
+      ptq1 = qRot(yAxis, beta, ptq1); //point rotated around x axis
+      ptq1 = qRot(xAxis, gamma, ptq1); //point rotated around y axis
+      
+      let pt1=ct(ptq1.b, ptq1.c, ptq1.d);
+
+      console.table(pt1);
 
           ctx.beginPath();
-          ctx.strokeStyle = `rgb(${Math.round(len*500)},100,100)`;
+          //ctx.strokeStyle = `black`;
           ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
           ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
           ctx.stroke();
-          console.log(Math.round(len*500));
+
+          plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");//leaves
+
           
-          if (len>0.1){ //min length
-           for (var i=0;i<3;i++){
-            let tempAlpha = (1+Math.random())* Math.PI/3 * i;
-            drawBranch(v1[1],v1[2],v1[3],tempAlpha,beta_n+.5*Math.random(),len*fr-Math.random()/10);
-           }
-          }
-           else {
-
-           plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");//leaves
-
-          }
         
         
 

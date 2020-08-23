@@ -80,15 +80,17 @@
     var perspective;
     var diagonal; //maxim distance between 2 points on the pavement
     var initAngle; //trunk angle
-    var dAngle //branch angle
+    var dAngle; //branch angle
+    var initTrunk; //trunk initial thickness
     var reduction; //factor to reduce branch length
     var branches;
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
+      ctx.shadowBlur = 5;
+      ctx.shadowColor = "green";
       genNavigation("THREEDTREE", true);
       generateControls();
-      displayFunctions();
       loadvaluesandgo();      
      }
     //-------------------------------------------
@@ -112,7 +114,7 @@
       reMap.scaleFactor = scaleFactor;
 
       //calculated parameter 
-      diagonal = 3; //Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
+      diagonal = 5; //Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
 
       //--- clear canvas
       ctx.clearRect(0, 0, cW, cH);
@@ -122,7 +124,7 @@
       //draw3Daxis(gridRes);
 
       //--- draw tree
-      drawBranchNew([null,0,0,-2],[null,0,0,1]);
+      drawBranchNew([null,0,0,-2],[null,0,cos(initAngle),1],initTrunk);
 
     }
 
@@ -162,7 +164,7 @@
 
 
 //-------------------------------
-function drawBranchNew(o,v) { 
+function drawBranchNew(o,v,initTrunk) { 
 
   //o = origin point  [null,x, y, z]
   //v vector and axis [null,x, y, z]
@@ -205,7 +207,8 @@ function drawBranchNew(o,v) {
     //rotate pt1 n-times around axis v
     let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
           ctx.beginPath();
-          ctx.strokeStyle = `green`; //improve, now shit
+          ctx.strokeStyle = `brown`; //improve, now shit
+          ctx.lineWidth = initTrunk;
           ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
           ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
           ctx.stroke();
@@ -216,11 +219,11 @@ function drawBranchNew(o,v) {
     var newv=q2v(pq(reduction,ptiq)); //reduction of 0.75
         
   if (norm(v)>0.4){
-    drawBranchNew(sumVectors(o,q2v(ptiq)),newv);
+    drawBranchNew(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction);
    }
    else
-  {
-    plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");//leaves
+  { //leaves
+    //plot(reMap.x(pt1.x), reMap.y(pt1.y),"green");
   }
   }
   

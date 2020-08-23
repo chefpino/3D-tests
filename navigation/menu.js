@@ -73,7 +73,7 @@ var navigation = {
   tree: {
     id: "tree",
     link: "../../fractals/tree/index.html",
-    label: "Tree",
+    label: "2D Tree",
     hasChildren: true,
     children:{
       item0: "THREEDTREE",

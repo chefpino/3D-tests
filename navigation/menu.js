@@ -74,8 +74,17 @@ var navigation = {
     id: "tree",
     link: "../../fractals/tree/index.html",
     label: "Tree",
-    hasChildren: false,
+    hasChildren: true,
+    children:{
+      item0: "THREEDTREE",
+    },
     content: "Change the parameters to generate different fractal trees.",
+  },
+  THREEDTREE: {
+    id: "THREEDTREE",
+    link: "../../plotmathfunctions/3d/3d.tree.html",
+    label: "3D Tree",
+    content: "under development",
   },
   barnsley: {
     id: "barnsley",

@@ -133,7 +133,7 @@
 
       //--- plot function
       //drawVector(.577,.577,.577,0,0,0);
-      drawVector(1,1,1,xyAngle,0,0);
+      drawVector(1,1,1,0.4,0,0);
       
       
 
@@ -247,12 +247,11 @@
       const pt0 = ct(0,0,0); 
 
       ptq1 = qRot(zAxis, alpha, ptq1); //point rotated around z axis
-      ptq1 = qRot(yAxis, beta, ptq1); //point rotated around x axis
+      ptq1 = qRot(yAxis, beta, ptq1);  //point rotated around x axis
       ptq1 = qRot(xAxis, gamma, ptq1); //point rotated around y axis
       
       let pt1=ct(ptq1.b, ptq1.c, ptq1.d);
 
-      console.table(pt1);
 
           ctx.beginPath();
           //ctx.strokeStyle = `black`;

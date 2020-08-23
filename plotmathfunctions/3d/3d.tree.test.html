@@ -135,7 +135,7 @@
       //--- plot function
       //drawBranch(0,0,0,alpha,beta, initLen);
 
-      drawBranchNew(.1,.1,.1,[null,1,1,1])
+      drawBranchNew([null,0,0,1],[null,.5,.4,.3])
 
       
       
@@ -270,52 +270,68 @@
           }
     }
 //-------------------------------
-function drawBranchNew(x,y,z,v) { 
+function drawBranchNew(o,v) { 
+
+  //o = origin point  [null,x, y, z]
+  //v vector and axis [null,x, y, z]
   
-  var angle=PI/2;
+  let beta=PI/6;
 
-  let beta_n=1.9*PI;
-  var pt0=ct(x,y,z);
-  //var pt0=ct(0,0,0);
-  var vn=[null,v[1]*0.75*cos(2*PI-2*beta_n),v[2]*0.75,v[3]*0.75*sin(2*PI-2*beta_n)];
-  var v1=sumVectors([null,x,y,z],vn);
-  //var pt1=ct(v1[1],v1[2],v1[3]);
-  var axis=qt(0,v[1],v[2],v[3]);
+  var pt0=ct(o[1],o[2],o[3]);
+  var pt1_v=sumVectors(o,v);
+  var pt1 = ct(pt1_v[1],pt1_v[2],pt1_v[3]);
 
-  for (var i= 0; i < 4 ; i++){
-    let pt1q=qt(0,v1[1],v1[2],v1[3]);
-    let tempAngle=angle*i;
 
-    let ptiq=qRot(axis,tempAngle,pt1q)
-    //rotate pt1 n-times around axis v
-    let pt1=ct(ptiq.b, ptiq.c, ptiq.d);
-    ctx.beginPath();
-          ctx.strokeStyle = `rgb(100},100,100)`; //improve, now shit
+  /*
+  //red axis for debugging
+          ctx.beginPath();
+          ctx.strokeStyle = `red`; //improve, now shit
           ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
           ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
           ctx.stroke();
 
+  //tip of axis, rotated beta on flat x,z plane
+  var axisTip_v=sumVectors(o,[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)]);
+  var axisTip_P=ct(axisTip_v[1],axisTip_v[2],axisTip_v[3]);
+  //red axis for debugging
+  ctx.beginPath();
+          ctx.strokeStyle = `black`; //improve, now shit
+          ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
+          ctx.lineTo(reMap.x(axisTip_P.x), reMap.y(axisTip_P.y));
+          ctx.stroke();
+ */
+    
+    //rotated vector v1 around axis v
+    var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];
 
+    
+    for (var i= 0; i < 4 ; i++){
+    let pt1q=qt(0,v1[1],v1[2],v1[3]);
+    let tempAngle=2*PI*i/4;
+
+    let ptiq=qRot(v2q(v),tempAngle,pt1q)
+    //rotate pt1 n-times around axis v
+    let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
+          ctx.beginPath();
+          ctx.strokeStyle = `green`; //improve, now shit
+          ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
+          ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
+          ctx.stroke();
+
+    //(x,y,z) =  v1[1],v1[2],v1[3]
+    //axis = [null,pt1-pt0]
+    //new, shortened vector
+    var newv=q2v(pq(0.5,ptiq)); //reduction of 0.75
+        
+  if (v[2]>0.3){
+    drawBranchNew(sumVectors(o,q2v(ptiq)),newv);
+   }
   }
-
+  
 
 
   
 
-          /*
-          let nBranches=intRnd(3,5);
-          if (len>0.1){ //min length
-           for (var i=0;i<nBranches;i++){
-            let tempAlpha = 2 * Math.PI/nBranches * i;
-            drawBranch(v1[1],v1[2],v1[3],tempAlpha-rnd(0,PI/8),2*beta_n+rnd(0,PI/8),len*rnd(0.4,0.7));
-           }
-          }
-           else {
-
-           plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");//leaves
-
-          }
-          */
         }
 
 

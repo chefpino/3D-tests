@@ -10,6 +10,7 @@ function qt(a,b,c,d){
   }
 }
 //---------------------------------------------------
+//--- SUM
 function sq(q1,q2){
   return {
     a: q1.a+q2.a,
@@ -19,6 +20,7 @@ function sq(q1,q2){
   }
 }
 //---------------------------------------------------
+//--- PRODUCT (good also for scalars)
 function pq(q1,q2){
 
   q1=(typeof(q1)=="object") ? q1 : qt(q1,0,0,0);
@@ -72,9 +74,17 @@ function qRot(axis,angle,pt){
   pr=p_rot(u,angle);
 
   return pq(pq(pr,pt),conj(pr));
+}
+//---------------------------------------------------
+function q2v(qt1){
+  //quaternion to vector
+  return [null,qt1.b,qt1.c,qt1.d];
+}
+//---------------------------------------------------
+function v2q(v){
+  //vector to quaternion
+  return qt(0,v[1],v[2],v[3]);
+}
 //---------------------------------------------------
 
-
-
-}
 

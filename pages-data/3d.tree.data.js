@@ -280,10 +280,10 @@ var params = {
     visible: false,
   },    
   udpanning: {
-    val: 0,
+    val: -2,
     min: -10,
     max: 10,
-    default: 0,
+    default: -2,
     label: "up down panning",
     minLabel: "not visible",
     maxLabel: "not visible",

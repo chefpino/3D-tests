@@ -123,12 +123,11 @@
       ctx.clearRect(0, 0, cW, cH);
 
       //--- draw base domain
-      //drawPavement(gridRes);
+      //drawPavement(params.gridRes.val);
       if (axis==1){draw3Daxis(params.gridRes.val);}
-      //
 
       //--- draw tree
-      drawBranchNew([null,0,0,-2],[null,0,cos(initAngle),1],initTrunk);
+      drawBranchNew([null,0,0,0],[null,0,cos(initAngle),1],initTrunk);
 
     }
 

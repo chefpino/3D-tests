@@ -84,7 +84,7 @@ var navigation = {
     id: "THREEDTREE",
     link: "../../plotmathfunctions/3d/3d.tree.html",
     label: "3D Tree",
-    content: "under development",
+    content: "Under development.<br>Change the parameters to generate different fractal trees.",
   },
   barnsley: {
     id: "barnsley",

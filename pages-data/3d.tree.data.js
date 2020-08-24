@@ -24,11 +24,11 @@ var params = {
     },
   "dAngle":{
     val:Math.PI/8,
-    min:Math.PI/8,
+    min:Math.PI/12,
     max:Math.PI/4,
     default:Math.PI/8,
     label:"branches angle",
-    minLabel:"&pi;/8",
+    minLabel:"&pi;/12",
     maxLabel:"&pi;/4",
     visible: true,
     recalc: true,

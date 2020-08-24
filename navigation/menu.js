@@ -12,7 +12,7 @@ var navigation = {
   },
   home: {
     id: "home",
-    link: "https://chefpino.github.io/fun/",
+    link: "https://chefpino.github.io/fun.with.functions/",
     label: "HOME",
     hasChildren: true,
     children: {

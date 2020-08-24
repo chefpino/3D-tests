@@ -30,15 +30,15 @@
           height="300px" width="300">
           <table style="border: 1px solid">
             <tr>
-              <td></td><td align=center><a href="#" onclick="panning('udpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowUp.jpg" width=15 height=15 "></a></td><td></td>
+              <td></td><td align=center><a href="#" onclick="panning('udpanning',0.1);">▲</a></td><td></td>
             </tr>  
             <tr>
-              <td><a href="#" onclick="panning('lrpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowLeft.jpg" width=15 height=15 "></a></td>
+              <td><a href="#" onclick="panning('lrpanning',-0.1);">◄</a></td>
               <td></td>
-              <td><a href="#" onclick="panning('lrpanning',0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowRight.jpg" width=15 height=15 "></a></td>
+              <td><a href="#" onclick="panning('lrpanning',0.1);">►</a></td>
             </tr> 
             <tr>
-              <td></td><td><a href="#" onclick="panning('udpanning',-0.1);"><img src="https://chefpino.github.io/fun/imgs/arrowDown.jpg" width=15 height=15 "></a></td><td></td>
+              <td></td><td><a href="#" onclick="panning('udpanning',-0.1);">▼</a></td><td></td>
             </tr>  
           </table>          
         </div>
@@ -187,16 +187,17 @@ function drawBranchNew(o,v,initTrunk) {
         //rotate pt1 n-times around axis v
         let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
               ctx.beginPath();
-              ctx.strokeStyle = `brown`; //improve, now shit
+              ctx.strokeStyle = `brown`; //improve?
               ctx.lineWidth = initTrunk;
               ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
               ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
               ctx.stroke();
 
-        //for next branch o: [x,y,z] =  v1[1],v1[2],v1[3] + o
+        //for next branch new o: [x,y,z] =  v1[1],v1[2],v1[3] + o
         //axis = [null,pt1-pt0]
-        //new, shortened vector
-        var newv=q2v(pq(reduction+rnd(0,0.05),ptiq)); //reduction is chosen by user, a little random for realism
+        //new, shortened vector (in this case pq is scalar x quaternion)
+        //q2v is quaternion to vector
+        var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
             
       if (norm(v)>minLen){
         drawBranchNew(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction);

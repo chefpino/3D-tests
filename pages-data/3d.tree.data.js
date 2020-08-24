@@ -252,6 +252,21 @@ var params = {
     recalc: true,
     controlType: "checkbox",
   }, 
+  axis: {
+    val: 0,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 0,
+    label: "axis",
+    minLabel: "off",
+    maxLabel: "on",
+    integer: true,
+    steps: 1,
+    recalc: true,
+    controlType: "checkbox",
+  },   
+  
   lrpanning: {
     val: 0,
     min: -10,

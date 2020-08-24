@@ -78,7 +78,8 @@
     var scaleFactor;
     var xyAngle, zyAngle, zxAngle;
     var zFact;
-    var perspective;
+    var perspective; //boolean
+    var axis; //boolean
     var diagonal; //maxim distance between 2 points on the pavement
     var initAngle; //trunk angle
     var dAngle; //branch angle
@@ -123,7 +124,8 @@
 
       //--- draw base domain
       //drawPavement(gridRes);
-      //draw3Daxis(gridRes);
+      if (axis==1){draw3Daxis(params.gridRes.val);}
+      //
 
       //--- draw tree
       drawBranchNew([null,0,0,-2],[null,0,cos(initAngle),1],initTrunk);

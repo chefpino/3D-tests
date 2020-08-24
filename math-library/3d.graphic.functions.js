@@ -64,9 +64,9 @@ function draw3Daxis(res){
     var t2 = ct(0, 0, z1 * (1 + 2 / res));
     reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");  
   
-    arrowHead(x1 * (1 + 2 / res), 0, 0, 1 / 2 * (x1 - x0) / gridRes); //x
-    arrowHead(0, y1 * (1 + 2 / res), 0, 1 / 2 * (y1 - y0) / gridRes); //y 
-    arrowHead(0, 0, z1 * (1 + 2 / res), 1 / 2 * (x1 - x0) / gridRes); //z   
+    arrowHead(x1 * (1 + 2 / res), 0, 0, 1 / 2 * (x1 - x0) / res); //x
+    arrowHead(0, y1 * (1 + 2 / res), 0, 1 / 2 * (y1 - y0) / res); //y 
+    arrowHead(0, 0, z1 * (1 + 2 / res), 1 / 2 * (x1 - x0) / res); //z   
 
 }
 //----------------------------------------------------------------

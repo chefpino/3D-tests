@@ -70,6 +70,7 @@
     const x1=params.x1.val;
     const y1=params.y1.val;
 
+
     //--- declare global variables
     var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
     var gridRes;
@@ -84,6 +85,7 @@
     var initTrunk; //trunk initial thickness
     var reduction; //factor to reduce branch length
     var branches;
+    var minLen;
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
@@ -166,65 +168,45 @@
 //-------------------------------
 function drawBranchNew(o,v,initTrunk) { 
 
-  //o = origin point  [null,x, y, z]
-  //v vector and axis [null,x, y, z]
+  //o = origin point where vector v is attached to. Format: [null, x, y, z]
+  //v vector, branch and axis or rotation of following branches [null, x, y, z]
   
   let beta=dAngle;
 
   var pt0=ct(o[1],o[2],o[3]);
   var pt1_v=sumVectors(o,v);
-  var pt1 = ct(pt1_v[1],pt1_v[2],pt1_v[3]);
-
-
-  /*
-  //red axis for debugging
-          ctx.beginPath();
-          ctx.strokeStyle = `red`; //improve, now shit
-          ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
-          ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
-          ctx.stroke();
-
-  //tip of axis, rotated beta on flat x,z plane
-  var axisTip_v=sumVectors(o,[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)]);
-  var axisTip_P=ct(axisTip_v[1],axisTip_v[2],axisTip_v[3]);
-  //red axis for debugging
-  ctx.beginPath();
-          ctx.strokeStyle = `black`; //improve, now shit
-          ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
-          ctx.lineTo(reMap.x(axisTip_P.x), reMap.y(axisTip_P.y));
-          ctx.stroke();
- */
-    
-    //rotated vector v1 around axis v
+   
+    //v is rotated of beta on x,z plane containing vector v
     var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];
 
     var rndAngle=rnd(0,PI);    
     for (var i= 0; i < branches ; i++){
-    let pt1q=qt(0,v1[1],v1[2],v1[3]);
-    let tempAngle=2*PI*i/branches+rndAngle;
+        let pt1q=qt(0,v1[1],v1[2],v1[3]);
+        let tempAngle=2*PI*i/branches+rndAngle;
 
-    let ptiq=qRot(v2q(v),tempAngle,pt1q)
-    //rotate pt1 n-times around axis v
-    let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
-          ctx.beginPath();
-          ctx.strokeStyle = `brown`; //improve, now shit
-          ctx.lineWidth = initTrunk;
-          ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
-          ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
-          ctx.stroke();
+        let ptiq=qRot(v2q(v),tempAngle,pt1q)
+        //rotate pt1 n-times around axis v
+        let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
+              ctx.beginPath();
+              ctx.strokeStyle = `brown`; //improve, now shit
+              ctx.lineWidth = initTrunk;
+              ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
+              ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
+              ctx.stroke();
 
-    //(x,y,z) =  v1[1],v1[2],v1[3]
-    //axis = [null,pt1-pt0]
-    //new, shortened vector
-    var newv=q2v(pq(reduction,ptiq)); //reduction of 0.75
-        
-  if (norm(v)>0.4){
-    drawBranchNew(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction);
-   }
-   else
-  { //leaves
-    //plot(reMap.x(pt1.x), reMap.y(pt1.y),"green");
-  }
+        //for next branch o: [x,y,z] =  v1[1],v1[2],v1[3] + o
+        //axis = [null,pt1-pt0]
+        //new, shortened vector
+        var newv=q2v(pq(reduction+rnd(0,0.05),ptiq)); //reduction is chosen by user, a little random for realism
+            
+      if (norm(v)>minLen){
+        drawBranchNew(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction);
+      }
+      else
+      {  
+        //leaves?
+        //plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");
+      }
   }
   
 

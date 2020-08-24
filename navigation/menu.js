@@ -1,7 +1,7 @@
 var navigation = {
   origin: {
     id: "origin",
-    link: "https://chefpino.github.io/fun/",
+    link: "https://chefpino.github.io/fun.with.functions/",
     label: "origin (w.i.p.)",
     hasChildren: true,
     children: {

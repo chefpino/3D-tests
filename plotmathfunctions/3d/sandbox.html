@@ -20,9 +20,14 @@
 </table>
 <script>
 
-  for (var i = 0;i<100; i++){
-  console.log(rnd(0,10));
-}
+var treeObj = {};
+
+treeObj["node1"]={"id":1,"children":[1,2,3]};
+treeObj["node2"]={"id":2,"children":[4,5,8]};
+
+console.table(treeObj);
+console.table(treeObj.node1.children[2]);
+
      
      </script>
 </body>

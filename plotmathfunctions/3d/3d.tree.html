@@ -186,6 +186,7 @@ function drawBranchNew(o,v,initTrunk) {
         let ptiq=qRot(v2q(v),tempAngle,pt1q)
         //rotate pt1 n-times around axis v
         let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
+        
               ctx.beginPath();
               ctx.strokeStyle = `brown`; //improve?
               ctx.lineWidth = initTrunk;

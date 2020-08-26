@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../math-library/math.complexnumbers.js"></script>
+    <script src="../../math-library/math.generic.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../pages-data/juliaset.data.js"></script>
     <script src="../../pages-data/jset.functions.js"></script>
@@ -87,10 +88,6 @@
       //--- calculated params
       var dx = reMap.dx();
       var dy = reMap.dy();
-
-
-
-
      
   //************* end global parameters *************************************
 
@@ -106,8 +103,6 @@
         
       //generate drop down with julia functions examples
       document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","val","null",dropdowns.dd1.elements.classic.examples);
-
-
 
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(

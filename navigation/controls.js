@@ -5,12 +5,10 @@ function generateControls() {
   const tr = "<tr>";
   const trc = "</tr>";
 
-  var defaultValue = 0;
   var steps = 100; //resolution of the slider 
-  var min, max, step;
+  var step;
   var controlType = "";
   var goButton = params.goButton.show; //boolean, show yes/no
-  var movie; //boolean
   goButton = (typeof (goButton) == "undefined" ? true : goButton);
 
   var strHTML = '<table style="border: 1px solid black;">';
@@ -23,17 +21,18 @@ function generateControls() {
   //---generate html
   for (var key in params) {
 
+    let defaultValue = 1 * params[key].default;
+    let min = params[key].min;
+    let max = params[key].max;
+    let movie=typeof (params[key].movie) == "undefined" ? false : true;
+
     if (params[key].visible != false) {
 
-      defaultValue = 1 * params[key].default;
-      min = params[key].min;
-      max = params[key].max;
       steps = params[key].steps;
       steps = (typeof (steps) == 'undefined' ? 100 : steps);
       step = (max - min) / steps;
       var recalc = (params[key].recalc == true ? `loadvaluesandgo("${key}");` : "");
       controlType = (typeof (params[key].controlType) == "undefined" ? "range" : params[key].controlType);
-      movie = typeof (params[key].movie) == "undefined" ? false : true;
 
       strHTML = strHTML + tr;
       //resetToDefault
@@ -91,7 +90,7 @@ function generateControls() {
 
   if (goButton) {
     strHTML = strHTML + "<tr><td colspan=6>";
-    strHTML = strHTML + `<button onclick="loadvaluesandgo(${key});">go!</button>&nbsp`;
+    strHTML = strHTML + `<button onclick="loadvaluesandgo('all');">go!</button>&nbsp`;
     strHTML = strHTML + "</td></tr>";
   }
   /*
@@ -112,8 +111,8 @@ function upAndDown(strKey, j) {
   //j is -1 or +1
   // needs better calculations especially with rounding of values and integers
   var steps = params[strKey].steps;
-  var min = params[strKey].min;
-  var max = params[strKey].max;
+  const min = params[strKey].min;
+  const max = params[strKey].max;
   var currentVal = params[strKey].val;
   steps = (typeof (steps) == 'undefined' ? 100 : steps);
   var step = (max - min) / steps;
@@ -181,14 +180,12 @@ function resetToDefault(x) {
       break;
   }
   params[x].val = defaultValue;
-
+  
+  // check to see if this parameter needs refreshing of the plot
   const recalc = params[x].recalc;
   if (recalc) {
     loadvaluesandgo(x);
   }
-
-
-
 
 }
 
@@ -246,8 +243,8 @@ function genDropDownFromObj(id, label, value, selected, obj) {
 //-------------------------------------------
 function dropDownToObj(dd_id, src_obj, arr_keys) {
 
-  var e = document.getElementById(dd_id);
-  var selectedvalue = e.options[e.selectedIndex].value;
+  const e = document.getElementById(dd_id);
+  const selectedvalue = e.options[e.selectedIndex].value;
   var retObj = {};
 
   for (let index = 0; index < arr_keys.length; index++) {

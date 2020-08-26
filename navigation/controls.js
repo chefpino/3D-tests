@@ -177,10 +177,16 @@ function resetToDefault(x) {
       break;
     case "checkbox":
       document.getElementById("val_" + x).innerHTML = (defaultValue == 0 ? params[x].minLabel : params[x].maxLabel);
-      document.getElementById("val_" + x).checked = (defaultValue==1);
+      document.getElementById(x).checked = (defaultValue==1)?true:false;
       break;
   }
   params[x].val = defaultValue;
+
+  const recalc = params[x].recalc;
+  if (recalc) {
+    loadvaluesandgo(x);
+  }
+
 
 
 

@@ -36,7 +36,10 @@ function generateControls() {
       movie = typeof (params[key].movie) == "undefined" ? false : true;
 
       strHTML = strHTML + tr;
-      strHTML = strHTML + td(params[key].label);
+      //resetToDefault
+      strHTML = strHTML +
+                `<td><a href="#" onclick='resetToDefault("${key}");' title="default">` + params[key].label + 
+                "</a></td>";
 
       switch (controlType) {
 
@@ -144,7 +147,7 @@ function panning(strKey, j) {
 //and most important updates value in the params object!
 //takes into account if the param must be an integer
 function updateParam(x) {
-  var controlType = document.getElementById(x).type;
+  const controlType = document.getElementById(x).type;
   var iTemp;
   const isInteger=(true && params[x].integer);
   switch (controlType) {
@@ -161,6 +164,29 @@ function updateParam(x) {
   params[x].val = iTemp;
 
 }
+//reset to default values
+function resetToDefault(x) {
+
+  const defaultValue = params[x].default;
+  const controlType = document.getElementById(x).type;
+  
+   switch (controlType) {
+    case "range":
+      document.getElementById(x).value = defaultValue;
+      document.getElementById("val_" + x).innerHTML = (Math.round(defaultValue * 1000) / 1000);
+      break;
+    case "checkbox":
+      document.getElementById("val_" + x).innerHTML = (defaultValue == 0 ? params[x].minLabel : params[x].maxLabel);
+      document.getElementById("val_" + x).checked = (defaultValue==1);
+      break;
+  }
+  params[x].val = defaultValue;
+
+
+
+}
+
+
 //-------------------------------------------
 // --- movies section ---
 var movieOnOff = false;

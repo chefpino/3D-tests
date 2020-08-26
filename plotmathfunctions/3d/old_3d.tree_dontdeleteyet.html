@@ -4,7 +4,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../../css/main.css" />
   <script src="../../navigation/menu.js"></script>
-  <script src="../../pages-data/3dtree.test.data.js"></script>
+  <script src="../../pages-data/3d.tree.data.js"></script>
   <script src="../../math-library/math.complexnumbers.js"></script>
   <script src="../../math-library/math.quaternions.js"></script>
   <script src="../../math-library/math.matrixes.js"></script>
@@ -81,25 +81,10 @@
     var diagonal; //maxim distance between 2 points on the pavement
     var initAngle; //trunk angle
     var dAngle; //branch angle
-    var initTrunk=params.initTrunk.val; //trunk initial thickness
+    var initTrunk; //trunk initial thickness
     var reduction; //factor to reduce branch length
     var branches;
     var minLen;
-
-    //tree object variables
-    var treeObj={};
-    var childCounter=0;
-
-    //treeObj["node0"]={};    
-    addNode(0,[],[null,0,0,0],initTrunk);
-
-    function addNode(id,children,o,trunk){
-      treeObj["node"+id]={};
-      treeObj["node"+id].id=id;
-      treeObj["node"+id].children=children;
-      treeObj["node"+id].o=o;
-      treeObj["node"+id].initTrunk=trunk;
-    }
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
@@ -107,47 +92,24 @@
       ctx.shadowColor = "green";
       genNavigation("THREEDTREE", true);
       generateControls();
-      loadValues();    
-      loadvaluesandgo("all");      
-
+      loadvaluesandgo();      
      }
     //-------------------------------------------
     //load values from param object, be careful, globalvariables' names are
     //must match the key names
-    function loadValues(strKey) {
-     
-     strKey=(typeof(strKey==undefined)?"all":strKey);
-      
-     if (strKey == "all"){
+    function loadValues() {
+
       for (var key in params) {
         if (params[key].visible != false) {
           eval(`${key}=params.${key}.val`);
         }
       }
-     }
-     else {
-      if (params[strKey].visible != false) {
-          eval(`${strKey}=params.${strKey}.val`);
-        }
-     }
     }
     //-------------------------------------------
-    function loadvaluesandgo(strKey) {
-      
-      var newtree=false;
+    function loadvaluesandgo() {
 
       // -- load values from params object
-      loadValues(strKey);
-
-      //typical for this page: check to see if this parameter also
-      //requires a new tree to be generated
-      if (strKey != "all"){
-         newtree=params[strKey].newtree;
-         //newtree=(typeof(newtree)=="undefined")?false:newtree;
-      }
-      if(newtree || strKey=="all") {      //--- prepare tree
-      prepareTreeObject([null,0,0,0],[null,0,cos(initAngle),1],initTrunk,0);
-      }
+      loadValues();
 
       reMap.lockRatio = true;
       reMap.scaleFactor = scaleFactor;
@@ -158,10 +120,12 @@
       //--- clear canvas
       ctx.clearRect(0, 0, cW, cH);
 
-      //--- draw axis
-      if (axis==1){draw3Daxis(params.gridRes.val);}      
+      //--- draw base domain
+      //drawPavement(params.gridRes.val);
+      if (axis==1){draw3Daxis(params.gridRes.val);}
 
-      plotTree(0); //plot starting from node0
+      //--- draw tree
+      drawBranchNew([null,0,0,0],[null,0,cos(initAngle),1],initTrunk);
 
     }
 
@@ -201,14 +165,10 @@
 
 
 //-------------------------------
-function prepareTreeObject(o,v,initTrunk, nodeID) { 
+function drawBranchNew(o,v,initTrunk) { 
 
   //o = origin point where vector v is attached to. Format: [null, x, y, z]
   //v vector, branch and axis or rotation of following branches [null, x, y, z]
-  //nodeID id of the node being created
-
-  //objTree code ---
-  var children=[];
   
   let beta=dAngle;
 
@@ -220,10 +180,6 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
 
     var rndAngle=rnd(0,PI);    
     for (var i= 0; i < branches ; i++){
-
-      childCounter = childCounter + 1;
-      children.push(childCounter);
-
         let pt1q=qt(0,v1[1],v1[2],v1[3]);
         let tempAngle=2*PI*i/branches+rndAngle;
 
@@ -231,57 +187,36 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
         //rotate pt1 n-times around axis v
         let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
         
-        //generate child node ------------------------------------------
-        treeObj["node"+childCounter]={};
-        treeObj["node"+childCounter].id=childCounter;
-        treeObj["node"+childCounter].o=[null,ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]];
-        treeObj["node"+childCounter].children=[]; //prepare empty children array
-        treeObj["node"+childCounter].initTrunk=initTrunk*reduction
-        //--------------------------------------------------------------
+              ctx.beginPath();
+              ctx.strokeStyle = `brown`; //improve?
+              ctx.lineWidth = initTrunk;
+              ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
+              ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
+              ctx.stroke();
 
         //for next branch new o: [x,y,z] =  v1[1],v1[2],v1[3] + o
         //axis = [null,pt1-pt0]
         //new, shortened vector (in this case pq is scalar x quaternion)
         //q2v is quaternion to vector
         var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
-
+            
       if (norm(v)>minLen){
-        prepareTreeObject(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction,childCounter);
+        drawBranchNew(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction);
       }
       else
       {  
         //leaves?
         //plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");
       }
-      treeObj["node"+nodeID].children=children; 
-      treeObj["node"+nodeID].initTrunk=initTrunk; 
-
-  } //end of loop 
-
   }
-  //------------------------------
+  
 
-  function plotTree(id){
 
-     const nodeObj=treeObj["node"+id];
-     const children = nodeObj.children;
-     const o=nodeObj.o;
-     const pt0=ct(o[1],o[2],o[3]);
+  
 
-     for (var i=0;i<children.length;i++){
-       
-          let pt1=ct(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
-          ctx.beginPath();
-              ctx.strokeStyle = `brown`; //improve?
-              ctx.lineWidth = treeObj["node"+children[i]].initTrunk;
-              ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
-              ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
-              ctx.stroke();
-              plotTree(children[i]);
+        }
 
-     }
 
-  }
 
   </script>
 </body>

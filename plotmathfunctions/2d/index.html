@@ -57,7 +57,7 @@
       const myCanvas = document.getElementById("myCanvas");
       const ctx = myCanvas.getContext("2d");
       const cW = myCanvas.clientWidth;
-      const cH = myCanvas.clientHeight
+      var cH = myCanvas.clientHeight
       const fixedOrigin = false;
 
       //--- parameters the user can change via sliders if made visible
@@ -67,9 +67,6 @@
       var grid=true;
       var lockratio;
       var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin); //functions to map real value to canvas coordinates
-
-
-
 
 //---------------------------------------
 function init(){

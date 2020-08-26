@@ -229,6 +229,7 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
 
   var strLabel = navigation[strKey].label;
   var strLink = navigation[strKey].link;
+  const isLink=(strLink != "#");
 
   const highlighted=(strCurrentPage == strKey);
 
@@ -238,11 +239,11 @@ function genHMenu(strKey, nestinglevel, strCurrentPage) {
   }
 
   //if it's a link add link tags
-  if (navigation[strKey].link != "#") {
+  if (isLink) {
     strLabel = '<a href="' + strLink + '">' + strLabel + "</a>";
   }
 
-  strTemp += ((nestinglevel<2) ? "<td valign=top>":"") + indent(nestinglevel,highlighted) + strLabel; //+ "</td>"  
+  strTemp += ((nestinglevel<2) ? "<td valign=top>":"") + indent(nestinglevel,highlighted,(isLink)?"►":"") + strLabel; //+ "</td>"  
 
   if (navigation[strKey].hasChildren == true) {
     //if it has children list them here
@@ -286,9 +287,10 @@ function genNavigation(strCurrentPage, isHorizontal) {
 
 //-----------------------------------------
 // just spaces for indentation
-function indent(n,highlighted) {
+function indent(n,highlighted,strBullet) {
+  strBullet=(strBullet==undefined)?"►":strBullet;
   return (highlighted ? "<b>":"") + 
-          "&#10052;" +
+          strBullet +
           "&nbsp;".repeat(n) + 
           (highlighted ? "</b>":"");
 }

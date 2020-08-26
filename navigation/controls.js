@@ -1,10 +1,9 @@
 //---- Generates Sliders Only -------------------------------------------------
 function generateControls() {
-  const strFilename = "'parameters.txt'"; //name of the file containing parameters to save
+  //const strFilename = "'parameters.txt'"; //name of the file containing parameters to save
 
   const tr = "<tr>";
   const trc = "</tr>";
-
   var steps = 100; //resolution of the slider 
   var step;
   var controlType = "";
@@ -181,16 +180,14 @@ function resetToDefault(x) {
   }
   params[x].val = defaultValue;
   
-  // check to see if this parameter needs refreshing of the plot
+  // check to see if this parameter needs refreshing of the plotted object/function
   const recalc = params[x].recalc;
   if (recalc) {
     loadvaluesandgo(x);
   }
 
 }
-
-
-//-------------------------------------------
+//============================================================================
 // --- movies section ---
 var movieOnOff = false;
 function movie() {
@@ -255,8 +252,7 @@ function dropDownToObj(dd_id, src_obj, arr_keys) {
 
   return retObj;
 }
-//-------------------------------------------
-//--- section for listing functions ---------------------------------
+//--- section for listing/upd/del/create user entered functions --------------------
 function listFunctions(showDeleteButton,showAddNewButton) {
 
   showDeleteButton=(showDeleteButton==null?true:showDeleteButton);
@@ -323,6 +319,6 @@ function addFunction(key){
 }
 
 function functionNumber(str){
-  var tempStr=str.substring(1);
+  const tempStr=str.substring(1);
   return eval(tempStr);
 }

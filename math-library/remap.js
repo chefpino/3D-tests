@@ -1,10 +1,6 @@
 
 //ONLY for testing new features of remapping
 
-
-
-
-
 class ReMap {
   constructor(cW, cH, x0, x1, y0, y1, fixedOrigin) {
     this.cW = cW;

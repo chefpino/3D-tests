@@ -48,7 +48,7 @@ function nq(q){
 }
 //---------------------------------------------------
 function invq(qt){
- let k=1/(qt.a * qt.a + qt.b * qt.b + qt.c * qt.c + qt.d * qt.d); //inverse of norm squared
+ const k=1/(qt.a * qt.a + qt.b * qt.b + qt.c * qt.c + qt.d * qt.d); //inverse of norm squared
  return p(k,conj(qt));
 }
 //---------------------------------------------------
@@ -70,7 +70,7 @@ function qRot(axis,angle,pt){
   // angle of rotation around u
   // pt point in 3d to be rotated - quaternion with real part zero
 
-  var u=pq(1/nq(axis),axis); //change to norm 1
+  const u=pq(1/nq(axis),axis); //change to norm 1
   pr=p_rot(u,angle);
 
   return pq(pq(pr,pt),conj(pr));

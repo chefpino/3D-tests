@@ -168,7 +168,7 @@ class ReMap {
 
 //-------------------------------------------
 function getMousePos(evt) {
-  var rect = myCanvas.getBoundingClientRect();
+  const rect = myCanvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
     y: evt.clientY - rect.top,
@@ -189,7 +189,7 @@ function dRound(x, n) {
 function gridCoords(x0, x1) {
 
   var arrX = new Array();
-  var xStart = intScale(x0, x1).inf;
+  const xStart = intScale(x0, x1).inf;
   var dx = intScale(x0, x1).dx;
   var s = xStart;
   do {
@@ -197,9 +197,7 @@ function gridCoords(x0, x1) {
     arrX.push(s);
   } while (s < x1);
   
-  //console.table(arrX);
   return arrX;
-
 }
 //--- this function decides the size of the grid
 function intScale(x0, x1) {

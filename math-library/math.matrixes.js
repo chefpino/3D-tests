@@ -14,8 +14,8 @@ function matrix(m,n){
 //---------------------------------------
 function matrixSize(mtx){
 
-  let m=mtx.length;
-  let n=mtx[1].length;
+  const m=mtx.length;
+  const n=mtx[1].length;
 
   return {
     m:m-1,
@@ -29,8 +29,8 @@ function addMatrix(m1,m2){
     return "ERROR, matrixes are of different sizes, cannot be added";
   }
 
-  let m=matrixSize(m1).m;
-  let n=matrixSize(m1).n;
+  const m=matrixSize(m1).m;
+  const n=matrixSize(m1).n;
   let newmatrix=new matrix(m,n);
 
   for(var i=1; i < m+1; i++) {
@@ -70,8 +70,8 @@ function multiplyMatrix(m1,m2){
 
 function scalarMultiplication(k,mtx){
 
-  let m=matrixSize(mtx).m; //rows
-  let n=matrixSize(mtx).n; //columns
+  const m=matrixSize(mtx).m; //rows
+  const n=matrixSize(mtx).n; //columns
 
   let newmatrix=new matrix(m,n);
   
@@ -133,7 +133,7 @@ function column(mtx,c){
   if (c<1 || c > matrixSize(mtx).n){
     return "ERROR: requesting column index " + c + ", max is " + matrixSize(mtx).m;
   }
-  var m=matrixSize(mtx).m;
+  const m=matrixSize(mtx).m;
   var vector=new Array(m+1);
   for(var i=1; i < m+1; i++) {
       vector[i]=mtx[i][c];
@@ -147,8 +147,8 @@ function displayMatrix(mtx){
   const dr="&#9484;" //┌
   const ur="&#9492;" //└
   const ul="&#9496;" //┘
-  var m=matrixSize(mtx).m;
-  var n=matrixSize(mtx).n;
+  const m=matrixSize(mtx).m;
+  const n=matrixSize(mtx).n;
   
   var str="<table border=0 cellspacing=0 cellpadding=0>" + 
             `<tr><td>${dr}</td><td colspan="${n}"></td></td><td>${dl}</td></tr>`;
@@ -186,8 +186,8 @@ function unitMatrix(n){
 //--------------------------------------
 function transposeMatrix(mtx){
 
-  var m=matrixSize(mtx).m;
-  var n=matrixSize(mtx).n;
+  const m=matrixSize(mtx).m;
+  const n=matrixSize(mtx).n;
   var newmatrix=new matrix (n,m);
   
   for(var i=1; i < m+1; i++) {
@@ -230,8 +230,8 @@ function transposeMatrix(mtx){
    //compute determinant using laplace expansion formula for row 1
    function det(m1){
 
-     var m=matrixSize(m1).m;
-     var n=matrixSize(m1).n;
+    const m=matrixSize(m1).m;
+    const n=matrixSize(m1).n;
      if (m != n || m*n <=0 ){
        console.log("ERROR matrice is not square or one size is zero");
      }

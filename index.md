@@ -40,8 +40,8 @@
                   C (Modules)</a></td>
             </tr>
             <tr>
-              <td valign="top" height="200"><img width="300" src="https://chefpino.github.io/fun.with.functions/imgs/tree.png"></td>
-              <td valign="top" height="200"><img width="300" src="https://chefpino.github.io/fun.with.functions/imgs/3d.png"></td>
+              <td valign="top" height="200"><img width="400" src="https://chefpino.github.io/fun.with.functions/imgs/tree.png"></td>
+              <td valign="top" height="200"><img width="400" src="https://chefpino.github.io/fun.with.functions/imgs/3d.png"></td>
             </tr>
           </tbody>
         </table>

@@ -2,11 +2,11 @@ var params = {
   branches: {
     val: 3,
     min: 1,
-    max: 7,
+    max: 5,
     default: 3,
     label: "# branches",
     minLabel: "1",
-    maxLabel: "7",
+    maxLabel: "5",
     visible: true,
     recalc: true,
     integer: true,

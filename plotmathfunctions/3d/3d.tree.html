@@ -99,7 +99,8 @@
       //loadValues();    
      //prepare tree base
       addNode(0,[],[null,0,0,0],initTrunk);
-      loadvaluesandgo("all");      
+      loadvaluesandgo("all");
+      playMovie("xyAngle");      
      }
     //-------------------------------------------
     //load values from param object, be careful, globalvariables' names are
@@ -200,9 +201,10 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
     var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];    
     let pt1q=qt(0,v1[1],v1[2],v1[3]); //quaternion to rotate 
 
-    for (var i= 0; i < branches ; i++){
+    let rndAngle=PI*rnd(-1/branches,1/branches); //with random component
 
-        let tempAngle=i*2*PI/branches * (1 + rnd(-.1,.1)); //with random component
+    for (var i= 0; i < branches ; i++){
+        let tempAngle= i * 2*PI/branches + rndAngle;
         let ptiq=qRot(v2q(v),tempAngle,pt1q)
         //rotate pt1 n-times around axis v
         let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point

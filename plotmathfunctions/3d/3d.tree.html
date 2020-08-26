@@ -191,16 +191,18 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
   
   var pt0=ct(o[1],o[2],o[3]);
   var pt1_v=sumVectors(o,v);
-  const beta=dAngle+rnd(-PI/48,PI/48);
+  const beta=dAngle+rnd(-PI/48,PI/48); //small random component for branches angles against rotation axis 
+ 
   //const rndBranches=intRnd(1,branches); //random number of branches
   //const rndBranches=branches
+
     //v is rotated of dAngle on x,z plane containing vector v
     var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];    
     let pt1q=qt(0,v1[1],v1[2],v1[3]); //quaternion to rotate 
 
     for (var i= 0; i < branches ; i++){
 
-        let tempAngle=i*2*PI/branches * (1 + rnd(-.5,.5)); //with random component
+        let tempAngle=i*2*PI/branches * (1 + rnd(-.1,.1)); //with random component
         let ptiq=qRot(v2q(v),tempAngle,pt1q)
         //rotate pt1 n-times around axis v
         let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point

@@ -75,7 +75,6 @@
     var funcRes;
     var scaleFactor=1; //hardcoded
     var xyAngle, zyAngle, zxAngle;
-    var zFact=1;
     var perspective; //boolean
     var axis; //boolean
     var diagonal; //maxim distance between 2 points on the pavement
@@ -109,7 +108,6 @@
       generateControls();
       loadValues();    
       loadvaluesandgo("all");      
-
      }
     //-------------------------------------------
     //load values from param object, be careful, globalvariables' names are
@@ -164,9 +162,6 @@
       plotTree(0); //plot starting from node0
 
     }
-
-    //------------------------------------------
-
     // --- ct maps a 3d point to a 2d map representing the 3d space
     function ct(x, y, z) {
 
@@ -188,17 +183,9 @@
 
       return {
         x: (pt1.b / perspectiveFactor) + lrpanning,
-        y: ((pt1.d / perspectiveFactor) * zFact) + udpanning
+        y: (pt1.d / perspectiveFactor) + udpanning
       }
     }
-    //-------------------------------------------
-
-    //-------------------------------------------
-    function displayFunctions() {
-      document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
-    }
-    //-------------------------------------------
-
 
 //-------------------------------
 function prepareTreeObject(o,v,initTrunk, nodeID) { 
@@ -280,9 +267,12 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
               plotTree(children[i]);
 
      }
-
   }
-
+    //-------------------------------------------
+    function displayFunctions() {
+      document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
+    }
+    //-------------------------------------------
   </script>
 </body>
 

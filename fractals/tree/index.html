@@ -53,7 +53,6 @@ function loadValues(){
           eval(`${key}=params.${key}.val`);
         }
       }
-
 }
 //-------------------------------------------
 function loadvaluesandgo() {
@@ -63,7 +62,7 @@ function loadvaluesandgo() {
   //---clear canvas
   ctx.clearRect(0, 0, cW, cH);  
 
-  //--- draw trees
+  //--- draw tree(s)
   for (let index = 1; index <= nTrees; index++) {    
     draw(cW/(nTrees+1)*index-cW/2,0,initAngle,initLen,initTrunk);    
   }

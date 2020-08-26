@@ -49,9 +49,8 @@
       const ctx = myCanvas.getContext("2d");
       const transparentLayer = document.getElementById("transparentLayer");
       const ctxT = transparentLayer.getContext("2d");
-
-      var cW = myCanvas.clientWidth;
-      var cH = myCanvas.clientHeight;
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight;
 
       //--- parameters the user can change are made visible w/ sliders
       // -- global variables
@@ -60,13 +59,11 @@
       
       loadValues();
 
-
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
       var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
 
       reMap.objCanvas = ctx;
       reMapT.objCanvas = ctxT;
-
 
       //--- calculated params
       var dx = reMap.dx(); //max resolution

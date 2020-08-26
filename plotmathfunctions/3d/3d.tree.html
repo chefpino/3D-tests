@@ -89,8 +89,6 @@
     var treeObj={};
     var childCounter=0;
 
-    //prepare tree trunk
-    addNode(0,[],[null,0,0,0],initTrunk);
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
@@ -99,6 +97,8 @@
       genNavigation("THREEDTREE", true);
       generateControls();
       //loadValues();    
+     //prepare tree base
+      addNode(0,[],[null,0,0,0],initTrunk);
       loadvaluesandgo("all");      
      }
     //-------------------------------------------
@@ -189,22 +189,22 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
   //objTree code ---
   var children=[];
   
-  let beta=dAngle;
-
   var pt0=ct(o[1],o[2],o[3]);
   var pt1_v=sumVectors(o,v);
+  const beta=dAngle+rnd(0,PI/12);
+  const rndBranches=branches-intRnd(0,1); //************
    
-    //v is rotated of beta on x,z plane containing vector v
+    //v is rotated of dAngle on x,z plane containing vector v
     var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];
 
-    var rndAngle=rnd(0,PI);    
-    for (var i= 0; i < branches ; i++){
+    for (var i= 0; i < rndBranches ; i++){
+      var rndAngle=rnd(0,2*PI/branches);    
 
       childCounter = childCounter + 1;
       children.push(childCounter);
 
         let pt1q=qt(0,v1[1],v1[2],v1[3]);
-        let tempAngle=2*PI*i/branches+rndAngle;
+        let tempAngle=2*PI*i/branches+rndAngle; //with random component
 
         let ptiq=qRot(v2q(v),tempAngle,pt1q)
         //rotate pt1 n-times around axis v

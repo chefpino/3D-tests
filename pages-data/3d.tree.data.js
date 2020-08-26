@@ -238,11 +238,11 @@ var params = {
     newtree: false,
   },
   axis: {
-    val: 0,
+    val: 1,
     visible: true,
     min: 0,
     max: 1,
-    default: 0,
+    default: 1,
     label: "axis",
     minLabel: "off",
     maxLabel: "on",

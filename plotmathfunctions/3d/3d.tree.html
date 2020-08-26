@@ -78,9 +78,9 @@
     var perspective; //boolean
     var axis; //boolean
     var diagonal; //maxim distance between 2 points on the pavement
-    var initAngle; //trunk angle
     var dAngle; //branch angle
     var initTrunk=params.initTrunk.val; //trunk initial thickness
+    var trunkReduction=params.trunkReduction.val; //reduction factor of trunk thickness
     var reduction; //factor to reduce branch length
     var branches;
     var minLen;
@@ -89,16 +89,8 @@
     var treeObj={};
     var childCounter=0;
 
-    //treeObj["node0"]={};    
+    //prepare tree trunk
     addNode(0,[],[null,0,0,0],initTrunk);
-
-    function addNode(id,children,o,trunk){
-      treeObj["node"+id]={};
-      treeObj["node"+id].id=id;
-      treeObj["node"+id].children=children;
-      treeObj["node"+id].o=o;
-      treeObj["node"+id].initTrunk=trunk;
-    }
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
@@ -106,7 +98,7 @@
       ctx.shadowColor = "green";
       genNavigation("THREEDTREE", true);
       generateControls();
-      loadValues();    
+      //loadValues();    
       loadvaluesandgo("all");      
      }
     //-------------------------------------------
@@ -144,7 +136,7 @@
          //newtree=(typeof(newtree)=="undefined")?false:newtree;
       }
       if(newtree || strKey=="all") {      //--- prepare tree
-      prepareTreeObject([null,0,0,0],[null,0,cos(initAngle),1],initTrunk,0);
+      prepareTreeObject([null,0,0,0],[null,0,0,1],initTrunk,0);
       }
 
       reMap.lockRatio = true;
@@ -223,7 +215,7 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
         treeObj["node"+childCounter].id=childCounter;
         treeObj["node"+childCounter].o=[null,ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]];
         treeObj["node"+childCounter].children=[]; //prepare empty children array
-        treeObj["node"+childCounter].initTrunk=initTrunk*reduction
+        treeObj["node"+childCounter].initTrunk=initTrunk*trunkReduction
         //--------------------------------------------------------------
 
         //for next branch new o: [x,y,z] =  v1[1],v1[2],v1[3] + o
@@ -233,7 +225,7 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
         var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
 
       if (norm(v)>minLen){
-        prepareTreeObject(sumVectors(o,q2v(ptiq)),newv,initTrunk*reduction,childCounter);
+        prepareTreeObject(sumVectors(o,q2v(ptiq)),newv,initTrunk*trunkReduction,childCounter);
       }
       else
       {  
@@ -268,11 +260,14 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
 
      }
   }
-    //-------------------------------------------
-    function displayFunctions() {
-      document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
+  //-------------------------------------------
+      function addNode(id,children,o,trunk){
+      treeObj["node"+id]={};
+      treeObj["node"+id].id=id;
+      treeObj["node"+id].children=children;
+      treeObj["node"+id].o=o;
+      treeObj["node"+id].initTrunk=trunk;
     }
-    //-------------------------------------------
   </script>
 </body>
 

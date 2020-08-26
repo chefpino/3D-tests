@@ -191,26 +191,24 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
   
   var pt0=ct(o[1],o[2],o[3]);
   var pt1_v=sumVectors(o,v);
-  const beta=dAngle+rnd(0,PI/12);
-  const rndBranches=branches-intRnd(0,1); //************
-   
+  const beta=dAngle+rnd(-PI/48,PI/48);
+  //const rndBranches=intRnd(1,branches); //random number of branches
+  //const rndBranches=branches
     //v is rotated of dAngle on x,z plane containing vector v
-    var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];
+    var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];    
+    let pt1q=qt(0,v1[1],v1[2],v1[3]); //quaternion to rotate 
 
-    for (var i= 0; i < rndBranches ; i++){
-      var rndAngle=rnd(0,2*PI/branches);    
+    for (var i= 0; i < branches ; i++){
 
-      childCounter = childCounter + 1;
-      children.push(childCounter);
-
-        let pt1q=qt(0,v1[1],v1[2],v1[3]);
-        let tempAngle=2*PI*i/branches+rndAngle; //with random component
-
+        let tempAngle=i*2*PI/branches * (1 + rnd(-.5,.5)); //with random component
         let ptiq=qRot(v2q(v),tempAngle,pt1q)
         //rotate pt1 n-times around axis v
         let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
-        
+        var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
+       
         //generate child node ------------------------------------------
+        childCounter = childCounter + 1;
+        children.push(childCounter);
         treeObj["node"+childCounter]={};
         treeObj["node"+childCounter].id=childCounter;
         treeObj["node"+childCounter].o=[null,ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]];
@@ -222,7 +220,6 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
         //axis = [null,pt1-pt0]
         //new, shortened vector (in this case pq is scalar x quaternion)
         //q2v is quaternion to vector
-        var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
 
       if (norm(v)>minLen){
         prepareTreeObject(sumVectors(o,q2v(ptiq)),newv,initTrunk*trunkReduction,childCounter);

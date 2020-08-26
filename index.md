@@ -1,8 +1,6 @@
 <html>
 
-<head>
-  <link rel="stylesheet" type="text/css" href="https://chefpino.github.io/fun.with.functions/css/main.css" />
-</head>
+
 
 <body>
         <table width="400" class="navmenu">

@@ -125,15 +125,20 @@
         document.getElementById("examplesSelector").addEventListener("change", function () {
           
           var tempObj=dropDownToObj("examplesSelector",juliaExamples,["cx","cy","iterations"]);
-          
-
-          //here loops through array of values (not just x and y)
           //and updates the object (global var), then new values are loaded and run 
-          params.cx.val=tempObj.cx;
-          params.cy.val=tempObj.cy;
-          params.iterations.val=tempObj.iterations;
-
-          loadValues(); //external function
+          
+          params.cx.val= 1 * tempObj["cx"];
+          params.cy.val= 1 * tempObj["cy"];          
+          params.iterations.val=tempObj["iterations"];
+          
+          //using the upanddown function to update the sliders etc
+          //can't use the updateParam function
+          upAndDown("cx",0); 
+          upAndDown("cy",0);
+          upAndDown("iterations",0);
+          
+          loadValues();
+          go();
 
         });
 

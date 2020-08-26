@@ -1,16 +1,4 @@
-/*
 
-input elements must have an ID="keyname"
-these must be global variables
-
-*/
-
-var buttons = {
-  bt1: {
-    label: "go!",
-    onclick: "enter function to execute",
-  },
-};
 //-------------------------------------------
 var dropdowns = {
   dd1: {

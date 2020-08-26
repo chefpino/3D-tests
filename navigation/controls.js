@@ -138,7 +138,7 @@ function panning(strKey, j) {
   var currentVal = params[strKey].val;
   currentVal = currentVal + j;
   params[strKey].val = currentVal;
-  loadvaluesandgo(strKey);
+  loadvaluesandgo(strKey); 
 }
 //-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
@@ -146,6 +146,7 @@ function panning(strKey, j) {
 //takes into account if the param must be an integer
 function updateParam(x) {
   const controlType = document.getElementById(x).type;
+
   var iTemp;
   const isInteger=(true && params[x].integer);
   switch (controlType) {
@@ -158,6 +159,7 @@ function updateParam(x) {
       iTemp = document.getElementById(x).checked ? 1 : 0;
       document.getElementById("val_" + x).innerHTML = (iTemp == 0 ? params[x].minLabel : params[x].maxLabel);
       break;
+
   }
   params[x].val = iTemp;
 

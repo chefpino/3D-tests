@@ -31,7 +31,7 @@ function generateControls() {
       steps = params[key].steps;
       steps = (typeof (steps) == 'undefined' ? 100 : steps);
       step = (max - min) / steps;
-      var recalc = (params[key].recalc == true ? "loadvaluesandgo();" : "");
+      var recalc = (params[key].recalc == true ? `loadvaluesandgo("${key}");` : "");
       controlType = (typeof (params[key].controlType) == "undefined" ? "range" : params[key].controlType);
       movie = typeof (params[key].movie) == "undefined" ? false : true;
 
@@ -88,7 +88,7 @@ function generateControls() {
 
   if (goButton) {
     strHTML = strHTML + "<tr><td colspan=6>";
-    strHTML = strHTML + '<button onclick="loadvaluesandgo();">go!</button>&nbsp';
+    strHTML = strHTML + `<button onclick="loadvaluesandgo(${key});">go!</button>&nbsp`;
     strHTML = strHTML + "</td></tr>";
   }
   /*
@@ -128,7 +128,7 @@ function upAndDown(strKey, j) {
 
   //if recalc is true reload with new values
   if (params[strKey].recalc == true) {
-    loadvaluesandgo();
+    loadvaluesandgo(strKey);
   }
 }
 //------------------------------
@@ -137,7 +137,7 @@ function panning(strKey, j) {
   var currentVal = params[strKey].val;
   currentVal = currentVal + j;
   params[strKey].val = currentVal;
-  loadvaluesandgo();
+  loadvaluesandgo(strKey);
 }
 //-------------------------------------------
 //this f updates an existing <div id=val_x> with the value taken from the corresponding slider
@@ -169,7 +169,7 @@ function movie() {
     upAndDown(movieKey, 1);
     setTimeout(movie, 200);
   } else {
-    loadvaluesandgo();
+    loadvaluesandgo(movieKey);
   }
 }
 //----------------------------------------------------------------

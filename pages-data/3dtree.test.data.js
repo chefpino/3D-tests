@@ -10,6 +10,7 @@ var params = {
     visible: true,
     recalc: true,
     integer: true,
+    newtree: true,
     },
   "initAngle":{
     val:Math.PI/2,
@@ -21,6 +22,8 @@ var params = {
     maxLabel:"&pi;",
     visible: true,
     recalc: true,
+    newtree: true,
+
     },
   "dAngle":{
     val:Math.PI/8,
@@ -32,6 +35,8 @@ var params = {
     maxLabel:"&pi;/4",
     visible: true,
     recalc: true,
+    newtree: true,
+
     },
   "initLen":{
     val:130,
@@ -43,6 +48,8 @@ var params = {
     maxLabel:"150",
     integer: true,
     visible: false,
+    newtree: true,
+
     },
   "minLen":{
     val:0.4,
@@ -56,6 +63,8 @@ var params = {
     steps:15,
     visible: true,
     recalc: true,
+    newtree: true,
+
     },
   "reduction":{
     val:0.8,
@@ -67,6 +76,8 @@ var params = {
     maxLabel:"0.9",
     visible: true,
     recalc:true,
+    newtree: true,
+
     },
   "initTrunk":{
     val:3,
@@ -79,6 +90,8 @@ var params = {
     integer: true,
     visible: true,
     recalc: true,
+    newtree: true,
+
     },
   "trunkReduction":{
     val:0.5, 
@@ -89,6 +102,8 @@ var params = {
     minLabel:"0.1",
     maxLabel:"0.9",
     visible: false,
+    newtree: true,
+
     },
   "minBranch":{
     val:0.1,
@@ -99,6 +114,8 @@ var params = {
     minLabel:"0.1",
     maxLabel:"1",
     visible: false,
+    newtree: true,
+
     },
     
   "nTrees":{
@@ -172,7 +189,9 @@ var params = {
     recalc: true,
     visible: true,
     integer: false,
-    steps: 9
+    steps: 9,
+    newtree: false,
+
   },
   gridRes: {
     val: 10,
@@ -197,7 +216,8 @@ var params = {
     maxLabel: "close",
     integer: false,
     recalc: true,
-    visible: true
+    visible: true,
+    newtree: false,
   },
   xyAngle: {
     val: -2.8,
@@ -211,6 +231,7 @@ var params = {
     integer: false,
     visible: true,
     movie: true,
+    newtree: false,
   },
   zyAngle: {
     val: 0.44,
@@ -224,6 +245,7 @@ var params = {
     integer: false,
     visible: true,
     movie: true,
+    newtree: false,
   },
   zxAngle: {
     val: 0,
@@ -237,6 +259,7 @@ var params = {
     integer: false,
     visible: true,
     movie: true,
+    newtree: false,
   },  
   perspective: {
     val: 0,
@@ -251,6 +274,7 @@ var params = {
     steps: 1,
     recalc: true,
     controlType: "checkbox",
+    newtree: false,
   }, 
   axis: {
     val: 0,
@@ -265,6 +289,7 @@ var params = {
     steps: 1,
     recalc: true,
     controlType: "checkbox",
+    newtree: false,
   },   
   
   lrpanning: {
@@ -278,6 +303,7 @@ var params = {
     recalc: true,
     integer: true,
     visible: false,
+    newtree: false,
   },    
   udpanning: {
     val: -2,
@@ -290,6 +316,7 @@ var params = {
     recalc: true,
     integer: true,
     visible: false,
+    newtree: false,
   },    
   goButton: {
     show: false,

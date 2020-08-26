@@ -107,29 +107,47 @@
       ctx.shadowColor = "green";
       genNavigation("THREEDTREE", true);
       generateControls();
-      loadValues();      
-      //--- prepare tree
-      prepareTreeObject([null,0,0,0],[null,0,cos(initAngle),1],initTrunk,0);
-
-      loadvaluesandgo();      
+      loadValues();    
+      loadvaluesandgo("all");      
 
      }
     //-------------------------------------------
     //load values from param object, be careful, globalvariables' names are
     //must match the key names
-    function loadValues() {
-
+    function loadValues(strKey) {
+     
+     strKey=(typeof(strKey==undefined)?"all":strKey);
+      
+     if (strKey == "all"){
       for (var key in params) {
         if (params[key].visible != false) {
           eval(`${key}=params.${key}.val`);
         }
       }
+     }
+     else {
+      if (params[strKey].visible != false) {
+          eval(`${strKey}=params.${strKey}.val`);
+        }
+     }
     }
     //-------------------------------------------
-    function loadvaluesandgo() {
+    function loadvaluesandgo(strKey) {
+      
+      var newtree=false;
 
       // -- load values from params object
-      loadValues();
+      loadValues(strKey);
+
+      //typical for this page: check to see if this parameter also
+      //requires a new tree to be generated
+      if (strKey != "all"){
+         newtree=params[strKey].newtree;
+         //newtree=(typeof(newtree)=="undefined")?false:newtree;
+      }
+      if(newtree || strKey=="all") {      //--- prepare tree
+      prepareTreeObject([null,0,0,0],[null,0,cos(initAngle),1],initTrunk,0);
+      }
 
       reMap.lockRatio = true;
       reMap.scaleFactor = scaleFactor;

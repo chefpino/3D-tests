@@ -3,7 +3,7 @@
         <table width="400" class="navmenu">
           <tbody>
             <tr>
-              <td valign="top">►&nbsp;FRACTALS<br><b>►&nbsp;&nbsp;</b><a
+              <td valign="top">FRACTALS<br><b>►&nbsp;&nbsp;</b><a
                   href="https://chefpino.github.io/fun.with.functions/fractals/mandelbrot/index.html"><b>Mandelbrot</b></a><br>►&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/fractals/julia/index.html">Julia</a><br>►&nbsp;&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/fractals/julia/extendedjuliasets.html">Extended</a><br>►&nbsp;&nbsp;<a
@@ -15,7 +15,7 @@
                   Tree</a><br>►&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/fractals/barnsley/index.html">Barnsley Fern</a>
               </td>
-              <td valign="top">►&nbsp;FUNCTIONS<br>►&nbsp;&nbsp;<a
+              <td valign="top">FUNCTIONS<br>►&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/plotmathfunctions/2d/index.html">R -&gt;
                   R</a><br>►&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/plotmathfunctions/polar/index.html">R -&gt;

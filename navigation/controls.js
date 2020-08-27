@@ -109,23 +109,26 @@ function generateControls() {
 function upAndDown(strKey, j) {
   //j is -1 or +1
   // needs better calculations especially with rounding of values and integers
+  var currentVal = params[strKey].val;
+  
+  if (j != 0){
   var steps = params[strKey].steps;
   const min = params[strKey].min;
   const max = params[strKey].max;
-  var currentVal = params[strKey].val;
   steps = (typeof (steps) == 'undefined' ? 100 : steps);
   var step = (max - min) / steps;
   step = j * (params[strKey].integer == true ? 1 : step);
   currentVal = currentVal + step;
   currentVal = (currentVal < min) ? max : currentVal;
   currentVal = (currentVal > max) ? min : currentVal;
-  
+  //update param
+  params[strKey].val = currentVal;
+  }
+
   if (params[strKey].visible){
       document.getElementById(strKey).value = currentVal;
       document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal * 1000) / 1000;
     }
-  //update param
-  params[strKey].val = currentVal;
 
   //if recalc is true reload with new values
   if (params[strKey].recalc == true) {
@@ -238,7 +241,7 @@ function genDropDownFromObj(id, label, value, selected, obj) {
 
   return strTemp;
 
-}
+} 
 //-------------------------------------------
 function dropDownToObj(dd_id, src_obj, arr_keys) {
 

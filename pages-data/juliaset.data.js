@@ -10,16 +10,20 @@ var dropdowns = {
         label: "classic: Zn+1=(Zn)^2+c",
         examples: {
             e1: {
+            id: "e1",  
             val: "-0.54 + 0.54i",
-            label: "classic ex1",
+            label: "classic ex1, -0.54 + 0.54i",
             cx: -0.54,
             cy: 0.54,
+            iterations: 250,
             },
             e2: {
-            val: "-0.54 + 0.54i",
-            label: "classic ex2",
+            id: "e2",  
+            val: "2 + 2i",
+            label: "classic ex2, 2 + 2i",
             cx: 2,
-            cy: 2,          
+            cy: 2,   
+            iterations: 250,
             }
           },
       },    
@@ -29,16 +33,20 @@ var dropdowns = {
         examples:
            { 
            e1: {
+            id: "e1", 
             val: "-0.54 + 0.54i",
-            label: "cube ex1",
-            cx: 2,
-            cy: 2,
+            label: "cube ex1, -0.54 + 0.54i",
+            cx: -0.54,
+            cy: +0.54,
+            iterations: 250,
           },
           e2: {
-            val: "-0.54 + 0.54i",
+            id: "e2",
+            val: "2 + 2i",
             label: "cube ex2",
             cx: 2,
-            cy: 2
+            cy: 2,
+            iterations: 250,
           },
         },
       },
@@ -48,16 +56,20 @@ var dropdowns = {
         examples:
            { 
            e1: {
+            id: "e1", 
             val: "-0.54 + 0.54i",
             label: "poly ex1",
             cx: 2,
             cy: 2,
+            iterations: 250,
           },
           e2: {
+            id: "e2",
             val: "-0.54 + 0.54i",
             label: "poly ex2",
             cx: 2,
-            cy: 2
+            cy: 2,
+            iterations: 250,
           },
         },
       },
@@ -66,16 +78,20 @@ var dropdowns = {
         label: "hyperbolic sine Zn+1=c*sin(Zn)",
         examples:{ 
             e1: {
+            id: "e1",  
             val: "-0.54 + 0.54i",
             label: "sinj ex1",
             cx: 2,
-            cy: 2
+            cy: 2,
+            iterations: 250,
           },
           e2:{
+            id: "e2",
             val: "-0.54 + 0.54i",
             label: "sinj ex2",
             cx: 2,
-            cy: 2
+            cy: 2,
+            iterations: 250,
           },
         },
       },
@@ -84,17 +100,20 @@ var dropdowns = {
         label: "hyperbolic cosine Zn+1=i*c*cos(Zn)",
         examples: {
             e1:       {
+            id: "e1",  
             val: "-0.54 + 0.54i",
             label: "cosj ex1",
             cx: 2,
-            cy: 2
+            cy: 2,
+            iterations: 250,
           },
           e2:
-          {
+          { id: "e2",
             val: "-0.54 + 0.54i",
             label: "cosj ex2",
             cx: 2,
-            cy: 2
+            cy: 2,
+            iterations: 250,
           },
         },
       },
@@ -177,24 +196,24 @@ var params = {
   },
   cx: {
     val: -0.54,
-    min: -1,
-    max: 1,
+    min: -2,
+    max: 2,
     default: -0.54,
     label: "c: x",
-    minLabel: "-1",
-    maxLabel: "+1",
+    minLabel: "-2",
+    maxLabel: "+2",
     integer: false,
     visible: true
 
   },
   cy: {
     val: -0.54,
-    min: -1,
-    max: 1,
+    min: -2,
+    max: 2,
     default: -0.54,
     label: "c: y",
-    minLabel: "-1",
-    maxLabel: "+1",
+    minLabel: "-2",
+    maxLabel: "+2",
     integer: false,
     visible: true
 

@@ -262,10 +262,10 @@ function genNavigation(strCurrentPage, isHorizontal) {
     0,
     strCurrentPage
   ); //add navigation
-  }
+  } 
   
   var equationImg=navigation[strCurrentPage].equationImg;
-  equationImg=(equationImg==undefined) ? "":"https://chefpino.github.io/fun/imgs/equations/" + equationImg;
+  equationImg=(equationImg==undefined) ? "":"https://chefpino.github.io/fun.with.functions/imgs/equations/" + equationImg;
 
   document.title = navigation[strCurrentPage].label;
   document.getElementById("content").innerHTML =

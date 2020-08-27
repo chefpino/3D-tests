@@ -95,7 +95,7 @@ var params = {
           min: 1,
           max: 10,
           default:2,
-          label:"exp",
+          label:"exponent",
           minLabel:"1",
           maxLabel:"10",
           integer:true,

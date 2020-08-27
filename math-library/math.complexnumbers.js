@@ -68,7 +68,7 @@ function inv(c) {
     x: c.x / d,
     y: (-1 * c.y) / d,
   };
-}
+} 
 //-------------------------------------------
 //sin
 function complex_sin(c) {

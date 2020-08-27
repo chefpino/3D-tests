@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <script src="../../math-library/math.complexnumbers.js"></script>
+    <script src="../../math-library/math.generic.js"></script>
+    <script src="../../math-library/graphicfunctions.js"></script>
+    <script src="../../pages-data/juliaset.data.js"></script>
+    <script src="../../pages-data/jset.functions.js"></script>
+    <script src="../../navigation/controls.js"></script>    
+    <script src="../../navigation/menu.js"></script>
+  </head>
+  <body>
+    <table border="0">
+      <tr>
+        <td valign="top" width=200>
+          <div id="menu">LOADING...</div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <div id="content">LOADING...</div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          <div id="dynamicSliders"></div>
+          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
+          functions <div id="functions">
+            <select id="functionSelector" name="functionSelector"><option value="classic">classic: Zn+1=(Zn)^2+c</option><option value="cube">cube: Zn+1=(Zn)^3+c</option><option value="poly">polynomial Zn+1=Zn^3-3a^2z+b</option><option value="sinjulia">hyperbolic sine Zn+1=c*sin(Zn)</option><option value="cosjulia">hyperbolic cosine Zn+1=i*c*cos(Zn)</option></select>
+          </div>
+          values of c <div id="examples"><select id="exampleSelector" name="exampleSelector"><option value="e1">classic ex1</option><option value="e2">classic ex2</option></select></div>
+          <img  height=1 width=400 id=counter src="../../imgs/1pxBlack.gif">
+          <b>Coordinates</b><div id="mousecoordinates">LOADING...</div>
+        </td>
+        <td valign=top>
+          <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
+          <canvas
+            id="myCanvas"
+            width="1000"
+            height="700"
+            style="z-index: 1;
+                    position:absolute;
+                    left:0px;
+                    top:0px;"
+
+          ></canvas>
+          <canvas id="transparentLayer"
+          style="z-index: 2;
+          position:absolute;
+          left:0px;
+          top:0px;"
+          height="700px" width="1000"></canvas>
+        </div>
+        </td>
+      </tr>
+    </table>
+    <script>
+      "use strict";
+
+      document.addEventListener('DOMContentLoaded', function() {init();}, false);
+
+
+      //--- global PARAMETERS ------------------------------------------------------------------
+      const myCanvas = document.getElementById("myCanvas");
+      const ctx = myCanvas.getContext("2d");
+      const transparentLayer = document.getElementById("transparentLayer");
+      const ctxT = transparentLayer.getContext("2d");
+      const cW = myCanvas.clientWidth;
+      const cH = myCanvas.clientHeight
+      const fixedOrigin = params.fixedOrigin.val;
+      
+      //--- parameters the user can change via sliders if made visible
+      // -- global variables
+      var x0, x1, y0, y1;;
+      var maxItr, uBound, zoomIn;     
+      
+      loadValues();
+      
+      //************************************
+      var selectedFunction="classic"; //this is the default value
+      var selectedExample="e1";
+      //************************************
+
+      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+
+      reMap.objCanvas = ctx;
+      reMapT.objCanvas = ctxT;
+
+      //--- calculated params
+      var dx = reMap.dx();
+      var dy = reMap.dy();
+     
+  //************* end global parameters *************************************
+
+//-------------------------------------------
+   function init() {
+
+      //--- generate controls
+      genNavigation("julia",true);
+      generateControls(); //sliders
+
+      //generate drop down with julia functions examples
+      document.getElementById("functions").innerHTML=genDropDownFromObj("functionSelector","label","val","null",dropdowns.dd1.elements); 
+        
+      //generate drop down with julia functions examples
+      document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","id","null",dropdowns.dd1.elements.classic.examples);
+
+        //--- mouse coordinates event listener --------------------------
+        transparentLayer.addEventListener(
+          "mousemove",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+            var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
+            var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
+            writeMessage(message);
+            //*** WIP ***
+            drawEscapeRoute(tempC);
+          },
+          false
+        );
+
+        //--- mouse click event listener -------------------------------
+        transparentLayer.addEventListener(
+          "click",
+          function (evt) {
+            var mousePos = getMousePos(evt);
+
+            zoomIn=params.zoomIn.val;
+
+            //zoom in
+            if (zoomIn==1){
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
+            }
+            else {
+            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
+            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
+            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
+            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
+            }
+
+            loadvaluesandgo();
+          },
+          false
+        );
+
+     
+        //event listener for function change
+        document.getElementById("functionSelector").addEventListener("change", function (evt) {selectFunctionDropDown()});
+        //--- value change listener for example selector (must be recalled every freaking time)
+        document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
+
+        
+        //fileToParameters(); //initiate event listener for file uploader
+        go();
+        reMap.drawAxis();
+      }
+
+
+//-------------------------------------------
+  function julia(z, k) {
+
+        var z0=z;
+        //selectedFunction is a global parameter
+
+          //-- classic Zn+1=(Zn)^2+k
+          for (let i = 0; i < maxItr + 1; i++) {
+            var z0 = julias(z0,k)[selectedFunction].c;
+            if (z0.x * z0.x + z0.y * z0.y > uBound) {
+              return i;
+          }
+        }
+        return maxItr;
+      }
+      //-------------------------------------------
+      function loadValues(){
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+        maxItr = params.iterations.val;
+        uBound = params.upperbound.val;
+        zoomIn=params.zoomIn.val;  
+      }
+      //-------------------------------------------
+      function loadvaluesandgo() {
+        
+
+      
+        loadValues();
+        
+        reMap.x0 = x0;
+        reMap.x1 = x1;
+        reMap.y0 = y0;
+        reMap.y1 = y1;
+
+        reMapT.x0 = x0;
+        reMapT.x1 = x1;
+        reMapT.y0 = y0;
+        reMapT.y1 = y1; 
+        
+        //--- calculated params
+        dx = reMap.dx();
+        dy = reMap.dy();
+
+        go();
+        reMap.drawAxis();
+        reMap.drawUnitCircle();
+      }
+      // --- plot all points of recursive function
+      function drawEscapeRoute(z) {
+        //clear rectangle (because mouse moves)
+        reMapT.clearcanvas();
+        var arrPoints = new Array(); //array of complex numbers
+        var tempZ=z;
+        var k = new c(params.cx.val, params.cy.val);
+        //loop and keep applying Julia criteria
+        for (let index = 0; index < maxItr; index++) {
+          arrPoints.push(tempZ);
+          tempZ=julias(tempZ,k)[selectedFunction].c;
+        }
+        //draw array
+        reMapT.lineWidth=0.2;
+        for (let index = 0; index < arrPoints.length; index++) {
+          const element = arrPoints[index];
+          if (index > 0) {
+            reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
+          }
+      }
+      } 
+
+//-------------------------------------------
+      function go() {
+
+        reMap.clearcanvas();
+
+        var x = x0;
+        var y = y0;
+        var itr = 0;
+        var clr;
+
+        var k =  new c(params.cx.val, params.cy.val);
+        var tz = new c(0,0);
+
+        for (let i = 0; i < cW; i++) {
+          x = x + dx;
+          y = y0;
+          tz.x=x;
+
+          for (let j = 0; j < cH; j++) {
+            y = y + dy;
+            tz.y=y;
+
+            itr = julia(tz, k);
+            if (itr < maxItr) {
+              clr = Math.round((itr * 255) / maxItr);
+              clr = "#" + clr + clr + clr;
+              plot(reMap.x(x), reMap.y(y), clr);
+            }
+          }
+        }
+      }
+
+//------------------------------
+//first drop down function - select fractal
+function selectFunctionDropDown () {          
+          selectedFunction = getDropDownSelectedValue("functionSelector");    
+          //update second dropdown with values related to function
+          document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","id","null",dropdowns.dd1.elements[selectedFunction].examples);
+          selectExampleDropDown(); //refreshed child dropdown         
+}
+//second dropdown, select examples (cx, cy, repetitions etc)
+function selectExampleDropDown () {
+
+        //--- refreshes listener for examplesSelector
+        document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
+          
+          selectedFunction = getDropDownSelectedValue("functionSelector");
+          selectedExample=getDropDownSelectedValue("exampleSelector");
+          var tempObj=dropdowns.dd1.elements[selectedFunction].examples[selectedExample];
+          
+          //here loops through array of values (could be more than just x and y)
+          //and updates the object (global var), then new values are loaded and run 
+          params.cx.val = 1 * tempObj["cx"];
+          params.cy.val = 1 * tempObj["cy"];
+          params.iterations.val = 1 * tempObj["iterations"];
+
+          //using the upanddown function to update the sliders etc
+          //can't use the updateParam function
+          upAndDown("cx",0); 
+          upAndDown("cy",0);
+          upAndDown("iterations",0);     
+          
+        //--- value change listener for examplesSelector
+        //document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
+
+        }
+
+    </script>
+  </body>
+</html>

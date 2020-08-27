@@ -215,4 +215,5 @@ function plot(x, y, clr) {
   ctx.fillStyle = clr;
   ctx.fillRect(x, y, 1, 1);
   ctx.fill();
+  ctx.stroke(); //***********WIP */ seems to be faster with this added command
 }

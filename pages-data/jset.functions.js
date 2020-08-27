@@ -68,57 +68,7 @@ var juliaExamples = {
     iterations: 250,
   },
 };
-
-/*
-
-  ex6: {
-    label: "3i/2 (for sin(z)*k)",
-    val: "ex6",
-    cx: 0,
-    cy: 1.5,
-    x0: -2,
-    x1: 2,
-    y0: -2,
-    y1: 2,
-    iterations: 250,
-  },
-  ex7: {
-    label: "0.984808 + 0.173648i (for sin(z)*k)",
-    val: "ex7",
-    cx: 0.984808,
-    cy: 0.173648,
-    x0: -2,
-    x1: 2,
-    y0: -2,
-    y1: 2,
-    iterations: 250,
-  },
-  //c = c =
-  ex8: {
-    label: "-0.2 + i (for sin(z)*k)",
-    val: "ex8",
-    cx: -0.2,
-    cy: 1,
-    x0: -2,
-    x1: 2,
-    y0: -2,
-    y1: 2,
-    iterations: 250,
-  },
-  ex9: {
-    label: "-1.29904 + -0.75i (for sin(z)*k)",
-    val: "ex9",
-    cx: -1.29904,
-    cy: -0.75,
-    x0: -2,
-    x1: 2,
-    y0: -2,
-    y1: 2,
-    iterations: 250,
-  },
-
-
-*/
+//-------------------------------------------------------------------
 function julias(z, k) {
 
   const i = new c(0, 1);
@@ -144,8 +94,8 @@ function julias(z, k) {
     cosjulia: {
       c: p(complex_cos(z), p(k, i)),
     },
-    inverse: {
-      c: s(c,inv(c)),
+    test: {
+      c: p(s(z,k),z),
     }
   }
 }
@@ -323,16 +273,16 @@ var dropdowns = {
           },
         },
       },
-      cosjulia: {
-        val: "inverse",
-        label: "inverse Zn+1=c+inv(Zn)",
+      test: {
+        val: "test",
+        label: "test z^2-1",
         examples: {
             e1:       {
             id: "e1",  
-            val: "-0.54 + 0.54i",
-            label: "-0.54 + 0.54i",
-            cx: 2,
-            cy: 2,
+            val: "test",
+            label: "test",
+            cx: 0,
+            cy: 0,
             iterations: 250,
           },
         },

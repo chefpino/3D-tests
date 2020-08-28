@@ -118,7 +118,7 @@ function py(y) {
   return cH - y;
 }
 //-------------------------------------------
-function plot(x, y) {
+function obs_plot(x, y) {
   //for debugging only
   ctx.beginPath();
   ctx.fillStyle = "#FF0000";

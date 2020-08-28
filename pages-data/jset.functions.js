@@ -88,18 +88,13 @@ function julias(z, k) {
       c: s(s(exp(z, 3), p(-3, p(exp(a, 2), z))), b),
       label: "polynomial Zn+1=Zn^3-3a^2z+b",
     },
-    sinjulia: {
-      c: p(complex_sin(z), k),
-    },
-    cosjulia: {
-      c: p(complex_cos(z), p(k, i)),
-    },
-    test: {
-      c: p(s(z,k),z),
+    cubebasin: {
+      c: s( c(-0.090706,0.27145) , s( p(exp(z,3),c(-1,0)) , p(exp(z,2),c(2.41154,-0.133695)) ) ),
     }
   }
 }
-
+//f(z)=(−0.090706+0.27145i)+(2.41154−0.133695i)z2−z3
+//-1.2-0.8i   2.7+0.8i
 var dropdowns = {
   dd1: {
     id: "selectFunction",
@@ -191,19 +186,11 @@ var dropdowns = {
            e1: {
             id: "e1", 
             val: "-0.54 + 0.54i",
-            label: "cube ex1, -0.54 + 0.54i",
+            label: "Cactus",
             cx: -0.54,
             cy: +0.54,
             iterations: 250,
-          },
-          e2: {
-            id: "e2",
-            val: "2 + 2i",
-            label: "cube ex2",
-            cx: 2,
-            cy: 2,
-            iterations: 250,
-          },
+          }
         },
       },
       poly: {
@@ -213,69 +200,25 @@ var dropdowns = {
            { 
            e1: {
             id: "e1", 
-            val: "-0.54 + 0.54i",
-            label: "poly ex1",
-            cx: 2,
-            cy: 2,
+            val: "0.6 + -0.6i",
+            label: "bat #1",
+            cx: 0.6,
+            cy: -0.6,
             iterations: 250,
           },
           e2: {
-            id: "e2",
-            val: "-0.54 + 0.54i",
-            label: "poly ex2",
-            cx: 2,
-            cy: 2,
+            id: "e2", 
+            val: "0.64 + -0.64i",
+            label: "bat #2",
+            cx: 0.64,
+            cy: -0.64,
             iterations: 250,
           },
         },
       },
-      sinjulia: {
-        val: "sinjulia",
-        label: "hyperbolic sine Zn+1=c*sinh(Zn)",
-        examples:{ 
-            e1: {
-            id: "e1",  
-            val: "-0.54 + 0.54i",
-            label: "sinj ex1",
-            cx: 2,
-            cy: 2,
-            iterations: 250,
-          },
-          e2:{
-            id: "e2",
-            val: "-0.54 + 0.54i",
-            label: "sinj ex2",
-            cx: 2,
-            cy: 2,
-            iterations: 250,
-          },
-        },
-      },
-      cosjulia: {
-        val: "cosjulia",
-        label: "hyperbolic cosine Zn+1=i*c*cosh(Zn)",
-        examples: {
-            e1:       {
-            id: "e1",  
-            val: "-0.54 + 0.54i",
-            label: "cosj ex1",
-            cx: 2,
-            cy: 2,
-            iterations: 250,
-          },
-          e2:
-          { id: "e2",
-            val: "-0.54 + 0.54i",
-            label: "cosj ex2",
-            cx: 2,
-            cy: 2,
-            iterations: 250,
-          },
-        },
-      },
-      test: {
-        val: "test",
-        label: "test z^2-1",
+      cubebasin: {
+        val: "cubebasin",
+        label: "cubebasin (−0.090706+0.27145i)+(2.41154−0.133695i)z2−z3",
         examples: {
             e1:       {
             id: "e1",  

@@ -1,299 +1,320 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
-    <script src="../../math-library/math.complexnumbers.js"></script>
-    <script src="../../math-library/math.generic.js"></script>
-    <script src="../../math-library/graphicfunctions.js"></script>
-    <script src="../../pages-data/juliaset.data.js"></script>
-    <script src="../../pages-data/jset.functions.js"></script>
-    <script src="../../navigation/controls.js"></script>    
-    <script src="../../navigation/menu.js"></script>
-  </head>
-  <body>
-    <table border="0">
-      <tr>
-        <td valign="top" width=200>
-          <div id="menu">LOADING...</div>
-          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
-          <div id="content">LOADING...</div>
-          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
-          <div id="dynamicSliders"></div>
-          <img height=1 width=400 src="../../imgs/1pxBlack.gif">
-          functions <div id="functions">
-            <select id="functionSelector" name="functionSelector"><option value="classic">classic: Zn+1=(Zn)^2+c</option><option value="cube">cube: Zn+1=(Zn)^3+c</option><option value="poly">polynomial Zn+1=Zn^3-3a^2z+b</option><option value="sinjulia">hyperbolic sine Zn+1=c*sin(Zn)</option><option value="cosjulia">hyperbolic cosine Zn+1=i*c*cos(Zn)</option></select>
-          </div>
-          values of c <div id="examples"><select id="exampleSelector" name="exampleSelector"><option value="e1">classic ex1</option><option value="e2">classic ex2</option></select></div>
-          <img  height=1 width=400 id=counter src="../../imgs/1pxBlack.gif">
-          <b>Coordinates</b><div id="mousecoordinates">LOADING...</div>
-        </td>
-        <td valign=top>
-          <div id="canvasesdiv" style="position:relative; width:1000px; height:700px"> 
-          <canvas
-            id="myCanvas"
-            width="1000"
-            height="700"
-            style="z-index: 1;
-                    position:absolute;
-                    left:0px;
-                    top:0px;"
 
-          ></canvas>
-          <canvas id="transparentLayer"
+<head>
+  <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+  <script src="../../navigation/menu.js"></script>
+  <script src="../../pages-data/3d.tree.data.js"></script>
+  <script src="../../math-library/math.complexnumbers.js"></script>
+  <script src="../../math-library/math.quaternions.js"></script>
+  <script src="../../math-library/math.matrixes.js"></script>
+  <script src="../../math-library/math.generic.js"></script>
+  <script src="../../navigation/controls.js"></script>
+  <script src="../../math-library/graphicfunctions.js"></script>
+  <script src="../../math-library/3d.graphic.functions.js"></script>
+</head>
+<body onload="init();">
+  <table style="border: 1px solid; padding: 0px;" width="100%" height="100%">
+    <tr>
+      <td valign="top" height="100">
+        <div id="menu"></div>
+      </td>
+      <td rowspan=2 valign="top" align=left>
+        <canvas id="myCanvas" width="1000" height="700"
+          style="z-index: 1; border: 0px solid; padding: 0px;"></canvas>
+          <div id="panningTool"
           style="z-index: 2;
-          position:absolute;
-          left:0px;
-          top:0px;"
-          height="700px" width="1000"></canvas>
+          position: absolute;;
+          right:100px;
+          top:20px;"
+          height="300px" width="300">
+          <table style="border: 1px solid">
+            <tr>
+              <td></td><td align=center><a href="#" onclick="panning('udpanning',0.1);">▲</a></td><td></td>
+            </tr>  
+            <tr>
+              <td><a href="#" onclick="panning('lrpanning',-0.1);">◄</a></td>
+              <td></td>
+              <td><a href="#" onclick="panning('lrpanning',0.1);">►</a></td>
+            </tr> 
+            <tr>
+              <td></td><td><a href="#" onclick="panning('udpanning',-0.1);">▼</a></td><td></td>
+            </tr>  
+          </table>          
         </div>
-        </td>
-      </tr>
-    </table>
-    <script>
-      "use strict";
+       </td>
+    </tr>
+    <tr>
+      <td valign="top" width="100">
+        <div id="content"></div>
+        <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+        <div id="dynamicSliders"></div>
+      </td>
+    </tr>
+  </table>
+  <script>
+    "use strict";
+    //-----------------------------
+    const canvas = document.getElementById("myCanvas");
+    const cW = 1000; //canvas.clientWidth;
+    const cH = 700; //canvas.clientHeight;
+    const ctx = canvas.getContext("2d");
+    const xAxis = qt(0, 1, 0, 0);
+    const yAxis = qt(0, 0, 1, 0);
+    const zAxis = qt(0, 0, 0, 1);
+    const fixedOrigin = true;
+    const x0=params.x0.val;
+    const y0=params.y0.val;
+    const x1=params.x1.val;
+    const y1=params.y1.val;
 
-      document.addEventListener('DOMContentLoaded', function() {init();}, false);
 
+    //--- declare global variables
+    var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
+    var gridRes;
+    var funcRes;
+    var scaleFactor=1; //hardcoded
+    var xyAngle, zyAngle, zxAngle;
+    var perspective; //boolean
+    var axis; //boolean
+    var diagonal; //maxim distance between 2 points on the pavement
+    var dAngle; //branch angle
+    var initTrunk=params.initTrunk.val; //trunk initial thickness
+    var trunkReduction=params.trunkReduction.val; //reduction factor of trunk thickness
+    var reduction; //factor to reduce branch length
+    var branches;
+    var minLen;
+    var showShadow;
 
-      //--- global PARAMETERS ------------------------------------------------------------------
-      const myCanvas = document.getElementById("myCanvas");
-      const ctx = myCanvas.getContext("2d");
-      const transparentLayer = document.getElementById("transparentLayer");
-      const ctxT = transparentLayer.getContext("2d");
-      const cW = myCanvas.clientWidth;
-      const cH = myCanvas.clientHeight
-      const fixedOrigin = params.fixedOrigin.val;
-      
-      //--- parameters the user can change via sliders if made visible
-      // -- global variables
-      var x0, x1, y0, y1;;
-      var maxItr, uBound, zoomIn;     
-      
-      loadValues();
-      
-      //************************************
-      var selectedFunction="classic"; //this is the default value
-      var selectedExample="e1";
-      //************************************
+    //tree object variables
+    var treeObj={};
+    var childCounter=0;
 
-      var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
-      var reMapT = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); //functions to map real value to canvas coordinates
+    //sun/horizon angle
+    var sunDirectionAngle=0;  // - season - alpha
+    var sunHorizonAngle=PI/8; //hour - beta
 
+    //-------------------------------------------
+    function init() {
       reMap.objCanvas = ctx;
-      reMapT.objCanvas = ctxT;
-
-      //--- calculated params
-      var dx = reMap.dx();
-      var dy = reMap.dy();
+      //ctx.shadowBlur = 5;
+      //ctx.shadowColor = "green";
+      genNavigation("THREEDTREE", true);
+      generateControls();
+      //loadValues();    
+     //prepare tree base
+      addNode(0,[],[null,0,0,0],initTrunk);
+      loadvaluesandgo("all");
+      //playMovie("xyAngle");      
+     }
+    //-------------------------------------------
+    //load values from param object, be careful, globalvariables' names are
+    //must match the key names
+    function loadValues(strKey) {
      
-  //************* end global parameters *************************************
-
-//-------------------------------------------
-   function init() {
-
-      //--- generate controls
-      genNavigation("julia",true);
-      generateControls(); //sliders
-
-      //generate drop down with julia functions examples
-      document.getElementById("functions").innerHTML=genDropDownFromObj("functionSelector","label","val","null",dropdowns.dd1.elements); 
-        
-      //generate drop down with julia functions examples
-      document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","id","null",dropdowns.dd1.elements.classic.examples);
-
-        //--- mouse coordinates event listener --------------------------
-        transparentLayer.addEventListener(
-          "mousemove",
-          function (evt) {
-            var mousePos = getMousePos(evt);
-            var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
-            var message = `|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
-            writeMessage(message);
-            //*** WIP ***
-            drawEscapeRoute(tempC);
-          },
-          false
-        );
-
-        //--- mouse click event listener -------------------------------
-        transparentLayer.addEventListener(
-          "click",
-          function (evt) {
-            var mousePos = getMousePos(evt);
-
-            zoomIn=params.zoomIn.val;
-
-            //zoom in
-            if (zoomIn==1){
-            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0)/4; 
-            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0)/4;
-            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0)/4;
-            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0)/4;
-            }
-            else {
-            params.x0.val=reMap.m2x(mousePos.x)-(x1-x0); 
-            params.x1.val=reMap.m2x(mousePos.x)+(x1-x0);
-            params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
-            params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
-            }
-
-            loadvaluesandgo();
-          },
-          false
-        );
-
-     
-        //event listener for function change
-        document.getElementById("functionSelector").addEventListener("change", function (evt) {selectFunctionDropDown()});
-        //--- value change listener for example selector (must be recalled every freaking time)
-        document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
-
-        
-        //fileToParameters(); //initiate event listener for file uploader
-        go();
-        reMap.drawAxis();
-      }
-
-
-//-------------------------------------------
-  function julia(z, k) {
-
-        var z0=z;
-        //selectedFunction is a global parameter
-
-          //-- classic Zn+1=(Zn)^2+k
-          for (let i = 0; i < maxItr + 1; i++) {
-            var z0 = julias(z0,k)[selectedFunction].c;
-            if (z0.x * z0.x + z0.y * z0.y > uBound) {
-              return i;
-          }
-        }
-        return maxItr;
-      }
-      //-------------------------------------------
-      function loadValues(){
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-        maxItr = params.iterations.val;
-        uBound = params.upperbound.val;
-        zoomIn=params.zoomIn.val;  
-      }
-      //-------------------------------------------
-      function loadvaluesandgo() {
-        
-
+     strKey=(typeof(strKey==undefined)?"all":strKey);
       
-        loadValues();
-        
-        reMap.x0 = x0;
-        reMap.x1 = x1;
-        reMap.y0 = y0;
-        reMap.y1 = y1;
-
-        reMapT.x0 = x0;
-        reMapT.x1 = x1;
-        reMapT.y0 = y0;
-        reMapT.y1 = y1; 
-        
-        //--- calculated params
-        dx = reMap.dx();
-        dy = reMap.dy();
-
-        go();
-        reMap.drawAxis();
-        reMap.drawUnitCircle();
-      }
-      // --- plot all points of recursive function
-      function drawEscapeRoute(z) {
-        //clear rectangle (because mouse moves)
-        reMapT.clearcanvas();
-        var arrPoints = new Array(); //array of complex numbers
-        var tempZ=z;
-        var k = new c(params.cx.val, params.cy.val);
-        //loop and keep applying Julia criteria
-        for (let index = 0; index < maxItr; index++) {
-          arrPoints.push(tempZ);
-          tempZ=julias(tempZ,k)[selectedFunction].c;
-        }
-        //draw array
-        reMapT.lineWidth=0.2;
-        for (let index = 0; index < arrPoints.length; index++) {
-          const element = arrPoints[index];
-          if (index > 0) {
-            reMapT.drawSegment(arrPoints[index], arrPoints[index - 1], "#FF0000");
-          }
-      }
-      } 
-
-//-------------------------------------------
-      function go() {
-
-        reMap.clearcanvas();
-
-        var x = x0;
-        var y = y0;
-        var itr = 0;
-        var clr;
-
-        var k =  new c(params.cx.val, params.cy.val);
-        var tz = new c(0,0);
-
-        for (let i = 0; i < cW; i++) {
-          x = x + dx;
-          y = y0;
-          tz.x=x;
-
-          for (let j = 0; j < cH; j++) {
-            y = y + dy;
-            tz.y=y;
-
-            itr = julia(tz, k);
-            if (itr < maxItr) {
-              clr = Math.round((itr * 255) / maxItr);
-              clr = "#" + clr + clr + clr;
-              plot(reMap.x(x), reMap.y(y), clr);
-            }
-          }
+     if (strKey == "all"){
+      for (var key in params) {
+        if (params[key].visible != false) {
+          eval(`${key}=params.${key}.val`);
         }
       }
+     }
+     else {
+      if (params[strKey].visible != false) {
+          eval(`${strKey}=params.${strKey}.val`);
+        }
+     }
+    }
+    //-------------------------------------------
+    function loadvaluesandgo(strKey) {
+      
+      var newtree=false;
 
-//------------------------------
-//first drop down function - select fractal
-function selectFunctionDropDown () {          
-          selectedFunction = getDropDownSelectedValue("functionSelector");    
-          //update second dropdown with values related to function
-          document.getElementById("examples").innerHTML=genDropDownFromObj("exampleSelector","label","id","null",dropdowns.dd1.elements[selectedFunction].examples);
-          selectExampleDropDown(); //refreshed child dropdown         
+      // -- load values from params object
+      loadValues(strKey);
+
+      //typical for this page: check to see if this parameter also
+      //requires a new tree to be generated
+      if (strKey != "all"){
+         newtree=params[strKey].newtree;
+         //newtree=(typeof(newtree)=="undefined")?false:newtree;
+      }
+      if(newtree || strKey=="all") {      //--- prepare tree
+      prepareTreeObject([null,0,0,0],[null,0,0,1],initTrunk,0);
+      }
+
+      reMap.lockRatio = true;
+      reMap.scaleFactor = scaleFactor;
+
+      //calculated parameter 
+      diagonal = 5; //Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
+
+      //--- clear canvas
+      ctx.clearRect(0, 0, cW, cH);
+
+      //--- draw axis
+      if (axis==1){draw3Daxis(params.gridRes.val);}      
+
+      plotTree(0); //plot starting from node0
+
+    }
+    // --- ct maps a 3d point to a 2d map representing the 3d space
+    function ct(x, y, z) {
+
+      let pt1 = qt(0, x, y, z); //point in 3d as a quaternion    
+
+      pt1 = qRot(zAxis, xyAngle, pt1); //point rotated around z axis
+      pt1 = qRot(yAxis, zxAngle, pt1); //point rotated around x axis
+      pt1 = qRot(xAxis, zyAngle, pt1); //point rotated around y axis
+
+      //for perspective it's better to traslate the rotated point away from the canvas
+      //diagonal is the size of the pavement diagonal
+      let perspectiveFactor = 1;
+      if (perspective) {
+        perspectiveFactor = (pt1.c + diagonal);
+      } //works, a bit far
+      
+      let lrpanning=params.lrpanning.val * 1;
+      let udpanning=params.udpanning.val * 1;
+
+      return {
+        x: (pt1.b / perspectiveFactor) + lrpanning,
+        y: (pt1.d / perspectiveFactor) + udpanning,
+      }
+    }
+function shadow(x, y, z) {
+   //    const sunHorizonAngle=PI/8; //hour - beta
+   // const sunDirectionAngle=PI/2; // - season - alpha
+
+   const ta=tan(sunDirectionAngle);
+   const tb=tan(sunHorizonAngle);
+   const denom=tb * sqrt((1+ta*ta))  
+
+  return {
+    x: x-z/denom,
+    y: y-z*ta/denom,
+    z: 0
+  // s: ((pt1.b - pt1.c/Math.tan(sunAngle)) / perspectiveFactor) + lrpanning,
 }
-//second dropdown, select examples (cx, cy, repetitions etc)
-function selectExampleDropDown () {
+}
 
-        //--- refreshes listener for examplesSelector
-        document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
+
+
+
+
+//-------------------------------
+function prepareTreeObject(o,v,initTrunk, nodeID) { 
+
+  //o = origin point where vector v is attached to. Format: [null, x, y, z]
+  //v vector, branch and axis or rotation of following branches [null, x, y, z]
+  //nodeID id of the node being created
+
+  //objTree code ---
+  var children=[];
+  
+  var pt0=ct(o[1],o[2],o[3]);
+  var pt1_v=sumVectors(o,v);
+  const beta=dAngle+rnd(-PI/48,PI/48); //small random component for branches angles against rotation axis 
+ 
+  //const rndBranches=intRnd(1,branches); //random number of branches
+  //const rndBranches=branches
+
+    //v is rotated of dAngle on x,z plane containing vector v
+    var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];    
+    let pt1q=qt(0,v1[1],v1[2],v1[3]); //quaternion to rotate 
+
+    let rndAngle=PI*rnd(-1/branches,1/branches); //with random component
+
+    for (var i= 0; i < branches ; i++){
+        let tempAngle= i * 2*PI/branches + rndAngle;
+        let ptiq=qRot(v2q(v),tempAngle,pt1q)
+        //rotate pt1 n-times around axis v
+        let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
+        var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
+       
+        //generate child node ------------------------------------------
+        childCounter = childCounter + 1;
+        children.push(childCounter);
+        treeObj["node"+childCounter]={};
+        treeObj["node"+childCounter].id=childCounter;
+        treeObj["node"+childCounter].o=[null,ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]];
+        treeObj["node"+childCounter].children=[]; //prepare empty children array
+        treeObj["node"+childCounter].initTrunk=initTrunk*trunkReduction
+        //--------------------------------------------------------------
+
+        //for next branch new o: [x,y,z] =  v1[1],v1[2],v1[3] + o
+        //axis = [null,pt1-pt0]
+        //new, shortened vector (in this case pq is scalar x quaternion)
+        //q2v is quaternion to vector
+
+      if (norm(v)>minLen){
+        prepareTreeObject(sumVectors(o,q2v(ptiq)),newv,initTrunk*trunkReduction,childCounter);
+      }
+      else
+      {  
+        //leaves?
+        //plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");
+      }
+      treeObj["node"+nodeID].children=children; 
+      treeObj["node"+nodeID].initTrunk=initTrunk; 
+
+  } //end of loop 
+
+  }
+  //------------------------------
+
+  function plotTree(id){
+
+     const nodeObj=treeObj["node"+id];
+     const children = nodeObj.children;
+     const o=nodeObj.o;
+     var pt0=ct(o[1],o[2],o[3]);
+     var sh_o=shadow(o[1],o[2],o[3]);
+     var pt0s, pt1s; //shadows
+     pt0s=ct(sh_o.x,sh_o.y,sh_o.z);
+
+
+     for (var i=0;i<children.length;i++){
           
-          selectedFunction = getDropDownSelectedValue("functionSelector");
-          selectedExample=getDropDownSelectedValue("exampleSelector");
-          var tempObj=dropdowns.dd1.elements[selectedFunction].examples[selectedExample];
-          
-          //here loops through array of values (could be more than just x and y)
-          //and updates the object (global var), then new values are loaded and run 
-          params.cx.val = 1 * tempObj["cx"];
-          params.cy.val = 1 * tempObj["cy"];
-          params.iterations.val = 1 * tempObj["iterations"];
+          let pt1=ct(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
+          ctx.beginPath();
 
-          //using the upanddown function to update the sliders etc
-          //can't use the updateParam function
-          upAndDown("cx",0); 
-          upAndDown("cy",0);
-          upAndDown("iterations",0);     
-          
-        //--- value change listener for examplesSelector
-        //document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
+              ctx.strokeStyle = `brown`; //improve?
+              ctx.lineWidth = treeObj["node"+children[i]].initTrunk;
+              ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
+              ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
+              ctx.stroke();
+              
+              if (showShadow==1){
+              //shadow
+              ctx.strokeStyle = `black`; //improve?
+              ctx.shadowBlur = 5;
+              let sh=shadow(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
+              pt1s=ct(sh.x,sh.y,sh.z);
+              ctx.moveTo(reMap.x(pt0s.x), reMap.y(pt0s.y));
+              ctx.lineTo(reMap.x(pt1s.x), reMap.y(pt1s.y));
+              //plot(reMap.x(pt0.x), reMap.y(pt0.y), "red");
+              ctx.stroke();
+              ctx.strokeStyle = `brown`; //improve?
 
-        }
+              } 
 
-    </script>
-  </body>
+
+              plotTree(children[i]);
+              
+     }
+  }
+  //-------------------------------------------
+      function addNode(id,children,o,trunk){
+      treeObj["node"+id]={};
+      treeObj["node"+id].id=id;
+      treeObj["node"+id].children=children;
+      treeObj["node"+id].o=o;
+      treeObj["node"+id].initTrunk=trunk;
+    }
+  </script>
+</body>
+
 </html>

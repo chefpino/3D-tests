@@ -17,6 +17,8 @@ function intRnd(iMin, iMax) {
 //useful constants
 const sin = (x) => Math.sin(x);
 const cos = (x) => Math.cos(x);
+const tan = (x) => Math.tan(x);
+const sqrt = (x) => Math.sqrt(x);
 const PI = Math.PI;
 //---------------------------
 // common functions abbreviated

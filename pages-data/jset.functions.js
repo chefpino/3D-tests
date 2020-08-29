@@ -108,8 +108,9 @@ var dropdowns = {
             y1: 2,
             iterations: 250,
             upperbound: 4,
-          },
-                  },
+          },//c = -0.2 + i
+                  
+        },
       },    
       cube: {
         id: "cube",
@@ -207,7 +208,19 @@ var dropdowns = {
               iterations: 100,
               upperbound: 30,
               },
-          },
+              e6: {
+                id: "e6",
+                label: "-0.2 + i",
+                cx: -0.2,
+                cy: 1,
+                x0: -2,
+                x1: 2,
+                y0: -2,
+                y1: 2,
+                iterations: 250,
+                upperbound: 30,
+              },//c = 
+              },
       },
     },
     selected: "classic",

@@ -5,8 +5,8 @@
             <tr>
               <td valign="top">FRACTALS<br><b>►&nbsp;&nbsp;</b><a
                   href="https://chefpino.github.io/fun.with.functions/fractals/mandelbrot/index.html"><b>Mandelbrot</b></a><br>►&nbsp;&nbsp;<a
-                  href="https://chefpino.github.io/fun.with.functions/fractals/julia/index.html">Julia</a><br>►&nbsp;&nbsp;&nbsp;<a
-                  href="https://chefpino.github.io/fun.with.functions/fractals/julia/extendedjuliasets.html">Extended</a><br>►&nbsp;&nbsp;<a
+                  href="https://chefpino.github.io/fun.with.functions/fractals/julia/index.html">Julia</a>
+                  <br>►&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/fractals/burningship/index.html">Burning
                   Ship</a><br>►&nbsp;&nbsp;<a
                   href="https://chefpino.github.io/fun.with.functions/fractals/tree/index.html">2D

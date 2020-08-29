@@ -175,6 +175,7 @@
       let perspectiveFactor = 1;
       if (perspective) {
         perspectiveFactor = (pt1.c + diagonal);
+        perspectiveFactor=(perspectiveFactor<0)?0:perspectiveFactor;
       } //works, a bit far
       
       let lrpanning=params.lrpanning.val * 1;
@@ -185,6 +186,7 @@
         y: (pt1.d / perspectiveFactor) + udpanning,
       }
     }
+//------------------------------    
 function shadow(x, y, z) {
    //    const sunHorizonAngle=PI/8; //hour - beta
    // const sunDirectionAngle=PI/2; // - season - alpha

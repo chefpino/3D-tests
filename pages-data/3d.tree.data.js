@@ -11,6 +11,7 @@ var params = {
     recalc: true,
     integer: true,
     newtree: true,
+    cssClass: "control1",
   },
   "dAngle": {
     val: Math.PI / 8,
@@ -23,6 +24,7 @@ var params = {
     visible: true,
     recalc: true,
     newtree: true,
+    cssClass: "control1",
 
   },
   "minLen": {
@@ -38,6 +40,7 @@ var params = {
     visible: true,
     recalc: true,
     newtree: true,
+    cssClass: "control1",
 
   },
   "reduction": {
@@ -51,6 +54,7 @@ var params = {
     visible: true,
     recalc: true,
     newtree: true,
+    cssClass: "control1",
 
   },
   "initTrunk": {
@@ -65,6 +69,7 @@ var params = {
     visible: true,
     recalc: true,
     newtree: true,
+    cssClass: "control1",
 
   },
   "trunkReduction": {
@@ -79,6 +84,7 @@ var params = {
     recalc: true,
     newtree: true,
     steps: 18,
+    cssClass: "control1",
 
   },
   "minBranch": {
@@ -91,7 +97,7 @@ var params = {
     maxLabel: "1",
     visible: false,
     newtree: true,
-
+    cssClass: "control1",
   },
 
   "nTrees": {
@@ -179,6 +185,7 @@ var params = {
     visible: true,
     movie: true,
     newtree: false,
+    cssClass: "control2",
   },
   zyAngle: {
     val: 0.06,
@@ -193,6 +200,8 @@ var params = {
     visible: true,
     movie: true,
     newtree: false,
+    cssClass: "control2",
+
   },
   zxAngle: {
     val: 0,
@@ -207,6 +216,8 @@ var params = {
     visible: true,
     movie: true,
     newtree: false,
+    cssClass: "control2",
+
   },
   perspective: {
     val: 0,
@@ -222,6 +233,8 @@ var params = {
     recalc: true,
     controlType: "checkbox",
     newtree: false,
+    cssClass: "control1",
+
   },
   scaleFactor: {
     val: .2,
@@ -236,6 +249,7 @@ var params = {
     recalc: true,
     visible: true,
     newtree: false,
+    cssClass: "control1",
   },
   showShadow: {
     val: 1,
@@ -251,6 +265,8 @@ var params = {
     recalc: true,
     controlType: "checkbox",
     newtree: false,
+    cssClass: "control2",
+
   },
   sunHorizonAngle: {
     val: Math.PI/2-.1,
@@ -266,6 +282,7 @@ var params = {
     integer: false,
     newtree: false,
     movie: true,
+    cssClass: "control2",
 
   },//
   sunDirectionAngle: {
@@ -282,7 +299,7 @@ var params = {
     integer: false,
     newtree: false,
     movie: true,
-
+    cssClass: "control2",
   },
   axis: {
     val: 1,
@@ -298,6 +315,7 @@ var params = {
     recalc: true,
     controlType: "checkbox",
     newtree: false,
+    cssClass: "control1",
   },
   lrpanning: {
     val: 0,

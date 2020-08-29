@@ -24,6 +24,8 @@ function generateControls() {
     let min = params[key].min;
     let max = params[key].max;
     let movie=typeof (params[key].movie) == "undefined" ? false : true;
+    let cssClass=typeof(params[key].cssClass)=="undefined" ?"control1":params[key].cssClass;
+
 
     if (params[key].visible != false) {
 
@@ -33,7 +35,7 @@ function generateControls() {
       var recalc = (params[key].recalc == true ? `loadvaluesandgo("${key}");` : "");
       controlType = (typeof (params[key].controlType) == "undefined" ? "range" : params[key].controlType);
 
-      strHTML = strHTML + tr;
+      strHTML = strHTML + `<tr class="${cssClass}">`;
       //resetToDefault
       strHTML = strHTML +
                 `<td><a href="#" onclick='resetToDefault("${key}");' title="default">` + params[key].label + 

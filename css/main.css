@@ -46,3 +46,11 @@ table.navmenu {
 #mousecoordinates {
   background: rgba(161, 212, 241, 0.493);
 }
+tr.control1 {
+  background: rgba(230, 177, 6, 0.493);
+}
+tr.control2 {
+  background: rgba(161, 212, 241, 0.493);
+}
+
+

@@ -88,7 +88,7 @@
 
     //tree object variables
     var treeObj={};
-    var childCounter=0;
+    var childCounter=1;
 
     //sun/horizon angle
     var sunDirectionAngle=0;  // - season - alpha
@@ -103,7 +103,8 @@
       generateControls();
       //loadValues();    
      //prepare tree base
-      addNode(0,[],[null,0,0,0],initTrunk);
+      addNode(0,[1],[null,0,0,0],initTrunk); //origin of tree
+      addNode(1,[],[null,rnd(0,0.05),rnd(0,0.05),.5],initTrunk*trunkReduction); //origin of tree
       loadvaluesandgo("all");
       playMovie("xyAngle");      
      }
@@ -142,7 +143,7 @@
          //newtree=(typeof(newtree)=="undefined")?false:newtree;
       }
       if(newtree || strKey=="all") {      //--- prepare tree
-      prepareTreeObject([null,0,0,0],[null,0,0,1],initTrunk,0);
+      prepareTreeObject([null,0,0,0],[null,0,0,1],initTrunk,1);
       }
 
       reMap.lockRatio = true;
@@ -272,35 +273,35 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
      const o=nodeObj.o;
      var pt0=ct(o[1],o[2],o[3]);
      var sh_o=shadow(o[1],o[2],o[3]);
+     var sh;
      var pt0s, pt1s; //shadows
      pt0s=ct(sh_o.x,sh_o.y,sh_o.z);
 
 
      for (var i=0;i<children.length;i++){
           
-          let pt1=ct(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
-          ctx.beginPath();
-
-              ctx.strokeStyle = `brown`; //improve?
+            let pt1=ct(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
+              
+              ctx.strokeStyle = "#654321"; //`Dark Brown`; //improve?
               ctx.lineWidth = treeObj["node"+children[i]].initTrunk;
+              
+              ctx.beginPath();
               ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
               ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
               ctx.stroke();
               
               if (showShadow==1){
-              //shadow
-              ctx.strokeStyle = `black`; //improve?
-              ctx.shadowBlur = 5;
-              let sh=shadow(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
+
+              //ctx.shadowBlur = 5;
+              sh=shadow(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
               pt1s=ct(sh.x,sh.y,sh.z);
+
+              ctx.strokeStyle = "black"; //improve?
+              ctx.beginPath();
               ctx.moveTo(reMap.x(pt0s.x), reMap.y(pt0s.y));
               ctx.lineTo(reMap.x(pt1s.x), reMap.y(pt1s.y));
-              //plot(reMap.x(pt0.x), reMap.y(pt0.y), "red");
               ctx.stroke();
-              ctx.strokeStyle = `brown`; //improve?
-
               } 
-
 
               plotTree(children[i]);
               

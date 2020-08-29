@@ -79,7 +79,7 @@ function loadValues() {
 
 for (var key in params) {
   if (params[key].visible != false) {
-    eval(`${key}=params.${key}.val`);
+    window[key]=params[key].val; //global variable as property of window object
   }
 }
 }

@@ -84,16 +84,21 @@
     var reduction; //factor to reduce branch length
     var branches;
     var minLen;
+    var showShadow;
 
     //tree object variables
     var treeObj={};
     var childCounter=0;
 
+    //sun/horizon angle
+    var sunDirectionAngle=0;  // - season - alpha
+    var sunHorizonAngle=PI/8; //hour - beta
+
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
-      ctx.shadowBlur = 5;
-      ctx.shadowColor = "green";
+      //ctx.shadowBlur = 5;
+      //ctx.shadowColor = "green";
       genNavigation("THREEDTREE", true);
       generateControls();
       //loadValues();    
@@ -112,13 +117,13 @@
      if (strKey == "all"){
       for (var key in params) {
         if (params[key].visible != false) {
-          eval(`${key}=params.${key}.val`);
+          window[key]=params[key].val; //global variable as property of window object
         }
       }
      }
      else {
       if (params[strKey].visible != false) {
-          eval(`${strKey}=params.${strKey}.val`);
+        window[key]=params[key].val; //global variable as property of window object
         }
      }
     }
@@ -176,9 +181,28 @@
 
       return {
         x: (pt1.b / perspectiveFactor) + lrpanning,
-        y: (pt1.d / perspectiveFactor) + udpanning
+        y: (pt1.d / perspectiveFactor) + udpanning,
       }
     }
+function shadow(x, y, z) {
+   //    const sunHorizonAngle=PI/8; //hour - beta
+   // const sunDirectionAngle=PI/2; // - season - alpha
+
+   const ta=tan(sunDirectionAngle);
+   const tb=tan(sunHorizonAngle);
+   const denom=tb * sqrt((1+ta*ta))  
+
+  return {
+    x: x-z/denom,
+    y: y-z*ta/denom,
+    z: 0
+  // s: ((pt1.b - pt1.c/Math.tan(sunAngle)) / perspectiveFactor) + lrpanning,
+}
+}
+
+
+
+
 
 //-------------------------------
 function prepareTreeObject(o,v,initTrunk, nodeID) { 
@@ -246,19 +270,40 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
      const nodeObj=treeObj["node"+id];
      const children = nodeObj.children;
      const o=nodeObj.o;
-     const pt0=ct(o[1],o[2],o[3]);
+     var pt0=ct(o[1],o[2],o[3]);
+     var sh_o=shadow(o[1],o[2],o[3]);
+     var pt0s, pt1s; //shadows
+     pt0s=ct(sh_o.x,sh_o.y,sh_o.z);
+
 
      for (var i=0;i<children.length;i++){
-       
+          
           let pt1=ct(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
           ctx.beginPath();
+
               ctx.strokeStyle = `brown`; //improve?
               ctx.lineWidth = treeObj["node"+children[i]].initTrunk;
               ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
               ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
               ctx.stroke();
-              plotTree(children[i]);
+              
+              if (showShadow==1){
+              //shadow
+              ctx.strokeStyle = `black`; //improve?
+              ctx.shadowBlur = 5;
+              let sh=shadow(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
+              pt1s=ct(sh.x,sh.y,sh.z);
+              ctx.moveTo(reMap.x(pt0s.x), reMap.y(pt0s.y));
+              ctx.lineTo(reMap.x(pt1s.x), reMap.y(pt1s.y));
+              //plot(reMap.x(pt0.x), reMap.y(pt0.y), "red");
+              ctx.stroke();
+              ctx.strokeStyle = `brown`; //improve?
 
+              } 
+
+
+              plotTree(children[i]);
+              
      }
   }
   //-------------------------------------------

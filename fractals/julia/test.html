@@ -91,8 +91,9 @@
     var childCounter=0;
 
     //sun/horizon angle
+    //can be improved by calculating actual sun position
     var sunDirectionAngle=0;  // - season - alpha
-    var sunHorizonAngle=PI/8; //hour - beta
+    var sunHorizonAngle=PI/8; // - hour - beta
 
     //-------------------------------------------
     function init() {
@@ -117,13 +118,13 @@
      if (strKey == "all"){
       for (var key in params) {
         if (params[key].visible != false) {
-          eval(`${key}=params.${key}.val`);
-        }
+          window[key]=params[key].val;
+          }
       }
      }
      else {
       if (params[strKey].visible != false) {
-          eval(`${strKey}=params.${strKey}.val`);
+          window[strKey]=params[strKey].val;
         }
      }
     }

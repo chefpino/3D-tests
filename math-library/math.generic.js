@@ -19,6 +19,7 @@ const sin = (x) => Math.sin(x);
 const cos = (x) => Math.cos(x);
 const tan = (x) => Math.tan(x);
 const sqrt = (x) => Math.sqrt(x);
+//const exp = (x) => Math.exp(x);
 const PI = Math.PI;
 //---------------------------
 // common functions abbreviated

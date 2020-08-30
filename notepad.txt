@@ -1,13 +1,6 @@
-cube basins
-f(z)=(−0.090706+0.27145i)+(2.41154−0.133695i)z2−z3
--1.2-0.8i   2.7+0.8i
-
-f=−1−0.5iz+z2
--1.8-1.8i   1.8+1.8i
-
-z+z5
--1.8-1.8i   1.8+1.8i
-
-2z+z5
--1.1-1.1i 1.1+1.1i
-
+for (const key in params.functions) {
+    const element = params.functions[key];
+    if (element != false){
+    function g(x,y) {  
+       return eval(element);  
+    };  

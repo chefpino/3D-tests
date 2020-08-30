@@ -222,13 +222,10 @@
     }
     //-------------------------------------------
     function plotAll() {
-
       for (const key in params.functions) {
         const element = params.functions[key];
         if (element != false) {
-          function g(x, y) {
-            return eval(element);
-          };
+          const g=new Function("x", "y", "return " + element);
           plotColoredFunction(g, funcRes);
         }
       }

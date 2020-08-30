@@ -177,17 +177,19 @@ function displayFunctions(){
 }
 //-------------------------------------------
 function plotAll(){
+     
+     //this page could have more functions plotted at once
+     //at the moment plot only one R to R3
+     const g=new Function("x","y",
+     "return {" + 
+     "x: " +  params.functions.x + "," + 
+     "y: " + params.functions.y + "," +
+     "z: " + params.functions.z  +
+     "}");
 
-for (const key in params.functions) {
-    const element = params.functions[key];
-    if (element != false){
-    function g(x,y) {  
-       return eval(element);  
-    };  
     plotColoredFunction(g,funcRes);
   }
-}
-}
+
     </script> 
   </body>
 </html>

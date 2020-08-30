@@ -166,15 +166,17 @@
 
     }
     //------------------------------
-    function tempF(t1,t2){
-      return {
-          x: eval(params.functions.x),
-          y: eval(params.functions.y),
-          z: eval(params.functions.z),
-      }
-     }
-    //-------------------------------------------
+
     function plotColoredFunction(res) {
+
+      //must be improved if we want to plot several functions
+      const tempF=new Function("t1", "t2",
+     "return {" + 
+     "x: " + params.functions.x + "," + 
+     "y: " + params.functions.y + "," +
+     "z: " + params.functions.z  +
+     "}");
+      
 
       var dt1 = (t11 - t10) / res;
       var dt2 = (t21 - t20) / res;

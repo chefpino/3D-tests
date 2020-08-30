@@ -167,11 +167,8 @@
       function plotAll() {
         for (const key in params.functions) {
           const element = params.functions[key];
-
-          if (element != false) {
-            function f(t) {
-              return eval(element);
-            }
+          if (element != undefined) {
+            const f= new Function("t","return " + element);
             plotFunction(f, "#121212");
           }
         }

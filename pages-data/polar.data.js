@@ -104,6 +104,7 @@ var params = {
     integer: true,
     steps: 1,
     controlType: "checkbox",
+    cssClass: "control2",
   },
   grid: {
     val: 1,
@@ -118,6 +119,7 @@ var params = {
     steps: 1,
     recalc: true,
     controlType: "checkbox",
+    cssClass: "control2",
   }, 
   goButton: {
     show: false,

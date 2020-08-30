@@ -79,6 +79,7 @@ var params = {
    steps: 1,
    recalc: true,
    controlType: "checkbox",
+   cssClass: "control2",
 
   },
   zoomIn: {
@@ -93,6 +94,7 @@ var params = {
     integer: true,
     steps: 1,
     controlType: "checkbox",
+    cssClass: "control2",
   },
   grid: {
     val: 0,
@@ -107,6 +109,7 @@ var params = {
     steps: 1,
     recalc: true,
     controlType: "checkbox",
+    cssClass: "control2",
   }, 
   goButton: {
     show: false,

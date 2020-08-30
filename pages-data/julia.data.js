@@ -22,6 +22,47 @@ var params = {
     integer: true,
     visible: true
   },
+
+  cx: {
+    val: -0.54,
+    min: -2,
+    max: 2,
+    default: -0.54,
+    label: "c: x",
+    minLabel: "-2",
+    maxLabel: "+2",
+    integer: false,
+    visible: true
+
+  },
+  cy: {
+    val: -0.54,
+    min: -2,
+    max: 2,
+    default: -0.54,
+    label: "c: y",
+    minLabel: "-2",
+    maxLabel: "+2",
+    integer: false,
+    visible: true
+
+  },
+
+  zoomIn: {
+    val: 1,
+    visible: true,
+    min: 0,
+    max: 1,
+    default: 1,
+    label: "zoom",
+    minLabel: "out",
+    maxLabel: "in",
+    integer: true,
+    steps: 1,
+    controlType: "checkbox",
+    cssClass: "control2",
+  },
+
   fixedOrigin: {
     val: false,
     visible: false,
@@ -70,43 +111,6 @@ var params = {
     maxLabel: "4",
     integer: false,
     visible: false,
-  },
-  cx: {
-    val: -0.54,
-    min: -2,
-    max: 2,
-    default: -0.54,
-    label: "c: x",
-    minLabel: "-2",
-    maxLabel: "+2",
-    integer: false,
-    visible: true
-
-  },
-  cy: {
-    val: -0.54,
-    min: -2,
-    max: 2,
-    default: -0.54,
-    label: "c: y",
-    minLabel: "-2",
-    maxLabel: "+2",
-    integer: false,
-    visible: true
-
-  },
-  zoomIn: {
-    val: 1,
-    visible: true,
-    min: 0,
-    max: 1,
-    default: 1,
-    label: "zoom",
-    minLabel: "out",
-    maxLabel: "in",
-    integer: true,
-    steps: 1,
-    controlType: "checkbox",
   },
   goButton: {
     show: true,

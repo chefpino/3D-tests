@@ -83,7 +83,8 @@ var params = {
     maxLabel: "100",
     integer: true,
     recalc: true,
-    visible: true
+    visible: true,
+    cssClass: "control2",
   },
   funcOpacity: {
     val: 0.1,
@@ -98,20 +99,9 @@ var params = {
     recalc: true,
     visible: true,
     movie: true,
+    cssClass: "control2",
   },
-  scaleFactor: {
-    val: 1.6,
-    min: .1,
-    max: 10,
-    steps: 10,
-    default: 1.6,
-    label: "zoom",
-    minLabel: "far",
-    maxLabel: "close",
-    integer: false,
-    recalc: true,
-    visible: true
-  },
+
   xyAngle: {
     val: -2.8,
     min: -Math.PI,
@@ -150,7 +140,21 @@ var params = {
     integer: false,
     visible: true,
     movie: true,
-  },  
+  },
+  scaleFactor: {
+    val: 1.6,
+    min: .1,
+    max: 10,
+    steps: 10,
+    default: 1.6,
+    label: "zoom",
+    minLabel: "far",
+    maxLabel: "close",
+    integer: false,
+    recalc: true,
+    visible: true,
+    cssClass: "control2",
+  },
   perspective: {
     val: 1,
     visible: true,
@@ -164,7 +168,10 @@ var params = {
     steps: 1,
     recalc: true,
     controlType: "checkbox",
-  }, 
+    cssClass: "control2",
+  },
+  
+  
   lrpanning: {
     val: 0,
     min: -10,

@@ -65,6 +65,7 @@ var params = {
     integer: true,
     steps: 1,
     controlType: "checkbox",
+    cssClass: "control2",
   },
    "fixedOrigin":{
     val: false,

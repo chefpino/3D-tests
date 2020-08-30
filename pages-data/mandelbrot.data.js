@@ -1,10 +1,19 @@
 
 var params = {
   
-  goButton: {
-    show: true,
-    visible: false,
-  },
+
+  exponent: {
+    val: 2,
+    min: 1,
+    max: 10,
+    default:2,
+    label:"exponent",
+    minLabel:"1",
+    maxLabel:"10",
+    integer:true,
+    "visible":true,
+    cssClass: "control1",
+  }   ,
 
  upperbound:{
    val:4,
@@ -15,8 +24,9 @@ var params = {
    minLabel:"2",
    maxLabel:"10",
    integer:true,
-   visible: true
-   },
+   visible: true,
+   cssClass: "control1",
+  },
  iterations:{
    val:75,
    min:50,
@@ -26,12 +36,9 @@ var params = {
    minLabel:"75",
    maxLabel:"1000",
    integer:true,
-   visible: true
-   },
- fixedOrigin:{
-  val: false,
-  visible: false
-   },
+   visible: true,
+   cssClass: "control1",
+  },
   zoomIn: {
     val: 1,
     visible: true,
@@ -44,8 +51,13 @@ var params = {
     integer: true,
     steps: 1,
     controlType: "checkbox",
+    cssClass: "control2",
   }, 
-   "x0":{
+  fixedOrigin:{
+    val: false,
+    visible: false
+     },
+     "x0":{
     val:-2,
     min:-2,
     max:0,
@@ -90,19 +102,11 @@ var params = {
           integer:false,
           "visible":false
         },
-     exponent: {
-          val: 2,
-          min: 1,
-          max: 10,
-          default:2,
-          label:"exponent",
-          minLabel:"1",
-          maxLabel:"10",
-          integer:true,
-          "visible":true
-     }   
     
-
+        goButton: {
+          show: true,
+          visible: false,
+        },
 }
 
 

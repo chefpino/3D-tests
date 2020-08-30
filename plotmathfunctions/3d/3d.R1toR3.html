@@ -107,25 +107,15 @@ for (var key in params) {
         plotAll();
       }
 
-//-------------------------------------------
-//---------------------------------
-function tempF(t){
 
-  return {
-      x: eval(params.functions.x),
-      y: eval(params.functions.y),
-      z: eval(params.functions.z),
-  }
-
-}
 //-------------------------------------------
-      function plotColoredFunction(objF, res) {
+      function plotColoredFunction(g, res) {
 
         var t=t0;
         var dt=(t1-t0)/res; //param
-        var x = tempF(t).x;
-        var y = tempF(t).y;
-        var z = tempF(t).z;
+        var x = g(t).x;
+        var y = g(t).y;
+        var z = g(t).z;
         var strColor="";
 
         var pt1 = ct(x, y, z);
@@ -138,7 +128,7 @@ function tempF(t){
         for (i = 1; i <= res; i++) {
           t = t0 + i * dt;
           strColor = Math.round(256 * (t-t0)/(t1-t0));
-          pt2=ct(tempF(t).x,tempF(t).y,tempF(t).z);                
+          pt2=ct(g(t).x,g(t).y,g(t).z);                
           ctx.beginPath();
           ctx.strokeStyle = `rgb(${strColor},100,100)`;
           ctx.moveTo(reMap.x(pt1.x), reMap.y(pt1.y));
@@ -179,8 +169,8 @@ function displayFunctions(){
 function plotAll(){
      
      //this page could have more functions plotted at once
-     //at the moment plot only one R to R3
-     const g=new Function("x","y",
+     //at the moment plot only one R to
+     const g=new Function("t",
      "return {" + 
      "x: " +  params.functions.x + "," + 
      "y: " + params.functions.y + "," +

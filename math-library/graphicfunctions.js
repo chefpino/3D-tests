@@ -212,10 +212,16 @@ function intScale(x0, x1) {
 function plot(x, y, clr) {
   //ctx.globalAlpha = 0.5;
   ctx.beginPath();
-  //ctx.strokeStyle = "#e33";
   ctx.fillStyle = clr;
   ctx.fillRect(x, y, 1, 1);
   ctx.fill();
   ctx.stroke(); //***********WIP */ seems to be faster with this added command
-  //ctx.globalAlpha = 1;
 }
+//---------------------------
+function thickPlot(x, y, radius, clr) {
+  ctx.beginPath();
+  ctx.fillStyle = clr;
+  ctx.arc(x, y, radius,0,3*Math.PI);
+  ctx.fill();
+}
+

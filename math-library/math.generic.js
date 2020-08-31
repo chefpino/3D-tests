@@ -14,16 +14,16 @@ function intRnd(iMin, iMax) {
   return Math.floor(rnd(iMin, iMax+1));
 }
 //------------------------------
-//useful constants
+//useful functions and constants
 const sin = (x) => Math.sin(x);
 const cos = (x) => Math.cos(x);
 const tan = (x) => Math.tan(x);
 const sqrt = (x) => Math.sqrt(x);
-//const exp = (x) => Math.exp(x);
+//const exp = (x) => Math.exp(x);  //function returns e^sx
+const pow = (x,y) => Math.pow(x,y); // returns x^y
 const PI = Math.PI;
+const E = Math.E;
 //---------------------------
-// common functions abbreviated
+// common debug functions abbreviated
 const clog = (x) => console.log(x);
 const ctab = (x) => console.table(x);
-
-

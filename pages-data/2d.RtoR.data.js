@@ -1,5 +1,3 @@
-//under constructions, save what?
-
 var params = {
   fixedOrigin: {
     val: false,

@@ -4,19 +4,19 @@
     <script src="../../navigation/menu.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <script src="../../math-library/math.complexnumbers.js"></script>
+    <script src="../../math-library/math.generic.js"></script>
     <script src="../../math-library/graphicfunctions.js"></script>
     <script src="../../navigation/controls.js"></script>
     <script src="../../pages-data/2d.RtoR.data.js"></script>
   </head>
   <body onload="init();">
-    <table border="0">
+    <table id="mainTable">
       <tr>
-        <td valign="top">
-              <div id="menu"></div>
-              <img height=1 width=420 src="../../imgs/1pxBlack.gif">
-              <div id="content"></div>
+        <td>
+          <div id="menu">menu placeholder</div>
+          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
         </td>
-        <td valign="top" rowspan="2">
+        <td rowspan="2">
           <div id="canvasesdiv" style="position:relative; width:1000px; height:500px"> 
             <canvas
               id="myCanvas"
@@ -34,21 +34,23 @@
             left:0px;
             top:0px;
             border:0px solid;"
-            height="500px" width="1000">          </div>
-          </td>
-      </tr>
-      <tr>  
-        <td valign="top" width="100">
-          <div id="content"></div>
-          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
-          <div id="listFunctions">placeholder</div>
-          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
-          <div id="dynamicSliders"></div>
-          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
-          <b>Coordinates</b><div id="mousecoordinates"></div>
+            height="500px" width="1000"></canvas></div>
         </td>
       </tr>
-    </table>
+      <tr>
+        <td>
+          <div id="content">content placeholder</div>
+          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+          <div id="listFunctions">functions placeholder</div>
+          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+          <div id="dynamicSliders"></div>
+          <img height=1 width=420 src="../../imgs/1pxBlack.gif"><br/>
+          <b>Coordinates</b><div id="mousecoordinates">coordinates placeholder</div>        </td>
+      </tr>
+    </table>  
+
+
+   
 <script>
 "use strict";
 
@@ -129,7 +131,6 @@ function loadValues(){
           window[key]=params[key].val; //global variable as property of window object
         }
       }
-
 }
 //---------------------------------------
 function loadvaluesandgo() {
@@ -145,7 +146,8 @@ function loadvaluesandgo() {
 
   reMap.clearcanvas();
   reMap.lineWidth=0.1;
-  
+  reMap.strokeStyle="blue";
+
   if (grid){ 
             reMap.strokeStyle="#333333";
             reMap.drawGrid();
@@ -182,8 +184,7 @@ function checkratio(){
 
               //make y sliders visible:
               document.getElementById("y0").style.display="block";
-              document.getElementById("y1").style.display="block";
-              
+              document.getElementById("y1").style.display="block";              
              }
 
 }
@@ -191,27 +192,27 @@ function checkratio(){
 //-------------------------------------------
 function plotAll(){
   
+
   for (const key in params.functions) {
       const element = params.functions[key];
-      if (element!=undefined) {
+      if (element!="false" && key!="visible") {
         var f = new Function('x','return ' + element);
+        plotFunction(f,"blue");
       }
-      console.table(f);
-      plotFunction(f,"blue");
     }
   }
 
 //-------------------------------------------
 function plotFunction(objF,strColor) {  
-
+  
   var xi=x0;
   var yi=objF(x0);
   var yii=0;
   var yc=0;
 
-  ctx.beginPath();
-  ctx.strokeStyle = strColor;
   ctx.lineWidth=0.3;
+  ctx.strokeStyle = strColor;
+  ctx.beginPath();
   ctx.moveTo(0,reMap.y(yi)); //first point on the map
 
 //max resolution, 1px at the time

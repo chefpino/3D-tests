@@ -15,9 +15,9 @@
           <div id="menu"></div>
           <img height=1 width=420 src="../../imgs/1pxBlack.gif">
           <div id="content"></div>
-          <div id="dynamicSliders">placeholder</div>
-          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
           <div id="listFunctions">placeholder</div>
+          <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+          <div id="dynamicSliders">placeholder</div>
           <img height=1 width=420 src="../../imgs/1pxBlack.gif">
           <b>Coordinates</b><br>
           <div id="mousecoordinates"></div>
@@ -66,10 +66,6 @@
       var x0, x1, y0, y1;
       var zoomIn;
 
-      x0 = params.x0.val;
-      x1 = params.x1.val;
-      y0 = params.y0.val;
-      y1 = params.y1.val;
       loadValues();
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); 
@@ -166,6 +162,12 @@
             window[key]=params[key].val; //global variable as property of window object
           }
         }
+
+      x0 = params.x0.val;
+      x1 = params.x1.val;
+      y0 = params.y0.val;
+      y1 = params.y1.val;
+
       }
 
       //---------------------------------------

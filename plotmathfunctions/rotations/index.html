@@ -61,7 +61,7 @@
       var rotationVector = new c(0, 0);
 //-------------------------------------------     
      function getMousePos(evt) {
-        var rect = myCanvas.getBoundingClientRect();
+        const rect = myCanvas.getBoundingClientRect();
         return {
           x: evt.clientX - rect.left,
           y: evt.clientY - rect.top,
@@ -200,8 +200,9 @@ function rotateButton() {
             var mousePos = getMousePos(evt);
             var tempC = new c(reMap.m2x(mousePos.x), reMap.m2y(mousePos.y));
             arrPoints.push(tempC);
+            thickPlot(mousePos.x, mousePos.y,2,"red");
             if (arrPoints.length > 1) {
-              reMap.lineWidth=0.5;
+              reMap.lineWidth=1;
               reMap.drawSegment(tempC, arrPoints[arrPoints.length - 2], "black");
             }
           },
@@ -224,9 +225,6 @@ function rotateButton() {
           false
         );
       }
-
-
-
 //-------------------------------------------
     </script>
   </body>

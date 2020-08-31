@@ -22,7 +22,7 @@ a:hover {
 }
 table, td {
   border-collapse: collapse;  
-  border: 1px solid black;
+  border: 1px solid rgb(15, 119, 84);
   padding: 1px;
 }
 hr {

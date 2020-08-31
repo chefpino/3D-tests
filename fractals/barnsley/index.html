@@ -93,14 +93,13 @@
       }
       //-------------------------------------------
       function loadvaluesandgo() {
-        //go! button
 
         reMap.clearcanvas(); 
         reMap.drawAxis();
         barnsley(0,0,params.iterations.val);
       }
       //-------------------------------------------
-      function randgp(max) {return Math.floor(Math.random()*max)}
+      const randgp = (x) => Math.floor(Math.random()*x);
       //-------------------------------------------
  
     </script>

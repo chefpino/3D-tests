@@ -72,7 +72,7 @@
       //--- parameters the user can change via sliders if made visible
       // -- global variables
       var x0, x1, y0, y1;;
-      var iterations, upperbound, zoomIn;     
+      var maxItr, uBound, zoomIn;     
       
       loadValues();
       
@@ -152,46 +152,44 @@
         document.getElementById("functionSelector").addEventListener("change", function (evt) {selectFunctionDropDown()});
         //--- value change listener for example selector (must be recalled every freaking time)
         document.getElementById("exampleSelector").addEventListener("change", function (evt) {selectExampleDropDown()});
-
-        
-        //fileToParameters(); //initiate event listener for file uploader
-        go();
+       
+        loadvaluesandgo();
         reMap.drawAxis();
       }
 
 
 //-------------------------------------------
   function julia(z, k) {
-
         var z0=z;
         //selectedFunction is a global parameter
 
           //-- classic Zn+1=(Zn)^2+k
-          for (let i = 0; i < iterations + 1; i++) {
+          for (let i = 0; i < maxItr + 1; i++) {
             var z0 = julias(z0,k)[selectedFunction].c;
-            if (z0.x * z0.x + z0.y * z0.y > upperbound) {
+            if (z0.x * z0.x + z0.y * z0.y > uBound) {
               return i;
           }
         }
-
-
-        return iterations;
+        return maxItr;
       }
       //-------------------------------------------
-      function loadValues(){
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-        iterations = params.iterations.val;
-        upperbound = params.upperbound.val;
-        zoomIn=params.zoomIn.val;  
+      function loadValues() {
+        for (var key in params) {
+          if (params[key].visible != false) {
+            window[key]=params[key].val; //global variable as property of window object
+          }
+        }
       }
       //-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
         loadValues();
+
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
         
         reMap.x0 = x0;
         reMap.x1 = x1;
@@ -207,7 +205,7 @@
         dx = reMap.dx();
         dy = reMap.dy();
 
-        go();
+        plotFractal();
         reMap.drawAxis();
         reMap.drawUnitCircle();
       }
@@ -219,7 +217,7 @@
         var tempZ=z;
         var k = new c(params.cx.val, params.cy.val);
         //loop and keep applying Julia criteria
-        for (let index = 0; index < iterations; index++) {
+        for (let index = 0; index < maxItr; index++) {
           arrPoints.push(tempZ);
           tempZ=julias(tempZ,k)[selectedFunction].c;
         }
@@ -234,7 +232,7 @@
       } 
 
 //-------------------------------------------
-      function go() {
+      function plotFractal() {
 
         reMap.clearcanvas();
 
@@ -256,8 +254,8 @@
             tz.y=y;
 
             itr = julia(tz, k);
-            if (itr < iterations) {
-              clr = Math.round((itr * 255) / iterations);
+            if (itr < maxItr) {
+              clr = Math.round((itr * 255) / maxItr);
               clr = "#" + clr + clr + clr;
               plot(reMap.x(x), reMap.y(y), clr);
             }
@@ -290,13 +288,11 @@ function selectExampleDropDown () {
           selectedExample=getDropDownSelectedValue("exampleSelector");
           var tempObj=dropdowns.dd1.elements[selectedFunction].examples[selectedExample];
            
-          //console.table(tempObj);
-
-          const fieldsToUpdate = ["cx","cy","iterations","upperbound"];
+          const fieldsToUpdate = ["cx","cy","maxItr","uBound"];
           for (var i=0; i < fieldsToUpdate.length ; i++){
             params[fieldsToUpdate[i]].val = 1 * tempObj[fieldsToUpdate[i]];
             upAndDown(fieldsToUpdate[i],0); 
-            console.log(fieldsToUpdate[i]);
+            //console.log(fieldsToUpdate[i]);
           }
         }
 

@@ -88,12 +88,11 @@
     //load values from param object, be careful, globalvariables' names are
     //must match the key names
     function loadValues() {
-
-      for (var key in params) {
-        if (params[key].visible != false) {
-          window[key]=params[key].val; //global variable as property of window object
+        for (var key in params) {
+          if (params[key].visible != false) {
+            window[key]=params[key].val; //global variable as property of window object
+          }
         }
-      }
     }
     //-------------------------------------------
     function loadvaluesandgo() {

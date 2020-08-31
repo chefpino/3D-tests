@@ -100,15 +100,18 @@ function init() {
   loadvaluesandgo();
   }
 //---------------------------------------------------------------
-
 function loadValues(){
-
         x0 = params.x0.val;
         x1 = params.x1.val;
         y0 = params.y0.val;
         y1 = params.y1.val;
-        maxItr = params.iterations.val;
-        uBound = params.upperbound.val;
+        maxItr = params.maxItr.val;
+        uBound = params.uBound.val;
+}
+//-------------------------------------------------------------------
+function loadvaluesandgo() {
+        //go! button
+        loadValues();
 
         reMap.x0=x0;
         reMap.x1=x1;
@@ -119,17 +122,11 @@ function loadValues(){
         dx = reMap.dx();
         dy = reMap.dy();
 
-}
-
-//-------------------------------------------------------------------
-function loadvaluesandgo() {
-        //go! button
-        loadValues();
-        go();
+        plotFractal();
         reMap.drawAxis();
       }
 //------------------------------------------------------------
-function go() {
+function plotFractal() {
         //---clear canvas
         reMap.clearcanvas();
         

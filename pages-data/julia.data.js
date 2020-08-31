@@ -1,6 +1,6 @@
 //-------------------------------------------
 var params = {
-  upperbound: {
+  uBound: {
     val: 4,
     min: 2,
     max: 50,
@@ -11,7 +11,7 @@ var params = {
     integer: false,
     visible: true,
   },
-  iterations: {
+  maxItr: {
     val: 150,
     min: 50,
     max: 500,

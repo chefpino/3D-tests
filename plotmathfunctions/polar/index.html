@@ -9,7 +9,7 @@
     <script src="../../pages-data/polar.data.js"></script>
   </head>
   <body onload="init();">
-    <table border="0">
+    <table border="0" width="420">
       <tr>
         <td valign="top" width=200>
           <div id="menu"></div>
@@ -66,6 +66,10 @@
       var x0, x1, y0, y1;
       var zoomIn;
 
+      x0 = params.x0.val;
+      x1 = params.x1.val;
+      y0 = params.y0.val;
+      y1 = params.y1.val;
       loadValues();
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin); 
@@ -76,6 +80,9 @@
 
       //---------------------------------------
       function init() {
+
+
+
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(
           "mousemove",
@@ -154,15 +161,13 @@
       }
       //---------------------------------------
       function loadValues() {
-        t0 = params.t0.val;
-        t1 = params.t1.val;
-        dt = params.dt.val;
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-        zoomIn = params.zoomIn.val;
+        for (var key in params) {
+          if (params[key].visible != false) {
+            window[key]=params[key].val; //global variable as property of window object
+          }
+        }
       }
+
       //---------------------------------------
       function plotAll() {
         for (const key in params.functions) {

@@ -55,7 +55,9 @@
       //--- parameters the user can change are made visible w/ sliders
       // -- global variables
       var x0, x1, y0, y1;;
-      var maxItr, uBound, zoomIn;     
+      var maxItr, uBound, zoomIn;    
+      
+
       
       loadValues();
 
@@ -129,16 +131,19 @@
             params.y0.val=reMap.m2y(mousePos.y)-(y1-y0);
             params.y1.val=reMap.m2y(mousePos.y)+(y1-y0);
             }
+
+
+
             loadvaluesandgo();
           },
           false
         );
 
-
+        //--- build page and start plotting
         genNavigation("mandelbrot",true);
         generateControls();
         // fileToParameters(); //initiate event listener for file uploader
-        go();
+        loadvaluesandgo();
         reMap.lineWidth=0.2;
         reMap.strokeStyle="#BBBBBB";
         reMap.drawAxis();
@@ -172,23 +177,25 @@
       }
 
 //-------------------------------------------
-      function loadValues(){
-        x0 = params.x0.val;
-        x1 = params.x1.val;
-        y0 = params.y0.val;
-        y1 = params.y1.val;
-        maxItr = params.iterations.val;
-        uBound = params.upperbound.val;
-        zoomIn=params.zoomIn.val;  
-      }
+function loadValues() {
+  for (var key in params) {
+    if (params[key].visible != false) {
+      window[key]=params[key].val; //global variable as property of window object
+    }
+  }
+}
 //-------------------------------------------
       function loadvaluesandgo() {
         //go! button
 
-        //should update sliders too
-
         //load parameters from object
         loadValues();
+
+        x0 = params.x0.val;
+        x1 = params.x1.val;
+        y0 = params.y0.val;
+        y1 = params.y1.val;
+
 
         reMap.x0 = x0;
         reMap.x1 = x1;
@@ -204,13 +211,13 @@
         dx = reMap.dx(); //max resolution
         dy = reMap.dy(); //max resolution
 
-        go();
+        plotFractal();
         reMap.drawAxis();
         reMap.drawUnitCircle(); //ellipse representing the unit circle
       }
 
 //-------------------------------------------
-  function go() {
+  function plotFractal() {
 
         //---clear canvas
         reMap.clearcanvas();

@@ -30,7 +30,7 @@ var params = {
     visible: false,
   },
 
- "upperbound":{
+ "uBound":{
    val:4,
    min:2,
    max:4,
@@ -42,7 +42,7 @@ var params = {
    steps: 2,
    visible: true,
    },
- "iterations":{
+ "maxItr":{
    val:75,
    min:50,
    max:450,

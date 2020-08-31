@@ -15,7 +15,7 @@ var params = {
     cssClass: "control1",
   }   ,
 
- upperbound:{
+  uBound:{
    val:4,
    min:2,
    max:10,
@@ -27,7 +27,7 @@ var params = {
    visible: true,
    cssClass: "control1",
   },
- iterations:{
+  maxItr:{
    val:75,
    min:50,
    max:1000,

@@ -10,7 +10,7 @@ function generateControls() {
   var goButton = params.goButton.show; //boolean, show yes/no
   goButton = (typeof (goButton) == "undefined" ? true : goButton);
 
-  var strHTML = '<table style="border: 1px solid black;">';
+  var strHTML = '<table width=420 style="border: 1px solid black;">';
   strHTML += tr;
 
   strHTML += "<td colspan=6 align=left><b>Parameters</b></td>";
@@ -272,11 +272,11 @@ function listFunctions(showDeleteButton,showAddNewButton) {
   for (const key in params.functions) {
     if (params.functions.hasOwnProperty(key)) {
       
-      if (params.functions[key] != false){
+      if (params.functions[key] != ""){
           functionlabel=(params.functionlabel ? params.functionlabel[key] : key);
           strTable += "<tr>";
           strTable += "<td>" + functionlabel + "</td>";
-          strTable += `<td><input type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
+          strTable += `<td><input style="width: 250px" type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
           strTable += "<td>";
           if (showDeleteButton){
           strTable += `<a href="#" onclick="return deleteFunction('${key}')"> delete </a> `;
@@ -294,7 +294,7 @@ function listFunctions(showDeleteButton,showAddNewButton) {
     i++;
     strTable += "<tr>";
             strTable += "<td> f" + i + "</td>";
-            strTable += "<td><input type='text' id='newF'></td>";
+            strTable += "<td><input style='width: 250px' type='text' id='newF'></td>";
             strTable += "<td>" + `<a href="#" onclick="addFunction('f${i}')"> add </a>` + "</td>";
             strTable += "</tr>";
   } //end if

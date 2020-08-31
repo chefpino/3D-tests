@@ -1,6 +1,2 @@
-for (const key in params.functions) {
-    const element = params.functions[key];
-    if (element != false){
-    function g(x,y) {  
-       return eval(element);  
-    };  
+Math.cos(3*t)-0.1*Math.sin(30*t)
+Math.sin(3*t)-0.1*Math.cos(30*t)

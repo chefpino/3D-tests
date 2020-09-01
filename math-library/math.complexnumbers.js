@@ -19,12 +19,11 @@ function p(c1, c2) {
 }
 //-------------------------------------------
 //for polynomial exponents ---
-function exp(c, n) {
+function complex_exp(c, n) {
   var tempC = c;
   for (let index = 1; index < n; index++) {
     tempC = p(tempC, c);
   }
-
   return tempC;
 }
 //-------------------------------------------

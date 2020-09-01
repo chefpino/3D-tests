@@ -14,11 +14,11 @@ function julias(z, k) {
       label: "classic Zn+1=Zn^3+k",
     },
     poly: {
-      c: s(s(exp(z, 3), p(-3, p(exp(a, 2), z))), b),
+      c: s(s(complex_exp(z, 3), p(-3, p(complex_exp(a, 2), z))), b),
       label: "polynomial Zn+1=Zn^3-3a^2z+b",
     },
     cubebasin: {
-      c: s( c(-0.090706,0.27145) , s( p(exp(z,3),c(-1,0)) , p(exp(z,2),c(2.41154,-0.133695)) ) ),
+      c: s( c(-0.090706,0.27145) , s( p(complex_exp(z,3),c(-1,0)) , p(complex_exp(z,2),c(2.41154,-0.133695)) ) ),
     },
     complexsin: {
       c: p(k, complex_sin(z)),

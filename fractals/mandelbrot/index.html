@@ -162,20 +162,15 @@
         return maxItr;
       }
 //-------------------------------------------
-      function fs(z, k) {
-        
+      function fs(z, k) {        
         const exponent = 1* params.exponent.val;
-        var tempC=z;
-        for (var i = 1; i < exponent; i++) {
-          tempC=p(tempC,z);
-          }
-          tempC=s(tempC,k);
+        var tempC=complex_exp(z,exponent);
+        tempC=s(tempC,k);  
         return {
           mandelbrot: tempC,
         };
         
       }
-
 //-------------------------------------------
 function loadValues() {
   for (var key in params) {

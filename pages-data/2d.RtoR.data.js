@@ -53,9 +53,9 @@ var params = {
     recalc: true,
   },
   functions: {
-    f1: "Math.sin(x)",
-    f2: "Math.cos(x)",
-    f3: "Math.exp(-x*x)",
+    f1: "sin(x)",
+    f2: "log(abs(x))",
+    f3: "exp(-x*x)",
     visible: false,
   },
   functionlabel: {

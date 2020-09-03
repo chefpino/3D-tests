@@ -8,8 +8,9 @@ function generateControls() {
   var step;
   var controlType = "";
   var goButton = params.goButton.show; //boolean, show yes/no
-  goButton = (typeof (goButton) == "undefined" ? true : goButton);
-
+  goButton = (typeof (params.goButton.show) == "undefined" ? true : goButton);
+  var bookmarkLink=params["bookmarkLink"].show;
+  bookmarkLink = (typeof (bookmarkLink) == "undefined" ? false : bookmarkLink);
   var strHTML = '<table width=420 style="border: 1px solid black;">';
   strHTML += tr;
 
@@ -94,7 +95,13 @@ function generateControls() {
     strHTML = strHTML + `<button onclick="loadvaluesandgo('all');">go!</button>&nbsp`;
     strHTML = strHTML + "</td></tr>";
   }
-  /*
+  if (bookmarkLink) {
+    strHTML = strHTML + "<tr><td colspan=6>";
+    strHTML = strHTML + `<a href="${createQueryString()}" target="_blank">link</a>`;
+    strHTML = strHTML + "</td></tr>";
+  }
+
+  /* 
     strHTML =
       strHTML +
       '<button onclick="return download(' +
@@ -328,4 +335,43 @@ function addFunction(key){
 function functionNumber(str){
   const tempStr=str.substring(1);
   return eval(tempStr);
+}
+//------------------------------
+//section dedicated to query string 
+//------------------------------
+function createQueryString() {     
+  var tempStr="";      
+  for (var key in params) {
+    if (params[key].visible != false) {
+      tempStr=tempStr + key + "=" + params[key].val + "&";
+    }
+  }
+  tempStr=tempStr.substr(0, tempStr.length-1); //removed last &
+  tempStr=window.location.origin+window.location.pathname+"?"+tempStr;
+  return tempStr; 
+}
+//------------------------------
+function queryStringToObject(str){
+  var queryString=(str==null)?(window.location.search):str;
+  queryString=queryString.replace("?","")
+  const tempArray=queryString.split("&");
+  //console.table(tempArray); //debug
+  var tempKeyValue;
+  var returnObj={};
+  for(var i=0; i <tempArray.length;i++){
+    tempKeyValue= tempArray[i].split("=");
+    returnObj[tempKeyValue[0]]=tempKeyValue[1];
+  }
+return returnObj;
+}
+//------------------------------
+function loadValuesFromQueryString(){
+if (window.location.search.length >0){
+
+const passedParamsObj=queryStringToObject();
+for (var key in passedParamsObj) {
+    params[key].val = 1 * passedParamsObj[key];
+    upAndDown(key,0); //updates sliders position etc.
+  }
+} 
 }

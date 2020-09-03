@@ -321,44 +321,6 @@ function prepareTreeObject(o,v,initTrunk, nodeID) {
       treeObj["node"+id].initTrunk=trunk;
     }
 //------------------------------
-    function createQueryString() {     
-      var tempStr="";      
-      for (var key in params) {
-        if (params[key].visible != false) {
-          tempStr=tempStr + key + "=" + params[key].val + "&";
-        }
-      }
-      //console.table(queryStringToObject(tempStr.substr(0, tempStr.length-1)));
-      tempStr=tempStr.substr(0, tempStr.length-1); //removed last &
-      tempStr=window.location.origin+window.location.pathname+"?"+tempStr;
-      return tempStr; 
-    }
-    //------------------------------
-    function queryStringToObject(str){
-      var queryString=(str==null)?(window.location.search):str;
-      queryString=queryString.replace("?","")
-      const tempArray=queryString.split("&");
-      //console.table(tempArray); //debug
-      var tempKeyValue;
-      var returnObj={};
-      for(var i=0; i <tempArray.length;i++){
-        tempKeyValue= tempArray[i].split("=");
-        returnObj[tempKeyValue[0]]=tempKeyValue[1];
-      }
-    return returnObj;
-    }
-//------------------------------
-function loadValuesFromQueryString(){
-  if (window.location.search.length >0){
-    
-    const passedParamsObj=queryStringToObject();
-    for (var key in passedParamsObj) {
-        params[key].val = 1 * passedParamsObj[key];
-        upAndDown(key,0); //updates sliders position etc.
-      }
-  } 
-}
-//------------------------------
   </script>
 </body>
 

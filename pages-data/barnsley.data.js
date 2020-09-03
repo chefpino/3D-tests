@@ -40,6 +40,10 @@ var params = {
   goButton: {
     show: false,
     visible: false,
+  },
+  bookmarkLink: {
+    show: false,
+    visible: false,
   }
 
 };

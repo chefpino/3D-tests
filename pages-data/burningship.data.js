@@ -114,6 +114,10 @@ var params = {
           maxLabel:"2",
           integer:false,
           "visible":false
+        },
+        bookmarkLink: {
+          show: false,
+          visible: false,
         }
     
 

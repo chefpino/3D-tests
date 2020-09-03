@@ -13,7 +13,7 @@
           <img height=1 width=420 src="../../imgs/1pxBlack.gif">
           <div id="dynamicSliders"></div>
           <img height=1 width=420 src="../../imgs/1pxBlack.gif">
-          <div id="mousecoordinates">Mouse Coordinates</div>
+          <div id="mousecoordinates">Coordinates</div>
           <img height=1 width=420 src="../../imgs/1pxBlack.gif">
         </td>
         <td>
@@ -62,7 +62,7 @@ function init() {
           function (evt) {
             var mousePos = getMousePos(evt);
             var tempC=new c(reMap.m2x(mousePos.x),reMap.m2y(mousePos.y));
-            var message = `Mouse Coordinates<br>|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
+            var message = `Coordinates<br>|z|=${m(tempC).z}<br>a=${tempC.x}<br>b=${tempC.y}`;
             writeMessage(message);
           },
           false

@@ -115,6 +115,11 @@ var params = {
   goButton: {
     show: true,
     visible: false,
+  },
+  bookmarkLink: {
+    show: false,
+    visible: false,
   }
+
 
 };

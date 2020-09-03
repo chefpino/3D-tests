@@ -36,6 +36,11 @@ var params = {
      "fixedOrigin":{
         val: false,
         visible: false
-         }
+         },
+         bookmarkLink: {
+          show: false,
+          visible: false,
+        }
+             
     }
   

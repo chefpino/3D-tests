@@ -107,6 +107,11 @@ var params = {
           show: true,
           visible: false,
         },
+        bookmarkLink: {
+          show: false,
+          visible: false,
+        }
+      
 }
 
 

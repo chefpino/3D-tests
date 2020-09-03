@@ -82,12 +82,12 @@
         }
       }
 //-------------------------------------------
-      function calcRotation(tempC) {
+      function calcRotation(rotationVector) {
 
         var arrNewPoints = arrPoints; //arrPoints global var, arrays of complex numbers
         for (let index = 0; index < arrPoints.length; index++) {
           const element = arrPoints[index];
-          arrNewPoints[index] = p(arrPoints[index], tempC); // rotation
+          arrNewPoints[index] = p(arrPoints[index], rotationVector); // rotation
         }
         return {
            newArray: arrNewPoints

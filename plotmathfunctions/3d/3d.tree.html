@@ -105,6 +105,8 @@
      //prepare tree base
       addNode(0,[1],[null,0,0,0],initTrunk); //origin of tree
       addNode(1,[],[null,rnd(0,0.05),rnd(0,0.05),.5],initTrunk*trunkReduction); //origin of tree
+      
+      loadValuesFromQueryString(); //updates params obj with query values
       loadvaluesandgo("all");
       playMovie("xyAngle");      
      }

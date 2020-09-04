@@ -197,8 +197,8 @@ var params = {
     visible: false,
   },    
   functions: {
-    f1: "Math.sqrt(1-x*x-y*y)",
-    f2: "-Math.sqrt(1-x*x-y*y)",
+    f1: "sqrt(1-x*x-y*y)",
+    f2: "-sqrt(1-x*x-y*y)",
     visible: false,
   },
   functionlabel: {

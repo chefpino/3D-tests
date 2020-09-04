@@ -182,7 +182,7 @@ var params = {
     visible: false,
   },   
   functions: {
-    f1: "Math.sin(x*x+y*y)",
+    f1: "sin(x*x+y*y)",
     visible: false,
   },
   functionlabel: {

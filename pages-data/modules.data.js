@@ -1,5 +1,5 @@
 var params = {
-  
+
   goButton: {
     show: false,
     visible: false,
@@ -12,35 +12,34 @@ var params = {
     max: 500,
     integer: true,
     visible: true,
-    "label":"mod n",
-    "minLabel":"2",
-    "maxLabel":"500",
+    "label": "mod n",
+    "minLabel": "2",
+    "maxLabel": "500",
     recalc: true,
     movie: true,
-    steps: 498
+    steps: 498,
   },
-  "factor":{
+  "factor": {
     default: 2,
     val: 2,
     min: 2,
     max: 100,
     integer: true,
     visible: true,
-    "label":"factor",
-    "minLabel":"2",
-    "maxLabel":"100",
+    "label": "factor",
+    "minLabel": "2",
+    "maxLabel": "100",
     recalc: true,
     movie: true,
     steps: 98
   },
-     "fixedOrigin":{
-        val: false,
-        visible: false
-         },
-         bookmarkLink: {
-          show: false,
-          visible: false,
-        }
-             
-    }
-  
+  "fixedOrigin": {
+    val: false,
+    visible: false
+  },
+  bookmarkLink: {
+    show: true,
+    visible: false,
+  }
+
+}

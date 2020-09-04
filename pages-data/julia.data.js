@@ -77,6 +77,7 @@ var params = {
     maxLabel: "4",
     integer: false,
     visible: false,
+    bookmarkLink: true,
   },
   x1: {
     val: 2,
@@ -88,6 +89,7 @@ var params = {
     maxLabel: "4",
     integer: false,
     visible: false,
+    bookmarkLink: true,
   },
 
   y0: {
@@ -100,6 +102,7 @@ var params = {
     maxLabel: "0",
     integer: false,
     visible: false,
+    bookmarkLink: true,
   },
   y1: {
     val: 1.4,
@@ -111,13 +114,14 @@ var params = {
     maxLabel: "4",
     integer: false,
     visible: false,
+    bookmarkLink: true,
   },
   goButton: {
     show: true,
     visible: false,
   },
   bookmarkLink: {
-    show: false,
+    show: true,
     visible: false,
   }
 

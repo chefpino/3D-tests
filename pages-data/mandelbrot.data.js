@@ -1,6 +1,5 @@
 
-var params = {
-  
+var params = { 
 
   exponent: {
     val: 2,
@@ -66,7 +65,8 @@ var params = {
     minLabel:"-2",
     maxLabel:"0",
     integer:false,
-    "visible":false
+    visible:false,
+    bookmarkLink: true,
     },
     "x1":{
       val:1,
@@ -77,7 +77,8 @@ var params = {
       minLabel:"-2",
       maxLabel:"2",
       integer:false,
-      "visible":false
+      "visible":false,
+      bookmarkLink: true,
     },
     
     "y0":{
@@ -89,7 +90,8 @@ var params = {
         minLabel:"-2",
         maxLabel:"1",
         integer:false,
-        "visible":false
+        "visible":false,
+        bookmarkLink: true,
         },
     "y1":{
           val:1.05,
@@ -100,7 +102,8 @@ var params = {
           minLabel:"0",
           maxLabel:"2",
           integer:false,
-          "visible":false
+          "visible":false,
+          bookmarkLink: true,
         },
     
         goButton: {
@@ -108,7 +111,7 @@ var params = {
           visible: false,
         },
         bookmarkLink: {
-          show: false,
+          show: true,
           visible: false,
         }
       

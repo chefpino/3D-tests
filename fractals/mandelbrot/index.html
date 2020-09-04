@@ -57,8 +57,6 @@
       var x0, x1, y0, y1;;
       var maxItr, uBound, zoomIn;    
       
-
-      
       loadValues();
 
       var reMap = new ReMap(cW, cH, x0, x1, y0, y1, params.fixedOrigin.val); //functions to map real value to canvas coordinates
@@ -133,7 +131,6 @@
             }
 
 
-
             loadvaluesandgo();
           },
           false
@@ -142,7 +139,7 @@
         //--- build page and start plotting
         genNavigation("mandelbrot",true);
         generateControls();
-        // fileToParameters(); //initiate event listener for file uploader
+        loadValuesFromQueryString(); //only in init section otherwise it overrides use rinput
         loadvaluesandgo();
         reMap.lineWidth=0.2;
         reMap.strokeStyle="#BBBBBB";

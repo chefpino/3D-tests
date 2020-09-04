@@ -123,7 +123,7 @@ var params = {
       visible: false,
     },
     bookmarkLink: {
-      show: false,
+      show: true,
       visible: false,
     }
   

@@ -96,7 +96,7 @@ function init() {
 
   genNavigation("burningship",true); //navigation menu
   generateControls(); // parameters panel
-  //fileToParameters(); //initiate event listener
+  loadValuesFromQueryString(); //only in init section otherwise it overrides use rinput
   loadvaluesandgo();
   }
 //---------------------------------------------------------------

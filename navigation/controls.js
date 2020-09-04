@@ -14,7 +14,14 @@ function generateControls() {
   var strHTML = '<table width=420 style="border: 1px solid black;">';
   strHTML += tr;
 
-  strHTML += "<td colspan=6 align=left><b>Parameters</b></td>";
+  strHTML += "<td colspan=5 align=left><b>Parameters</b></td>";
+  strHTML += "<td align=center><b>";
+  if (bookmarkLink) {
+    strHTML = strHTML + `<a title="bookmark-able link" id=bookmarkLink onclick="openBookmarkLink();return false;" href="#">Link</a>`;
+  } else {
+    strHTML = strHTML + "&nbsp";
+  }
+  strHTML += "</b></td>";
 
   strHTML += trc;
 
@@ -93,11 +100,6 @@ function generateControls() {
   if (goButton) {
     strHTML = strHTML + "<tr><td colspan=6>";
     strHTML = strHTML + `<button onclick="loadvaluesandgo('all');">go!</button>&nbsp`;
-    strHTML = strHTML + "</td></tr>";
-  }
-  if (bookmarkLink) {
-    strHTML = strHTML + "<tr><td colspan=6>";
-    strHTML = strHTML + `<a href="${createQueryString()}" target="_blank">link</a>`;
     strHTML = strHTML + "</td></tr>";
   }
 
@@ -340,9 +342,11 @@ function functionNumber(str){
 //section dedicated to query string 
 //------------------------------
 function createQueryString() {     
-  var tempStr="";      
+  var tempStr="";
+  var tempBool; 
   for (var key in params) {
-    if (params[key].visible != false) {
+    tempBool=(params[key].bookmarkLink==true);
+    if (params[key].visible != false || tempBool) {
       tempStr=tempStr + key + "=" + params[key].val + "&";
     }
   }
@@ -351,7 +355,7 @@ function createQueryString() {
   return tempStr; 
 }
 //------------------------------
-function queryStringToObject(str){
+function queryStringToObject(str){ 
   var queryString=(str==null)?(window.location.search):str;
   queryString=queryString.replace("?","")
   const tempArray=queryString.split("&");
@@ -366,12 +370,16 @@ return returnObj;
 }
 //------------------------------
 function loadValuesFromQueryString(){
-if (window.location.search.length >0){
+  if (window.location.search.length >0){
 
-const passedParamsObj=queryStringToObject();
-for (var key in passedParamsObj) {
-    params[key].val = 1 * passedParamsObj[key];
-    upAndDown(key,0); //updates sliders position etc.
-  }
+  const passedParamsObj=queryStringToObject();
+  for (var key in passedParamsObj) {
+      params[key].val = 1 * passedParamsObj[key];
+      upAndDown(key,0); //updates sliders position etc.
+    }
 } 
+//----------------------------------------------------------------
+}
+function openBookmarkLink() {
+  window.location.href=createQueryString();
 }

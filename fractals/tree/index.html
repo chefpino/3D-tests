@@ -44,6 +44,7 @@ function init(){
     ctx.shadowBlur = 5;
     ctx.shadowColor = "green";
     generateControls();
+    loadValuesFromQueryString(); //updates params obj with query values
     loadvaluesandgo();
   }  
 //-------------------------------------------

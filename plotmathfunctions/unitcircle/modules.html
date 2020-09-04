@@ -58,6 +58,7 @@
       function init() {
         genNavigation("modules",true); //add navigation
         generateControls();
+        loadValuesFromQueryString(); //only in init section otherwise it overrides use rinput
         loadvaluesandgo();
       }
 //-------------------------------------------

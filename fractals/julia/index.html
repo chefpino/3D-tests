@@ -159,7 +159,7 @@
       document.getElementById("exampleSelector").addEventListener("change", function (evt) {
         selectExampleDropDown()
       });
-
+      loadValuesFromQueryString(); //only in init section otherwise it overrides use rinput
       loadvaluesandgo();
       reMap.drawAxis();
     }

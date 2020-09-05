@@ -4,10 +4,9 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../../css/main.css" />
   <script src="../../navigation/menu.js"></script>
-  <script src="../../pages-data/3d.tree.data.js"></script>
+  <script src="../../pages-data/3d.R2toRq.data.js"></script>
   <script src="../../math-library/math.complexnumbers.js"></script>
   <script src="../../math-library/math.quaternions.js"></script>
-  <script src="../../math-library/math.matrixes.js"></script>
   <script src="../../math-library/math.generic.js"></script>
   <script src="../../navigation/controls.js"></script>
   <script src="../../math-library/graphicfunctions.js"></script>
@@ -48,6 +47,8 @@
       <td valign="top" width="100">
         <div id="content"></div>
         <img height=1 width=420 src="../../imgs/1pxBlack.gif">
+        <div id="listFunctions">placeholder</div>
+        <img height=1 width=420 src="../../imgs/1pxBlack.gif">
         <div id="dynamicSliders"></div>
       </td>
     </tr>
@@ -62,108 +63,131 @@
     const xAxis = qt(0, 1, 0, 0);
     const yAxis = qt(0, 0, 1, 0);
     const zAxis = qt(0, 0, 0, 1);
-    const fixedOrigin = true;
-    const x0=params.x0.val;
-    const y0=params.y0.val;
-    const x1=params.x1.val;
-    const y1=params.y1.val;
-
+    const fixedOrigin = true; //can be a parameter also
 
     //--- declare global variables
-    var reMap = new ReMap(cW, cH, x0, x1, y0, y1, fixedOrigin);
+    var reMap = new ReMap(cW, cH, 0, 0, 0, 0, fixedOrigin);
+    var x0, x1, y0, y1;
     var gridRes;
     var funcRes;
-    var scaleFactor=1; //hardcoded
+    var funcOpacity;
+    var scaleFactor;
     var xyAngle, zyAngle, zxAngle;
-    var perspective; //boolean
-    var axis; //boolean
+    var zFact;
+    var perspective;
     var diagonal; //maxim distance between 2 points on the pavement
-    var dAngle; //branch angle
-    var initTrunk=params.initTrunk.val; //trunk initial thickness
-    var trunkReduction=params.trunkReduction.val; //reduction factor of trunk thickness
-    var reduction; //factor to reduce branch length
-    var branches;
-    var minLen;
-    var showShadow;
-
-    //tree object variables
-    var treeObj={};
-    var childCounter=1;
-
-    //sun/horizon angle
-    var sunDirectionAngle=0;  // - season - alpha
-    var sunHorizonAngle=PI/8; //hour - beta
 
     //-------------------------------------------
     function init() {
       reMap.objCanvas = ctx;
-      ctx.shadowBlur = 5;
-      ctx.shadowColor = "grey";
-      genNavigation("THREEDTREE", true);
+      genNavigation("R2R", true);
       generateControls();
-      //loadValues();    
-     //prepare tree base
-      addNode(0,[1],[null,0,0,0],initTrunk); //origin of tree
-      addNode(1,[],[null,rnd(0,0.05),rnd(0,0.05),.5],initTrunk*trunkReduction); //origin of tree
-      
-      loadValuesFromQueryString(); //*** ** WIP *************
-      loadvaluesandgo("all");
-      //playMovie("xyAngle");     //*** ** WIP *************
-      //console.table((queryStringToObject())); 
-      //debug
-      
-    }
+      loadValuesFromQueryString(); //only in init section otherwise it overrides use rinput
+      displayFunctions();
+      loadvaluesandgo();      
+     }
     //-------------------------------------------
     //load values from param object, be careful, globalvariables' names are
     //must match the key names
-    function loadValues(strKey) {
-     
-     strKey=(typeof(strKey==undefined)?"all":strKey);
-      
-     if (strKey == "all"){
-      for (var key in params) {
-        if (params[key].visible != false) {
-          window[key]=params[key].val; //global variable as property of window object
+    function loadValues() {
+        for (var key in params) {
+          if (params[key].visible != false) {
+            window[key]=params[key].val; //global variable as property of window object
+          }
         }
-      }
-     }
-     else {
-      if (params[strKey].visible != false) {
-        window[key]=params[key].val; //global variable as property of window object
-        }
-     }
     }
     //-------------------------------------------
-    function loadvaluesandgo(strKey) {
-      
-      var newtree=false;
+    function loadvaluesandgo() {
 
       // -- load values from params object
-      loadValues(strKey);
+      loadValues();
 
-      //typical for this page: check to see if this parameter also
-      //requires a new tree to be generated
-      if (strKey != "all"){
-         newtree=params[strKey].newtree;
-         //newtree=(typeof(newtree)=="undefined")?false:newtree;
-      }
-      if(newtree || strKey=="all") {      //--- prepare tree
-      prepareTreeObject([null,0,0,0],[null,0,0,1],initTrunk,1);
-      }
-
+      reMap.x0 = x0;
+      reMap.x1 = x1;
+      reMap.y0 = y0;
+      reMap.y1 = y1;
       reMap.lockRatio = true;
       reMap.scaleFactor = scaleFactor;
 
       //calculated parameter 
-      diagonal = 5; //Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
+      diagonal = Math.sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));
 
       //--- clear canvas
       ctx.clearRect(0, 0, cW, cH);
 
-      //--- draw axis
-      if (axis==1){draw3Daxis(params.gridRes.val);}      
+      //--- draw base domain
+      drawPavement(gridRes);
+      draw3Daxis(gridRes);
 
-      plotTree(0); //plot starting from node0
+      //--- plot functions
+      plotAll();     
+
+
+    }
+
+    //-------------------------------------------
+    function plotColoredFunction(objF, res) {
+
+      var dx = (x1 - x0) / res;
+      var dy = (y1 - y0) / res;
+
+      var x = x0;
+      var y = y0;
+      var i = 0;
+      var j = 0;
+
+      var pt, t1, t2;
+      var iTemp;
+
+      reMap.lineWidth = 0.5;
+      ctx.globalAlpha = funcOpacity; //opacity
+
+      for (i = 0; i <= res; i++) {
+        x = x0 + i * dx;
+
+        for (j = 0; j <= res; j++) {
+          y = y0 + j * dy;
+
+          pt = ct(x, y, objF(x, y)); // point transformed in new coord system
+          ctx.beginPath();
+          ctx.moveTo(reMap.x(pt.x), reMap.y(pt.y));
+          pt = ct(x + dx, y, objF(x + dx, y));
+          ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
+          pt = ct(x + dx, y + dy, objF(x + dx, y + dy));
+          ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
+          pt = ct(x, y + dy, objF(x, y + dy));
+          ctx.lineTo(reMap.x(pt.x), reMap.y(pt.y));
+          ctx.closePath();
+          iTemp = Math.round(256 * objF(x, y));
+          ctx.stroke();
+          ctx.fillStyle = "rgb(200, " + iTemp + ", 100)";
+          ctx.fill();
+
+
+          t1 = ct(x, y, objF(x, y)); //baseChange(c(x,y0),c1,c2);
+          t2 = ct(x + dx, y, objF(x + dx, y));
+          reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
+          t2 = ct(x, y + dy, objF(x, y + dy));
+          reMap.drawSegment(c(t1.x, t1.y), c(t2.x, t2.y), "blue");
+        }
+      }
+
+      ctx.globalAlpha = 1; //opacity
+
+      //write x0,x1 etc --- can be done separately and
+      //the number should be on the correct side, following the vector direction
+      var tempP;
+      ctx.fillStyle = "red";
+      tempP = ct(x0, y0, 0);
+      ctx.fillText("x0, y0", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(x1, y0, 0);
+      ctx.fillText("x1, y0", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(x0, y1, 0);
+      ctx.fillText("x0,y1", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(x1, y1, 0);
+      ctx.fillText("x1,y1", reMap.x(tempP.x), reMap.y(tempP.y));
+      tempP = ct(0, 0, 0);
+      ctx.fillText("o", reMap.x(tempP.x), reMap.y(tempP.y));
 
     }
     // --- ct maps a 3d point to a 2d map representing the 3d space
@@ -187,140 +211,26 @@
 
       return {
         x: (pt1.b / perspectiveFactor) + lrpanning,
-        y: (pt1.d / perspectiveFactor) + udpanning,
+        y: ((pt1.d / perspectiveFactor) * zFact) + udpanning
       }
     }
-function shadow(x, y, z) {
-   //    const sunHorizonAngle=PI/8; //hour - beta
-   // const sunDirectionAngle=PI/2; // - season - alpha
-
-   const ta=tan(sunDirectionAngle);
-   const tb=tan(sunHorizonAngle);
-   const denom=tb * sqrt((1+ta*ta))  
-
-  return {
-    x: x-z/denom,
-    y: y-z*ta/denom,
-    z: 0
-  // s: ((pt1.b - pt1.c/Math.tan(sunAngle)) / perspectiveFactor) + lrpanning,
-}
-}
-
-
-
-
-
+    //-------------------------------------------
+    function displayFunctions() {
+      document.getElementById("listFunctions").innerHTML = listFunctions(true, true);
+    }
+    //-------------------------------------------
+    function plotAll() {
+      var functions=(params.functionstoplot.val).split(",");
+      console.table(functions);
+      for (var i=0;i<functions.length;i++) {
+        const element = functions[i];
+        if (element != false) {
+          const g=new Function("x", "y", "return " + element);
+          plotColoredFunction(g, funcRes);
+        }
+      }
+    }
 //-------------------------------
-function prepareTreeObject(o,v,initTrunk, nodeID) { 
-
-  //o = origin point where vector v is attached to. Format: [null, x, y, z]
-  //v vector, branch and axis or rotation of following branches [null, x, y, z]
-  //nodeID id of the node being created
-
-  //objTree code ---
-  var children=[];
-  
-  var pt0=ct(o[1],o[2],o[3]);
-  var pt1_v=sumVectors(o,v);
-  const beta=dAngle+rnd(-PI/48,PI/48); //small random component for branches angles against rotation axis 
- 
-  //const rndBranches=intRnd(1,branches); //random number of branches
-  //const rndBranches=branches
-
-    //v is rotated of dAngle on x,z plane containing vector v
-    var v1=[null,v[1]*cos(beta)-v[3]*sin(beta),v[2],v[1]*sin(beta)+v[3]*cos(beta)];    
-    let pt1q=qt(0,v1[1],v1[2],v1[3]); //quaternion to rotate 
-
-    let rndAngle=PI*rnd(-1/branches,1/branches); //with random component
-
-    for (var i= 0; i < branches ; i++){
-        let tempAngle= i * 2*PI/branches + rndAngle;
-        let ptiq=qRot(v2q(v),tempAngle,pt1q)
-        //rotate pt1 n-times around axis v
-        let pt1=ct(ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]); //traslated back to init point
-        var newv=q2v(pq(reduction+rnd(0,0.075),ptiq)); //reduction is chosen by user, a little random for realism
-       
-        //generate child node ------------------------------------------
-        childCounter = childCounter + 1;
-        children.push(childCounter);
-        treeObj["node"+childCounter]={};
-        treeObj["node"+childCounter].id=childCounter;
-        treeObj["node"+childCounter].o=[null,ptiq.b+o[1], ptiq.c+o[2], ptiq.d+o[3]];
-        treeObj["node"+childCounter].children=[]; //prepare empty children array
-        treeObj["node"+childCounter].initTrunk=initTrunk*trunkReduction
-        //--------------------------------------------------------------
-
-        //for next branch new o: [x,y,z] =  v1[1],v1[2],v1[3] + o
-        //axis = [null,pt1-pt0]
-        //new, shortened vector (in this case pq is scalar x quaternion)
-        //q2v is quaternion to vector
-
-      if (norm(v)>minLen){
-        prepareTreeObject(sumVectors(o,q2v(ptiq)),newv,initTrunk*trunkReduction,childCounter);
-      }
-      else
-      {  
-        //leaves?
-        //plot(reMap.x(pt1.x), reMap.y(pt1.y),"red");
-      }
-      treeObj["node"+nodeID].children=children; 
-      treeObj["node"+nodeID].initTrunk=initTrunk; 
-
-  } //end of loop 
-
-  }
-  //------------------------------
-
-  function plotTree(id){
-
-     const nodeObj=treeObj["node"+id];
-     const children = nodeObj.children;
-     const o=nodeObj.o;
-     var pt0=ct(o[1],o[2],o[3]);
-     var sh_o=shadow(o[1],o[2],o[3]);
-     var sh;
-     var pt0s, pt1s; //shadows
-     pt0s=ct(sh_o.x,sh_o.y,sh_o.z);
-
-
-     for (var i=0;i<children.length;i++){
-          
-            let pt1=ct(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
-              
-              ctx.strokeStyle = "#654321"; //`Dark Brown`; //improve?
-              ctx.lineWidth = treeObj["node"+children[i]].initTrunk;
-              
-              ctx.beginPath();
-              ctx.moveTo(reMap.x(pt0.x), reMap.y(pt0.y));
-              ctx.lineTo(reMap.x(pt1.x), reMap.y(pt1.y));
-              ctx.stroke();
-              
-              if (showShadow==1){
-
-              //ctx.shadowBlur = 5;
-              sh=shadow(treeObj["node"+children[i]].o[1],treeObj["node"+children[i]].o[2],treeObj["node"+children[i]].o[3]);
-              pt1s=ct(sh.x,sh.y,sh.z);
-
-              ctx.strokeStyle = "black"; //improve?
-              ctx.beginPath();
-              ctx.moveTo(reMap.x(pt0s.x), reMap.y(pt0s.y));
-              ctx.lineTo(reMap.x(pt1s.x), reMap.y(pt1s.y));
-              ctx.stroke();
-              } 
-
-              plotTree(children[i]);
-              
-     }
-  }
-  //-------------------------------------------
-      function addNode(id,children,o,trunk){
-      treeObj["node"+id]={};
-      treeObj["node"+id].id=id;
-      treeObj["node"+id].children=children;
-      treeObj["node"+id].o=o;
-      treeObj["node"+id].initTrunk=trunk;
-    }
-//------------------------------
   </script>
 </body>
 

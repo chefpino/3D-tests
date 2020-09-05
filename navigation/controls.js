@@ -370,11 +370,17 @@ return returnObj;
 }
 //------------------------------
 function loadValuesFromQueryString(){
+  //works only for numerical parameters?
   if (window.location.search.length >0){
-
   const passedParamsObj=queryStringToObject();
+  //console.table(passedParamsObj); //wip DEBUG
   for (var key in passedParamsObj) {
+      let tempValue=params[key].val;
+      if (isNaN(tempValue)){
+        params[key].val = passedParamsObj[key]; //json.stringify?
+      } else {
       params[key].val = 1 * passedParamsObj[key];
+    }
       upAndDown(key,0); //updates sliders position etc.
     }
 } 

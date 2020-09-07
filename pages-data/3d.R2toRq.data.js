@@ -200,11 +200,14 @@ var params = {
     f1: "sqrt(1-x*x-y*y)",
     f2: "-sqrt(1-x*x-y*y)",
     visible: false,
+    bookmarkLink: false,
   },
   functionstoplot:{
    val: "sqrt(1-x*x-y*y),-sqrt(1-x*x-y*y)",
    visible: false,
    bookmarkLink: true,
+   showdeletebutton: true,
+   showaddnewbutton: true,
   },
   functionlabel: {
     f1: "f(x,y)=",

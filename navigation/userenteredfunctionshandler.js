@@ -1,3 +1,5 @@
+//class under development as a solution for
+//passing functions via URL parameters
 class functionsHandler {
 
    constructor (srcObj,fieldsObj){
@@ -5,7 +7,7 @@ class functionsHandler {
      this.fieldsObj=fieldsObj //params.functions - input fields
    } 
   
-  //methods 
+  //methods
   deleteField(strFieldID){
     delete this.fieldsObj[strFieldID];
     //update srcObj

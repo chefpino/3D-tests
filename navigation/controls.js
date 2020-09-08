@@ -285,10 +285,10 @@ function listFunctions(showDeleteButton,showAddNewButton) {
           functionlabel=(params.functionlabel ? params.functionlabel[key] : key);
           strTable += "<tr>";
           strTable += "<td>" + functionlabel + "</td>";
-          strTable += `<td><input style="width: 250px" type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
+          strTable += `<td><input style="width: 240px" type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
           strTable += "<td>";
           if (showDeleteButton){
-          strTable += `<a href="#" onclick="return deleteFunction('${key}')"> delete </a> `;
+          strTable += `<a href="#" onclick="return deleteFunction('${key}')"> delete </a> |`;
           }
           strTable += `<a href="#" onclick="return updateFunction('${key}')"> update </a> `;
           strTable += "</td>";
@@ -303,7 +303,7 @@ function listFunctions(showDeleteButton,showAddNewButton) {
     i++;
     strTable += "<tr>";
             strTable += "<td> f" + i + "</td>";
-            strTable += "<td><input style='width: 250px' type='text' id='newF'></td>";
+            strTable += "<td><input style='width: 240px' type='text' id='newF'></td>";
             strTable += "<td>" + `<a href="#" onclick="addFunction('f${i}')"> add </a>` + "</td>";
             strTable += "</tr>";
   } //end if

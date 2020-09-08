@@ -222,9 +222,9 @@ var params = {
     visible: false,
   },   
   functions: {
-    x: "(1+t2/2*Math.cos(t1/2))*Math.cos(t1)",
-    y: "(1+t2/2*Math.cos(t1/2))*Math.sin(t1)",
-    z: "t2/2*Math.sin(t1/2)",
+    x: "(1+t2/2*cos(t1/2))*cos(t1)",
+    y: "(1+t2/2*cos(t1/2))*sin(t1)",
+    z: "t2/2*sin(t1/2)",
     //torus
     //(1+.3 * Math.cos(t1))*Math.cos(t2)
     //(1+.3 * Math.cos(t1))*Math.sin(t2)

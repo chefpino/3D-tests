@@ -1,11 +1,11 @@
 var params = {
   t0: {
     val: 0,
-    min: 0,
+    min: -2*Math.PI,
     max: 2*Math.PI,
     default: 0,
     label: "t0",
-    minLabel: "0",
+    minLabel: "-2PI",
     maxLabel: "2PI",
     recalc: true,
     integer: false,
@@ -169,8 +169,8 @@ var params = {
     cssClass: "control2",
   },  
   functions: {
-    x: "Math.cos(3*t)",
-    y: "Math.sin(3*t)",
+    x: "cos(3*t)",
+    y: "sin(3*t)",
     z: "t/3",
   visible: false,
   },

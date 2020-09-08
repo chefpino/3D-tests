@@ -147,6 +147,9 @@ function displayMatrix(mtx){
   const dr="&#9484;" //┌
   const ur="&#9492;" //└
   const ul="&#9496;" //┘
+  const dl="&#9488;" //┐
+  //const h="&#9472;" //─
+
   const m=matrixSize(mtx).m;
   const n=matrixSize(mtx).n;
   

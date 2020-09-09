@@ -1,4 +1,4 @@
-// MATRIX LIBRARY - written by Chef Pino Ficara ----
+// MATRIX LItopLeftARY - written by Chef Pino Ficara ----
 
 // --- main function generating a m x n matrix prefilled with zeros -------
 function matrix(m,n){
@@ -143,22 +143,22 @@ function column(mtx,c){
 //--------------------------------------
 
 function displayMatrix(mtx){
-  const v="&#9474;"  //│
-  const dr="&#9484;" //┌
-  const ur="&#9492;" //└
-  const ul="&#9496;" //┘
-  const dl="&#9488;" //┐
+  const vertical="&#9474;"  //│
+  const topLeft="&#9484;" //┌
+  const bottomLeft="&#9492;" //└
+  const bottomRight="&#9496;" //┘
+  const topRight="&#9488;" //┐
   //const h="&#9472;" //─
 
   const m=matrixSize(mtx).m;
   const n=matrixSize(mtx).n;
   
   var str="<table border=0 cellspacing=0 cellpadding=0>" + 
-            `<tr><td>${dr}</td><td colspan="${n}"></td></td><td>${dl}</td></tr>`;
+            `<tr><td>${topLeft}</td><td colspan="${n}"></td></td><td>${topRight}</td></tr>`;
    
    for(var i=1; i < m+1; i++) {
     str = str + "<tr>" + 
-                "<td>" + v + "&nbsp;</td>";
+                "<td>" + vertical + "&nbsp;</td>";
       for(var j=1; j < n+1; j++) {
         str = str + "<td align=right>" +
             `<a href="#" title="${i},${j}" style="text-decoration: none; font-family: Courier New;">` +  
@@ -167,9 +167,9 @@ function displayMatrix(mtx){
              "</td>";
       }
 
-   str = str + "<td>" + v + "</td></tr>";   
+   str = str + "<td>" + vertical + "</td></tr>";   
    }
-   str = str + `<tr><td>${ur}</td><td colspan="${n}"></td></td><td>${ul}</td></tr>`;
+   str = str + `<tr><td>${bottomLeft}</td><td colspan="${n}"></td></td><td>${bottomRight}</td></tr>`;
    str = str + "</table>";   
    return str;
 }

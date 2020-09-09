@@ -285,7 +285,7 @@ function listFunctions(showDeleteButton,showAddNewButton) {
           functionlabel=(params.functionlabel ? params.functionlabel[key] : key);
           strTable += "<tr>";
           strTable += "<td>" + functionlabel + "</td>";
-          strTable += `<td><input style="width: 240px" type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
+          strTable += `<td><input class="function" style="width: 240px" type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
           strTable += "<td>";
           if (showDeleteButton){
           strTable += `<a href="#" onclick="return deleteFunction('${key}')"> delete </a> |`;
@@ -302,7 +302,7 @@ function listFunctions(showDeleteButton,showAddNewButton) {
     //add new function 
     i++;
     strTable += "<tr>";
-            strTable += "<td> f" + i + "</td>";
+            strTable += "<td> f" + i + "(x)=</td>";
             strTable += "<td><input style='width: 240px' type='text' id='newF'></td>";
             strTable += "<td>" + `<a href="#" onclick="addFunction('f${i}')"> add </a>` + "</td>";
             strTable += "</tr>";
@@ -318,6 +318,7 @@ function deleteKey(obj,key){
 function updateFunction(key){
   params.functions[key]=document.getElementById(key).value;
   displayFunctions();
+  updateFunctionsForQueryString();
   loadvaluesandgo(); 
 }
 //wrapper for functions
@@ -325,12 +326,14 @@ function deleteFunction(key){
   deleteKey(params.functions,key);
   deleteKey(params.functionlabel,key);
   displayFunctions();
+  updateFunctionsForQueryString();
   loadvaluesandgo(); 
 }
 function addFunction(key){
   params.functions[key]=document.getElementById("newF").value;
-  params.functionlabel[key]=key;
+  params.functionlabel[key]=key+"(x)=";
   displayFunctions();
+  updateFunctionsForQueryString();
   loadvaluesandgo(); 
 }
 
@@ -342,6 +345,7 @@ function functionNumber(str){
 //section dedicated to query string 
 //------------------------------
 function createQueryString() {     
+
   var tempStr="";
   var tempBool; 
   for (var key in params) {
@@ -395,6 +399,18 @@ function loadFunctionsToPlot(){
    params.functions["f"+i]=arrFunctions[i];
    params.functionlabel["f"+i]="f"+i+"(x)=";
  }
+}
+//----------------------------------------------------------------
+function updateFunctionsForQueryString(){
+  const objFuncFields=document.getElementsByClassName("function");
+  console.log(objFuncFields);
+  var tempStr="";
+  for (var i=0; i<objFuncFields.length;i++){
+    tempStr=tempStr + objFuncFields[i].value+",";
+  }
+  tempStr=tempStr.substr(0, tempStr.length-1); //removed last ","
+  params.functionstoplot.val=tempStr;
+  console.log(tempStr);
 }
 //------------------
 function openBookmarkLink() {

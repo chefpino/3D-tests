@@ -113,7 +113,7 @@ var navigation = {
   },
   R1R1: {
     id: "R1R1",
-    link: "../../plotmathfunctions/2d/index.html",
+    link: "../../plotmathfunctions/2d/index.html?x0=-2&x1=2&y0=-1&y1=1&functionstoplot=sin(x),log(abs(x)),exp(-x*x)&lockratio=1&zoomIn=1&grid=0",
     label: "R -> R",
     hasChildren: false,
     content: "Click on the graph to zoom. Page under construction",

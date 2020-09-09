@@ -180,6 +180,14 @@ var params = {
     z: "z(t)=",
   visible: false,
   },
+  functionstoplot:{
+    val: "",
+    default: "",
+    visible: false,
+    bookmarkLink: false,
+    showdeletebutton: true,
+    showaddnewbutton: true,
+   },
   goButton: {
     show: false,
     visible: false,

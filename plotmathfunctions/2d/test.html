@@ -120,6 +120,7 @@ function init(){
 
   genNavigation("R1R1",true);
   generateControls();
+  loadValuesFromQueryString(); //only in init section otherwise it overrides use rinput
   loadFunctionsToPlot(); //WIP
   displayFunctions();
   loadvaluesandgo();

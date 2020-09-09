@@ -189,6 +189,14 @@ var params = {
     f1: "f(x,y)=",
     visible: false,
   },
+  functionstoplot:{
+    val: "",
+    default: "",
+    visible: false,
+    bookmarkLink: false,
+    showdeletebutton: true,
+    showaddnewbutton: true,
+   },
   goButton: {
     show: false,
     visible: false,

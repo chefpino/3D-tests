@@ -384,8 +384,19 @@ function loadValuesFromQueryString(){
       upAndDown(key,0); //updates sliders position etc.
     }
 } 
-//----------------------------------------------------------------
 }
+//----------------------------------------------------------------
+function loadFunctionsToPlot(){
+//reads from querystring
+ const objQString = queryStringToObject();
+ const strFunctions =  objQString["functionstoplot"];
+ const arrFunctions = strFunctions.split(",");
+ for (let i = 0; i < arrFunctions.length; i++) {
+   params.functions["f"+i]=arrFunctions[i];
+   params.functionlabel["f"+i]="f"+i+"(x)=";
+ }
+}
+//------------------
 function openBookmarkLink() {
   window.location.href=createQueryString();
 }

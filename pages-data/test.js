@@ -110,6 +110,8 @@ var params = {
     recalc: true,
     controlType: "checkbox",
     cssClass: "control2",
+    bookmarkLink: false,
+
   }, 
   goButton: {
     show: false,

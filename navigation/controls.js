@@ -120,26 +120,31 @@ function generateControls() {
 function upAndDown(strKey, j) {
   //j is -1 or +1
   // needs better calculations especially with rounding of values and integers
-  var currentVal = params[strKey].val;
+  var currentVal = 1 * params[strKey].val;
   
   if (j != 0){
-  var steps = params[strKey].steps;
-  const min = params[strKey].min;
-  const max = params[strKey].max;
-  steps = (typeof (steps) == 'undefined' ? 100 : steps);
-  var step = (max - min) / steps;
-  step = j * (params[strKey].integer == true ? 1 : step);
-  currentVal = currentVal + step;
-  currentVal = (currentVal < min) ? max : currentVal;
-  currentVal = (currentVal > max) ? min : currentVal;
-  //update param
-  params[strKey].val = currentVal;
+    var steps = params[strKey].steps;
+    const min = params[strKey].min;
+    const max = params[strKey].max;
+    steps = (typeof (steps) == 'undefined' ? 100 : steps);
+    var step = (max - min) / steps;
+    step = j * (params[strKey].integer == true ? 1 : step);
+    currentVal = currentVal + step;
+    currentVal = (currentVal < min) ? max : currentVal;
+    currentVal = (currentVal > max) ? min : currentVal;
+    params[strKey].val = currentVal;
   }
 
-  if (params[strKey].visible){
+  if (params[strKey].visible && params[strKey].controlType!="checkbox"){
+      //if visible slider
       document.getElementById(strKey).value = currentVal;
       document.getElementById("val_" + strKey).innerHTML = Math.round(currentVal * 1000) / 1000;
-    }
+    } 
+  if (params[strKey].visible && params[strKey].controlType=="checkbox"){  
+     //if visible checkbox
+      document.getElementById(strKey).checked=(currentVal==1);
+      document.getElementById("val_" + strKey).innerHTML = (currentVal == 0 ? params[strKey].minLabel : params[strKey].maxLabel);
+  }
 
   //if recalc is true reload with new values
   if (params[strKey].recalc == true) {
@@ -344,8 +349,7 @@ function functionNumber(str){
 //------------------------------
 //section dedicated to query string 
 //------------------------------
-function createQueryString() {     
-
+function createQueryString() {
   var tempStr="";
   var tempBool; 
   for (var key in params) {
@@ -374,17 +378,18 @@ return returnObj;
 }
 //------------------------------
 function loadValuesFromQueryString(){
-  //works only for numerical parameters?
-  if (window.location.search.length >0){
+  //wip-works only for numerical parameters?
+  if (window.location.search.length > 0){
   const passedParamsObj=queryStringToObject();
   //console.table(passedParamsObj); //wip DEBUG
   for (var key in passedParamsObj) {
       let tempValue=params[key].val;
       if (isNaN(tempValue)){
-        params[key].val = passedParamsObj[key]; //json.stringify?
+          params[key].val = passedParamsObj[key]; //json.stringify?
       } else {
-      params[key].val = 1 * passedParamsObj[key];
-    }
+          params[key].val = 1 * passedParamsObj[key];
+      }
+      //console.log(key,params[key]);
       upAndDown(key,0); //updates sliders position etc.
     }
 } 
@@ -394,23 +399,26 @@ function loadFunctionsToPlot(){
 //reads from querystring
  const objQString = queryStringToObject();
  const strFunctions =  objQString["functionstoplot"];
- const arrFunctions = strFunctions.split(",");
+ const arrFunctions = (strFunctions!=undefined)?strFunctions.split(","):params.functionstoplot.default.split(",");
  for (let i = 0; i < arrFunctions.length; i++) {
    params.functions["f"+i]=arrFunctions[i];
    params.functionlabel["f"+i]="f"+i+"(x)=";
+ }
+ if (arrFunctions.length==0){
+
  }
 }
 //----------------------------------------------------------------
 function updateFunctionsForQueryString(){
   const objFuncFields=document.getElementsByClassName("function");
-  console.log(objFuncFields);
+  //console.log(objFuncFields);
   var tempStr="";
   for (var i=0; i<objFuncFields.length;i++){
     tempStr=tempStr + objFuncFields[i].value+",";
   }
   tempStr=tempStr.substr(0, tempStr.length-1); //removed last ","
   params.functionstoplot.val=tempStr;
-  console.log(tempStr);
+  //console.log(tempStr);
 }
 //------------------
 function openBookmarkLink() {

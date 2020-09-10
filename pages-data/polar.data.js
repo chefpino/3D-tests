@@ -92,6 +92,15 @@ var params = {
     f2: "f2(t)=",
     visible: false,
   },
+  functionstoplot:{
+    val: "Math.tan(t/10),Math.sin(4*t)",
+    default: "Math.tan(t/10),Math.sin(4*t)",
+    visible: false,
+    bookmarkLink: true,
+    showdeletebutton: true,
+    showaddnewbutton: true,
+   },
+
   zoomIn: {
     val: 1,
     visible: true,

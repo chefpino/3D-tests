@@ -26,10 +26,10 @@ var params = {
   },  
 
   t20: {
-    val: -1,
+    val: 0,
     min: -2*Math.PI,
     max: 2*Math.PI,
-    default: -1,
+    default: 0,
     label: "t2 inf",
     minLabel: "-2PI",
     maxLabel: "2PI",
@@ -38,10 +38,10 @@ var params = {
     visible: true,
   },
   t21: {
-    val: 1,
+    val: 2*Math.PI,
     min: -2*Math.PI,
     max: 2*Math.PI,
-    default: 1,
+    default: 2*Math.PI,
     label: "t2 sup",
     minLabel: "2PI",
     maxLabel: "4PI",
@@ -222,9 +222,9 @@ var params = {
     visible: false,
   },   
   functions: {
-    x: "(1+t2/2*cos(t1/2))*cos(t1)",
-    y: "(1+t2/2*cos(t1/2))*sin(t1)",
-    z: "t2/2*sin(t1/2)",
+    x: "sin(t1)-sin(t2)/3",
+    y: "cos(t1)+cos(t2)/3",
+    z: "sin(t1+t2)/3",
     //torus
     //(1+.3 * Math.cos(t1))*Math.cos(t2)
     //(1+.3 * Math.cos(t1))*Math.sin(t2)

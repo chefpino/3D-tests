@@ -52,16 +52,18 @@ var params = {
     visible: true,
     recalc: true,
   },
-  functions: {
-    f1: "sin(x)",
-    f2: "log(abs(x))",
-    f3: "exp(-x*x)",
+  functionstoplot:{
+    val: "sin(x),log(abs(x)),exp(-x*x)",
+    default: "sin(x),log(abs(x)),exp(-x*x)",
+    visible: false,
+    bookmarkLink: true,
+    showdeletebutton: true,
+    showaddnewbutton: true,
+   },
+   functions: {
     visible: false,
   },
   functionlabel: {
-    f1: "f1(x)=",
-    f2: "f2(x)=",
-    f3: "f3(x)=",
     visible: false,
   },
   lockratio: {
@@ -108,13 +110,15 @@ var params = {
     recalc: true,
     controlType: "checkbox",
     cssClass: "control2",
+    bookmarkLink: false,
+
   }, 
   goButton: {
     show: false,
     visible: false,
   },
   bookmarkLink: {
-    show: false,
+    show: true,
     visible: false,
   }
 };

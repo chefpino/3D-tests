@@ -65,13 +65,13 @@ var navigation = {
     children:{
       item0: "THREEDTREE",
     },
-    content: "Change the parameters to generate different fractal trees.",
+    content: "Change the parameters to generate different 2D fractal trees.",
   },
   THREEDTREE: {
     id: "THREEDTREE",
     link: "../../plotmathfunctions/3d/3d.tree.html",
     label: "3D Tree",
-    content: "Under development.<br>Change the parameters to generate different fractal trees.",
+    content: "Change the parameters to generate different 3D fractal trees.",
   },
   barnsley: {
     id: "barnsley",
@@ -113,7 +113,7 @@ var navigation = {
   },
   R1R1: {
     id: "R1R1",
-    link: "../../plotmathfunctions/2d/index.html?x0=-2&x1=2&y0=-1&y1=1&functionstoplot=sin(x),log(abs(x)),exp(-x*x)&lockratio=1&zoomIn=1&grid=0",
+    link: "../../plotmathfunctions/2d/index.html",
     label: "R -> R",
     hasChildren: false,
     content: "Click on the graph to zoom. Page under construction",

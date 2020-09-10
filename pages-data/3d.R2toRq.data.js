@@ -219,7 +219,7 @@ var params = {
     visible: false,
   },
   bookmarkLink: {
-    show: true,
+    show: false,
     visible: false,
   }
 

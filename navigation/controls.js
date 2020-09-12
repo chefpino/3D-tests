@@ -88,8 +88,8 @@ function generateControls() {
               `' onchange='updateParam(this.id);${recalc}' >`
             );
           strHTML += td(""); //no maxLabel
-          strHTML += td(`<div id="val_${key}">${(params[key].default==params[key].min?params[key].minLabel:params[key].maxLabel)}</div>`);
           strHTML += td("");
+          strHTML += td(`<div id="val_${key}">${(params[key].default==params[key].min?params[key].minLabel:params[key].maxLabel)}</div>`);
           break;
 
       }
@@ -292,10 +292,10 @@ function listFunctions(showDeleteButton,showAddNewButton) {
           strTable += "<td>" + functionlabel + "</td>";
           strTable += `<td><input class="function" style="width: 240px" type='text' id="${key}" value="${params.functions[key]}"></td>`; //<td> " + params.functions[key] + "</td>";
           strTable += "<td>";
+          strTable += `<a title="update" href="#" onclick="return updateFunction('${key}')">&nbsp;<b>✓</b> </a>`;
           if (showDeleteButton){
-          strTable += `<a href="#" onclick="return deleteFunction('${key}')"> delete </a> |`;
+          strTable += `<a title="delete" href="#" onclick="return deleteFunction('${key}')"> | <b>✘</b>&nbsp;</a>`;
           }
-          strTable += `<a href="#" onclick="return updateFunction('${key}')"> update </a> `;
           strTable += "</td>";
           strTable += "</tr>";
           if (functionNumber(key) > i) {i=functionNumber(key)};
@@ -312,7 +312,7 @@ function listFunctions(showDeleteButton,showAddNewButton) {
     strTable += "<tr>";
             strTable += `<td> f${i}(${variableName})=</td>`;
             strTable += "<td><input style='width: 240px' type='text' id='newF'></td>";
-            strTable += "<td>" + `<a href="#" onclick="addFunction('f${i}')"> add </a>` + "</td>";
+            strTable += "<td>" + `<a title="add new" href="#" onclick="addFunction('f${i}')">&nbsp;<b>✓</b></a>` + "</td>";
             strTable += "</tr>";
   } //end if
   strTable += "</table>";
@@ -338,8 +338,10 @@ function deleteFunction(key){
   loadvaluesandgo(); 
 }
 function addFunction(key){
-  params.functions[key]=document.getElementById("newF").value;
-  params.functionlabel[key]=key+"(x)=";
+  var variableName=params.functionstoplot.variableName;
+  variableName=(variableName==undefined)?"x":variableName;
+params.functions[key]=document.getElementById("newF").value;
+  params.functionlabel[key]=key+"("+variableName+")=";
   displayFunctions();
   updateFunctionsForQueryString();
   loadvaluesandgo(); 

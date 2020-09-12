@@ -306,8 +306,11 @@ function listFunctions(showDeleteButton,showAddNewButton) {
 
     //add new function 
     i++;
+    var variableName=params.functionstoplot.variableName;
+    //console.log(variableName);
+    variableName=(variableName==undefined)?"x":variableName;
     strTable += "<tr>";
-            strTable += "<td> f" + i + "(x)=</td>";
+            strTable += `<td> f${i}(${variableName})=</td>`;
             strTable += "<td><input style='width: 240px' type='text' id='newF'></td>";
             strTable += "<td>" + `<a href="#" onclick="addFunction('f${i}')"> add </a>` + "</td>";
             strTable += "</tr>";
@@ -390,7 +393,7 @@ function loadValuesFromQueryString(){
           params[key].val = 1 * passedParamsObj[key];
       }
       //console.log(key,params[key]);
-      upAndDown(key,0); //updates sliders position etc.
+      upAndDown(key,0); //updates sliders position and checkboxes status.
     }
 } 
 }

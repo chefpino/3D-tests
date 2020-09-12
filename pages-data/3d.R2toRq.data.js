@@ -208,10 +208,11 @@ var params = {
    bookmarkLink: true,
    showdeletebutton: true,
    showaddnewbutton: true,
+   variableName: "x,y",
   },
   functionlabel: {
-    f1: "f(x,y)=",
-    f2: "g(x,y)=",
+    f1: "f1(x,y)=",
+    f2: "f2(x,y)=",
     visible: false,
   },
   goButton: {

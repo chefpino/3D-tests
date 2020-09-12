@@ -95,6 +95,7 @@ var params = {
   functionstoplot:{
     val: "Math.tan(t/10),Math.sin(4*t)",
     default: "Math.tan(t/10),Math.sin(4*t)",
+    variableName: "t",
     visible: false,
     bookmarkLink: true,
     showdeletebutton: true,

@@ -186,7 +186,7 @@ var params = {
     visible: false,
   },
   functionlabel: {
-    f1: "f(x,y)=",
+    f1: "f1(x,y)=",
     visible: false,
   },
   functionstoplot:{
@@ -196,6 +196,7 @@ var params = {
     bookmarkLink: false,
     showdeletebutton: true,
     showaddnewbutton: true,
+    variableName: "x,y",
    },
   goButton: {
     show: false,

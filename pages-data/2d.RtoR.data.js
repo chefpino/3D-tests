@@ -59,6 +59,7 @@ var params = {
     bookmarkLink: true,
     showdeletebutton: true,
     showaddnewbutton: true,
+    variableName: "x",
    },
    functions: {
     visible: false,

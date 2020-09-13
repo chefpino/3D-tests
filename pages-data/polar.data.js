@@ -12,6 +12,7 @@ var params = {
     integer: false,
     visible: true,
     recalc: true,
+    movie: true,
   },  t0: {
     val: 0,
     min: -2*Math.PI,
@@ -23,6 +24,7 @@ var params = {
     integer: false,
     visible: true,
     recalc: true,
+    movie: true,
   },
   t1: {
     val: 2* Math.PI,
@@ -35,6 +37,7 @@ var params = {
     integer: false,
     visible: true,
     recalc: true,
+    movie: true,
   },
   x0: {
     val: -2,
@@ -83,8 +86,8 @@ var params = {
     visible: false,
   },
   functions: {
-    f1: "Math.tan(t/10)",
-    f2: "Math.sin(4*t)",
+    f1: "tan(t/10)",
+    f2: "sin(4*t)",
     visible: false,
   },
   functionlabel: {
@@ -93,8 +96,8 @@ var params = {
     visible: false,
   },
   functionstoplot:{
-    val: "Math.tan(t/10),Math.sin(4*t)",
-    default: "Math.tan(t/10),Math.sin(4*t)",
+    val: "tan(t/10),sin(4*t)",
+    default: "tan(t/10),sin(4*t)",
     variableName: "t",
     visible: false,
     bookmarkLink: true,

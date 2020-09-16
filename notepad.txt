@@ -1,2 +1,10 @@
 Math.cos(3*t)-0.1*Math.sin(30*t)
 Math.sin(3*t)-0.1*Math.cos(30*t)
+
+
+function test({str="",x=0}={}){
+ console.log(str + ": " + x);
+}
+test({str:"ciao",x:1});
+test({str:"hello",x:2});
+test({str:"bf"});

@@ -78,8 +78,6 @@
       //---------------------------------------
       function init() {
 
-
-
         //--- mouse coordinates event listener --------------------------
         transparentLayer.addEventListener(
           "mousemove",
@@ -120,7 +118,6 @@
               params.y0.val = reMap.m2y(mousePos.y) - interval;
               params.y1.val = reMap.m2y(mousePos.y) + interval;
             }
-
             loadvaluesandgo();
           },
           false
@@ -129,7 +126,6 @@
         genNavigation("RC", true);
         generateControls();
         displayFunctions();
-        //fileToParameters(); //initiate event listener for file uploader
         reMap.drawAxis();        
         if (params.grid.val==true){polarGrid(ctx,c(0,0),0.1,Math.sqrt(2)*Math.max(x1,y1),0.1,Math.PI/8)};
         plotAll();

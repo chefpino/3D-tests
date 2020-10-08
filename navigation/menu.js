@@ -40,7 +40,7 @@ var navigation = {
     label: "Mandelbrot",
     hasChildren: false,
     content:
-        "Fractal equation: Zn+1=(Zn)^exp + C.<br>Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
+        "Fractal equation: Zn+1=(Zn)^exp + C.<br>Click on the fractal to zoom in/out.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
       },
   julia: {
     id: "julia",
@@ -48,14 +48,14 @@ var navigation = {
     label: "Julia",
     hasChildren: false,
     content:
-      "Click on the fractal to zoom.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
+      "Click on the fractal to zoom in/out.<br>The red vectors that follow the mouse pointer represent the path of the fractal function that either converges to a finite point or escapes to infinite.",
   },   
   burningship: {
     id: "burningship",
     link: "../../fractals/burningship/index.html",
     label: "Burning Ship",
     hasChildren: false,
-    content: "Click on the fractal to zoom.",
+    content: "Click on the fractal to zoom in/out.<>",
   },
   tree: {
     id: "tree",
@@ -116,7 +116,7 @@ var navigation = {
     link: "../../plotmathfunctions/2d/index.html",
     label: "R -> R",
     hasChildren: false,
-    content: "Click on the graph to zoom. Page under construction",
+    content: "Click on the graph to zoom in/out. Page under construction",
   },
   R2R: {
     id: "R2R",

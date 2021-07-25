@@ -1,4 +1,4 @@
-// MATRIX LItopLeftARY - written by Chef Pino Ficara ----
+// MATRIX LIBRARY - written by Chef Pino Ficara ----
 
 // --- main function generating a m x n matrix prefilled with zeros -------
 function matrix(m,n){
